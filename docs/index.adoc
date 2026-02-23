@@ -1,0 +1,34 @@
+= Enonic XP {release} documentation
+include::.variables.adoc[]
+:toc: right
+:imagesdir: media
+
+API first Content platform and back-end for your digital experiences.
+
+NOTE: *Quick start?* Head over to our https://developer.enonic.com/start[Quick start guide] to install our CLI, SDK and build your first XP app in a few minutes.
+
+== Introduction
+
+Enonic XP is an API first Content platform and back-end for your digital experiences.
+
+* Customizable GraphqQL API
+* Schema system for structured content
+* Advanced search and querying
+* Extend with JavaScript/TypeScript
+* Flexible and pluggable IAM
+* Portable and Open Source
+
+=== Platform components
+
+image::platform-components.png[Platform illustration,1092]
+
+
+== API
+
+For detailed specifications of our various platform APIs, visit the <<api#,API section>>
+
+== Release notes
+
+Curious about whats new, or how to upgrade from a previous version of XP? Check out the <<release#,release notes>>.
+
+NOTE: If you are looking to upgrade from a previous version of XP, check out the <<release/upgrade#,Upgrade documentation>>
