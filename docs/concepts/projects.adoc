@@ -2,18 +2,17 @@
 :toc: right
 :imagesdir: ../images
 
-Create independent content repositories for your different teams and projects.
-
+Create independent content repositories for your  teams and projects.
 
 == Introduction
 
-Content projects represent the starting point of XP's CMS. In order to create sites and content, you first need to create a project. Project defines default permissions and other useful settings for your content and editors.
+Content projects represent the starting point of working with Enonic CMS. In order to create content, you first need to create a project. Project defines if your content is public or private, and what type of content may be produced there. 
 
 == Project settings
 
 === Basics
-* Display name - a human readable name
 * Identifier - a unique id within the installation. Cannot be changed when first created
+* Display name - a human readable name
 * Default language - Specifies the default language for content created in the project
 
 === Access mode
@@ -45,7 +44,6 @@ An example might be com.enonic.cms.myproject.author.
 
 [#applications]
 === Applications
-image:xp-7120.svg[XP 7.12.0,opts=inline]
 
 Applications can be assigned directly to a content project. Most functionality, schemas (content types, mixins, x-data) as well as controller mappings be available within the scope of the project, until a site item appears.
 

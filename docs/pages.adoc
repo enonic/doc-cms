@@ -4,7 +4,35 @@
 
 Pages allow you to create rich visually oriented content.
 
+
 == Introduction
+
+
+== TODO
+
+Enonic XP is often used as a traditional Web CMS, where editors compose rich landing pages.
+
+Any content item may be configured with a "presentation" - or more precisely, a page.
+
+Pages are composed form a structure of components
+
+* Page - The customizable root component of a page
+* Regions - drop zone(s) within a page where other components may be placed
+* Layouts - customizable components with region(s) of their own
+* Parts - customizable component
+* Text - Standard free text component
+* Image - Standard component for images
+* Fragment - Special reusable component
+
+Pages, layouts and parts are all fully customizable through custom controllers and corresponding schemas.
+Get all the details in the <<cms/pages#,pages section>>
+
+Component availability depends on the application that have been added to your <<cms/sites#, site>>.
+
+
+
+
+
 
 Pages and components are only available within sites.  Any content item (and thus any content type) may also be a page. Similar to how you may add <<x-data#, X-data>> to any content.
 

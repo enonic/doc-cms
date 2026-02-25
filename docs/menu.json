@@ -1,7 +1,7 @@
 {
   "menuItems": [
     {
-      "title": "Introduction",
+      "title": "Intro",
       "document": "index"
     },
     {
@@ -21,54 +21,43 @@
           "document": "concepts/layers"
         },
         {
-          "title": "Structured Content",
+          "title": "Content",
           "document": "concepts/content",
           "menuItems": [
             {
-              "title": "Attachments and media",
-              "document": "concepts/attachments"
+              "title": "Lifecycle",
+              "document": "concepts/content-lifecycle"
             },
             {
-              "title": "Mixins",
-              "document": "concepts/mixins"
+              "title": "References",
+              "document": "concepts/references"
+            },
+            {
+              "title": "Versions",
+              "document": "concepts/versions"
             },
             {
               "title": "Variants",
               "document": "concepts/variants"
+            },
+            {
+              "title": "Access control",
+              "document": "concepts/access-control"
             }
           ]
+        },
+        {
+          "title": "Media and attachments",
+          "document": "concepts/media"
+        },
+        {
+          "title": "Mixins",
+          "document": "concepts/mixins"
         },
         {
           "title": "Sites and pages",
-          "document": "concepts/pages",
-          "menuItems": [
-            {
-              "title": "Page components",
-              "document": "concepts/components"
-            },        
-            {
-              "title": "Page templates",
-              "document": "concepts/page-templates"
-            },
-            {
-              "title": "Fragments",
-              "document": "concepts/fragments"
-            }
-          ]
-        },
-        {
-          "title": "Lifecycle",
-          "document": "concepts/content-lifecycle"
-        },
-        {
-          "title": "Versions",
-          "document": "concepts/versions"
-        },
-        {
-          "title": "Access control",
-          "document": "concepts/access-control"
+          "document": "concepts/sites"
         }
-
       ]
     },
     {
@@ -76,8 +65,26 @@
       "document": "schemas",
       "menuItems": [
         {
-          "title": "Forms",
-          "document": "schemas/forms",
+          "title": "Schema definition",
+          "document": "schemas/definition",
+          "menuItems": [
+            {
+              "title": "Schema Localization",
+              "document": "schemas/i18n"
+            },
+            {
+              "title": "Content Indexing",
+              "document": "schemas/indexing"
+            },            
+            {
+              "title": "Form fragments",
+              "document": "schemas/form-fragments"
+            }
+          ]
+        },
+        {
+          "title": "Form items",
+          "document": "schemas/items",
           "menuItems": [
             {
               "title": "AttachmentUploader",
@@ -180,10 +187,6 @@
           ]
         },
         {
-          "title": "Form fragments",
-          "document": "schemas/form-fragments"
-        },
-        {
           "title": "Content Types",
           "document": "schemas/content-type",
           "menuItems": [
@@ -214,7 +217,7 @@
           "document": "schemas/macro"
         },
         {
-          "title": "Page components",
+          "title": "Components",
           "document": "schemas/components",
           "menuItems": [
             {
@@ -242,19 +245,11 @@
               "document": "schemas/component-filtering"
             }
           ]
-        },        
-        {
-          "title": "Schema Localization",
-          "document": "schemas/i18n"
-        },
-        {
-          "title": "Content Indexing",
-          "document": "schemas/indexing"
-        }          
+        }        
       ]
     },
     {
-      "title": "Headless API",
+      "title": "GraphQL API",
       "document": "guillotine",
       "menuItems": [
         {
@@ -400,7 +395,7 @@
       ]
     },
     {
-      "title": "CS+",
+      "title": "Content Studio+",
       "document": "plus",
       "menuItems": [
         {
@@ -422,8 +417,8 @@
       ]
     },
     {
-      "title": "AI",
-      "document": "ia",
+      "title": "Artificial Intelligence",
+      "document": "ai",
       "menuItems": [
         {
           "title": "Installation",

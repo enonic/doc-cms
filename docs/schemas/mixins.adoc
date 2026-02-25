@@ -2,6 +2,17 @@
 :toc: right
 :imagesdir: images
 
+TODO
+It is often useful to be able to share a set of fields across different content types.
+Xtra data, or X-data for short was designed specifically for this purpose.
+
+By defining x-data schemas, developers may dynamically inject these extra fields to all, or a specified list of content types.
+For instance, the SEO Meta fields application makes use of this, so editors may fine-tune SEO settings across all different content they produce.
+
+In Content Studio, X-data is visualized as a separate step in the publishing form.
+
+
+
 X-data (short for _eXtra data_) makes it possible to dynamically extend existing content types with a new form.
 When editing content, X-data fields will be displayed inside a separate step in the content form.
 
