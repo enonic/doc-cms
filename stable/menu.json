@@ -1,0 +1,403 @@
+{
+  "menuItems": [
+    {
+      "title": "Concepts",
+      "document": "concepts",
+      "menuItems": [
+        {
+          "title": "Projects",
+          "document": "concepts/projects"
+        },
+        {
+          "title": "Branches",
+          "document": "concepts/branches"
+        },
+        {
+          "title": "Layers",
+          "document": "concepts/layers"
+        },
+        {
+          "title": "Structured Content",
+          "document": "concepts/content",
+          "menuItems": [
+            {
+              "title": "Attachments and media",
+              "document": "concepts/attachments"
+            },
+            {
+              "title": "Mixins",
+              "document": "concepts/mixins"
+            },
+            {
+              "title": "Variants",
+              "document": "concepts/variants"
+            }
+          ]
+        },
+        {
+          "title": "Sites and pages",
+          "document": "concepts/pages",
+          "menuItems": [
+            {
+              "title": "Page components",
+              "document": "concepts/components"
+            },        
+            {
+              "title": "Page templates",
+              "document": "concepts/page-templates"
+            },
+            {
+              "title": "Fragments",
+              "document": "concepts/fragments"
+            }
+          ]
+        },
+        {
+          "title": "Lifecycle",
+          "document": "concepts/content-lifecycle"
+        },
+        {
+          "title": "Versions",
+          "document": "concepts/versions"
+        },
+        {
+          "title": "Access control",
+          "document": "concepts/access-control"
+        }
+
+      ]
+    },
+    {
+      "title": "Content modeling",
+      "document": "schemas",
+      "menuItems": [
+        {
+          "title": "Forms",
+          "document": "schemas/forms",
+          "menuItems": [
+            {
+              "title": "AttachmentUploader",
+              "document": "schemas/attachmentuploader"
+            },
+            {
+              "title": "CheckBox",
+              "document": "schemas/checkbox"
+            },
+            {
+              "title": "ComboBox",
+              "document": "schemas/combobox"
+            },
+            {
+              "title": "ContentSelector",
+              "document": "schemas/contentselector"
+            },
+            {
+              "title": "ContentTypeFilter",
+              "document": "schemas/contenttypefilter"
+            },
+            {
+              "title": "CustomSelector",
+              "document": "schemas/customselector"
+            },
+            {
+              "title": "Date",
+              "document": "schemas/date"
+            },
+            {
+              "title": "DateTime",
+              "document": "schemas/datetime"
+            },
+            {
+              "title": "Double",
+              "document": "schemas/double"
+            },
+            {
+              "title": "GeoPoint",
+              "document": "schemas/geopoint"
+            },
+            {
+              "title": "FieldSet",
+              "document": "schemas/field-set"
+            },
+            {
+              "title": "HtmlArea",
+              "document": "schemas/htmlarea",
+              "menuItems": [
+                {
+                  "title": "Styles",
+                  "document": "schemas/styles"      
+                }
+              ]
+            },
+            {
+              "title": "ImageSelector",
+              "document": "schemas/imageselector"
+            },
+            {
+              "title": "Instant",
+              "document": "schemas/instant"
+            },
+            {
+              "title": "ItemSet",
+              "document": "schemas/item-set"
+            },
+            {
+              "title": "Long",
+              "document": "schemas/long"
+            },
+            {
+              "title": "MediaSelector",
+              "document": "schemas/mediaselector"
+            },
+            {
+              "title": "OptionSet",
+              "document": "schemas/option-set"
+            },
+            {
+              "title": "RadioButton",
+              "document": "schemas/radiobutton"
+            },
+            {
+              "title": "Tag",
+              "document": "schemas/tag"
+            },
+            {
+              "title": "TextArea",
+              "document": "schemas/textarea"
+            },
+            {
+              "title": "TextLine",
+              "document": "schemas/textline"
+            },
+            {
+              "title": "Time",
+              "document": "schemas/time"
+            }
+          ]
+        },
+        {
+          "title": "Form fragments",
+          "document": "schemas/form-fragments"
+        },
+        {
+          "title": "Content Types",
+          "document": "schemas/content-type",
+          "menuItems": [
+            {
+              "title": "Structured",
+              "document": "schemas/structured"
+            },
+            {
+              "title": "Unstructured",
+              "document": "schemas/unstructured"
+            },
+            {
+              "title": "Media",
+              "document": "schemas/media"
+            },
+            {
+              "title": "Built-in",
+              "document": "schemas/built-in"
+            }
+          ]
+        },
+        {
+          "title": "Mixins",
+          "document": "schemas/mixin"
+        },
+        {
+          "title": "Macros",
+          "document": "schemas/macro"
+        },
+        {
+          "title": "Page components",
+          "document": "schemas/components",
+          "menuItems": [
+            {
+              "title": "Page",
+              "document": "schemas/page"
+            },
+            {
+              "title": "Region",
+              "document": "schemas/region"
+            },
+            {
+              "title": "Part",
+              "document": "schemas/part"
+            },
+            {
+              "title": "Layout",
+              "document": "schemas/layout"
+            },
+            {
+              "title": "Text component",
+              "document": "schemas/text"
+            },
+            {
+              "title": "Component Filtering",
+              "document": "schemas/component-filtering"
+            }
+          ]
+        },        
+        {
+          "title": "Schema Localization",
+          "document": "schemas/i18n"
+        },
+        {
+          "title": "Content Indexing",
+          "document": "schemas/indexing"
+        }          
+      ]
+    },
+    {
+      "title": "Headless API",
+      "document": "guillotine",
+      "menuItems": [
+        {
+          "title": "Playground",
+          "document": "guillotine/playground"
+        },        
+        {
+          "title": "Usage",
+          "document": "guillotine/usage"
+        },        
+        {
+          "title": "Examples",
+          "document": "guillotine/examples"
+        },
+        {
+          "title": "Queries",
+          "document": "guillotine/queries"
+        },        
+        {
+          "title": "Examples",
+          "document": "guillotine/examples"
+        },
+        {
+          "title": "Configuration",
+          "document": "guillotine/config"
+        },      
+        {
+          "title": "Release notes",
+          "document": "guillotine/notes"
+        }      
+      ]
+    },
+    {
+      "title": "Content Studio",
+      "document": "studio",
+      "menuItems": [
+        {
+          "title": "Navigator",
+          "document": "studio/navigator",
+          "menuItems": [
+            {
+              "title": "Preview",
+              "document": "studio/preview"
+            }
+          ]
+        },
+        {
+          "title": "Editor",
+          "document": "studio/editor",
+          "menuItems": [
+            {
+              "title": "Page editor",
+              "document": "studio/visual-editor"
+            }
+          ]
+        },
+        {
+          "title": "Dialogs",
+          "document": "studio/dialogs",
+          "menuItems": [
+            {
+              "title": "Create",
+              "document": "studio/create"
+            },
+            {
+              "title": "Publish",
+              "document": "studio/publish"
+            },
+            {
+              "title": "Unpublish",
+              "document": "studio/unpublish"
+            },
+            {
+              "title": "Delete",
+              "document": "studio/delete"
+            },
+            {
+              "title": "Duplicate",
+              "document": "studio/duplicate"
+            },
+            {
+              "title": "Move",
+              "document": "studio/move"
+            },
+            {
+              "title": "Sort",
+              "document": "studio/sort"
+            }
+          ]
+        },        
+        {
+          "title": "Issues",
+          "document": "studio/issues"
+        },
+        {
+          "title": "Context widgets",
+          "document": "studio/widgets",
+          "menuItems": [
+            {
+              "title": "Details",
+              "document": "studio/details"
+            },            
+            {
+              "title": "Versions",
+              "document": "studio/versions"
+            },
+            {
+              "title": "Dependencies",
+              "document": "studio/dependencies"
+            }  
+          ]
+        },
+        {
+          "title": "Keyboard shortcuts",
+          "document": "studio/shortcuts"
+        },
+        {
+          "title": "Configuration",
+          "document": "studio/config"
+        },      
+        {
+          "title": "Release notes",
+          "document": "studio/notes"
+        }
+      ]
+    },
+    {
+      "title": "CS+",
+      "document": "plus",
+      "menuItems": [
+        {
+          "title": "Archive",
+          "document": "plus/archive"
+        },
+        {
+          "title": "Variants widget",
+          "document": "plus/variants"
+        },
+        {
+          "title": "Report widget",
+          "document": "plus/publish-report"
+        },
+        {
+          "title": "Release notes",
+          "document": "plus/notes"
+        }              
+      ]
+    }
+  ]
+}
