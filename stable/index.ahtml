@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Enonic CMS - Content Management System</title>
+<title>Enonic CMS - Universal Content Management System</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,28 +437,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Enonic CMS - Content Management System</h1>
+<h1>Enonic CMS - Universal Content Management System</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#content_types">Content Types</a></li>
-<li><a href="#schema_system">Schema system</a></li>
-<li><a href="#pages">Pages</a></li>
-<li><a href="#standard_properties">Standard properties</a></li>
-<li><a href="#content_indexing">Content indexing</a></li>
-<li><a href="#page_templates">Page templates</a></li>
-<li><a href="#fragments">Fragments</a></li>
-<li><a href="#sites">Sites</a></li>
-<li><a href="#x_data">X-Data</a></li>
-<li><a href="#site_engine">Site Engine</a>
-<ul class="sectlevel2">
-<li><a href="#content_driven">Content driven</a></li>
-<li><a href="#site_apps">Site apps</a></li>
-</ul>
-</li>
-<li><a href="#media_image_api">Media Image API</a></li>
-<li><a href="#headless_and_hybrid_cms">Headless and Hybrid CMS</a></li>
+<li><a href="#main_features">Main features</a></li>
+<li><a href="#the_stack">The stack</a></li>
 </ul>
 </div>
 </div>
@@ -466,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The pinnacle of Enonic XP is the Content Management API and related tools</p>
+<p>Enonic&#8217;s CMS capabilities are composed from APIs, Services and Applications on top of the core platform - Enonic XP.</p>
 </div>
 </div>
 </div>
@@ -474,399 +459,75 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use of XP&#8217;s CMS capabilities is fully optional.
-The full range of CMS capabilities are made available through individual, but tightly coupled APIs, services and applications:</p>
+<p>Enonic CMS is an api-first, open source content management system built on top of Enonic XP.</p>
+</div>
+<div class="paragraph">
+<p>At its heart lies a declarative schema system and a unified API with access to access all of your content. Content models are automatically reflected in Content Studio and the API, along with full server-side validation, indexing and querying capabilities.</p>
+</div>
+<div class="paragraph">
+<p>TODO: Quickstart, Developer 101</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="main_features"><a class="link" href="#main_features">Main features</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enonic CMS is used by organizations around the world to manage their digital content.</p>
+</div>
+<div class="paragraph">
+<p><strong>Schema system:</strong> Define types, fields and content structures.<br>
+<strong>Hierarchies:</strong> Organize content in a tree structure.<br>
+<strong>Media:</strong> Treats files like any other content<br>
+<strong>Image processing:</strong> Built-in image processing and delivery.<br>
+<strong>Versioning:</strong> Version control and branching for content.<br>
+<strong>Workflows:</strong> Define custom content lifecycles and   approval processes.<br>
+<strong>Layering:</strong> For multi-language and multi-region use-cases.<br>
+<strong>Scalable:</strong> Scale from small projects to global multi-brand deployments<br>
+<strong>Customizable:</strong> Augment the platform, APIs and tooling through custom development.</p>
+</div>
+<div class="paragraph">
+<p>Being built on top of Enonic XP, developers may adapt the platform, APIs and tooling extensively via Enonic apps, making it a versatile choice for organizations looking to manage their digital content in a way that is optimized for their needs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the_stack"><a class="link" href="#the_stack">The stack</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enonic CMS is composed from the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="api/lib-content.ahtml">Content API</a> - Included in the XP core, built on top of the NoSQL Storage</p>
+<p><a href="https://developer.enonic.com/docs/xp">Enonic XP</a> - Platform including AIM, NoSQL storage and more.</p>
 </li>
 <li>
-<p><a href="runtime/engines/site-engine.ahtml">Site Engine</a> - Included in the XP core, built on top of the Javascript Framework og web app Engine.</p>
+<p><a href="schemas.ahtml">Schema system</a> - Define content types and content structures.</p>
 </li>
 <li>
-<p><a href="https://developer.enonic.com/docs/content-studio">Content Studio</a> - Authoring interface available on Enonic Market.</p>
+<p><a href="https://developer.enonic.com/docs/intro">Headless API</a> - Available on Enonic Market</p>
 </li>
 <li>
-<p><a href="https://developer.enonic.com/docs/intro">Headless GraphQL API</a> - Available as both application and library.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="content_types"><a class="link" href="#content_types">Content Types</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The Enonic CMS is content centric, rather than "page" centric.
-This means that any content produced will have a specific content type, such as "article", "person" or "product".
-Things like "shortcut", "file", "folder", "site" and even "landing page" are also perfectly valid content types.</p>
-</div>
-<div class="paragraph">
-<p>Content types essentially define a specific set of fields that define the content.
-For person, this might be "firstname", "lastname" and "birthdate", while a landing page might to fine with just a "name" field.</p>
-</div>
-<div class="paragraph">
-<p>Actually, all content types share a standard field named "Display Name", which can be considered the items title.
-Additionally, a range of meta data fields are available, such as language, permissions, modifiedBy, createdDate and more.</p>
-</div>
-<div class="paragraph">
-<p>Content types are defined through the <a href="#schema_system">Schema system</a>, which enables creation of rich and complex forms as required.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="schema_system"><a class="link" href="#schema_system">Schema system</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>A basic concept used throughout the CMS is called schemas.
-Schemas enable developers to easily define various types of forms used throughout the CMS.</p>
-</div>
-<div class="paragraph">
-<p>The schema system provides a 1:1 mapping between schema fields and corresponding document properties.
-For instance, a text input called "title", is mapped to a property called "title" in the underlying document structure.</p>
-</div>
-<div class="paragraph">
-<p>The schema system provides a range of standard <a href="cms/schemas/input-types.ahtml">Input types</a>, such as TextLine and ContentSelector.
-It also offers advanced form components such as ItemSets and OptionSets for creating nested sets of data and optional sets of data.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="pages"><a class="link" href="#pages">Pages</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Enonic XP is often used as a traditional Web CMS, where editors compose rich landing pages.</p>
-</div>
-<div class="paragraph">
-<p>Any content item may be configured with a "presentation" - or more precisely, a page.</p>
-</div>
-<div class="paragraph">
-<p>Pages are composed form a structure of components</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Page - The customizable root component of a page</p>
+<p><a href="https://developer.enonic.com/docs/content-studio">Content Studio</a> - Extensible authoring interface available on Enonic Market</p>
 </li>
 <li>
-<p>Regions - drop zone(s) within a page where other components may be placed</p>
+<p><a href="https://developer.enonic.com/docs/content-studio">Content Studio+</a> - Optional extensions for subscribing customers.</p>
 </li>
 <li>
-<p>Layouts - customizable components with region(s) of their own</p>
-</li>
-<li>
-<p>Parts - customizable component</p>
-</li>
-<li>
-<p>Text - Standard free text component</p>
-</li>
-<li>
-<p>Image - Standard component for images</p>
-</li>
-<li>
-<p>Fragment - Special reusable component</p>
+<p><a href="https://developer.enonic.com/docs/ai">AI features</a> - Optional extensions for subscription customers.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Pages, layouts and parts are all fully customizable through custom controllers and corresponding schemas.
-Get all the details in the <a href="cms/pages.ahtml">pages section</a></p>
-</div>
-<div class="paragraph">
-<p>Component availability depends on the application that have been added to your <a href="cms/sites.ahtml">site</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="standard_properties"><a class="link" href="#standard_properties">Standard properties</a></h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="content_indexing"><a class="link" href="#content_indexing">Content indexing</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>All user defined properties are automatically indexed and available for queries.</p>
-</div>
-<div class="paragraph">
-<p>In addition, the following standard properties are available for search:</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">_alltext</dt>
-<dd>
-<p>A collection of all fulltext-analyzed fields (textLine, textArea, htmlArea) in a content in one property</p>
-</dd>
-<dt class="hdlist1">_id</dt>
-<dd>
-<p>Holds the id of the content, typically generated automatically in the form of a UUID.</p>
-</dd>
-<dt class="hdlist1">_manualordervalue</dt>
-<dd>
-<p>The order value used when child-content is ordered manually</p>
-</dd>
-<dt class="hdlist1">_name</dt>
-<dd>
-<p>Holds the name of the content</p>
-</dd>
-<dt class="hdlist1">_parentPath</dt>
-<dd>
-<p>Reference to parent content path.</p>
-</dd>
-<dt class="hdlist1">_path</dt>
-<dd>
-<p>The content path</p>
-</dd>
-<dt class="hdlist1">_permissions_read</dt>
-<dd>
-<p>The principals that have read access.</p>
-</dd>
-<dt class="hdlist1">_permissions_create</dt>
-<dd>
-<p>The principals that have create access.</p>
-</dd>
-<dt class="hdlist1">_permissions_delete</dt>
-<dd>
-<p>The principals that have delete access.</p>
-</dd>
-<dt class="hdlist1">_permissions_modify</dt>
-<dd>
-<p>The principals that have modify access.</p>
-</dd>
-<dt class="hdlist1">_permissions_publish</dt>
-<dd>
-<p>The principals that have publish access.</p>
-</dd>
-<dt class="hdlist1">_permissions_readpermissions</dt>
-<dd>
-<p>The principals that have access to read the content permissions.</p>
-</dd>
-<dt class="hdlist1">_permissions_writepermissions</dt>
-<dd>
-<p>The principals that have access to change the content permissions.</p>
-</dd>
-<dt class="hdlist1">_references</dt>
-<dd>
-<p>Outgoing references to other content.</p>
-</dd>
-<dt class="hdlist1">_score</dt>
-<dd>
-<p>Calculated relevance for a hit</p>
-</dd>
-<dt class="hdlist1">_state</dt>
-<dd>
-<p>Used for keeping state of a content in a branch.</p>
-</dd>
-<dt class="hdlist1">_timestamp</dt>
-<dd>
-<p>The last change to the content version.</p>
-</dd>
-<dt class="hdlist1">_versionKey</dt>
-<dd>
-<p>The id of the node version.</p>
-</dd>
-<dt class="hdlist1">attachment.size</dt>
-<dd>
-<p>If any attachments, contains an array of attachment sizes</p>
-</dd>
-<dt class="hdlist1">attachment.label</dt>
-<dd>
-<p>If any attachments, contains an array of attachment labels</p>
-</dd>
-<dt class="hdlist1">attachment.mimetype</dt>
-<dd>
-<p>If any attachments, contains an array of attachment mime-types</p>
-</dd>
-<dt class="hdlist1">attachment.name</dt>
-<dd>
-<p>If any attachments, contains an array of attachment name</p>
-</dd>
-<dt class="hdlist1">attachment.binary</dt>
-<dd>
-<p>If any attachments, contains an array of attachment file-name</p>
-</dd>
-<dt class="hdlist1">attachment.text</dt>
-<dd>
-<p>If any attachments, contains the extracted text of e.g pdf-files</p>
-</dd>
-<dt class="hdlist1">creator</dt>
-<dd>
-<p>The user principal that created the content.</p>
-</dd>
-<dt class="hdlist1">createdTime</dt>
-<dd>
-<p>The timestamp when the content was created.</p>
-</dd>
-<dt class="hdlist1">data</dt>
-<dd>
-<p>A property-set containing all user defined properties defined in the content-type.</p>
-</dd>
-<dt class="hdlist1">displayName</dt>
-<dd>
-<p>Name used for display purposes.</p>
-</dd>
-<dt class="hdlist1">language</dt>
-<dd>
-<p>The locale-property of the content.</p>
-</dd>
-<dt class="hdlist1">modifiedTime</dt>
-<dd>
-<p>Last time the content was modified.</p>
-</dd>
-<dt class="hdlist1">owner</dt>
-<dd>
-<p>The user principal that owns the content.</p>
-</dd>
-<dt class="hdlist1">page</dt>
-<dd>
-<p>The page property contains page-specific properties, like template and regions.</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>component.text.text
-	This property contains all values in the text-components added to pages</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">publish.from</dt>
-<dd>
-<p>The time when the content was first published. This timestamp will be the set both in draft and master branch.</p>
-</dd>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>The content-type name</p>
-</dd>
-<dt class="hdlist1">x</dt>
-<dd>
-<p>A property-set containing properties from x-data.</p>
-</dd>
-</dl>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="page_templates"><a class="link" href="#page_templates">Page templates</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For some content types, like "article", you might want to re-use the same "presentation" used over and over again.
-For this specific purpose, we have the content type <code>Page template</code>.
-By creating a page template for "article", and setting up its page, this page will automatically be used for presenting all articles within your site.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="fragments"><a class="link" href="#fragments">Fragments</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>From time to time, you might want to reuse a component you placed on page, for multiple pages.
-Fragments to the rescue!
-By converting a component to a fragment, the fragment is made available as a separate content item, using the content type <code>fragment</code> ofcourse.
-Fragments can then be placed on other pages (including page templates), just like any other component.
-The fragment may now be edited from a single location, and will instantly be updated in all locations where it is placed.</p>
-</div>
-<div class="paragraph">
-<p>Fragments also enable creative features like limiting access to view or edit a particular part of the page.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="sites"><a class="link" href="#sites">Sites</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>Site</code> is a system defined standard content type. What makes sites special is the ability to add applications to them.
-Multiple applications may be added to a single site, where each application contains desired functionality.</p>
-</div>
-<div class="paragraph">
-<p>Typically, sites will have a main application that controls most content types and page components if any.
-Additional applications like Google Analytics, and SEO tools are typically installed to extend the functionality without custom development.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="x_data"><a class="link" href="#x_data">X-Data</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>It is often useful to be able to share a set of fields across different content types.
-Xtra data, or X-data for short was designed specifically for this purpose.</p>
-</div>
-<div class="paragraph">
-<p>By defining x-data schemas, developers may dynamically inject these extra fields to all, or a specified list of content types.
-For instance, the SEO Meta fields application makes use of this, so editors may fine-tune SEO settings across all different content they produce.</p>
-</div>
-<div class="paragraph">
-<p>In Content Studio, X-data is visualized as a separate step in the publishing form.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="site_engine"><a class="link" href="#site_engine">Site Engine</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The <a href="runtime/engines/site-engine.ahtml">Site engine</a> extends the capabilities of the <a href="./framework.ahtml">Javascript Framework</a>.
-The site engine serves requests from:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>//myserver:8080/site/&lt;repo-name&gt;/&lt;branch-name&gt;/&lt;content-path&gt;</pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="content_driven"><a class="link" href="#content_driven">Content driven</a></h3>
-<div class="paragraph">
-<p>When compared to the Web engine, the main difference is that sites are content driven, rather than code driven.</p>
-</div>
-<div class="paragraph">
-<p>This is best understood by looking at the initial URL pattern.
-The Web engine requires the name of the app that will handle the request, where the site engine specifies a repo, branch and path to content as its entry point.</p>
-</div>
-<div class="paragraph">
-<p>As such, what happens at a specific url is primarily controlled by the editor, rather than the developer directly.
-Developers can still take control over URLs when required, through the use of <a href="framework/filters.ahtml">Filters</a> and <a href="framework/mappings.ahtml">Mappings</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="site_apps"><a class="link" href="#site_apps">Site apps</a></h3>
-<div class="paragraph">
-<p>To understand the Site engine, it is crucial to understand the concept of sites.
-The system defined content type <code>Site</code> has a special purpose in relation to the Site engine.
-This is due to the fact that "site applications" can be added to, and configured specifically for that site.</p>
-</div>
-<div class="paragraph">
-<p>As a site may contain multiple applications,
-As multiple applications may be involved in the processing of a single request,
-the main purpose of the Site engine is to coordinate when, and how each application is executed.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="media_image_api"><a class="link" href="#media_image_api">Media Image API</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Enonic XP contains an <a href="runtime/engines/media-api.ahtml">Media Image API</a> that can scale, process and deliver rasterized RGB/RGBa image media in real-time.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="headless_and_hybrid_cms"><a class="link" href="#headless_and_hybrid_cms">Headless and Hybrid CMS</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>API-access to content (Headless CMS) combined with web pages commonly referred to as Hybrid CMS.</p>
-</div>
-<div class="paragraph">
-<p>The content oriented approach makes XP ideal for serving content via API (so-called Headless CMS).
-It also enables developers to instantly make use of the powerful search capabilities provided by the underlying NoSQL storage.</p>
+<p>More applications, such as SEO tools, Google Analytics and more, are available on Enonic Market.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-25 12:48:51 UTC
+Last updated 2026-02-25 19:50:08 UTC
 </div>
 </div>
 </body>

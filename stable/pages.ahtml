@@ -442,6 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#todo">TODO</a></li>
 <li><a href="#page_component">Page component</a>
 <ul class="sectlevel2">
 <li><a href="#usage">Usage</a></li>
@@ -461,6 +462,53 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="todo"><a class="link" href="#todo">TODO</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enonic XP is often used as a traditional Web CMS, where editors compose rich landing pages.</p>
+</div>
+<div class="paragraph">
+<p>Any content item may be configured with a "presentation" - or more precisely, a page.</p>
+</div>
+<div class="paragraph">
+<p>Pages are composed form a structure of components</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Page - The customizable root component of a page</p>
+</li>
+<li>
+<p>Regions - drop zone(s) within a page where other components may be placed</p>
+</li>
+<li>
+<p>Layouts - customizable components with region(s) of their own</p>
+</li>
+<li>
+<p>Parts - customizable component</p>
+</li>
+<li>
+<p>Text - Standard free text component</p>
+</li>
+<li>
+<p>Image - Standard component for images</p>
+</li>
+<li>
+<p>Fragment - Special reusable component</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pages, layouts and parts are all fully customizable through custom controllers and corresponding schemas.
+Get all the details in the <a href="cms/pages.ahtml">pages section</a></p>
+</div>
+<div class="paragraph">
+<p>Component availability depends on the application that have been added to your <a href="cms/sites.ahtml">site</a>.</p>
+</div>
 <div class="paragraph">
 <p>Pages and components are only available within sites.  Any content item (and thus any content type) may also be a page. Similar to how you may add <a href="x-data.ahtml">X-data</a> to any content.</p>
 </div>
@@ -564,7 +612,7 @@ A page component may define zero, to many regions. Conventionally, a page should
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-25 12:48:51 UTC
+Last updated 2026-02-25 19:50:08 UTC
 </div>
 </div>
 </body>

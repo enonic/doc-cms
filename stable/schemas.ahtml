@@ -442,6 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#todo">TODO</a></li>
 <li><a href="#forms">Forms</a>
 <ul class="sectlevel2">
 <li><a href="#form_grouping">Form grouping</a></li>
@@ -463,10 +464,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To facilitate creation of structured content Content Studio, Enonic XP ships with a high-level schema concept that requires no coding.</p>
+<p>To facilitate creation of structured content, Enonic CMS ships with a high-level schema concept that requires no coding.</p>
 </div>
 <div class="paragraph">
 <p>Each schema will produce a deterministic set of properties with valid values and indexing rules. Content can be submitted through both via UI, and API.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="todo"><a class="link" href="#todo">TODO</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A basic concept used throughout the CMS is called schemas.
+Schemas enable developers to easily define various types of forms used throughout the CMS.</p>
+</div>
+<div class="paragraph">
+<p>The schema system provides a 1:1 mapping between schema fields and corresponding document properties.
+For instance, a text input called "title", is mapped to a property called "title" in the underlying document structure.</p>
+</div>
+<div class="paragraph">
+<p>The schema system provides a range of standard <a href="cms/schemas/input-types.ahtml">Input types</a>, such as TextLine and ContentSelector.
+It also offers advanced form components such as ItemSets and OptionSets for creating nested sets of data and optional sets of data.</p>
 </div>
 </div>
 </div>
@@ -575,7 +593,7 @@ xsi:schemaLocation="urn:enonic:xp:model:1.0 https://raw.githubusercontent.com/en
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-25 12:48:51 UTC
+Last updated 2026-02-25 19:50:08 UTC
 </div>
 </div>
 </body>

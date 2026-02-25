@@ -460,7 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Create independent content repositories for your different teams and projects.</p>
+<p>Create independent content repositories for your  teams and projects.</p>
 </div>
 </div>
 </div>
@@ -468,7 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content projects represent the starting point of XP&#8217;s CMS. In order to create sites and content, you first need to create a project. Project defines default permissions and other useful settings for your content and editors.</p>
+<p>Content projects represent the starting point of working with Enonic CMS. In order to create content, you first need to create a project. Project defines if your content is public or private, and what type of content may be produced there.</p>
 </div>
 </div>
 </div>
@@ -480,10 +480,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Display name - a human readable name</p>
+<p>Identifier - a unique id within the installation. Cannot be changed when first created</p>
 </li>
 <li>
-<p>Identifier - a unique id within the installation. Cannot be changed when first created</p>
+<p>Display name - a human readable name</p>
 </li>
 <li>
 <p>Default language - Specifies the default language for content created in the project</p>
@@ -546,9 +546,6 @@ The following roles are available per project:</p>
 </div>
 <div class="sect2">
 <h3 id="applications"><a class="link" href="#applications">Applications</a></h3>
-<div class="paragraph">
-<p><span class="image"><span class="alt">XP 7.12.0</span></span></p>
-</div>
 <div class="paragraph">
 <p>Applications can be assigned directly to a content project. Most functionality, schemas (content types, mixins, x-data) as well as controller mappings be available within the scope of the project, until a site item appears.</p>
 </div>
@@ -619,7 +616,7 @@ As such, each project gets a dedicated <a href="../storage.ahtml">repository</a>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-25 12:48:51 UTC
+Last updated 2026-02-25 19:50:08 UTC
 </div>
 </div>
 </body>

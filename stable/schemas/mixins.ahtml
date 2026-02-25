@@ -451,6 +451,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>TODO
+It is often useful to be able to share a set of fields across different content types.
+Xtra data, or X-data for short was designed specifically for this purpose.</p>
+</div>
+<div class="paragraph">
+<p>By defining x-data schemas, developers may dynamically inject these extra fields to all, or a specified list of content types.
+For instance, the SEO Meta fields application makes use of this, so editors may fine-tune SEO settings across all different content they produce.</p>
+</div>
+<div class="paragraph">
+<p>In Content Studio, X-data is visualized as a separate step in the publishing form.</p>
+</div>
+<div class="paragraph">
 <p>X-data (short for <em>eXtra data</em>) makes it possible to dynamically extend existing content types with a new form.
 When editing content, X-data fields will be displayed inside a separate step in the content form.</p>
 </div>
@@ -555,7 +567,7 @@ By default x-data will be added to content items of all types with no option to 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-25 12:48:51 UTC
+Last updated 2026-02-25 19:50:08 UTC
 </div>
 </div>
 </body>
