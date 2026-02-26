@@ -2,24 +2,23 @@
 :toc: right
 :imagesdir: images
 
-Enonic's CMS capabilities are composed from APIs, Services and Applications on top of the core platform - Enonic XP.
+Bend-over-backwards flexible platform CMS built on top of Enonic XP. Structure and manage content at any scale, and deliver it to any channel through a unified API.
 
 == Introduction
 
 Enonic CMS is an api-first, open source content management system built on top of Enonic XP. 
 
-At its heart lies a declarative schema system and a unified API with access to access all of your content. Content models are automatically reflected in Content Studio and the API, along with full server-side validation, indexing and querying capabilities.
+At its heart lies a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in Content Studio and the API, along with full server-side validation, indexing and querying capabilities.
 
 TODO: Quickstart, Developer 101
 
 == Main features
 
-Enonic CMS is used by organizations around the world to manage their digital content.
+Enonic CMS is used by organizations around the world to manage their content and digital assets.
 
-*Schema as code:* Define types, fields and content structures. +
+*Schema as code:* Flexible content modelling. +
 *Hierarchies:* Organize content in a tree structure. +
-*Media:* Treats files like any other content +
-*Image processing:* Built-in image processing and delivery. +
+*Media:* Image processing and delivery. +
 *Versioning:* Version control and branching for content. +
 *Workflows:* Define custom content lifecycles and   approval processes. +
 *Layering:* For multi-language and multi-region use-cases. +

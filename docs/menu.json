@@ -5,7 +5,7 @@
       "document": "index"
     },
     {
-      "title": "Core concepts",
+      "title": "Main concepts",
       "document": "concepts",
       "menuItems": [
         {
@@ -65,7 +65,7 @@
       "document": "schemas",
       "menuItems": [
         {
-          "title": "Schema definition",
+          "title": "Descriptors",
           "document": "schemas/definition",
           "menuItems": [
             {
