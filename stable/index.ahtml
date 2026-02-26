@@ -476,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Enonic CMS is used by organizations around the world to manage their digital content.</p>
 </div>
 <div class="paragraph">
-<p><strong>Schema system:</strong> Define types, fields and content structures.<br>
+<p><strong>Schema as code:</strong> Define types, fields and content structures.<br>
 <strong>Hierarchies:</strong> Organize content in a tree structure.<br>
 <strong>Media:</strong> Treats files like any other content<br>
 <strong>Image processing:</strong> Built-in image processing and delivery.<br>
@@ -527,7 +527,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-25 19:50:08 UTC
+Last updated 2026-02-26 11:04:36 UTC
 </div>
 </div>
 </body>
