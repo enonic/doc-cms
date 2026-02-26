@@ -16,7 +16,7 @@ TODO: Quickstart, Developer 101
 
 Enonic CMS is used by organizations around the world to manage their digital content.
 
-*Schema system:* Define types, fields and content structures. +
+*Schema as code:* Define types, fields and content structures. +
 *Hierarchies:* Organize content in a tree structure. +
 *Media:* Treats files like any other content +
 *Image processing:* Built-in image processing and delivery. +
