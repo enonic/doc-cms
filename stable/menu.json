@@ -5,13 +5,129 @@
       "document": "index"
     },
     {
+      "title": "Schema system",
+      "document": "schemas",
+      "menuItems": [
+        {
+          "title": "Forms",
+          "document": "schemas/forms"
+        },
+        {
+          "title": "Form fragments",
+          "document": "schemas/form-fragments"
+        },
+        {
+          "title": "Form items",
+          "document": "schemas/form-items",
+          "menuItems": [
+            {
+              "title": "AttachmentUploader",
+              "document": "attachmentuploader"
+            },
+            {
+              "title": "CheckBox",
+              "document": "checkbox"
+            },
+            {
+              "title": "ComboBox",
+              "document": "combobox"
+            },
+            {
+              "title": "ContentSelector",
+              "document": "contentselector"
+            },
+            {
+              "title": "ContentTypeFilter",
+              "document": "contenttypefilter"
+            },
+            {
+              "title": "CustomSelector",
+              "document": "customselector"
+            },
+            {
+              "title": "Date",
+              "document": "date"
+            },
+            {
+              "title": "DateTime",
+              "document": "datetime"
+            },
+            {
+              "title": "Double",
+              "document": "double"
+            },
+            {
+              "title": "GeoPoint",
+              "document": "geopoint"
+            },
+            {
+              "title": "FieldSet",
+              "document": "field-set"
+            },
+            {
+              "title": "HtmlArea",
+              "document": "htmlarea"
+            },
+            {
+              "title": "ImageSelector",
+              "document": "imageselector"
+            },
+            {
+              "title": "Instant",
+              "document": "instant"
+            },
+            {
+              "title": "ItemSet",
+              "document": "item-set"
+            },
+            {
+              "title": "Long",
+              "document": "long"
+            },
+            {
+              "title": "MediaSelector",
+              "document": "mediaselector"
+            },
+            {
+              "title": "OptionSet",
+              "document": "option-set"
+            },
+            {
+              "title": "RadioButton",
+              "document": "radiobutton"
+            },
+            {
+              "title": "Tag",
+              "document": "tag"
+            },
+            {
+              "title": "TextArea",
+              "document": "textarea"
+            },
+            {
+              "title": "TextLine",
+              "document": "textline"
+            },
+            {
+              "title": "Time",
+              "document": "time"
+            }
+          ]
+        },      
+        {
+          "title": "Schema Localization",
+          "document": "schemas/i18n"
+        }
+      ]
+    },
+    {
+      "title": "Projects & roles",
+      "document": "projects"
+    },
+    {
       "title": "Content",
       "document": "content",
       "menuItems": [
-        {
-          "title": "Projects",
-          "document": "projects"
-        },
         {
           "title": "Lifecycle",
           "document": "lifecycle"
@@ -47,122 +163,8 @@
       ]
     },
     {
-      "title": "Schemas",
-      "document": "schemas",
-      "menuItems": [
-        {
-          "title": "Schema Localization",
-          "document": "i18n"
-        }
-      ]
-    },
-    {
-      "title": "Forms",
-      "document": "forms",
-      "menuItems": [
-        {
-          "title": "Form fragments",
-          "document": "form-fragments"
-        }
-      ]
-    },
-    {
-      "title": "Form items",
-      "document": "items",
-      "menuItems": [
-        {
-          "title": "AttachmentUploader",
-          "document": "attachmentuploader"
-        },
-        {
-          "title": "CheckBox",
-          "document": "checkbox"
-        },
-        {
-          "title": "ComboBox",
-          "document": "combobox"
-        },
-        {
-          "title": "ContentSelector",
-          "document": "contentselector"
-        },
-        {
-          "title": "ContentTypeFilter",
-          "document": "contenttypefilter"
-        },
-        {
-          "title": "CustomSelector",
-          "document": "customselector"
-        },
-        {
-          "title": "Date",
-          "document": "date"
-        },
-        {
-          "title": "DateTime",
-          "document": "datetime"
-        },
-        {
-          "title": "Double",
-          "document": "double"
-        },
-        {
-          "title": "GeoPoint",
-          "document": "geopoint"
-        },
-        {
-          "title": "FieldSet",
-          "document": "field-set"
-        },
-        {
-          "title": "HtmlArea",
-          "document": "htmlarea"
-        },
-        {
-          "title": "ImageSelector",
-          "document": "imageselector"
-        },
-        {
-          "title": "Instant",
-          "document": "instant"
-        },
-        {
-          "title": "ItemSet",
-          "document": "item-set"
-        },
-        {
-          "title": "Long",
-          "document": "long"
-        },
-        {
-          "title": "MediaSelector",
-          "document": "mediaselector"
-        },
-        {
-          "title": "OptionSet",
-          "document": "option-set"
-        },
-        {
-          "title": "RadioButton",
-          "document": "radiobutton"
-        },
-        {
-          "title": "Tag",
-          "document": "tag"
-        },
-        {
-          "title": "TextArea",
-          "document": "textarea"
-        },
-        {
-          "title": "TextLine",
-          "document": "textline"
-        },
-        {
-          "title": "Time",
-          "document": "time"
-        }
-      ]
+      "title": "Media",
+      "document": "media"
     },
     {
       "title": "Content Types",

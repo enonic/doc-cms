@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Form Items</title>
+<title>Forms</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,23 +437,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Form Items</h1>
+<h1>Forms</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
+<li><a href="#concept">Concept</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#form_items_grouped_by_output">Form items grouped by output</a>
-<ul class="sectlevel2">
-<li><a href="#reference">Reference</a></li>
-<li><a href="#string">String</a></li>
-<li><a href="#number">Number</a></li>
-<li><a href="#boolean">Boolean</a></li>
-<li><a href="#geopoint">Geopoint</a></li>
-<li><a href="#propertyset_object">PropertySet (object)</a></li>
-<li><a href="#no_output">No output</a></li>
-</ul>
-</li>
 </ul>
 </div>
 </div>
@@ -461,124 +450,58 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Form items are the building blocks of forms. They define structure and content of a form.</p>
+<p>Forms are central to content modeling in Enonic.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="concept"><a class="link" href="#concept">Concept</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A form item will produce output based on its type and configuration. Each form item has a front-end and back-end component. The front-end represents the visual editing interface used in the XP admin console, where the back-end is solely used for validation purposes.</p>
+<p>Schemas define the forms that can be seen and edited through an administrative interface, typically <a href="https://developer.enonic.com/docs/content-studio">Content Studio</a>.</p>
 </div>
 <div class="paragraph">
-<p>A form item typically produces a property, with a specific <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing">value type</a>, with zero, 1 or multiple occurences. For instance, a <code>TextLine</code> will always produce a <code>String</code> value, while the output of an <code>ItemSet</code> is an object AKA propertySet.</p>
+<p>More importantly, schemas also have a back-end equivalent that validates content, and can be used programmatically. Central parts of the Headless API are automatically generated from the schemas and in particular the form definitions.</p>
+</div>
+<div class="paragraph">
+<p>All forms are essentially compositions of various <a href="form-items.ahtml">Form items</a>.</p>
+</div>
+<div class="paragraph">
+<p>Once a form is populated and submitted, the end-result will be a property structure that matches 1-1 with the form definition. The property structure can then be persisted directly into the XP repository.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="images/default-input.png" alt="An input box with help-text below it" width="650w">
-</div>
+<div class="paragraph">
+<p>Forms are declared statically in YAML, using a format that looks like this:</p>
 </div>
 <div class="paragraph">
-<p>The following configuration is common for for most form items:</p>
+<p>TODO</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input type="InputTypeName" name="myname" &gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;label i18n="myname.label"&gt;My label&lt;/label&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-  &lt;default/&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-  &lt;help-text i18n="myname.help-text"&gt;Help text here&lt;/help-text&gt;   <i class="conum" data-value="4"></i><b>(4)</b>
-  &lt;occurrences minimum="0" maximum="1"/&gt;   <i class="conum" data-value="5"></i><b>(5)</b>
-  &lt;config/&gt;  <i class="conum" data-value="6"></i><b>(6)</b>
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;form&gt;
+  &lt;input name="firstname" type="TextLine"&gt;
+    &lt;label&gt;First Name&lt;/label&gt;
+  &lt;/input&gt;
+  &lt;input name="lastname" type="TextLine"&gt;
+    &lt;label&gt;Last Name&lt;/label&gt;
+  &lt;/input&gt;
+&lt;/form&gt;</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>input</strong> contains two mandatory attributes:<br>
-<em>@name</em> is used when storing the data in a property, and must be unique on each level.<br>
-<em>@type</em> refers to one of the many input types which are listed below.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>label</strong> is another mandatory field that holds the human readable value that will be displayed when listing the input type control in the administrative interface<br>
-<em>@i18n</em> is an optional attribute holding the key to localization phrase of the form (see <a href="localization.ahtml">localization</a>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>default</strong> is an optional field that lets you specify default values to be used by the input type.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><strong>help-text</strong> is an optional field that lets you specify a text label shown below the input field. Used for explanation of the field&#8217;s purpose.<br>
-<em>@i18n</em> is an optional attribute holding the key to localization phrase of the form (see <a href="localization.ahtml">localization</a>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td><strong>occurrences</strong> is an optional field used to control the number of values stored by a single input.<br>
-<em>@minimum</em> set to to zero means the input is not mandatory<br>
-<em>@maximum</em> to zero means there is no upper limit to the number of values.<br>
-This element is optional, if omitted the default will be <code>minimum="0"</code> and <code>maximum="1"</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td><strong>config</strong> is an optional element designed to hold custom configuration for each input-type.</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>The form implementation controls how the data is actually persisted.
+The persisted output from the above form might look something like this:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="form_items_grouped_by_output"><a class="link" href="#form_items_grouped_by_output">Form items grouped by output</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="reference"><a class="link" href="#reference">Reference</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="string"><a class="link" href="#string">String</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="number"><a class="link" href="#number">Number</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="boolean"><a class="link" href="#boolean">Boolean</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="geopoint"><a class="link" href="#geopoint">Geopoint</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="propertyset_object"><a class="link" href="#propertyset_object">PropertySet (object)</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#item-set.adoc">Item set</a></p>
-</li>
-<li>
-<p><a href="#option-set.adoc">Option set</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="no_output"><a class="link" href="#no_output">No output</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#field-set.adoc">Field set</a></p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  firstname: "Tom",
+  lastname: "Cat"
+}</code></pre>
 </div>
 </div>
 </div>
@@ -586,7 +509,7 @@ This element is optional, if omitted the default will be <code>minimum="0"</code
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-11 15:47:10 UTC
+Last updated 2026-03-11 16:23:30 UTC
 </div>
 </div>
 </body>
