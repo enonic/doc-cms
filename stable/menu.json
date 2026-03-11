@@ -125,6 +125,20 @@
       "document": "projects"
     },
     {
+      "title": "Content Types",
+      "document": "content-types",
+      "menuItems": [
+        {
+          "title": "Base types",
+          "document": "base-types"
+        },
+        {
+          "title": "Custom types",
+          "document": "custom-types"
+        }
+      ]
+    },
+    {
       "title": "Content",
       "document": "content",
       "menuItems": [
@@ -164,27 +178,11 @@
     },
     {
       "title": "Media",
-      "document": "media"
-    },
-    {
-      "title": "Content Types",
-      "document": "content-types",
+      "document": "media",
       "menuItems": [
         {
-          "title": "Base types",
-          "document": "base-types"
-        },
-        {
-          "title": "Media Types",
+          "title": "Media types",
           "document": "media-types"
-        },
-        {
-          "title": "Portal Types",
-          "document": "portal-types"
-        },
-        {
-          "title": "Custom Types",
-          "document": "custom-types"
         }
       ]
     },
@@ -193,15 +191,25 @@
       "document": "mixin"
     },
     {
+      "title": "Rich text",
+      "document": "richtext",
+      "menuItems": [
+        {
+          "title": "Macros",
+          "document": "macro"
+        },            
+        {
+          "title": "Styles",
+          "document": "styles"
+        }     
+      ]
+    },
+    {
       "title": "Pages",
       "document": "pages",
       "menuItems": [
         {
-          "title": "Sites",
-          "document": "sites"
-        },
-        {
-          "title": "Page component",
+          "title": "Page components",
           "document": "page"
         },
         {
@@ -218,19 +226,23 @@
         },
         {
           "title": "Text Component",
-          "document": "text"
+          "document": "text-component"
         },
         {
           "title": "Component Filtering",
           "document": "component-filtering"
         },
         {
+          "title": "Sites",
+          "document": "sites"
+        },
+        {
           "title": "Page templates",
           "document": "page-templates"
         },
         {
-          "title": "Page fragments",
-          "document": "fragments"
+          "title": "Page Fragments",
+          "document": "page-fragments"
         },      
         {
           "title": "Visual editor",
@@ -239,18 +251,34 @@
       ]
     },
     {
-      "title": "Rich text",
-      "document": "richtext",
+      "title": "APIs",
+      "document": "apis",
       "menuItems": [
         {
-          "title": "Macros",
-          "document": "macro"
-        },            
+          "title": "GraphQL API",
+          "document": "apis/graphql"
+        },
         {
-          "title": "Styles",
-          "document": "styles"
-        }     
+          "title": "Image API",
+          "document": "apis/image"
+        },  
+        {
+          "title": "Attachment API",
+          "document": "apis/attachment"
+        },  
+        {
+          "title": "Other APIs",
+          "document": "apis/other"
+        }        
       ]
+    },
+    {
+      "title": "Integrations",
+      "document": "integrations"
+    },
+    {
+      "title": "Release notes",
+      "document": "release-notes"
     }
   ]
 }
