@@ -1,0 +1,19 @@
+= References
+toc: right
+:imagesdir: images
+
+Content items may contain references to other content items. 
+
+== Intro
+References are stored as part of the content item in the repository, and are indexed together with the content item. References are used to create relationships between content items, and can be used to build complex content structures and hierarchies
+
+== Usage
+
+TODO
+
+
+== Inbound vs Outbound
+
+
+
+== Storage and indexing

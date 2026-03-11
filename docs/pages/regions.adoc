@@ -1,6 +1,6 @@
 = Regions
 :toc: right
-:imagesdir: media
+:imagesdir: images
 Use regions to create a hierarchy of components.
 
 == Introduction

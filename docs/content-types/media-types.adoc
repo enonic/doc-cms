@@ -1,0 +1,46 @@
+= Media content types
+
+== Introduction
+
+
+== Built in media types
+Enonic XP automatically detects the type of media files uploaded to the CMS, and assigns them a pre-defined content type, aka Media type. These media types are all located in the `media` namespace, and are all subtypes of the abstract type `base:media`. The media types are:
+
+=== Text (media:text)
+Plain text files such as .txt, and .csv
+
+=== Data (media:data)
+Miscellaneous binary file formats.
+
+=== Audio (media:audio)
+Audio files.
+
+=== Video (media:video)
+Video files.
+
+=== Image (media:image)
+Bitmap image files.
+
+=== Vector (media:vector)
+Vector graphic files like .svg
+
+=== Archive (media:archive)
+File archives like .zip, .tar, and .jar
+
+=== Document (media:document)
+Text documents with advanced formatting, like .doc, .odt, and .pdf
+
+=== Spreadsheet (media:spreadsheet)
+Spreadsheet files like .xls, .xlsx
+
+=== Presentation (media:presentation)
+Presentation files like .key and .ppt 
+
+=== Code (media:code)
+Files with computer code like .js, .c, .pl, and .java
+
+=== Executable (media:executable)
+Application files such as .app, .exe and .jar
+
+=== Unknown (media:unknown)
+Files that do not match any of the above

@@ -1,0 +1,18 @@
+= Content
+toc: right
+:imagesdir: images
+Content is the central editorial element in the CMS.
+
+== Intro
+Every Content item has a specific content type, which defines its data structure and capabilities. Content can be created, edited, published and deleted in Content Studio, and can also be manipulated programmatically via the Content API. Content items are stored in content projects. They are indexed and can be searched for using Enonic's Query API.
+
+== Content authoring
+
+
+== Anatomy
+
+Content items can be accessed via the GraphQL API, which can be used by front-end developers to access content programmatically. The GraphQL API is generated based on the content type's schema and form definition, and provides a powerful and flexible way to query for content items and their properties.
+
+== Security
+
+

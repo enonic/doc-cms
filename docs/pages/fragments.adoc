@@ -1,6 +1,6 @@
 = Fragments
 :toc: right
-:imagesdir: media
+:imagesdir: images
 
 Fragments enable reuse of components across different pages.
 

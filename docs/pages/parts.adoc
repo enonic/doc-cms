@@ -1,6 +1,6 @@
 = Part components
 :toc: right
-:imagesdir: media
+:imagesdir: images
 
 Part components are similar to layout and page components, but do not support regions.
 

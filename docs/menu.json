@@ -5,433 +5,249 @@
       "document": "index"
     },
     {
-      "title": "Main concepts",
-      "document": "concepts",
+      "title": "Content",
+      "document": "content",
       "menuItems": [
         {
           "title": "Projects",
-          "document": "concepts/projects"
+          "document": "projects"
         },
         {
-          "title": "Branches",
-          "document": "concepts/branches"
+          "title": "Lifecycle",
+          "document": "lifecycle"
         },
         {
-          "title": "Layers",
-          "document": "concepts/layers"
+          "title": "Anatomy",
+          "document": "anatomy"
         },
         {
-          "title": "Content",
-          "document": "concepts/content",
-          "menuItems": [
-            {
-              "title": "Lifecycle",
-              "document": "concepts/content-lifecycle"
-            },
-            {
-              "title": "References",
-              "document": "concepts/references"
-            },
-            {
-              "title": "Versions",
-              "document": "concepts/versions"
-            },
-            {
-              "title": "Variants",
-              "document": "concepts/variants"
-            },
-            {
-              "title": "Access control",
-              "document": "concepts/access-control"
-            }
-          ]
+          "title": "Attachments",
+          "document": "attachments"
         },
         {
-          "title": "Media and attachments",
-          "document": "concepts/media"
+          "title": "References",
+          "document": "references"
         },
         {
-          "title": "Mixins",
-          "document": "concepts/mixins"
+          "title": "Layering",
+          "document": "layering"
         },
         {
-          "title": "Sites and pages",
-          "document": "concepts/sites"
+          "title": "Permissions",
+          "document": "permissions"
+        },
+        {
+          "title": "Validation",
+          "document": "validation"
+        },
+        {
+          "title": "Versions",
+          "document": "versions"
         }
       ]
     },
     {
-      "title": "Schema system",
+      "title": "Schemas",
       "document": "schemas",
       "menuItems": [
         {
-          "title": "Descriptors",
-          "document": "schemas/definition",
-          "menuItems": [
-            {
-              "title": "Schema Localization",
-              "document": "schemas/i18n"
-            },
-            {
-              "title": "Content Indexing",
-              "document": "schemas/indexing"
-            },            
-            {
-              "title": "Form fragments",
-              "document": "schemas/form-fragments"
-            }
-          ]
+          "title": "Schema Localization",
+          "document": "i18n"
+        }
+      ]
+    },
+    {
+      "title": "Forms",
+      "document": "forms",
+      "menuItems": [
+        {
+          "title": "Form fragments",
+          "document": "form-fragments"
+        }
+      ]
+    },
+    {
+      "title": "Form items",
+      "document": "items",
+      "menuItems": [
+        {
+          "title": "AttachmentUploader",
+          "document": "attachmentuploader"
         },
         {
-          "title": "Form items",
-          "document": "schemas/items",
-          "menuItems": [
-            {
-              "title": "AttachmentUploader",
-              "document": "schemas/attachmentuploader"
-            },
-            {
-              "title": "CheckBox",
-              "document": "schemas/checkbox"
-            },
-            {
-              "title": "ComboBox",
-              "document": "schemas/combobox"
-            },
-            {
-              "title": "ContentSelector",
-              "document": "schemas/contentselector"
-            },
-            {
-              "title": "ContentTypeFilter",
-              "document": "schemas/contenttypefilter"
-            },
-            {
-              "title": "CustomSelector",
-              "document": "schemas/customselector"
-            },
-            {
-              "title": "Date",
-              "document": "schemas/date"
-            },
-            {
-              "title": "DateTime",
-              "document": "schemas/datetime"
-            },
-            {
-              "title": "Double",
-              "document": "schemas/double"
-            },
-            {
-              "title": "GeoPoint",
-              "document": "schemas/geopoint"
-            },
-            {
-              "title": "FieldSet",
-              "document": "schemas/field-set"
-            },
-            {
-              "title": "HtmlArea",
-              "document": "schemas/htmlarea",
-              "menuItems": [
-                {
-                  "title": "Styles",
-                  "document": "schemas/styles"      
-                }
-              ]
-            },
-            {
-              "title": "ImageSelector",
-              "document": "schemas/imageselector"
-            },
-            {
-              "title": "Instant",
-              "document": "schemas/instant"
-            },
-            {
-              "title": "ItemSet",
-              "document": "schemas/item-set"
-            },
-            {
-              "title": "Long",
-              "document": "schemas/long"
-            },
-            {
-              "title": "MediaSelector",
-              "document": "schemas/mediaselector"
-            },
-            {
-              "title": "OptionSet",
-              "document": "schemas/option-set"
-            },
-            {
-              "title": "RadioButton",
-              "document": "schemas/radiobutton"
-            },
-            {
-              "title": "Tag",
-              "document": "schemas/tag"
-            },
-            {
-              "title": "TextArea",
-              "document": "schemas/textarea"
-            },
-            {
-              "title": "TextLine",
-              "document": "schemas/textline"
-            },
-            {
-              "title": "Time",
-              "document": "schemas/time"
-            }
-          ]
+          "title": "CheckBox",
+          "document": "checkbox"
         },
         {
-          "title": "Content Types",
-          "document": "schemas/content-type",
-          "menuItems": [
-            {
-              "title": "Structured",
-              "document": "schemas/structured"
-            },
-            {
-              "title": "Unstructured",
-              "document": "schemas/unstructured"
-            },
-            {
-              "title": "Media",
-              "document": "schemas/media"
-            },
-            {
-              "title": "Built-in",
-              "document": "schemas/built-in"
-            }
-          ]
+          "title": "ComboBox",
+          "document": "combobox"
         },
         {
-          "title": "Mixins",
-          "document": "schemas/mixin"
+          "title": "ContentSelector",
+          "document": "contentselector"
         },
         {
-          "title": "Macros",
-          "document": "schemas/macro"
+          "title": "ContentTypeFilter",
+          "document": "contenttypefilter"
         },
         {
-          "title": "Components",
-          "document": "schemas/components",
-          "menuItems": [
-            {
-              "title": "Page",
-              "document": "schemas/page"
-            },
-            {
-              "title": "Region",
-              "document": "schemas/region"
-            },
-            {
-              "title": "Part",
-              "document": "schemas/part"
-            },
-            {
-              "title": "Layout",
-              "document": "schemas/layout"
-            },
-            {
-              "title": "Text component",
-              "document": "schemas/text"
-            },
-            {
-              "title": "Component Filtering",
-              "document": "schemas/component-filtering"
-            }
-          ]
+          "title": "CustomSelector",
+          "document": "customselector"
+        },
+        {
+          "title": "Date",
+          "document": "date"
+        },
+        {
+          "title": "DateTime",
+          "document": "datetime"
+        },
+        {
+          "title": "Double",
+          "document": "double"
+        },
+        {
+          "title": "GeoPoint",
+          "document": "geopoint"
+        },
+        {
+          "title": "FieldSet",
+          "document": "field-set"
+        },
+        {
+          "title": "HtmlArea",
+          "document": "htmlarea"
+        },
+        {
+          "title": "ImageSelector",
+          "document": "imageselector"
+        },
+        {
+          "title": "Instant",
+          "document": "instant"
+        },
+        {
+          "title": "ItemSet",
+          "document": "item-set"
+        },
+        {
+          "title": "Long",
+          "document": "long"
+        },
+        {
+          "title": "MediaSelector",
+          "document": "mediaselector"
+        },
+        {
+          "title": "OptionSet",
+          "document": "option-set"
+        },
+        {
+          "title": "RadioButton",
+          "document": "radiobutton"
+        },
+        {
+          "title": "Tag",
+          "document": "tag"
+        },
+        {
+          "title": "TextArea",
+          "document": "textarea"
+        },
+        {
+          "title": "TextLine",
+          "document": "textline"
+        },
+        {
+          "title": "Time",
+          "document": "time"
+        }
+      ]
+    },
+    {
+      "title": "Content Types",
+      "document": "content-types",
+      "menuItems": [
+        {
+          "title": "Base types",
+          "document": "base-types"
+        },
+        {
+          "title": "Media Types",
+          "document": "media-types"
+        },
+        {
+          "title": "Portal Types",
+          "document": "portal-types"
+        },
+        {
+          "title": "Custom Types",
+          "document": "custom-types"
+        }
+      ]
+    },
+    {
+      "title": "Mixins",
+      "document": "mixin"
+    },
+    {
+      "title": "Pages",
+      "document": "pages",
+      "menuItems": [
+        {
+          "title": "Sites",
+          "document": "sites"
+        },
+        {
+          "title": "Page component",
+          "document": "page"
+        },
+        {
+          "title": "Regions",
+          "document": "regions"
+        },
+        {
+          "title": "Parts",
+          "document": "parts"
+        },
+        {
+          "title": "Layouts",
+          "document": "layouts"
+        },
+        {
+          "title": "Text Component",
+          "document": "text"
+        },
+        {
+          "title": "Component Filtering",
+          "document": "component-filtering"
+        },
+        {
+          "title": "Page templates",
+          "document": "page-templates"
+        },
+        {
+          "title": "Page fragments",
+          "document": "fragments"
+        },      
+        {
+          "title": "Visual editor",
+          "document": "visual-editor"
         }        
       ]
     },
     {
-      "title": "GraphQL API",
-      "document": "guillotine",
+      "title": "Rich text",
+      "document": "richtext",
       "menuItems": [
         {
-          "title": "Playground",
-          "document": "guillotine/playground"
-        },        
+          "title": "Macros",
+          "document": "macro"
+        },            
         {
-          "title": "Usage",
-          "document": "guillotine/usage"
-        },        
-        {
-          "title": "Examples",
-          "document": "guillotine/examples"
-        },
-        {
-          "title": "Queries",
-          "document": "guillotine/queries"
-        },        
-        {
-          "title": "Examples",
-          "document": "guillotine/examples"
-        },
-        {
-          "title": "Configuration",
-          "document": "guillotine/config"
-        },      
-        {
-          "title": "Release notes",
-          "document": "guillotine/notes"
-        }      
-      ]
-    },
-    {
-      "title": "Media API",
-      "document": "media",
-      "menuItems": [
-        {
-          "title": "Image",
-          "document": "media/image"
-        },        
-        {
-          "title": "Attachment",
-          "document": "media/attachment"
-        },
-        {
-          "title": "Configuration",
-          "document": "media/config"
-        }
-      ]
-    },
-    {
-      "title": "Content Studio",
-      "document": "studio",
-      "menuItems": [
-        {
-          "title": "Navigator",
-          "document": "studio/navigator",
-          "menuItems": [
-            {
-              "title": "Preview",
-              "document": "studio/preview"
-            }
-          ]
-        },
-        {
-          "title": "Editor",
-          "document": "studio/editor",
-          "menuItems": [
-            {
-              "title": "Page editor",
-              "document": "studio/visual-editor"
-            }
-          ]
-        },
-        {
-          "title": "Dialogs",
-          "document": "studio/dialogs",
-          "menuItems": [
-            {
-              "title": "Create",
-              "document": "studio/create"
-            },
-            {
-              "title": "Publish",
-              "document": "studio/publish"
-            },
-            {
-              "title": "Unpublish",
-              "document": "studio/unpublish"
-            },
-            {
-              "title": "Delete",
-              "document": "studio/delete"
-            },
-            {
-              "title": "Duplicate",
-              "document": "studio/duplicate"
-            },
-            {
-              "title": "Move",
-              "document": "studio/move"
-            },
-            {
-              "title": "Sort",
-              "document": "studio/sort"
-            }
-          ]
-        },        
-        {
-          "title": "Issues",
-          "document": "studio/issues"
-        },
-        {
-          "title": "Context widgets",
-          "document": "studio/widgets",
-          "menuItems": [
-            {
-              "title": "Details",
-              "document": "studio/details"
-            },            
-            {
-              "title": "Versions",
-              "document": "studio/versions"
-            },
-            {
-              "title": "Dependencies",
-              "document": "studio/dependencies"
-            }  
-          ]
-        },
-        {
-          "title": "Keyboard shortcuts",
-          "document": "studio/shortcuts"
-        },
-        {
-          "title": "Configuration",
-          "document": "studio/config"
-        },      
-        {
-          "title": "Release notes",
-          "document": "studio/notes"
-        }
-      ]
-    },
-    {
-      "title": "Content Studio+",
-      "document": "plus",
-      "menuItems": [
-        {
-          "title": "Archive",
-          "document": "plus/archive"
-        },
-        {
-          "title": "Variants widget",
-          "document": "plus/variants"
-        },
-        {
-          "title": "Report widget",
-          "document": "plus/publish-report"
-        },
-        {
-          "title": "Release notes",
-          "document": "plus/notes"
-        }              
-      ]
-    },
-    {
-      "title": "Artificial Intelligence",
-      "document": "ai",
-      "menuItems": [
-        {
-          "title": "Installation",
-          "document": "ai/install"
-        },
-        {
-          "title": "Assistant",
-          "document": "ai/assistant"
-        },
-        {
-          "title": "Translator",
-          "document": "ai/translator"
-        }              
+          "title": "Styles",
+          "document": "styles"
+        }     
       ]
     }
   ]

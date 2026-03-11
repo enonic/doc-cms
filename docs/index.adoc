@@ -1,20 +1,18 @@
-= Enonic CMS - Universal Content Management System
+= Schemas, Content and Modeling
+:imagesdir: schemas/images
 :toc: right
-:imagesdir: images
+:y: icon:check[role="green"]
+:n: icon:times[role="red"]
 
-Bend-over-backwards flexible platform CMS built on top of Enonic XP. Structure and manage content at any scale, and deliver it to any channel through a unified API.
+This documentation covers the core concepts and features which make up Enonic XP's CMS capabilities.
 
 == Introduction
-
-Enonic CMS is an api-first, open source content management system built on top of Enonic XP. 
 
 At its heart lies a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in Content Studio and the API, along with full server-side validation, indexing and querying capabilities.
 
 TODO: Quickstart, Developer 101
 
 == Main features
-
-Enonic CMS is used by organizations around the world to manage their content and digital assets.
 
 *Schema as code:* Flexible content modelling. +
 *Hierarchies:* Organize content in a tree structure. +
@@ -28,9 +26,9 @@ Enonic CMS is used by organizations around the world to manage their content and
 Being built on top of Enonic XP, developers may adapt the platform, APIs and tooling extensively via Enonic apps, making it a versatile choice for organizations looking to manage their digital content in a way that is optimized for their needs.
 
 
-== The stack
+== The CMS stack
 
-Enonic CMS is composed from the following:
+The CMS is composed from the following main components:
 
 * https://developer.enonic.com/docs/xp[Enonic XP] - Platform including AIM, NoSQL storage and more.
 * <<schemas#, Schema system>> - Define content types and content structures.

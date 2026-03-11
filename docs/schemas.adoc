@@ -1,100 +1,43 @@
-= Schema system
-:imagesdir: schemas/images
+= Schemas and namespaces
+imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
-Define forms for management of structured content
+Schemas are the heart of the CMS, enabling you to express your content model as code.
 
 == Introduction
 
-To facilitate creation of structured content, Enonic CMS ships with a high-level schema concept that requires no coding.
+Schemas are used to express editorial elements within the CMS, such as content type. Schemas optionally contain a form which allow you to express advanced data structures. Once deployed to Enonic XP, schemas are used by Content Studio to generate user interfaces, and by the APIs. Schemas are organized in namespaces to prevent naming conflicts and promote reuse. 
 
-Each schema will produce a deterministic set of properties with valid values and indexing rules. Content can be submitted through both via UI, and API.
+== Ingredients of a schema
 
-== TODO
-A basic concept used throughout the CMS is called schemas.
-Schemas enable developers to easily define various types of forms used throughout the CMS.
+A schema is made up of a few key ingredients:
 
-The schema system provides a 1:1 mapping between schema fields and corresponding document properties.
-For instance, a text input called "title", is mapped to a property called "title" in the underlying document structure.
+* Namespace and name (i.e. "com.example:article")
+* Kind (i.e. "content-type", "mixin" etc)
+* Configuration (Specific to each schema kind)
+* <<form#, Form>> (Optionally defines a form, and hence the data structure of the content)
+* Indexing rules (optionally defines indexing rules for the form inputs)
 
-The schema system provides a range of standard <<cms/schemas/input-types#, Input types>>, such as TextLine and ContentSelector.
-It also offers advanced form components such as ItemSets and OptionSets for creating nested sets of data and optional sets of data.
+Content Studio is available in multiple languages, and you may also <<i18n#, translate>> your schemas in multiple languages, for better usability. 
 
-[#forms]
-== Forms
 
-First and foremost, schemas define forms that can be edited through an administrative interface, typically https://developer.enonic.com/docs/content-studio[Content Studio].
+== Usage
 
-In addition to the user interface, schemas also have a back-end equivalent that can be used programmatically, for instance through the content API.
+TODO - YAML example.
 
-All forms are essentially compositions of various <<schemas/input-types#, Input types>>.
+== Schema kinds
+TODO: Link to each kind
 
-Once a form is populated and submitted, the end-result will be a property structure that matches 1-1 with the schema definition.
-The property structure can then be persisted directly into the XP repository.
+Enonic implements the following content schemas
 
-Forms can be declared statically with XML, using a format that looks like this:
+* content-type
+* mixin
+* page
+* part
+* layout
+* form-fragments
 
-[source,xml]
-----
-<form>
-  <input name="firstname" type="TextLine">
-    <label>First Name</label>
-  </input>
-  <input name="lastname" type="TextLine">
-    <label>Last Name</label>
-  </input>
-</form>
-----
 
-There are many types of forms, each with their specific purpose and options.
-The form implementation will control where and how end result is actually persisted.
+== Other use-cases
 
-The persisted output form the above form might look something like this:
-
-[source,JSON]
-----
-{
-  firstname: "Tom",
-  lastname: "Cat"
-}
-----
-
-=== Form grouping
-
-In addition to input types, one may use sets to group form items to construct more advanced forms, and hence richer data models.
-
-Use form items like <<schemas/field-set#, Field sets>> (decorative only), <<schemas/item-set#, Item sets>>, and <<schemas/option-set#, Option sets>> for this purpose.
-
-[#xsd]
-=== XML Schema Definition (XSD)
-
-To simplify editing, an XSD is available.
-
-Addf the following attributes to the first element of your XML file in order to enjoy validation while typing:
-
-NOTE: Not all editors support XSD validation
-
-.XSD attributes
-[source,XML]
-----
-xmlns="urn:enonic:xp:model:1.0"
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:schemaLocation="urn:enonic:xp:model:1.0 https://raw.githubusercontent.com/enonic/xp/master/modules/core/core-api/src/main/resources/META-INF/xsd/model.xsd"
-----
-
-If added to a content type schema, it would look something like this:
-
-.Example when added to content type schema
-[source,JSON]
-----
-<?xml version="1.0" encoding="utf-8"?>
-<content-type
-    xmlns="urn:enonic:xp:model:1.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="urn:enonic:xp:model:1.0 https://raw.githubusercontent.com/enonic/xp/master/modules/core/core-api/src/main/resources/META-INF/xsd/model.xsd">
-  <display-name>Content type display name</display-name>
-----
+In Enonic XP, the schema concept is also used in other contexts than the CMS. For instance, identity providers and tasks also use schemas to define their configuration. In these cases, only a generic subset of the form imputs are supported, and the form output will not be persisted as content, but rather stored in the identity provider or task definition.

@@ -1,83 +1,36 @@
-= Pages and components
-:toc: right
+= Sites and pages
 :imagesdir: images
+:toc: right
+:y: icon:check[role="green"]
+:n: icon:times[role="red"]
 
-Pages allow you to create rich visually oriented content.
-
+The page concept allow you to create rich visually oriented content via building blocks called components. 
 
 == Introduction
 
+Pages are an optional feature, only available within a <<content-types#, Site>>. Similar to <<mixins#, Mixins>>, a page can be added to any content item. The page can then be edited visually, by adding and arranging components.
 
-== TODO
+== Concept
 
-Enonic XP is often used as a traditional Web CMS, where editors compose rich landing pages.
+Enonic's page concept spans across different schemas, content-types, and features in Enonic XP, which enable you to create rich content in a visual manner. The page concept is made up of the following key ingredients:
 
-Any content item may be configured with a "presentation" - or more precisely, a page.
+=== Schema definitions
 
-Pages are composed form a structure of components
+<<page#, Page Component>>:: The root component of a page, defining the overall capabilities and structure of the page.
+<<regions#, Regions>>:: Define areas of a page or layout where other components can be placed.
+<<parts#, Part component>>:: Leaf components, used to add content to a page.
+<<layouts#, Layouts>>:: Define a specific layout of regions, to be reused across pages.
 
-* Page - The customizable root component of a page
-* Regions - drop zone(s) within a page where other components may be placed
-* Layouts - customizable components with region(s) of their own
-* Parts - customizable component
-* Text - Standard free text component
-* Image - Standard component for images
-* Fragment - Special reusable component
+=== Content types
 
-Pages, layouts and parts are all fully customizable through custom controllers and corresponding schemas.
-Get all the details in the <<cms/pages#,pages section>>
+<<../content-types/site#, Sites>>:: A special type of content item, used to define a website.
+<<../page-templates#, Page templates>>:: A special type of page component, used to define a template for pages. A page template can be used to create pages with a predefined structure and content.
+<<../content-types/fragments#, Fragments>>:: A built-in content type allowing you to reuse components across pages.
 
-Component availability depends on the application that have been added to your <<cms/sites#, site>>.
+=== Visual editor
 
-
-
-
-
-
-Pages and components are only available within sites.  Any content item (and thus any content type) may also be a page. Similar to how you may add <<x-data#, X-data>> to any content.
-
-Pages are made up from from one or more components. In addition to the page component, there are other component types such as <<pages/parts#, parts>>, <<pages/layouts#, layouts>>, <<pages/fragments#, fragments>> and <<pages/text#, text>>.
-
-<<pages/regions#, Regions>> enable creation of hierarchical components structures.
+Additionally, Content Studio's visual editor allow you to work with components in a visual manner, by dragging and dropping components, and editing them directly on the page. This is a powerful way to create rich content, without having to write any code.
 
 Seen from Content Studio, a page, and it's component structure might look like this:
 
 image::page-components.png[Component editor, 1440px]
-
-
-== Page component
-
-At the root of every page, you will find the page component. Most sites only need a single page component, as this can be reused across all pages. 
-
-In order to create pages, at least one page component must be defined for your site.
-
-To create a page component, add a component descriptor file to your project `src/main/resources/site/pages/<page-name>/<page-name.xml>`.
-
-NOTE: The name you choose for a component will be used in the underlying data of the stored page. So choose your name wisely.
-
-=== Usage
-
-To create a page component, place a descriptor file in your project: `src/main/resources/site/pages/<page-name>/<page-name>.xml.
-
-
-.Sample page descriptor
-[source,xml]
-----
-<page>
-  <display-name i18n="component.page.name">My first page</display-name> // <1> <2>
-  <description>Front page of our site</description>  // <3>
-  <form/>  // <4>
-  <regions>
-    <region name="main"/>  // <5>
-  </regions>
-</page>
-----
-
-<1> *display-name* provides a display name used by the editorial interface
-<2> *display-name/i18n* optionally specify localization key
-<3> *description* Description field shown when creating a part in content studio
-<4> *form* allows the definition of a configuration form based on the <<schemas#,schema system>>
-<5> *region* optionally specify <<pages/regions#, regions>> for the page. 
-
-NOTE: A page component may define zero, to many regions. Conventionally, a page should at least define a single region called `main`.
-

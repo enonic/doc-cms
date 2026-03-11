@@ -1,0 +1,13 @@
+= Rich Text
+imagesdir: images
+:toc: right
+
+Rich text is a type of content that allows you to format text with various styles, such as bold, italic, and headings. It can also include links, images, and other media elements.
+
+== Introduction
+
+Rich text is used to create visually appealing and structured content within the CMS. It provides a flexible way to present information, making it easier for editors to craft engaging content. Once deployed to Enonic XP, rich text content is rendered by Content Studio and can be accessed via the APIs. Rich text content is organized in schemas to ensure consistency and reusability. 
+
+== Usage
+
+TODO - YAML example.

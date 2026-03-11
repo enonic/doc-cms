@@ -1,0 +1,113 @@
+= Content anatomy
+
+== Introduction
+
+Every content item in Enonic XP has a set of standard properties that are automatically generated and maintained by the system. These properties are not defined in the form, but are generally available for use in your content modelling and search. Some of these properties are read-only, while others can be set via special API functions.
+
+== System properties
+
+These properties are used to identify the content item, and to maintain the content structure.
+
+_id:: Holds the unique id of the content, typically generated automatically in the form of a UUID.
+
+_name::	Holds the name of the content
+
+_parentPath:: Reference to parent content path.
+
+_path::	Full content path
+
+_sortorder:: Controls the default sorting of child items in the content structure when fetching child items. If not set, API will default to by `modifiedTime DESC`.
+
+_manualordervalue:: When '_sortorder' is set to manual, this property holds the order value for each child item.
+
+_timestamp:: The last change to the content version.
+
+_versionKey:: The id of the node version.
+
+
+== Content specific properties
+
+These properties contain the editorial content of the item, and are composed from the various schemas such as content-types, mixins and page components.
+
+
+displayName:: Common human readable name for the content, typically used in lists and search results or as the content title.
+
+data:: A property-set containing all user defined properties defined in the content-type.
+
+x::	Property-set containing mixin content. Each mixin will have its own property-set.
+
+component:: Available if the item contains a customized page or is pinned to a page template.
+
+attatchment:: If the item contains one or more attachments, contains an array of property-sets with the following properties:
+
+attachment.size:: Attachment size
+
+attachment.label:: Attachment label
+
+attachment.mimetype:: Attachment mime-type
+
+attachment.name::	Attachment name
+
+attachment.binary::	Attachment reference (defaults to file name)
+
+attachment.text::	Text extracted from the attachment, e.g., PDF files
+
+
+== Meta properties
+
+type:: The qualified content-type name, e.g. `myapp:article`. Set when creating the content item, and cannot be changed afterwards.
+
+language:: The locale-property of the content.
+
+modifiedTime:: Last time the content was modified.
+
+creator::	The user principal that created the content.
+
+createdTime::	The timestamp when the content was created.
+
+owner::	The user user that owns the content.
+
+
+
+== Publishing properties
+
+Publishing metadata properties are automatically maintained by the system when content is published.
+
+publish.from:: The time when the content was first published. 
+
+publish.to:: The time when the content is to expire.
+
+publish.first:: The time when the content was first published. Generally the same as publish.from, but will not be updated if the content is unpublished and re-published.
+
+publish.time:: The time when the content was published. Will only exist in the versions of a content that has been publised. New value every time the content gets published.
+
+
+== Permissions properties
+
+These are properties related to the permissions of the content item. They are controlled by system level permissions.
+
+_permissions_read::	The principals that have read access.
+
+_permissions_create::	The principals that have create access.
+
+_permissions_delete:: The principals that have delete access.
+
+_permissions_modify:: The principals that have modify access.
+
+_permissions_publish:: The principals that have publish access.
+
+_permissions_readpermissions:: The principals that have access to read the content permissions.
+
+_permissions_writepermissions::	The principals that have access to change the content permissions.
+
+
+== Indexing properties
+
+These properties are automatically maintained by the system when content is indexed, or calculated at query time. Used for search and relevance ranking.
+
+_alltext:: A collection of all fulltext-analyzed fields (textLine, textArea, htmlArea) in the content item, gathered in one property
+
+_references::	Outgoing references to other content.
+
+_score:: Calculated relevance for a hit, only available in search results.
+

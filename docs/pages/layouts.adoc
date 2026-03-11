@@ -1,6 +1,6 @@
 = Layout components
 :toc: right
-:imagesdir: media
+:imagesdir: images
 
 Use layouts to organize components in columns or for other appearance effects.
 

@@ -1,0 +1,66 @@
+= Form Items
+:toc: right
+:imagesdir: images
+
+Form items are the building blocks of forms. They define structure and content of a form. 
+
+== Introduction
+
+A form item will produce output based on its type and configuration. Each form item has a front-end and back-end component. The front-end represents the visual editing interface used in the XP admin console, where the back-end is solely used for validation purposes.
+
+A form item typically produces a property, with a specific https://developer.enonic.com/docs/xp/stable/storage/indexing[value type], with zero, 1 or multiple occurences. For instance, a `TextLine` will always produce a `String` value, while the output of an `ItemSet` is an object AKA propertySet. 
+
+== Usage
+
+image::default-input.png[An input box with help-text below it, 650w]
+
+The following configuration is common for for most form items:
+
+[source,xml]
+----
+<input type="InputTypeName" name="myname" >  // <1>
+  <label i18n="myname.label">My label</label>  // <2>
+  <default/>  // <3>
+  <help-text i18n="myname.help-text">Help text here</help-text>   // <4>
+  <occurrences minimum="0" maximum="1"/>   // <5>
+  <config/>  // <6>
+</input>
+----
+
+<1> *input* contains two mandatory attributes: +
+_@name_ is used when storing the data in a property, and must be unique on each level. +
+_@type_ refers to one of the many input types which are listed below.
+
+<2> *label* is another mandatory field that holds the human readable value that will be displayed when listing the input type control in the administrative interface +
+_@i18n_ is an optional attribute holding the key to localization phrase of the form (see <<localization#,localization>>).
+
+<3> *default* is an optional field that lets you specify default values to be used by the input type.
+
+<4> *help-text* is an optional field that lets you specify a text label shown below the input field. Used for explanation of the field's purpose. +
+_@i18n_ is an optional attribute holding the key to localization phrase of the form (see <<localization#,localization>>).
+
+<5> *occurrences* is an optional field used to control the number of values stored by a single input. +
+_@minimum_ set to to zero means the input is not mandatory +
+_@maximum_ to zero means there is no upper limit to the number of values. +
+This element is optional, if omitted the default will be `minimum="0"` and `maximum="1"`.
+
+<6> *config* is an optional element designed to hold custom configuration for each input-type.
+
+== Form items grouped by output
+
+=== Reference
+
+=== String
+
+=== Number
+
+=== Boolean
+
+=== Geopoint
+
+=== PropertySet (object)
+* <<item-set.adoc,Item set>>
+* <<option-set.adoc,Option set>>
+
+=== No output
+* <<field-set.adoc,Field set>>

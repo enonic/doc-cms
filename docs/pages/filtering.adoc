@@ -1,6 +1,6 @@
 = Component filtering
 :toc: right
-:imagesdir: media
+:imagesdir: images
 
 Optionally limit which pages a component can be placed on.
 

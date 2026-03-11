@@ -1,0 +1,45 @@
+= Forms
+:imagesdir: ../images
+:toc: right
+:y: icon:check[role="green"]
+:n: icon:times[role="red"]
+
+Forms represent the central concept for content modeling in Enonic XP. 
+
+== Concept
+
+Schemas define the forms that can be seen and edited through an administrative interface, typically https://developer.enonic.com/docs/content-studio[Content Studio].
+
+More importantly, schemas also have a back-end equivalent that validates content, and can be used programmatically. Central parts of the Headless API are automatically generated from the schemas and in particular the form definitions.
+
+All forms are essentially compositions of various <<form-items#, Form items>>.
+
+Once a form is populated and submitted, the end-result will be a property structure that matches 1-1 with the form definition. The property structure can then be persisted directly into the XP repository.
+
+== Usage
+
+Forms are declared statically in YAML, using a format that looks like this:
+
+TODO
+[source,xml]
+----
+<form>
+  <input name="firstname" type="TextLine">
+    <label>First Name</label>
+  </input>
+  <input name="lastname" type="TextLine">
+    <label>Last Name</label>
+  </input>
+</form>
+----
+
+The form implementation controls how the data is actually persisted.
+The persisted output from the above form might look something like this:
+
+[source,JSON]
+----
+{
+  firstname: "Tom",
+  lastname: "Cat"
+}
+----
