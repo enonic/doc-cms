@@ -1,0 +1,21 @@
+= Media
+toc: right
+:imagesdir: images
+Media are a special type of content, where a file is the central element
+
+== Intro
+Enonic treats files just like any other content. This means that media items have a content type, can be organized in a hierarchy, have metadata and properties, and can be accessed via the APIs. Media items are stored in content projects, just like any other content item. They are indexed and can be searched for using Enonic's Query API.
+
+== Media types
+
+TODO
+
+== Uploading and Authoring
+
+
+== Media API
+
+TODO
+
+== Anatomy
+

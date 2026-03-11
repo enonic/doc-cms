@@ -1,0 +1,36 @@
+= Attachment API
+:toc: right
+:toclevels: 2
+:imagesdir: images
+
+The Attachment API provides direct access to Content Attachments without processing.
+
+`:8080/api/media:attachment/`
+
+TODO: REMOVE?
+The API is unconditionally enabled on the site engine and available on `:8080/site/<repo>/<branch>/<path-to-site>/_/media:<image|attachment>/` endpoint.
+
+An attachment URL consists of the following components:
+
+. Base URL +
+ For Site Engine `+:8080/site/<project>/<branch>/<path-to-site>/_/media:attachment/+`
+ For API Engine `+:8080/api/media:attachment/+`
+
+. Media Locator with an optional (draft) branch +
+  `<media-project>(:<media-branch>)/<content-id>` +
+  Media branch is specified only if it is not `master` (which means published content). Specifying `master` branch is an error - to avoid cache pollution. Since we only have `master` and `draft` there are only two options: `/<media-project>/` and `/<media-project>:draft/`
+
+. (Optional) attachment fingerprint +
+  `:<attachment-fingerprint>` - the fingerprint of the attachment. Some older versions of XP may not have created an attachment with SHA checksum, in which case it fingerprint not used. +
+  If fingerprint is not supplied the response will not contain "immutable" `Cache-Control` header.
+
+. Attachment name +
+  `<attachment-name>` is not a Content Name, but the name of the attachment itself, which is usually the file name.
+
+. (Optional) download parameter +
+  `?download` - the response will contain `Content-Disposition` header, if specified.
+
+Example of an attachment URL on the root of a live site behind <<../../deployment/vhosts#virtual-hosts,Virtual Host>>:
+----
+/_/media:attachment/media-project/c82262a6-77d6-4276-b0e7-fe82f4eb57b8:ec25d6e4126c7064f82aaab8b34693fc/attachment.png?download
+----
