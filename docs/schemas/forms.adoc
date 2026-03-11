@@ -4,7 +4,7 @@
 :y: icon:check[role="green"]
 :n: icon:times[role="red"]
 
-Forms represent the central concept for content modeling in Enonic XP. 
+Forms are central to content modeling in Enonic.
 
 == Concept
 

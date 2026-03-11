@@ -1,16 +1,29 @@
-= Schemas, Content and Modeling
+= Universal CMS - Schemas, Content and Modeling
 :imagesdir: schemas/images
 :toc: right
 :y: icon:check[role="green"]
 :n: icon:times[role="red"]
 
-This documentation covers the core concepts and features which make up Enonic XP's CMS capabilities.
+This documentation covers the core concepts and features which make up Enonic's CMS capabilities.
 
 == Introduction
 
 At its heart lies a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in Content Studio and the API, along with full server-side validation, indexing and querying capabilities.
 
 TODO: Quickstart, Developer 101
+
+== The CMS stack
+
+The CMS is composed from the following main components:
+
+* https://developer.enonic.com/docs/xp[Enonic XP] - Core Platform including Storage, IAM and more.
+* <<schemas#, Schema system>> - Define content types and content structures.
+* https://developer.enonic.com/docs/intro[Headless API] - Available on Enonic Market
+* https://developer.enonic.com/docs/content-studio[Content Studio] - Extensible authoring interface available on Enonic Market
+* https://developer.enonic.com/docs/content-studio[Content Studio+] - Optional extensions for subscribing customers.
+* https://developer.enonic.com/docs/ai[AI features] - Optional extensions for subscription customers.
+
+More applications, such as SEO tools, Google Analytics and more, are available on Enonic Market.
 
 == Main features
 
@@ -26,15 +39,3 @@ TODO: Quickstart, Developer 101
 Being built on top of Enonic XP, developers may adapt the platform, APIs and tooling extensively via Enonic apps, making it a versatile choice for organizations looking to manage their digital content in a way that is optimized for their needs.
 
 
-== The CMS stack
-
-The CMS is composed from the following main components:
-
-* https://developer.enonic.com/docs/xp[Enonic XP] - Platform including AIM, NoSQL storage and more.
-* <<schemas#, Schema system>> - Define content types and content structures.
-* https://developer.enonic.com/docs/intro[Headless API] - Available on Enonic Market
-* https://developer.enonic.com/docs/content-studio[Content Studio] - Extensible authoring interface available on Enonic Market
-* https://developer.enonic.com/docs/content-studio[Content Studio+] - Optional extensions for subscribing customers.
-* https://developer.enonic.com/docs/ai[AI features] - Optional extensions for subscription customers.
-
-More applications, such as SEO tools, Google Analytics and more, are available on Enonic Market.
