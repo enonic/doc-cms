@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>MediaSelector input type</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,50 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>MediaSelector input type</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#usage">Usage</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>The MediaSelector is a specialized version of the <a href="contentselector.ahtml">ContentSelector</a> that is limited to selecting media only (content of type "media:*"), including also uploading new media (any kind of files).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mymedia" type="MediaSelector"&gt;
+  &lt;label&gt;My Media&lt;/label&gt;
+  &lt;occurrences minimum="0" maximum="1"/&gt;
+  &lt;config&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;allowContentType&gt;media:archive&lt;/allowContentType&gt;
+    &lt;allowPath&gt;${site}/*&lt;/allowPath&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;treeMode&gt;true&lt;/treeMode&gt;
+    &lt;hideToggleIcon&gt;true&lt;/hideToggleIcon&gt;
+  &lt;/config&gt;
+&lt;/input&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>MediaSelector supports the same configuration options as <a href="contentselector.ahtml">ContentSelector</a>, but is limited to using <code>media:*</code> content types in the <code>&lt;allowContentType&gt;</code> configuration.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Just like <a href="imageselector.ahtml">ImageSelector</a>, MediaSelector by default displays all media items starting from the content root.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

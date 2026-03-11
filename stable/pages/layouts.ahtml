@@ -491,7 +491,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/3-region-layout-wrapped.png" alt="Layout selected in the page editor" width="1012px">
+<img src="images/3-region-layout-wrapped.png" alt="Layout selected in the page editor" width="1012px">
 </div>
 </div>
 </div>
@@ -510,7 +510,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-26 11:59:52 UTC
+Last updated 2026-03-11 15:35:18 UTC
 </div>
 </div>
 </body>

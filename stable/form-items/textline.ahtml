@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>TextLine input type</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,143 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>TextLine input type</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#appearance">Appearance</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#spellcheck">Spell checking</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A plain text, single line input with advanced validation options. Stored as string.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Three different instances of TextLine.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/TextLine.png" alt="Text Line with various settings" width="700">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;!-- Basic sample --&gt;
+&lt;input name="mytextline" type="TextLine"&gt;
+  &lt;label&gt;My TextLine&lt;/label&gt;
+&lt;/input&gt;
+
+&lt;!-- Using regex validation and a default value. --&gt;
+&lt;input name="socialsecuritynumber" type="TextLine"&gt;
+  &lt;label&gt;My SSN&lt;/label&gt;
+  &lt;occurrences minimum="1" maximum="3"/&gt;
+  &lt;default&gt;000-00-0000&lt;/default&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;config&gt;
+    &lt;max-length&gt;11&lt;/max-length&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;show-counter&gt;true&lt;/show-counter&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
+    &lt;regexp&gt;\b\d{3}-\d{2}-\d{4}\b&lt;/regexp&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
+  &lt;/config&gt;
+&lt;/input&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>default</strong> specifies the default string for the TextArea</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>max-length</strong> specifies the maximum allowed number of characters (default: unlimited)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>show-counter</strong> specifies whether text length counter should be shown (default: hidden)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>regexp</strong> supports validation by defining regular expressions
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Regex validation is performed by the browser&#8217;s <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test">regex testing function</a>. Visit <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#writing_a_regular_expression_pattern">MDN&#8217;s documentation on regexes</a> for more information on the supported expressions and character classes.
+</td>
+</tr>
+</table>
+</div></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spellcheck"><a class="link" href="#spellcheck">Spell checking</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><span class="alt">XP 7.8.0</span></span></p>
+</div>
+<div class="paragraph">
+<p>When displayed in the Content Studio, input value will be checked for spelling errors by built-in browser spell checker
+based on the language set for the content.
+If language for the content is not set, spell checker will use default language set in the browser.</p>
+</div>
+<div class="paragraph">
+<p>In order for the spell checker to work, the following conditions should be met:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You should have spell checking enabled in your browser</p>
+</li>
+<li>
+<p>Spell checking will be performed only in languages that are enabled in your browser (i.e.
+if you have set Norwegian language in the content but Norwegian language is not enabled in your
+browser, then spell checking will not work)</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/TextLine-spellcheck-1.png" alt="Spell checking in TextLine" width="400">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/TextLine-spellcheck-2.png" alt="Spell checking in TextLine" width="400">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In the second screenshot above English text in the first input is grammatically correct,
+but language of the content is set to Norsk Bokmål, therefore English text is not recognised
+by the spell checker. Text in the second is in Norsk Bokmål and correctly checked for spelling errors.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

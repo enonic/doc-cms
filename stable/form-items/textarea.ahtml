@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>TextArea input type</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,75 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>TextArea input type</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#appearance">Appearance</a></li>
+<li><a href="#usage">Usage</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A plain text, multi-line input field.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/TextArea.png" alt="Text Area with various settings" width="700">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mytextarea" type="TextArea"&gt;
+  &lt;label&gt;My TextArea&lt;/label&gt;
+  &lt;default&gt;Default text goes here&lt;/default&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;config&gt;
+    &lt;max-length&gt;42&lt;/max-length&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;show-counter&gt;true&lt;/show-counter&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
+  &lt;/config&gt;
+&lt;/input&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>default</strong> specifies the default string for the TextArea</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>max-length</strong> specifies the maximum allowed number of characters (default: unlimited)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>show-counter</strong> specifies whether text length counter should be shown (default: hidden)</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Contents of TextArea support browser based spellcheckers in the same way as described for <a href="textline.ahtml#spellcheck">TextLine</a>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

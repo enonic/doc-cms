@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>GeoPoint input type</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,62 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>GeoPoint input type</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#appearance">Appearance</a></li>
+<li><a href="#usage">Usage</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Stores a GPS coordinate as two comma-separated decimal numbers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/Geo-point.png" alt="text input with a longitude and latitude numbers" width="700">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The first number must be between -90 and 90, where a negative number indicates a location south of equator and a positive is north of the equator.</p>
+</li>
+<li>
+<p>The second number must be between -180 and 180, where a negative number indicates a location in the western hemisphere and a positive number is a location in the eastern hemisphere.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mygeopoint" type="GeoPoint"&gt;
+  &lt;label&gt;My GeoPoint&lt;/label&gt;
+  &lt;occurrences minimum="0" maximum="1"/&gt;
+  &lt;default&gt;51.5,-0.1&lt;/default&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/input&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>default</strong> specifies a default string value for the GeoPoint, for example <code>51.5,-0.1</code>.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

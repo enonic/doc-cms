@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Enonic CMS - Universal Content Management System</title>
+<title>Schemas, Content and Modeling</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Enonic CMS - Universal Content Management System</h1>
+<h1>Schemas, Content and Modeling</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#main_features">Main features</a></li>
-<li><a href="#the_stack">The stack</a></li>
+<li><a href="#the_cms_stack">The CMS stack</a></li>
 </ul>
 </div>
 </div>
@@ -451,16 +451,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Bend-over-backwards flexible platform CMS built on top of Enonic XP. Structure and manage content at any scale, and deliver it to any channel through a unified API.</p>
+<p>This documentation covers the core concepts and features which make up Enonic XP&#8217;s CMS capabilities.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Enonic CMS is an api-first, open source content management system built on top of Enonic XP.</p>
-</div>
 <div class="paragraph">
 <p>At its heart lies a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in Content Studio and the API, along with full server-side validation, indexing and querying capabilities.</p>
 </div>
@@ -472,9 +469,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="main_features"><a class="link" href="#main_features">Main features</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Enonic CMS is used by organizations around the world to manage their content and digital assets.</p>
-</div>
 <div class="paragraph">
 <p><strong>Schema as code:</strong> Flexible content modelling.<br>
 <strong>Hierarchies:</strong> Organize content in a tree structure.<br>
@@ -491,10 +485,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="the_stack"><a class="link" href="#the_stack">The stack</a></h2>
+<h2 id="the_cms_stack"><a class="link" href="#the_cms_stack">The CMS stack</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic CMS is composed from the following:</p>
+<p>The CMS is composed from the following main components:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -526,7 +520,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-26 11:59:52 UTC
+Last updated 2026-03-11 15:35:18 UTC
 </div>
 </div>
 </body>

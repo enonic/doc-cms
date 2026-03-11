@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Date input type</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,117 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Date input type</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#appearance">Appearance</a></li>
+<li><a href="#usage">Usage</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A simple field for dates with a calendar pop-up box in the admin console. The default format is <code>yyyy-MM-dd</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/Date-selector.png" alt="Input field with a calander above it and a blue ok button" width="500">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mydate" type="Date"&gt;
+  &lt;label&gt;My Date&lt;/label&gt;
+  &lt;default&gt;2011-09-12&lt;/default&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/input&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>default</strong> date value to be used. The format for the default date value can be:</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Date in ISO 8601 format: <code>yyyy-MM-dd</code>  (e.g. "2016-12-31")</p>
+</li>
+<li>
+<p>Relative date expression (e.g. "+1year -12days")</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A relative date expression is a sequence of one or more date offsets.<br>
+An offset consists of: a plus or minus sign, followed by an integer, followed by a date unit string (e.g. "+3 days")<br></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Unit strings</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Singular</th>
+<th class="tableblock halign-left valign-top">Plural</th>
+<th class="tableblock halign-left valign-top">initial letter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"year"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"years"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"y"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"month"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"months"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"M"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"week"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"weeks"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"w"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"day"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"days"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"d"</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>An offset can also be the string <code>now</code>, which means current date.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>&lt;default&gt;</code> value is set for an input, the Date picker will display "<strong>Set default</strong>" button for setting the default value with one click.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Date-selector-default.png" alt="Date selector with default value" width="500">
+</div>
 </div>
 </div>
 </div>

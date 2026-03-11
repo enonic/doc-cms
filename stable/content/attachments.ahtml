@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<meta name="author" content="toc: right">
+<title>Attachments</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +438,97 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Attachments</h1>
+<div class="details">
+<span id="author" class="author">toc: right</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#attachment_vs_media">Attachment vs Media</a></li>
+<li><a href="#storage_and_indexing">Storage and indexing</a></li>
+<li><a href="#other_use_cases">Other use-cases</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Content items may optionally contain attachments - files that are uploaded and stored together with the content item.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Attachments allow you to add files to content items, similar to how files are attached to an e-mail. Attachments can be added to content items via the AttachmentUploader input type, and are stored as part of the content item in the repository.</p>
+</div>
+<div class="paragraph">
+<p>TODO: Verify if Attachments are indexed and can be searched for, and the text content of attachments (e.g. PDF files) is also extracted and indexed for search.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="attachment_vs_media"><a class="link" href="#attachment_vs_media">Attachment vs Media</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Media content items represent files as separate content items that, can be linked to, published and deleted individually. Attachments, on the other hand, are stored as part of the content item and do not have a separate existence. Attachments are not indexed as separate items. Attachments are ideal for files that are closely related to the content item and do not need to be managed separately, while media content items are better suited for files that need to be reused across multiple content items or managed independently.</p>
+</div>
+<div class="paragraph">
+<p>Media items will typically contain one attachment, which is the file that was uploaded to create the media item.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="storage_and_indexing"><a class="link" href="#storage_and_indexing">Storage and indexing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Attachments are stored as part of the content item in the repository, and are indexed together with the content item. Attachments are stored within the content&#8217;s <code>attachment</code> property. Each attachment is represented as a property-set (object) with the following properties:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">size</dt>
+<dd>
+<p>Attachment size</p>
+</dd>
+<dt class="hdlist1">label</dt>
+<dd>
+<p>Attachment label</p>
+</dd>
+<dt class="hdlist1">mimetype</dt>
+<dd>
+<p>Attachment mime-type</p>
+</dd>
+<dt class="hdlist1">name</dt>
+<dd>
+<p>Attachment name</p>
+</dd>
+<dt class="hdlist1">binary</dt>
+<dd>
+<p>Attachment reference (defaults to file name)</p>
+</dd>
+<dt class="hdlist1">text</dt>
+<dd>
+<p>Text extracted from the attachment, e.g., PDF files</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>You may query for attachments using the Content API, and also search for attachments based on their properties, e.g., <code>attachment.name</code> or <code>attachment.text</code> using Enonic&#8217;s Query API.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="other_use_cases"><a class="link" href="#other_use_cases">Other use-cases</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The attachment pattern is not limited to content items, but can also be used in other contexts where storing files within XP is desirable. If you have a use-case where you want to persist other data than content in XP&#8217;s NoSQL storage, the attachment pattern provides a simple and effective way to do so.</p>
+</div>
+<div class="paragraph">
+<p>Visit the XP development documentation for more information on how to use attachments in other contexts than content items.</p>
 </div>
 </div>
 </div>

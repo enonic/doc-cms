@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Field Set</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,73 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Field Set</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#appearance">Appearance</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A field set may be used to group items visually under a common label and distinguish this group from the rest of the form.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Field sets seen in Content Studio.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/fieldset-1.png" alt="Example of a fieldset" width="689">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Sample field-set definition containing a single input-type</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;field-set&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;label i18n="metadata.label"&gt;Metadata&lt;/label&gt;
+  &lt;items&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;input name="tags" type="Tag"&gt;
+      &lt;label&gt;Tags for tag cloud&lt;/label&gt;
+      &lt;occurrences minimum="0" maximum="5"/&gt;
+    &lt;/input&gt;
+  &lt;/items&gt;
+&lt;/field-set&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>field-set</strong> does not need a name since it is only visual, and does not affect the data model</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>items</strong> allow placement of form items to be contained within it</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>None - field sets do not produce any output, and are purely decorative. The form items contained within the field set will produce output as normal, and the field set will not affect the data structure in any way.</p>
 </div>
 </div>
 </div>

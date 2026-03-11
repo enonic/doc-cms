@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Schema system</title>
+<meta name="author" content="imagesdir: images">
+<title>Schemas and namespaces</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,18 +438,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Schema system</h1>
+<h1>Schemas and namespaces</h1>
+<div class="details">
+<span id="author" class="author">imagesdir: images</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#todo">TODO</a></li>
-<li><a href="#forms">Forms</a>
-<ul class="sectlevel2">
-<li><a href="#form_grouping">Form grouping</a></li>
-<li><a href="#xsd">XML Schema Definition (XSD)</a></li>
-</ul>
-</li>
+<li><a href="#ingredients_of_a_schema">Ingredients of a schema</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#schema_kinds">Schema kinds</a></li>
+<li><a href="#other_use_cases">Other use-cases</a></li>
 </ul>
 </div>
 </div>
@@ -456,7 +457,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Define forms for management of structured content</p>
+<p>Schemas are the heart of the CMS, enabling you to express your content model as code.</p>
 </div>
 </div>
 </div>
@@ -464,136 +465,93 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To facilitate creation of structured content, Enonic CMS ships with a high-level schema concept that requires no coding.</p>
-</div>
-<div class="paragraph">
-<p>Each schema will produce a deterministic set of properties with valid values and indexing rules. Content can be submitted through both via UI, and API.</p>
+<p>Schemas are used to express editorial elements within the CMS, such as content type. Schemas optionally contain a form which allow you to express advanced data structures. Once deployed to Enonic XP, schemas are used by Content Studio to generate user interfaces, and by the APIs. Schemas are organized in namespaces to prevent naming conflicts and promote reuse.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="todo"><a class="link" href="#todo">TODO</a></h2>
+<h2 id="ingredients_of_a_schema"><a class="link" href="#ingredients_of_a_schema">Ingredients of a schema</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A basic concept used throughout the CMS is called schemas.
-Schemas enable developers to easily define various types of forms used throughout the CMS.</p>
+<p>A schema is made up of a few key ingredients:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Namespace and name (i.e. "com.example:article")</p>
+</li>
+<li>
+<p>Kind (i.e. "content-type", "mixin" etc)</p>
+</li>
+<li>
+<p>Configuration (Specific to each schema kind)</p>
+</li>
+<li>
+<p><a href="form.ahtml">Form</a> (Optionally defines a form, and hence the data structure of the content)</p>
+</li>
+<li>
+<p>Indexing rules (optionally defines indexing rules for the form inputs)</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>The schema system provides a 1:1 mapping between schema fields and corresponding document properties.
-For instance, a text input called "title", is mapped to a property called "title" in the underlying document structure.</p>
-</div>
-<div class="paragraph">
-<p>The schema system provides a range of standard <a href="cms/schemas/input-types.ahtml">Input types</a>, such as TextLine and ContentSelector.
-It also offers advanced form components such as ItemSets and OptionSets for creating nested sets of data and optional sets of data.</p>
+<p>Content Studio is available in multiple languages, and you may also <a href="i18n.ahtml">translate</a> your schemas in multiple languages, for better usability.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="forms"><a class="link" href="#forms">Forms</a></h2>
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>First and foremost, schemas define forms that can be edited through an administrative interface, typically <a href="https://developer.enonic.com/docs/content-studio">Content Studio</a>.</p>
+<p>TODO - YAML example.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="schema_kinds"><a class="link" href="#schema_kinds">Schema kinds</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO: Link to each kind</p>
 </div>
 <div class="paragraph">
-<p>In addition to the user interface, schemas also have a back-end equivalent that can be used programmatically, for instance through the content API.</p>
+<p>Enonic implements the following content schemas</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>content-type</p>
+</li>
+<li>
+<p>mixin</p>
+</li>
+<li>
+<p>page</p>
+</li>
+<li>
+<p>part</p>
+</li>
+<li>
+<p>layout</p>
+</li>
+<li>
+<p>form-fragments</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="other_use_cases"><a class="link" href="#other_use_cases">Other use-cases</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>All forms are essentially compositions of various <a href="schemas/input-types.ahtml">Input types</a>.</p>
-</div>
-<div class="paragraph">
-<p>Once a form is populated and submitted, the end-result will be a property structure that matches 1-1 with the schema definition.
-The property structure can then be persisted directly into the XP repository.</p>
-</div>
-<div class="paragraph">
-<p>Forms can be declared statically with XML, using a format that looks like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;form&gt;
-  &lt;input name="firstname" type="TextLine"&gt;
-    &lt;label&gt;First Name&lt;/label&gt;
-  &lt;/input&gt;
-  &lt;input name="lastname" type="TextLine"&gt;
-    &lt;label&gt;Last Name&lt;/label&gt;
-  &lt;/input&gt;
-&lt;/form&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>There are many types of forms, each with their specific purpose and options.
-The form implementation will control where and how end result is actually persisted.</p>
-</div>
-<div class="paragraph">
-<p>The persisted output form the above form might look something like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  firstname: "Tom",
-  lastname: "Cat"
-}</code></pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="form_grouping"><a class="link" href="#form_grouping">Form grouping</a></h3>
-<div class="paragraph">
-<p>In addition to input types, one may use sets to group form items to construct more advanced forms, and hence richer data models.</p>
-</div>
-<div class="paragraph">
-<p>Use form items like <a href="schemas/field-set.ahtml">Field sets</a> (decorative only), <a href="schemas/item-set.ahtml">Item sets</a>, and <a href="schemas/option-set.ahtml">Option sets</a> for this purpose.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="xsd"><a class="link" href="#xsd">XML Schema Definition (XSD)</a></h3>
-<div class="paragraph">
-<p>To simplify editing, an XSD is available.</p>
-</div>
-<div class="paragraph">
-<p>Addf the following attributes to the first element of your XML file in order to enjoy validation while typing:</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Not all editors support XSD validation
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="title">XSD attributes</div>
-<div class="content">
-<pre class="highlight"><code class="language-XML" data-lang="XML">xmlns="urn:enonic:xp:model:1.0"
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:schemaLocation="urn:enonic:xp:model:1.0 https://raw.githubusercontent.com/enonic/xp/master/modules/core/core-api/src/main/resources/META-INF/xsd/model.xsd"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If added to a content type schema, it would look something like this:</p>
-</div>
-<div class="listingblock">
-<div class="title">Example when added to content type schema</div>
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;content-type
-    xmlns="urn:enonic:xp:model:1.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="urn:enonic:xp:model:1.0 https://raw.githubusercontent.com/enonic/xp/master/modules/core/core-api/src/main/resources/META-INF/xsd/model.xsd"&gt;
-  &lt;display-name&gt;Content type display name&lt;/display-name&gt;</code></pre>
-</div>
-</div>
+<p>In Enonic XP, the schema concept is also used in other contexts than the CMS. For instance, identity providers and tasks also use schemas to define their configuration. In these cases, only a generic subset of the form imputs are supported, and the form output will not be persisted as content, but rather stored in the identity provider or task definition.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-26 11:59:52 UTC
+Last updated 2026-03-11 15:35:18 UTC
 </div>
 </div>
 </body>

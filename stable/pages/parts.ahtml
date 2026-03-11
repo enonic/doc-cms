@@ -502,12 +502,12 @@ In the screenshots below parts "<em>HTML Area Example</em>" and "<em>Image filte
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/part-selector.png" alt="Custom icon as seen in the part selector" width="289">
+<img src="images/part-selector.png" alt="Custom icon as seen in the part selector" width="289">
 </div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/component-tree.png" alt="Custom icons in the page components tree" width="422">
+<img src="images/component-tree.png" alt="Custom icons in the page components tree" width="422">
 </div>
 </div>
 </div>
@@ -526,7 +526,7 @@ In the screenshots below parts "<em>HTML Area Example</em>" and "<em>Image filte
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-26 11:59:52 UTC
+Last updated 2026-03-11 15:35:18 UTC
 </div>
 </div>
 </body>

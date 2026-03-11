@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Item Set</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,175 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Item Set</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#appearance">Appearance</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Item sets provide a special capability that allows you to nest form items.</p>
+</div>
+<div class="paragraph">
+<p>Item sets are both visually and semantically grouped as the name of the item set is used in the persisted property structure. An item set actually produces a property set.</p>
+</div>
+<div class="paragraph">
+<p>A new or a single occurrence of an item set is by default expanded and can be collapsed by a click anywhere inside the item set header.</p>
+</div>
+<div class="paragraph">
+<p>Multiple occurrences of an item set will be collapsed by default to ensure better readability of a form containing several occurrences of complex item sets.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Below: A single instance of an itemset for "Contact info".</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/itemset-1.png" alt="Single expanded item-set" width="673">
+</div>
+</div>
+<div class="paragraph">
+<p>Below: The label of an item set will dynamically adapt to reflect  content inside of it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/itemset-2.png" alt="Two collapsed item sets" width="where the label reflects the text inside" height="663">
+</div>
+</div>
+<div class="paragraph">
+<p>Below: Collapse item sets to get an overview and easily organize the list of items.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/itemset-3.png" alt="Context menu allows to add or remove new items within the list" width="665">
+</div>
+</div>
+<div class="paragraph">
+<p>Below: Easily add new items within a list of item sets.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/itemset-4.png" alt="Item-set with context menu" width="690">
+</div>
+</div>
+<div class="paragraph">
+<p>Below: Item sets may be nested to support complex content models.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/itemset-5.png" alt="Nested item-sets" width="670">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The definition below will allow for multiple entries of phone numbers with labels:</p>
+</div>
+<div class="listingblock">
+<div class="title">Item Set example with two inputs</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;item-set name="contact_info"&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;label i18n="contact_info.label"&gt;Contact Info&lt;/label&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;occurrences minimum="0" maximum="0"/&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
+  &lt;items&gt;
+    &lt;input name="label" type="TextLine"&gt;
+      &lt;label&gt;Label&lt;/label&gt;
+      &lt;occurrences minimum="0" maximum="1"/&gt;
+    &lt;/input&gt;
+    &lt;input name="phone_number" type="TextLine"&gt;
+      &lt;label&gt;Phone Number&lt;/label&gt;
+      &lt;occurrences minimum="0" maximum="1"/&gt;
+    &lt;/input&gt;
+  &lt;/items&gt;
+&lt;/item-set&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>name</strong> defines the mapping to the property name</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>label</strong> - The displayed identfier of the input.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>occurences</strong> control the minimum and maximum instances of the ItemSet that may be created</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+It is also possible to nest item sets inside each other
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The above definition would produce a property format like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example with a single item</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  contact_info: {
+    label: "home",
+    phone_number: "+4712345678"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example with multipe items</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  contact_info: [{
+    label: "home",
+    phone_number: "+4712345678"
+  },{
+    label: "office",
+     dphone_number: "+123456789"
+  }]
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Arrays are added based on the actual number of items created, not the schema definition.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

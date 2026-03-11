@@ -500,7 +500,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/component-input-type.png" alt="Component editor" width="527px">
+<img src="images/component-input-type.png" alt="Component editor" width="527px">
 </div>
 </div>
 <div class="paragraph">
@@ -520,7 +520,7 @@ Ther dropzones are empty regions.
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/3-region-layout.png" alt="Layout with three empty regions" width="1012px">
+<img src="images/3-region-layout.png" alt="Layout with three empty regions" width="1012px">
 </div>
 </div>
 </div>
@@ -572,7 +572,7 @@ Empty regions are never persisted. Region names are only determined from the com
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-26 11:59:52 UTC
+Last updated 2026-03-11 15:35:18 UTC
 </div>
 </div>
 </body>

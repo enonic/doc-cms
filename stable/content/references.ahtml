@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<meta name="author" content="toc: right">
+<title>References</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,21 +438,54 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>References</h1>
+<div class="details">
+<span id="author" class="author">toc: right</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#inbound_vs_outbound">Inbound vs Outbound</a></li>
+<li><a href="#storage_and_indexing">Storage and indexing</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Content items may contain references to other content items.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>References are stored as part of the content item in the repository, and are indexed together with the content item. References are used to create relationships between content items, and can be used to build complex content structures and hierarchies</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>TODO</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="inbound_vs_outbound"><a class="link" href="#inbound_vs_outbound">Inbound vs Outbound</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="storage_and_indexing"><a class="link" href="#storage_and_indexing">Storage and indexing</a></h2>
+<div class="sectionbody">
+
 </div>
 </div>
 </div>

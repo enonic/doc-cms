@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>CustomSelector input type</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,173 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>CustomSelector input type</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#usage">Usage</a>
+<ul class="sectlevel2">
+<li><a href="#service_request">Service Request</a></li>
+<li><a href="#service_response">Service Response</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Selector with customizable data source. Useful for live integrations with external data sources.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-selector">Building a custom selector</a> for hands on learning.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Application developers must create a service that returns results according to the required JSON format, and then specify the service name in the input config. For information on creating a service see the
+:ref:`services` section.</p>
+</div>
+<div class="paragraph">
+<p>Below are several sample usages of CustomSelector:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;!-- Basic Sample --&gt;
+&lt;input name="mycustomselector" type="CustomSelector"&gt;
+  &lt;label&gt;My Custom Selector&lt;/label&gt;
+  &lt;occurrences minimum="0" maximum="0"/&gt;
+  &lt;config&gt;
+    &lt;service&gt;my-custom-selector&lt;/service&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;/config&gt;
+&lt;/input&gt;
+
+&lt;!-- Sample with parameters --&gt;
+&lt;input name="musicTrack" type="CustomSelector"&gt;
+  &lt;label&gt;Intro song&lt;/label&gt;
+  &lt;config&gt;
+    &lt;service&gt;spotify-music-selector&lt;/service&gt;
+    &lt;param value="genre"&gt;classic&lt;/param&gt;   <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;param value="sortBy"&gt;length&lt;/param&gt;
+  &lt;/config&gt;
+&lt;/input&gt;
+
+&lt;!-- Gallery mode --&gt;
+&lt;input name="albumCover" type="CustomSelector"&gt;
+  &lt;label&gt;Album cover&lt;/label&gt;
+  &lt;config&gt;
+    &lt;service&gt;spotify-album-cover-selector&lt;/service&gt;
+    &lt;galleryMode&gt;true&lt;/galleryMode&gt;   <i class="conum" data-value="3"></i><b>(3)</b>
+  &lt;/config&gt;
+&lt;/input&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>service</strong> holds the name of a JavaScript service file, located under <code>/resources/services/[my-custom-selector]/[my-custom-selector].js</code>. You can also refer to a service file in another application, for example <strong>com.myapplication.app:myservice</strong>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>param</strong> lets you pass parameters to the service. This allows for the service to be used in different contexts. There can be multiple parameters or none. The parameters will be included in the HTTP request to the service as name-value query parameters.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>galleryMode</strong> set to <code>true</code> will display the options in a gallery style (three big images in a row), similar to the appearance of an <a href="imageselector.ahtml#appearance">ImageSelector</a>. Useful when images should be emphasized.</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="service_request"><a class="link" href="#service_request">Service Request</a></h3>
+<div class="paragraph">
+<p>In addition to the param values, the service will receive the following query parameters in the HTTP request:</p>
+</div>
+<div class="paragraph">
+<p><strong>ids</strong><br>
+Array of item ids already selected in the CustomSelector. The service is expected to return the items with the specified ids.</p>
+</div>
+<div class="paragraph">
+<p><strong>start</strong><br>
+Index of the first item expected. Used for pagination of the results.</p>
+</div>
+<div class="paragraph">
+<p><strong>count</strong><br>
+Maximum number of items expected. Used for pagination of the results.</p>
+</div>
+<div class="paragraph">
+<p><strong>query</strong><br>
+String with the search text typed by the user in the CustomSelector input field.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="service_response"><a class="link" href="#service_response">Service Response</a></h3>
+<div class="paragraph">
+<p>The service controller must have a GET handler that returns results in JSON format.
+The JSON object returned must include <code>total</code> and <code>count</code> properties as numbers, and <code>hits</code> containing an array of items.
+Each item in the hits property must have the following fields:</p>
+</div>
+<div class="paragraph">
+<p><strong>id</strong><br>
+Unique Id of the option</p>
+</div>
+<div class="paragraph">
+<p><strong>displayName</strong><br>
+Option title</p>
+</div>
+<div class="paragraph">
+<p><strong>description (optional)</strong><br>
+Detailed description</p>
+</div>
+<div class="paragraph">
+<p><strong>iconUrl (optional)</strong><br>
+Path to the thumbnail image file</p>
+</div>
+<div class="paragraph">
+<p><strong>icon (optional)</strong><br>
+Inline image content (for example, SVG)</p>
+</div>
+<div class="paragraph">
+<p>Sample JSON response from a CustomSelector service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "total": 10,
+  "count": 2,
+  "hits": [
+    {
+      "id": "1",
+      "displayName": "Option number 1",
+      "description": "External SVG file is used as icon",
+      "iconUrl": "/some/path/images/number_1.svg"
+    },
+    {
+      "id": "2",
+      "displayName": "Option number 2",
+      "description": "Inline SVG markup is used as icon",
+      "icon": {
+        "data": "&lt;svg xmlns=\"http://www.w3.org/2000/svg\"/&gt;",
+        "type": "image/svg+xml"
+      }
+    }
+  ]
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>

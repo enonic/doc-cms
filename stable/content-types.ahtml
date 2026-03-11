@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Content Types</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,130 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Content Types</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#name">Name</a></li>
+<li><a href="#built_in_types">Built-in types</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#extend_with_mixins">Extend with mixins</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Content types is the foundational schema type in Enonic XP. All content items must be based on a content type. Content types are used to define the sturcture and capabilities of a content items.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="name"><a class="link" href="#name">Name</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every content type has a unique identifier in the following format <code>&lt;namespace&gt;:&lt;name&gt;</code>. Content types are either built-in, or custom defined by developers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="built_in_types"><a class="link" href="#built_in_types">Built-in types</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to the custom defined types, several <a href="#built-in">[built-in]</a> content types exits. These use reserved namespaces such as <code>base</code>, <code>media</code> and <code>portal</code>, and are available for use in your content model. Built-in content types are typically used as super-types for custom content types, but can also be used directly when creating content items.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Content types schemas are defined via YAML definitions. Below is an example content type definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;content-type&gt;
+  &lt;display-name&gt;Person&lt;/display-name&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;display-name-label&gt;Full Name&lt;/display-name-label&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;description&gt;Create a new person&lt;/description&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
+  &lt;super-type&gt;base:structured&lt;/super-type&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
+  &lt;is-abstract&gt;false&lt;/is-abstract&gt;  <i class="conum" data-value="5"></i><b>(5)</b>
+  &lt;is-final&gt;true&lt;/is-final&gt;  <i class="conum" data-value="6"></i><b>(6)</b>
+  &lt;is-built-in&gt;false&lt;/is-built-in&gt;   <i class="conum" data-value="7"></i><b>(7)</b>
+  &lt;allow-child-content&gt;true&lt;/allow-child-content&gt;  <i class="conum" data-value="8"></i><b>(8)</b>
+  &lt;allow-child-content-type&gt;base:folder&lt;/allow-child-content-type&gt;  <i class="conum" data-value="9"></i><b>(9)</b>
+  &lt;allow-child-content-type&gt;${app}:article-*&lt;/allow-child-content-type&gt;
+  &lt;form/&gt; <i class="conum" data-value="10"></i><b>(10)</b>
+&lt;/content-type&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>display-name</strong> (required) The human readable name of the content type.
+Optionally specify the <a href="../api/lib-i18n.ahtml">i18n</a> attribute to define a mapping to localize the value.
+The localization key must then be declared and localised in the resource bundle.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>display-name-label</strong> (optional; <em>since v7.1</em>) Enables you to override the default &lt;Display Name&gt; placeholder used in the content form.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>description</strong> (optional) Set a description that is shown when creating the content type.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>super-type</strong> (required) Refers to the root controller of the form. For custom content types this should typically be set to <code>base:structured</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td><strong>is-abstract</strong> (optional; default: false) If true, you cannot create content with this content type.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td><strong>is-final</strong> (optional; default: false) If true, it is not possible to create new content types that “extend” this.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td><strong>is-built-in</strong> (optional; default: false) Only specified by built-in content types.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td><strong>allow-child-content</strong> (optional; default: true) If false, no content will be allowed to be created or moved under content of this content type
+(e.g. prevents child content under media)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td><strong>allow-child-content-type</strong> (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <a href="./schemas/input-types/contentselector.ahtml#allowContentType">MATCH</a>. <span class="image"><span class="alt">XP 7.7.0</span></span></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td><strong>form</strong> (required) The custom <a href="schemas.ahtml#forms">Form</a> definition for your content type.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>allow-child-content-type</code> will not have effect if <code>allow-child-content</code> is set to <code>false</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extend_with_mixins"><a class="link" href="#extend_with_mixins">Extend with mixins</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You may dynamically extend both built-in and custom-defined content types through the use of <a href="mixins.ahtml">Mixins</a>.</p>
 </div>
 </div>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Option Set</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,386 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Option Set</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#single_select_mode">Single select mode</a>
+<ul class="sectlevel2">
+<li><a href="#appearance">Appearance</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
+</ul>
+</li>
+<li><a href="#multi_select_mode">Multi select mode</a>
+<ul class="sectlevel2">
+<li><a href="#appearance_2">Appearance</a></li>
+<li><a href="#usage_2">Usage</a></li>
+<li><a href="#output_2">Output</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>An option set is a group of options presented either as a multi-select option set (radio button style), or as a single-select option set (dropdown style).</p>
+</div>
+<div class="paragraph">
+<p>Each option <em>may</em> contain an optional form, which also support nested item-sets and option-sets.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="single_select_mode"><a class="link" href="#single_select_mode">Single select mode</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="appearance"><a class="link" href="#appearance">Appearance</a></h3>
+<div class="paragraph">
+<p>In single select mode, an optionset will look similar to an <a href="item-set.ahtml">item set</a>, but you will rather have multiple "items" to select from.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/optionset-singleselect-add.png" alt="Inserting a new optionset (visualized as a card). Available options are listed in a dropdown" width="668">
+</div>
+</div>
+<div class="paragraph">
+<p>When inserting a new optionset, the selected option&#8217;s form will automatically be expanded.</p>
+</div>
+<div class="paragraph">
+<p>The example below what it looks like when multiple option set instances are inserted and expanded. Each option set is visualized as a card.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Notice that the Horizontal line option does not have a form.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/optionset-singleselect-expanded.png" alt="Showing three expanded cards" width="Horizontal line card has no form" height="676">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Delete, reset or move the option panels using the right hand context menu.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The final example demonstrates the same form as above, with all forms collapsed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/optionset-singleselect-collapsed.png" alt="Showing three cards with titles for the respective options used Quote" width="Horizontal line and Text" height="668">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Easily shuffle the order of the option sets by dragging the cards from the grip zone on the left hand side.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usage"><a class="link" href="#usage">Usage</a></h3>
+<div class="paragraph">
+<p>The schema below demonstrates how you may create blocks of structured content using the single-select mode.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample 1: single-select setup with the options <code>hr</code>, <code>text</code>, <code>gallery</code> and <code>quote</code>.</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;option-set name="blockOptionSet"&gt;
+  &lt;label&gt;Content blocks&lt;/label&gt;
+  &lt;occurrences minimum="0" maximum="0"/&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;help-text&gt;Create content with optional blocks&lt;/help-text&gt;
+  &lt;options minimum="1" maximum="1"&gt;   <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;option name="hr"&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
+      &lt;label&gt;Horisontal line&lt;/label&gt;
+      &lt;help-text&gt;Adds a separator between blocks&lt;/help-text&gt;
+    &lt;/option&gt;
+    &lt;option name="text"&gt;
+      &lt;label&gt;Text&lt;/label&gt;
+      &lt;items&gt;
+        &lt;input name="text" type="TextArea"&gt;
+          &lt;label&gt;Text&lt;/label&gt;
+          &lt;occurrences minimum="1" maximum="1"/&gt;
+        &lt;/input&gt;
+      &lt;/items&gt;
+    &lt;/option&gt;
+    &lt;option name="gallery"&gt;
+      &lt;label&gt;Image gallery&lt;/label&gt;
+      &lt;items&gt;
+        &lt;input name="images" type="ImageSelector"&gt;
+          &lt;label&gt;Images&lt;/label&gt;
+          &lt;occurrences minimum="1" maximum="0"/&gt;
+          &lt;config/&gt;
+        &lt;/input&gt;
+      &lt;/items&gt;
+    &lt;/option&gt;
+    &lt;option name="quote"&gt;
+      &lt;label&gt;Quote&lt;/label&gt;
+      &lt;items&gt;
+        &lt;input name="quote" type="TextLine"&gt;
+          &lt;label&gt;Quote&lt;/label&gt;
+          &lt;occurrences minimum="1" maximum="1"/&gt;
+        &lt;/input&gt;
+        &lt;input name="quotee" type="TextLine"&gt;
+          &lt;label&gt;Quotee&lt;/label&gt;
+          &lt;occurrences minimum="1" maximum="1"/&gt;
+        &lt;/input&gt;
+      &lt;/items&gt;
+    &lt;/option&gt;
+  &lt;/options&gt;
+&lt;/option-set&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>occurences</strong> Set value to maximum=0 for unlimited option-set (block) instances</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>options/@maximum</strong> Refers to selectable options per instance. A value of 1 &#8658; single-select mode.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>option</strong> (required) Container of options. Each option may be empty or contain items, just like an item set.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="output"><a class="link" href="#output">Output</a></h3>
+<div class="paragraph">
+<p>An example output of the above form, where the user has created three instances, using three different options: quote, hr and text.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example output of single-select setup, here with three occurences.</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "blockOptionSet": [
+    {
+      "quote": {
+        "quote": "Hi there",
+        "quotee": "Mr Enonic"
+      },
+      "_selected": "quote"
+    },
+    {
+      "hr": {
+      },
+      "_selected": "hr"
+    },
+    {
+      "text": {
+        "text": "A short text"
+      },
+      "_selected": "text"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>_selected</code> property can be used when searching for selected options for instance.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="multi_select_mode"><a class="link" href="#multi_select_mode">Multi select mode</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="appearance_2"><a class="link" href="#appearance_2">Appearance</a></h3>
+<div class="paragraph">
+<p>In multi select mode, the user may select zero to many options within a single option set.</p>
+</div>
+<div class="paragraph">
+<p>Each option&#8217;s form (if it exists) will normally only be visible once the option is selected.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For convenience, a multi-select option set can be configured to have all options expanded by default.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Below: A multi-select option set where all options are expanded by default. Option 2 and 3 do not have any additional form items:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/optionset-multiselect.png" alt="Form showing four options" width="with the "coloring" and "wood upgrade" options selected" height="666">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For multi-select options sets, it is also possible to pre-select options by default.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usage_2"><a class="link" href="#usage_2">Usage</a></h3>
+<div class="paragraph">
+<p>The example below demostrates multi-select mode, with the options <code>Coloring</code>, <code>Wood upgrade</code>, <code>Include curtains</code> and <code>Exclusive wallpaper</code>. Only options 1 and 4 contain form elements. Also, user may maximally select two options.</p>
+</div>
+<div class="listingblock">
+<div class="title">Multi-select option set with the coloring option selected by default.</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;option-set name="styling"&gt;
+  &lt;label&gt;Room styling&lt;/label&gt;
+  &lt;expanded&gt;true&lt;/expanded&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;occurrences minimum="1" maximum="1"/&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;help-text&gt;Select up to 2 options&lt;/help-text&gt;
+  &lt;options minimum="1" maximum="2"&gt; <i class="conum" data-value="3"></i><b>(3)</b> <i class="conum" data-value="4"></i><b>(4)</b>
+    &lt;option name="coloring"&gt; <i class="conum" data-value="5"></i><b>(5)</b>
+      &lt;label&gt;Coloring&lt;/label&gt;
+      &lt;help-text&gt;Select a color palette for the room&lt;/help-text&gt;
+      &lt;default&gt;true&lt;/default&gt; <i class="conum" data-value="6"></i><b>(6)</b>
+      &lt;items&gt;
+      &lt;input name="palette" type="ComboBox"&gt;
+        &lt;label&gt;Palette&lt;/label&gt;
+        &lt;occurrences minimum="1" maximum="1"/&gt;
+        &lt;config&gt;
+          &lt;option value="spring"&gt;Spring&lt;/option&gt;
+          &lt;option value="summer"&gt;Summer&lt;/option&gt;
+          &lt;option value="autumn"&gt;Autumn&lt;/option&gt;
+          &lt;option value="winter"&gt;Winter&lt;/option&gt;
+        &lt;/config&gt;
+        &lt;default&gt;spring&lt;/default&gt;
+      &lt;/input&gt;
+      &lt;/items&gt;
+    &lt;/option&gt;
+    &lt;option name="wood"&gt;
+      &lt;label&gt;Wood upgrade&lt;/label&gt;
+      &lt;help-text&gt;Wooden floor and doors&lt;/help-text&gt;
+    &lt;/option&gt;
+    &lt;option name="curtains"&gt;
+      &lt;label&gt;Include curtains&lt;/label&gt;
+      &lt;help-text&gt;Adds curtains to all windows&lt;/help-text&gt;
+    &lt;/option&gt;
+    &lt;option name="wallpaper"&gt;
+      &lt;label&gt;Exclusive wallpaper&lt;/label&gt;
+      &lt;items&gt;
+        &lt;input name="product" type="ContentSelector"&gt;
+          &lt;label&gt;Wallpaper&lt;/label&gt;
+          &lt;occurrences minimum="1" maximum="1"/&gt;
+          &lt;config/&gt;
+        &lt;/input&gt;
+      &lt;/items&gt;
+    &lt;/option&gt;
+  &lt;/options&gt;
+&lt;/option-set&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>expanded</strong> Set to <code>true</code> to expand all of the options by default</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>occurrences</strong> Allow zero, one or more instances of the whole option-set.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>options/@minimum</strong> (required) Minimum number of options that must be selected in this option set.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>options/@maximum</strong> (required) Maximum number of options to create. &gt; 1 &#8658; multi-select mode. 1 &#8658; single-select mode.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td><strong>option/@name</strong> (required) Must be unique within the option set.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td><strong>default</strong> Set to <code>true</code> to pre-select one of the options.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="output_2"><a class="link" href="#output_2">Output</a></h3>
+<div class="paragraph">
+<p>The output from the example above may look like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example output from multi-select form, with a single occurence.</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "styling": {
+    "_selected": [
+      "coloring",
+      "wood"
+    ],
+    "coloring": {
+      "palette": "spring"
+    },
+    "wood": {
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>_selected</code> property contains information about which options were selected.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>

@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<meta name="author" content="At least one page component must be available in your project to be able to create pages.">
+<title>Page</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +438,96 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Page</h1>
+<div class="details">
+<span id="author" class="author">At least one page component must be available in your project to be able to create pages.</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#usage">Usage</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>At the root of every page, you will find the page component. Most sites only need a single page component, as this can be reused across all pages.</p>
+</div>
+<div class="paragraph">
+<p>To create a page component, add a component descriptor file to your project <code>src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name.xml&gt;</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The name you choose for a component will be used in the underlying data of the stored page. So choose your name wisely.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To create a page component, place a descriptor file in your project: `src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name&gt;.xml.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample page descriptor</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;page&gt;
+  &lt;display-name i18n="component.page.name"&gt;My first page&lt;/display-name&gt; <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;description&gt;Front page of our site&lt;/description&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
+  &lt;form/&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
+  &lt;regions&gt;
+    &lt;region name="main"/&gt;  <i class="conum" data-value="5"></i><b>(5)</b>
+  &lt;/regions&gt;
+&lt;/page&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>display-name</strong> provides a display name used by the editorial interface</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>display-name/i18n</strong> optionally specify localization key</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>description</strong> Description field shown when creating a part in content studio</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>form</strong> allows the definition of a configuration form based on the <a href="schemas.ahtml">schema system</a></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td><strong>region</strong> optionally specify <a href="pages/regions.ahtml">regions</a> for the page.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A page component may define zero, to many regions. Conventionally, a page should at least define a single region called <code>main</code>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Media content types</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,121 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Media content types</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#built_in_media_types">Built in media types</a>
+<ul class="sectlevel2">
+<li><a href="#text_mediatext">Text (media:text)</a></li>
+<li><a href="#data_mediadata">Data (media:data)</a></li>
+<li><a href="#audio_mediaaudio">Audio (media:audio)</a></li>
+<li><a href="#video_mediavideo">Video (media:video)</a></li>
+<li><a href="#image_mediaimage">Image (media:image)</a></li>
+<li><a href="#vector_mediavector">Vector (media:vector)</a></li>
+<li><a href="#archive_mediaarchive">Archive (media:archive)</a></li>
+<li><a href="#document_mediadocument">Document (media:document)</a></li>
+<li><a href="#spreadsheet_mediaspreadsheet">Spreadsheet (media:spreadsheet)</a></li>
+<li><a href="#presentation_mediapresentation">Presentation (media:presentation)</a></li>
+<li><a href="#code_mediacode">Code (media:code)</a></li>
+<li><a href="#executable_mediaexecutable">Executable (media:executable)</a></li>
+<li><a href="#unknown_mediaunknown">Unknown (media:unknown)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="built_in_media_types"><a class="link" href="#built_in_media_types">Built in media types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Enonic XP automatically detects the type of media files uploaded to the CMS, and assigns them a pre-defined content type, aka Media type. These media types are all located in the <code>media</code> namespace, and are all subtypes of the abstract type <code>base:media</code>. The media types are:</p>
+</div>
+<div class="sect2">
+<h3 id="text_mediatext"><a class="link" href="#text_mediatext">Text (media:text)</a></h3>
+<div class="paragraph">
+<p>Plain text files such as .txt, and .csv</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="data_mediadata"><a class="link" href="#data_mediadata">Data (media:data)</a></h3>
+<div class="paragraph">
+<p>Miscellaneous binary file formats.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="audio_mediaaudio"><a class="link" href="#audio_mediaaudio">Audio (media:audio)</a></h3>
+<div class="paragraph">
+<p>Audio files.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="video_mediavideo"><a class="link" href="#video_mediavideo">Video (media:video)</a></h3>
+<div class="paragraph">
+<p>Video files.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="image_mediaimage"><a class="link" href="#image_mediaimage">Image (media:image)</a></h3>
+<div class="paragraph">
+<p>Bitmap image files.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vector_mediavector"><a class="link" href="#vector_mediavector">Vector (media:vector)</a></h3>
+<div class="paragraph">
+<p>Vector graphic files like .svg</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="archive_mediaarchive"><a class="link" href="#archive_mediaarchive">Archive (media:archive)</a></h3>
+<div class="paragraph">
+<p>File archives like .zip, .tar, and .jar</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="document_mediadocument"><a class="link" href="#document_mediadocument">Document (media:document)</a></h3>
+<div class="paragraph">
+<p>Text documents with advanced formatting, like .doc, .odt, and .pdf</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spreadsheet_mediaspreadsheet"><a class="link" href="#spreadsheet_mediaspreadsheet">Spreadsheet (media:spreadsheet)</a></h3>
+<div class="paragraph">
+<p>Spreadsheet files like .xls, .xlsx</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="presentation_mediapresentation"><a class="link" href="#presentation_mediapresentation">Presentation (media:presentation)</a></h3>
+<div class="paragraph">
+<p>Presentation files like .key and .ppt</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code_mediacode"><a class="link" href="#code_mediacode">Code (media:code)</a></h3>
+<div class="paragraph">
+<p>Files with computer code like .js, .c, .pl, and .java</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="executable_mediaexecutable"><a class="link" href="#executable_mediaexecutable">Executable (media:executable)</a></h3>
+<div class="paragraph">
+<p>Application files such as .app, .exe and .jar</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unknown_mediaunknown"><a class="link" href="#unknown_mediaunknown">Unknown (media:unknown)</a></h3>
+<div class="paragraph">
+<p>Files that do not match any of the above</p>
+</div>
 </div>
 </div>
 </div>

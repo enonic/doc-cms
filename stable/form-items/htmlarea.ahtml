@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>HtmlArea input type</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,21 +437,294 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>HtmlArea input type</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#appearance">Appearance</a></li>
+<li><a href="#usage">Usage</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A field for entering multi-line text with rich-formatting options.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The rich text editor as seen with the default configuration. The <code>Add</code> button indicated that this setup also supports multiple occurrences of the editor.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Html-area-editor.png" alt="Input field with a toolbar at the top. Source and fullscreen buttons on the bottom left" width="600">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="myhtmlarea" type="HtmlArea"&gt;
+  &lt;label&gt;My HtmlArea&lt;/label&gt;
+  &lt;default&gt;&lt;h3&gt;Enter description here&lt;/h3&gt;&lt;/default&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;config&gt;
+    &lt;exclude&gt;*&lt;/exclude&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;include&gt;JustifyLeft JustifyRight | Bold Italic&lt;/include&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
+    &lt;allowHeadings&gt;h2 h4 h6&lt;/allowHeadings&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
+  &lt;/config&gt;
+&lt;/input&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>default</strong> can contain any valid HTML elements, but tags must be correctly closed since the input type is defined inside an XML.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>exclude</strong> optionally removes the standard tools from the editor toolbar</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>include</strong> optionally adds more tools to the editor toolbar.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>allowHeadings</strong> space-separated list of allowed heading tags (from <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>); by default all are allowed</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you are manually outputting contents of an HtmlArea input in your template, you might have to use
+<a href="../../../api/lib-portal.ahtml#processHtml">processHtml()</a> function which will process macros and generate correct links inside the HTML content.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+HTML Area is configured with a default set of tools, but the toolbar can be customized. Using the config setting, you can exclude specific tools from being shown (use "*" to exclude all tools at once) and/or include those that you want to have in the toolbar. Separate tools with a space and use "|" character to group tool buttons together. A complete list of supported tools can be found below.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Below is the default editor tools configuration:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Format | JustifyBlock JustifyLeft JustifyCenter JustifyRight | BulletedList NumberedList Outdent Indent | FindAndReplace SpecialChar Anchor Image Macro Link Unlink | Table | PasteModeSwitcher</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Below is the complete list of available editor tools:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Text format menu</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bold</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bold text</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Italic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Italic text</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underline</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underline text</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JustifyBlock</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Justify content</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JustifyLeft</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Left align content</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JustifyCenter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Center content</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JustifyRight</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Right align content</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BulletedList</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert a bullet list</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NumberedList</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert a numbered list</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Outdent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decrease indent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Increase indent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FindAndReplace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Find and Replace dialog</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SpecialChar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert a special character</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert an anchor</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert/Edit an image</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Macro</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert a macro</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Link</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert/Edit a link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unlink</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Table</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Table format menu</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PasteModeSwitcher</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Paste mode (formatted/plain text)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BGColor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Background color</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Blockquote</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quotation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Copy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Copy selected text into buffer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CopyFormatting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Copy formatting</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CreateDiv</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wrap with div</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cut</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cut selected text into buffer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Font</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Font menu</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FontSize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Font size menu</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HorizontalRule</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Insert a horizontal line</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set language for parts of the text</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ListStyle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change style of BulletedList</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NewPage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clean editor&#8217;s content</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Preview</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Preview HTML Area contents</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repeat the last action</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RemoveFormat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove formatting</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SelectAll</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select editor&#8217;s content</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Strike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Strikethrough over text</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Styles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Text styles menu</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subscript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subscript text</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Superscript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Superscript text</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TextColor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Text color</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Undo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Undo the last action</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

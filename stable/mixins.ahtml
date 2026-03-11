@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Content Mixin schemas</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,130 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Content Mixin schemas</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#definition">Definition</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#configuration">Configuration</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>TODO
+It is often useful to be able to share a set of fields across different content types.
+Xtra data, or X-data for short was designed specifically for this purpose.</p>
+</div>
+<div class="paragraph">
+<p>By defining x-data schemas, developers may dynamically inject these extra fields to all, or a specified list of content types.
+For instance, the SEO Meta fields application makes use of this, so editors may fine-tune SEO settings across all different content they produce.</p>
+</div>
+<div class="paragraph">
+<p>In Content Studio, X-data is visualized as a separate step in the publishing form.</p>
+</div>
+<div class="paragraph">
+<p>X-data (short for <em>eXtra data</em>) makes it possible to dynamically extend existing content types with a new form.
+When editing content, X-data fields will be displayed inside a separate step in the content form.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you want to inject fields inside content type&#8217;s form rather than appending a form, consider using <a href="schemas/mixins.ahtml">a mixin</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="definition"><a class="link" href="#definition">Definition</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The file with X-data schema must be placed in the folder <code>site/x-data/[name]</code> and called <code>[name].xml</code>. For example, <em>site/x-data/address/address.xml</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;x-data&gt;
+  &lt;display-name&gt;Full address&lt;/display-name&gt;
+  &lt;form&gt;
+    &lt;input type="TextLine" name="addressLine"&gt;
+      &lt;label&gt;Street address&lt;/label&gt;
+      &lt;occurrences minimum="0" maximum="2"/&gt;
+    &lt;/input&gt;
+    &lt;input type="TextLine" name="city"&gt;
+      &lt;label&gt;City&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+    &lt;input type="TextLine" name="zipCode"&gt;
+      &lt;label&gt;Zip code&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+    &lt;input type="TextLine" name="country"&gt;
+      &lt;label&gt;Country&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+  &lt;/form&gt;
+&lt;/x-data&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To activate X-data for your project or site, it must be referenced in the application&#8217;s <code>site.xml</code>. The example below adds the <code>address</code> X-data to all content types within its scope.</p>
+</div>
+<div class="listingblock">
+<div class="title">/src/main/resource/site/site.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;site&gt;
+  &lt;x-data name="address"/&gt;
+  &lt;form/&gt;
+&lt;/site&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It&#8217;s possible to restrict X-data for specific content types using regular expressions. This is especially convenient when you apply X-data to all content types via <code>site.xml</code> but want to exclude some content types.</p>
+</div>
+<div class="paragraph">
+<p>Use regular expressions in the <code>allowContentTypes</code> attribute of the <code>&lt;x-data/&gt;</code> field inside <code>site.xml</code> to enable or disable it for specific content type(s).
+By default x-data will be added to content items of all types with no option to remove it but you can make it optional by setting <code>optional</code> attribute to <em>true</em>. Optional x-data has to be manually enabled inside Content Wizard to be added to the content data.</p>
+</div>
+<div class="paragraph">
+<p>If <code>allowContentTypes</code> and <code>optional</code> attributes are not set, the x-data will automatically be enabled for all content types. See <a href="schemas/input-types/contentselector.ahtml#allowContentType">modes</a> of content type filtering.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;site&gt;
+  &lt;x-data name="my-x-data-1" /&gt;
+  &lt;x-data name="my-x-data-2" allowContentTypes="^(?!base:folder$).*" /&gt;
+  &lt;x-data name="my-x-data-3" allowContentTypes="portal:site" optional="true" /&gt;
+  &lt;form/&gt;
+&lt;/site&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the example above <em>my-x-data-1</em> will be enabled for all content types, with no option to disable it in the Content Wizard.</p>
+</div>
+<div class="paragraph">
+<p><em>my-x-data-2</em> will be added for all content types with no option to remove it in the Content Wizard, except for content type <code>base:folder</code> for which it will not be shown at all.</p>
+</div>
+<div class="paragraph">
+<p><em>my-x-data-3</em> will be enabled only for sites (which are using internal content type <code>portal:site</code>) and will be optional, meaning user has to manually turn it on in the Content Wizard.</p>
 </div>
 </div>
 </div>

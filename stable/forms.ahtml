@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Forms</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,72 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Forms</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#concept">Concept</a></li>
+<li><a href="#usage">Usage</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Forms represent the central concept for content modeling in Enonic XP.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="concept"><a class="link" href="#concept">Concept</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Schemas define the forms that can be seen and edited through an administrative interface, typically <a href="https://developer.enonic.com/docs/content-studio">Content Studio</a>.</p>
+</div>
+<div class="paragraph">
+<p>More importantly, schemas also have a back-end equivalent that validates content, and can be used programmatically. Central parts of the Headless API are automatically generated from the schemas and in particular the form definitions.</p>
+</div>
+<div class="paragraph">
+<p>All forms are essentially compositions of various <a href="form-items.ahtml">Form items</a>.</p>
+</div>
+<div class="paragraph">
+<p>Once a form is populated and submitted, the end-result will be a property structure that matches 1-1 with the form definition. The property structure can then be persisted directly into the XP repository.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Forms are declared statically in YAML, using a format that looks like this:</p>
+</div>
+<div class="paragraph">
 <p>TODO</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;form&gt;
+  &lt;input name="firstname" type="TextLine"&gt;
+    &lt;label&gt;First Name&lt;/label&gt;
+  &lt;/input&gt;
+  &lt;input name="lastname" type="TextLine"&gt;
+    &lt;label&gt;Last Name&lt;/label&gt;
+  &lt;/input&gt;
+&lt;/form&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The form implementation controls how the data is actually persisted.
+The persisted output from the above form might look something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  firstname: "Tom",
+  lastname: "Cat"
+}</code></pre>
+</div>
 </div>
 </div>
 </div>

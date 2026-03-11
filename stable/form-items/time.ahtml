@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Time input type</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,131 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Time input type</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#appearance">Appearance</a></li>
+<li><a href="#usage">Usage</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Specify time in the format hh:mm.  A pop-up box with time selector allows easy editing.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/Time-selector.png" alt="input field with a hour and minute selector above it" width="700">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mytime" type="Time"&gt;
+  &lt;label&gt;My Time&lt;/label&gt;
+  &lt;default&gt;13:22&lt;/default&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/input&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>default</strong> date value to be used. The format for the default date value can be:</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Time in 24h format: `hh:mm  (e.g. "23:59")</p>
+</li>
+<li>
+<p>Relative time expression (e.g. "+1hour -12minutes")</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A relative time expression is a sequence of one or more time offsets.
+An offset consists of: a plus or minus sign, followed by an integer, followed by a time unit string (e.g. "+3 minutes")</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Unit strings</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Singular</th>
+<th class="tableblock halign-left valign-top">Plural</th>
+<th class="tableblock halign-left valign-top">initial letter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"hour"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"hours"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"h"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"minute"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"minutes"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"m"</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>An offset can also be the string <code>now</code>, which means current date and time.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>&lt;default&gt;</code> value is set for an input, the Time picker will display "<strong>Set default</strong>" button for setting the default value with one click.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="dateTimeDefaultTz" type="DateTime"&gt;
+  &lt;label&gt;DateTime (with tz and default value)&lt;/label&gt;
+  &lt;config&gt;
+    &lt;timezone&gt;true&lt;/timezone&gt;
+  &lt;/config&gt;
+  &lt;default&gt;2000-01-01T12:30+01:00&lt;/default&gt;
+&lt;/input&gt;
+
+&lt;input name="dateTimeDefaultNoTz" type="DateTime"&gt;
+  &lt;label&gt;DateTime (without tz and default value)&lt;/label&gt;
+  &lt;default&gt;2000-01-01T12:30&lt;/default&gt;
+&lt;/input&gt;
+
+&lt;input name="dateTimeRelative" type="DateTime"&gt;
+  &lt;label&gt;DateTime (relative default value)&lt;/label&gt;
+  &lt;default&gt;+1year -12hours&lt;/default&gt;
+&lt;/input&gt;
+
+&lt;input name="dateTimeNow" type="DateTime"&gt;
+  &lt;label&gt;DateTime (current time as default value)&lt;/label&gt;
+  &lt;default&gt;now&lt;/default&gt;
+&lt;/input&gt;</code></pre>
+</div>
 </div>
 </div>
 </div>

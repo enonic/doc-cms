@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Macros</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,288 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Macros</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#macro_instructions">Macro instructions</a></li>
+<li><a href="#descriptor">Descriptor</a></li>
+<li><a href="#controller">Controller</a></li>
+<li><a href="#built_in_macros">Built-in macros</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Macros enable editors to add rich functionality or include dynamic content in the rich text editor.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="macro_instructions"><a class="link" href="#macro_instructions">Macro instructions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A macro instruction is written in plain text. They are similar to HTML or XML tags, but uses square brackets instead of angle brackets.</p>
+</div>
+<div class="paragraph">
+<p>A macro has a name, a set of attributes, and optionally a body:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[disable][macroname attrib1="value1" attrib2="value2"] body [/macroname][/disable]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sample macro without the body:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[disable][macroname attrib1="value1" attrib2="value2"/][/disable]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A user can add macro instructions by typing in the macro manually. But more conveniently by clicking the Insert macro button and selecting one of the macros available in Content Studio.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="descriptor"><a class="link" href="#descriptor">Descriptor</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A macro descriptor is an xml file that allows assigning a user-friendly name, and a description to the macro. It also has a configuration to define the types and names of the macro parameters.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">display-name</dt>
+<dd>
+<p>A simple human readable display name.</p>
+</dd>
+<dt class="hdlist1">display-name@i18n</dt>
+<dd>
+<p>The key to look up the display-name text in the localization bundles. Optional. Visit <a href="schemas/localization.ahtml">Schema localization</a> for more details.</p>
+</dd>
+<dt class="hdlist1">description</dt>
+<dd>
+<p>A description to show in the Insert macro dialog in Content Studio.</p>
+</dd>
+<dt class="hdlist1">description@i18n</dt>
+<dd>
+<p>The key to look up the description text in the localization bundles. Optional. Visit <a href="schemas/localization.ahtml">Schema localization</a> for more details.</p>
+</dd>
+<dt class="hdlist1">config</dt>
+<dd>
+<p>The config element is a form where each input element corresponds to a macro parameter. The macro body is represented with an input named "body".</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The config form does not support nested elements, so <a href="schemas/item-set.ahtml">Item Sets</a> are not allowed in the macro config form. Also the <a href="schemas/input-types/htmlarea.ahtml">HtmlArea</a> input type is not allowed in the config form, since it may contain macros itself.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If you don&#8217;t have a input with the <code>name="body"</code>, the generated macro tag will be self closing <code>[disable][macro attr="" /][/disable]`</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Its path follows the pattern <code>src/main/resources/site/macros/&lt;macroName&gt;/&lt;macroName&gt;.xml</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-XML" data-lang="XML">&lt;macro&gt;
+  &lt;display-name i18n="a-macro.display-name"&gt;Current user&lt;/display-name&gt;
+  &lt;description i18n="a-macro.description"&gt;Shows currently logged user&lt;/description&gt;
+
+  &lt;form&gt;
+    &lt;input name="body" type="TextLine"&gt;
+      &lt;label&gt;Macro body&lt;/label&gt;
+    &lt;/input&gt;
+    &lt;input name="defaultText" type="TextLine"&gt;
+      &lt;label&gt;Text to show if no user logged in&lt;/label&gt;
+    &lt;/input&gt;
+  &lt;/form&gt;
+&lt;/macro&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The macro texts (display-name, description, label and help-text from config input types) can be provided in multiple languages. Visit <a href="schemas/localization.ahtml">Schema localization</a> for more details.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Although not strictly required, it is recommended to create a descriptor, as it provides the required details for adding macros through the UI in Content Studio.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="controller"><a class="link" href="#controller">Controller</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When using the Enonic framework, optionally add a JavaScript controller to render the macro.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When using 3rd party front-end frameworks, the controller can also be used to provide a preview of the macro in Content Studio.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Its path follows the pattern <code>src/main/resources/site/macros/&lt;macroName&gt;/&lt;macroName&gt;.js</code></p>
+</div>
+<div class="paragraph">
+<p>A macro controller must export a single <code>macro</code> function that takes a <code>context</code> parameter and returns a response object (see <a href="../framework/http.ahtml#http-response">HTTP Response</a>).</p>
+</div>
+<div class="paragraph">
+<p>The context parameter is a Javascript object with the following properties:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">name</dt>
+<dd>
+<p>a string containing the macro name.</p>
+</dd>
+<dt class="hdlist1">body</dt>
+<dd>
+<p>a string containing the body of the macro instruction.</p>
+</dd>
+<dt class="hdlist1">params</dt>
+<dd>
+<p>an object with key-value pairs containing the macro parameters. The values are the strings from the macro instruction attributes.</p>
+</dd>
+<dt class="hdlist1">document</dt>
+<dd>
+<p>a string with the HTML document that contains the current macro. The document contains the raw source HTML, before any macro instructions have been executed, and before image or content URLs have been resolved. The document is only an input parameter to the macro, it cannot be modified.</p>
+</dd>
+<dt class="hdlist1">request</dt>
+<dd>
+<p>the request object.</p>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-js" data-lang="js">// Example usage: [currentUser defaultText="Anonymous"/]
+var authLib = require('/lib/xp/auth');
+var portalLib = require('/lib/xp/portal');
+
+exports.macro = function (context) {
+    var defaultText = context.params.defaultText;
+    var macroBody = context.body;
+
+    var user = authLib.getUser();
+    var body = '&lt;span&gt;' + macroBody || (user ? user.displayName : defaultText) + '&lt;/span&gt;';
+
+    var doc = context.document; // HTML document containing the current macro
+    var lineCount = doc.split(/\r\n|\r|\n/).length;
+    if (lineCount &lt;= 1) {
+        return {
+            body: ''
+        }
+    }
+
+    return {
+        body: body,
+        pageContributions: {
+            headEnd: [
+                '&lt;link rel="stylesheet" href="' + portalLib.assetUrl({path: 'css/current-user.css'}) + '"/&gt;'
+            ]
+        }
+    }
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that only the <code>body</code> and <code>pageContributions</code> fields of the response are relevant for macro controllers.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A macro controller can also use libraries, like any other JavaScript controller.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="built_in_macros"><a class="link" href="#built_in_macros">Built-in macros</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are currently 2 built-in macros that are included in XP and available for any site:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">disable</dt>
+<dd>
+<p>The contents (body) of this macro will not be evaluated as macros. That allows rendering another macro instruction as text without executing it. It is useful for documenting macros, for example. This macro has no parameters.</p>
+</dd>
+<dt class="hdlist1">embed</dt>
+<dd>
+<p>It allows embedding an &lt;iframe&gt; element in an HTML area. This is a generic way for embedding content from an external source (e.g. YouTube videos). This macro has no parameters.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Example using the disable macro:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[disable]Example of macro instruction: [myMacro param1="value1"/][/disable]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example using the embed macro:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[embed]&lt;iframe src="https://www.youtube.com/embed/cFfxuWUgcvI" allowfullscreen&gt;&lt;/iframe&gt;[/embed]</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A macro may optionally have its own specific icon. The icon can be assigned to the macro by adding a PNG or SVG file with the same name, in the macro folder, e.g. <code>site/macros/myMacro/myMacro.svg</code>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

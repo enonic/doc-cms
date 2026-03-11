@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Content layers</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,209 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Content layers</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#the_problem">The problem</a></li>
+<li><a href="#a_layered_solution">A layered solution</a>
+<ul class="sectlevel2">
+<li><a href="#inheritance">Inheritance</a></li>
+<li><a href="#localization">Localization</a></li>
+</ul>
+</li>
+<li><a href="#content_actions">Content actions</a></li>
+<li><a href="#versions">Versions</a></li>
+<li><a href="#replication_engine">Replication engine</a></li>
+<li><a href="#api">API</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p><span class="image"><span class="alt">XP 7.6.0</span></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enriching, translating, localising and reusing content across different channels are among the most complex content management practices to solve. Content layers offer a practical and secure solution to this for both editors and developers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the_problem"><a class="link" href="#the_problem">The problem</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Multi-site, multi-region, multi-language and more. Supporting management of content across regions, languages and other channels has been the goal of CMS since its conception. The problems  are many and complex:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>How to localise content</p>
+</li>
+<li>
+<p>How to keep content syncronised</p>
+</li>
+<li>
+<p>How to assure timely publishing for each channel</p>
+</li>
+<li>
+<p>Who can manage what content</p>
+</li>
+<li>
+<p>Who can access that content</p>
+</li>
+<li>
+<p>How to effectively re-use content across channels</p>
+</li>
+<li>
+<p>How to avoid copying content</p>
+</li>
+<li>
+<p>How to collaborate across channels</p>
+</li>
+<li>
+<p>Etc..</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="a_layered_solution"><a class="link" href="#a_layered_solution">A layered solution</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Layers are essentially <a href="projects.ahtml">content projects</a> with a twist. Like regular projects, each layer has it&#8217;s own repository, permissions and default language. Layers introduce the additional setting of parent project. Layers will automatically inherit content from their parent layer. Multiple layers can collectively form a tree structure, where the root layer itself is a regular project.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/layers-concept.svg" alt="Tree structure of projects" width="aka layers" height="720">
+</div>
+</div>
+<div class="sect2">
+<h3 id="inheritance"><a class="link" href="#inheritance">Inheritance</a></h3>
+<div class="paragraph">
+<p>The core concept of layers is that inherited content maintains the same ID across all layers. Inherited items can be published independently within each layer. In addition to inheriting content, one may also create original content in each layer as required. One may also move items around, and organise content differently per layer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="localization"><a class="link" href="#localization">Localization</a></h3>
+<div class="paragraph">
+<p>Inherited items may be <code>localised</code> (edited) within each layer as needed. By localising, the item will stop inheriting the parts of the item that were localised.</p>
+</div>
+<div class="paragraph">
+<p>An item may be localised in the following ways independently:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>by name (the item&#8217;s path name)</p>
+</li>
+<li>
+<p>by parent (the placement of the item in the tree structure)</p>
+</li>
+<li>
+<p>by default sorting (default sorting of child items in the structure)</p>
+</li>
+<li>
+<p>by ediorial content (the editorial data of the item)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once a part of an item is localised, it will stop inheriting that specific part. This for instance means you may move a part around in your structure, and even give it another path name, but keep inheriting the actual content, or visa versa.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="content_actions"><a class="link" href="#content_actions">Content actions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Working with content in a layer is essentially the same as working with a regular project. You may create, modify, move and publish items as desired. The layering system will automatically ensure the rules of inheritance are controlled. For instance, your actions will automatically set the relevant flags for what to inherit or not.</p>
+</div>
+<div class="paragraph">
+<p>For instance, by renaming content, the system will automatically disable inheritance for the name of the item, unless the item is originally created in this layer naturally.</p>
+</div>
+<div class="paragraph">
+<p>In addition to existing content actions, localization may also be reset. For instance, if you at some point localised the content of an item, it can be returned it to the inherited state again. Just like any other editing action, this will effectively create a new version of the item.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="versions"><a class="link" href="#versions">Versions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like a regular project, only versions created within a specific layer will be available. This also means your data will not be polluted by "noise" from the surrounding layers. You will for instance not see versions created in child items etc.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Child layers will inherit all new versions of an item until the item is "marked as ready" in the parent layer. Later, only versions "marked as ready" in the parent layer are propagated to the child layer(s). This effectively reduces "noise" in the child layers, as well as improves performance.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="replication_engine"><a class="link" href="#replication_engine">Replication engine</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>XP features a background event listener that instantly detects changes to content and replicate this across layers. Additionally, a background job continuously runs to verify the consistency of the layers, should any replication fail or be interrupted during it&#8217;s initial run.</p>
+</div>
+<div class="paragraph">
+<p>The replication engine uses the following node layer properties to control the inheritance and localization state of an item:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">"inherit": [
+    "PARENT",
+    "SORT",
+    "CONTENT",
+    "NAME"
+  ],
+"originProject": "myproject"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As an example, this is what the the item might look like when inherited across multiple layers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Norwegian layer:</strong> localised name</p>
+</li>
+<li>
+<p><strong>German layer:</strong> localised content</p>
+</li>
+<li>
+<p><strong>French layer:</strong> localised name, and content</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/layers-inheritance.svg" alt="Content inherited and localised in layers" width="720">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="api"><a class="link" href="#api">API</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To programmatically manage layers, use the <a href="../api/lib-project.ahtml">project API</a>.</p>
 </div>
 </div>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Schema localization</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,169 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Schema localization</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#supported_fields">Supported Fields</a></li>
+<li><a href="#translation_files">Translation files</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Labels and texts in schemas can be displayed in the users preferred language (based on browser settings).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Simply add an <code>i18n="key"</code> attribute to the form elements. The key mustmatch an entry in your application&#8217;s <code>src/main/resources/i18n/phrases.properties</code> file.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Schema localization uses the same properties files format as the rest of XP. Please consult the <a href="../../framework/i18n.ahtml">framework localization docs</a> for more details.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Localization is optional. If the <code>i18n</code> attribute is not specified, the value of the XML element will be used.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example"><a class="link" href="#example">Example</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Below is an example of a content type where localization has been enabled.</p>
+</div>
+<div class="listingblock">
+<div class="title">Localized content type schema</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;content-type&gt;
+  &lt;display-name i18n="person.display-name"&gt;Person&lt;/display-name&gt;
+  &lt;super-type&gt;base:structured&lt;/super-type&gt;
+  &lt;form&gt;
+    &lt;input type="TextLine" name="name"&gt;
+      &lt;label i18n="person.name.label"&gt;Name&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+    &lt;input type="TextLine" name="age"&gt;
+      &lt;label i18n="person.age.label"&gt;Age&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+    &lt;input type="imageSelector" name="photo"&gt;
+      &lt;label i18n="person.photo.label"&gt;Photo&lt;/label&gt;
+      &lt;help-text i18n="person.photo.help-text"&gt;Passport photo&lt;/help-text&gt;
+      &lt;occurrences minimum="0" maximum="1"/&gt;
+    &lt;/input&gt;
+  &lt;/form&gt;
+&lt;/content-type&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="supported_fields"><a class="link" href="#supported_fields">Supported Fields</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In general, the following schema elements support the <code>i18n</code> localization attribute:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>displayName</p>
+</li>
+<li>
+<p>label</p>
+</li>
+<li>
+<p>help-text</p>
+</li>
+<li>
+<p>description</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Other elements may also support localization, simply try adding the attribute to see if it works.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="translation_files"><a class="link" href="#translation_files">Translation files</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The translated texts for each of the i18n keys should be placed in the corresponding <code>phrases.properties</code> file within the same application where the schema is defined.</p>
+</div>
+<div class="paragraph">
+<p>Steps to add the translations for a schema:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add or edit one file per language supported:</p>
+<div class="paragraph">
+<p><code>src/main/resources/i18n/phrases_&lt;language-code&gt;.properties</code></p>
+</div>
+<div class="listingblock">
+<div class="title">Example files to support English and Norwegian</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">src/main/resources/i18n/phrases.properties
+src/main/resources/i18n/phrases_en.properties
+src/main/resources/i18n/phrases_no.properties</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the i18n keys from the schema in each of the phrases.properties files.</p>
+<div class="paragraph">
+<p>Each line should have the key, an equals <code>=</code> sign, and the text in the specific language.</p>
+</div>
+<div class="listingblock">
+<div class="title">phrases_en.properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">person.display-name=Person
+person.name.label=Name
+person.age.label=Age
+person.photo.label=Photo
+person.photo.help-text=Passport photo</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">phrases_no.properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">person.display-name=Person
+person.name.label=Navn
+person.age.label=Alder
+person.photo.label=Bilde
+person.photo.help-text=Passbilde</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>fallback file <code>phrases.properties</code> file</p>
+<div class="paragraph">
+<p>It is recommended to have default phrases file. This will be used if the translation for the browser language cannot be found.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For more details, check out the <a href="../../api/lib-i18n.ahtml">runtime localization docs</a></p>
 </div>
 </div>
 </div>

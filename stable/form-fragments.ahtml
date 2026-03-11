@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<title>Form Fragments</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,20 +437,99 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Form Fragments</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#limitations">Limitations</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Reuseable form definitions</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you find yourself in need of repeating the exact same form pattern across different schemas, form fragments may be what you&#8217;re looking for.</p>
+</div>
+<div class="paragraph">
+<p>This is a special kind of schema, containging only a single &lt;form#, form&gt;. By referencing a form fragment from another schema, you pull the fragment form definition into the referencing schema&#8217;s form.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO
+Like other schemas, Form fragments are defined in YAML. <code>site/mixins/[name]/[name].xml</code>. I.e. <code>src/main/resources/site/mixins/address/address.xml</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample form fragment</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;mixin&gt;
+  &lt;display-name&gt;Full address&lt;/display-name&gt;
+  &lt;form&gt;
+    &lt;input type="TextLine" name="addressLine"&gt;
+      &lt;label&gt;Street address&lt;/label&gt;
+      &lt;occurrences minimum="0" maximum="2"/&gt;
+    &lt;/input&gt;
+    &lt;input type="TextLine" name="city"&gt;
+      &lt;label&gt;City&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+    &lt;input type="TextLine" name="zipCode"&gt;
+      &lt;label&gt;Zip code&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+    &lt;input type="TextLine" name="country"&gt;
+      &lt;label&gt;Country&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+  &lt;/form&gt;
+&lt;/mixin&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Below is an example of a simple content type that references the address mixin above.</p>
+</div>
+<div class="paragraph">
+<p>The mixin fields will simply be merged into the content type schema.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;content-type&gt;
+  &lt;display-name&gt;Using mixins&lt;/display-name&gt;
+  &lt;form&gt;
+    &lt;input type="TextLine" name="firstName"&gt;
+      &lt;label&gt;First Name&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+    &lt;input type="TextLine" name="lastName"&gt;
+      &lt;label&gt;Last Name&lt;/label&gt;
+      &lt;occurrences minimum="1" maximum="1"/&gt;
+    &lt;/input&gt;
+    &lt;mixin name="address"/&gt;
+  &lt;/form&gt;
+&lt;/content-type&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="limitations"><a class="link" href="#limitations">Limitations</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Form fragments are only supported for content schemas, and may not be used in other schema contexts such as identity providers and tasks.</p>
 </div>
 </div>
 </div>

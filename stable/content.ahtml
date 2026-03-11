@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Release Notes</title>
+<meta name="author" content="toc: right">
+<title>Content</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,21 +438,48 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Release Notes</h1>
+<h1>Content</h1>
+<div class="details">
+<span id="author" class="author">toc: right</span><br>
+<span id="revdate">Content is the central editorial element in the CMS.</span>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#content_authoring">Content authoring</a></li>
+<li><a href="#anatomy">Anatomy</a></li>
+<li><a href="#security">Security</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
+<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Every Content item has a specific content type, which defines its data structure and capabilities. Content can be created, edited, published and deleted in Content Studio, and can also be manipulated programmatically via the Content API. Content items are stored in content projects. They are indexed and can be searched for using Enonic&#8217;s Query API.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="content_authoring"><a class="link" href="#content_authoring">Content authoring</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="anatomy"><a class="link" href="#anatomy">Anatomy</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Content items can be accessed via the GraphQL API, which can be used by front-end developers to access content programmatically. The GraphQL API is generated based on the content type&#8217;s schema and form definition, and provides a powerful and flexible way to query for content items and their properties.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="security"><a class="link" href="#security">Security</a></h2>
+<div class="sectionbody">
+
 </div>
 </div>
 </div>
