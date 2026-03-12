@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="author" content="imagesdir: images">
-<title>Schemas and namespaces</title>
+<title>Schema system</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Schemas and namespaces</h1>
+<h1>Schema system</h1>
 <div class="details">
 <span id="author" class="author">imagesdir: images</span><br>
 </div>
@@ -446,9 +446,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#ingredients_of_a_schema">Ingredients of a schema</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#schema_kinds">Schema kinds</a></li>
+<li><a href="#descriptors">Descriptors</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#kinds">Kinds</a></li>
 <li><a href="#other_use_cases">Other use-cases</a></li>
 </ul>
 </div>
@@ -465,15 +465,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Schemas are used to express editorial elements within the CMS, such as content type. Schemas optionally contain a form which allow you to express advanced data structures. Once deployed to Enonic XP, schemas are used by Content Studio to generate user interfaces, and by the APIs. Schemas are organized in namespaces to prevent naming conflicts and promote reuse.</p>
+<p>Schemas are used to define various editorial elements within the CMS, such as <a href="content-types.ahtml">Content Types</a> and <a href="mixins.ahtml">Mixins</a>. Schemas may contain a <a href="form.ahtml">Form</a> which allow you to declare advanced data structures within your content.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="ingredients_of_a_schema"><a class="link" href="#ingredients_of_a_schema">Ingredients of a schema</a></h2>
+<h2 id="descriptors"><a class="link" href="#descriptors">Descriptors</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A schema is made up of a few key ingredients:</p>
+<p>TODO YAML example</p>
 </div>
 <div class="ulist">
 <ul>
@@ -500,21 +500,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="deployment"><a class="link" href="#deployment">Deployment</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO - YAML example.</p>
+<p>Schemas are deployed to Enonic XP via Enonic apps. Once installed, the schemas are registered in the system, and reflected in the APIs. Content Studio also uses the schemas to generate the user interfaces for the respective editorial items. Schemas are organized in namespaces to prevent naming conflicts and promote reuse.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="schema_kinds"><a class="link" href="#schema_kinds">Schema kinds</a></h2>
+<h2 id="kinds"><a class="link" href="#kinds">Kinds</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO: Link to each kind</p>
-</div>
-<div class="paragraph">
-<p>Enonic implements the following content schemas</p>
+<p>Enonic currently support the following content schemas kinds. Each kind has a specific role in the CMS, and may have specific configuration options.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -536,6 +533,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>form-fragments</p>
 </li>
+<li>
+<p>macro</p>
+</li>
+<li>
+<p>styles</p>
+</li>
 </ul>
 </div>
 </div>
@@ -544,14 +547,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="other_use_cases"><a class="link" href="#other_use_cases">Other use-cases</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In Enonic XP, the schema concept is also used in other contexts than the CMS. For instance, identity providers and tasks also use schemas to define their configuration. In these cases, only a generic subset of the form imputs are supported, and the form output will not be persisted as content, but rather stored in the identity provider or task definition.</p>
+<p>Enonic XP re-uses the schema concept in other contexts than the CMS. For instance, identity providers and tasks also use schemas for configuration. In these cases, only a generic subset of the form items are supported, and the form output will not be persisted as content, but rather stored in the identity provider or task definition.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-11 19:11:17 UTC
+Last updated 2026-03-12 09:32:48 UTC
 </div>
 </div>
 </body>

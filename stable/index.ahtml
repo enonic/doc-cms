@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Universal CMS - Schemas, Content and Modeling</title>
+<title>CMS Fundamentals - Schemas, Content and Modeling</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Universal CMS - Schemas, Content and Modeling</h1>
+<h1>CMS Fundamentals - Schemas, Content and Modeling</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -459,7 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>At its heart lies a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in Content Studio and the API, along with full server-side validation, indexing and querying capabilities.</p>
+<p>Enonic&#8217;s CMS capabilities are built on top of the Enonic XP core features. The heart of the CMS is a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in the API, as well as Content Studio, along with full server-side validation, indexing and querying capabilities.</p>
 </div>
 <div class="paragraph">
 <p>TODO: Quickstart, Developer 101</p>
@@ -470,27 +470,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="the_cms_stack"><a class="link" href="#the_cms_stack">The CMS stack</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The CMS is composed from the following main components:</p>
+<p>The CMS is composed from serveral independent software components, each documented separately. When put together, they make out Enonic&#8217;s CMS stack. This is possible thanks to Enonic XP&#8217;s modular architecture, and allows for unprecedented flexibility and adaptability - including the ability to build your own APIs and editorial interfaces should you need to.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://developer.enonic.com/docs/xp">Enonic XP</a> - Core Platform including Storage, IAM and more.</p>
-</li>
-<li>
-<p><a href="schemas.ahtml">Schema system</a> - Define content types and content structures.</p>
-</li>
-<li>
-<p><a href="https://developer.enonic.com/docs/intro">Headless API</a> - Available on Enonic Market</p>
-</li>
-<li>
-<p><a href="https://developer.enonic.com/docs/content-studio">Content Studio</a> - Extensible authoring interface available on Enonic Market</p>
+<p><a href="https://developer.enonic.com/docs/ai">AI features</a> - Optional extensions for subscription customers.</p>
 </li>
 <li>
 <p><a href="https://developer.enonic.com/docs/content-studio">Content Studio+</a> - Optional extensions for subscribing customers.</p>
 </li>
 <li>
-<p><a href="https://developer.enonic.com/docs/ai">AI features</a> - Optional extensions for subscription customers.</p>
+<p><a href="https://developer.enonic.com/docs/content-studio">Content Studio</a> - Extensible authoring</p>
+</li>
+<li>
+<p><a href="https://developer.enonic.com/docs/intro">Headless API</a> - Available on Enonic Market
+interface available on Enonic Market</p>
+</li>
+<li>
+<p><a href="schemas.ahtml">Schema system</a> - Define content types and content structures.</p>
+</li>
+<li>
+<p><a href="https://developer.enonic.com/docs/xp">Enonic XP</a> - Core Platform including Storage, IAM and more.</p>
 </li>
 </ul>
 </div>
@@ -520,7 +521,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-11 19:11:17 UTC
+Last updated 2026-03-12 09:32:48 UTC
 </div>
 </div>
 </body>
