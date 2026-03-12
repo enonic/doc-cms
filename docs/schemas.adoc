@@ -1,4 +1,4 @@
-= Schemas and namespaces
+= Schema system
 imagesdir: images
 :toc: right
 
@@ -6,11 +6,11 @@ Schemas are the heart of the CMS, enabling you to express your content model as 
 
 == Introduction
 
-Schemas are used to express editorial elements within the CMS, such as content type. Schemas optionally contain a form which allow you to express advanced data structures. Once deployed to Enonic XP, schemas are used by Content Studio to generate user interfaces, and by the APIs. Schemas are organized in namespaces to prevent naming conflicts and promote reuse. 
+Schemas are used to define various editorial elements within the CMS, such as <<content-types#, Content Types>> and <<mixins#, Mixins>>. Schemas may contain a <<form#, Form>> which allow you to declare advanced data structures within your content.
 
-== Ingredients of a schema
+== Descriptors
 
-A schema is made up of a few key ingredients:
+TODO YAML example
 
 * Namespace and name (i.e. "com.example:article")
 * Kind (i.e. "content-type", "mixin" etc)
@@ -20,15 +20,12 @@ A schema is made up of a few key ingredients:
 
 Content Studio is available in multiple languages, and you may also <<i18n#, translate>> your schemas in multiple languages, for better usability. 
 
+== Deployment
 
-== Usage
+Schemas are deployed to Enonic XP via Enonic apps. Once installed, the schemas are registered in the system, and reflected in the APIs. Content Studio also uses the schemas to generate the user interfaces for the respective editorial items. Schemas are organized in namespaces to prevent naming conflicts and promote reuse. 
 
-TODO - YAML example.
-
-== Schema kinds
-TODO: Link to each kind
-
-Enonic implements the following content schemas
+== Kinds
+Enonic currently support the following content schemas kinds. Each kind has a specific role in the CMS, and may have specific configuration options.
 
 * content-type
 * mixin
@@ -36,8 +33,10 @@ Enonic implements the following content schemas
 * part
 * layout
 * form-fragments
+* macro
+* styles
 
 
 == Other use-cases
 
-In Enonic XP, the schema concept is also used in other contexts than the CMS. For instance, identity providers and tasks also use schemas to define their configuration. In these cases, only a generic subset of the form imputs are supported, and the form output will not be persisted as content, but rather stored in the identity provider or task definition.
+Enonic XP re-uses the schema concept in other contexts than the CMS. For instance, identity providers and tasks also use schemas for configuration. In these cases, only a generic subset of the form items are supported, and the form output will not be persisted as content, but rather stored in the identity provider or task definition.
