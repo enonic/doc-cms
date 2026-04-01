@@ -6,15 +6,13 @@ Reuse the same page across multiple content items.
 
 == Introduction
 
-`portal:page-template` is a built-in content type in Enonic XP, and similar to <<pages#, pages>>, they are only available in the context of a site.
+Page template is a built-in content type in Enonic XP, and similar to <<pages#, pages>>, they are only available in the context of a site.
 
-Page templates may act as a base setup when creating new pages, but a more powerful application is to let editors control the presentation/page setup of other structured content types like Articles.
+Page templates may act as a base setup when creating new custom pages, but a more powerful application is to let editors control the presentation/page setup of other structured content types like Articles.
 
 == Usage
 
-Editors work with, edit and publish page templates like any other content. Naturally, the main focus on a page template is setting up a page.
-
-Like for any other page, at least one <<pages#, page component>> must be available in order to actually create a page template.
+Editors work with, edit and publish page templates like any other content. Naturally, the main focus on a page template is setting up a page. Like for any other page, at least one <<pages#, page component>> must be available in order to actually create a page template.
 
 In addition to creating the page itself, editors may flag which content types the page template applies to. By specifying `Article` as the supported content type, the page template will be reused for rendering of all articles in the site.
 
@@ -25,8 +23,29 @@ NOTE: A single `Article` may also be configured with a custom page, or it may be
 
 == Rendering
 
+
+TODO: 
 Page template rendering is built-in functionality when using the <<../framework/components#, Enonic Framework>>.
 
 If you are using a 3rd party front-end, you will have to ensure the same logic is also applied there.
 
 TIP: Also, check out our https://developer.enonic.com/docs/next.xp[Next.js integration], where page templates are supported out-of-the-box.
+
+
+=== Definition (portal:page-template)
+
+The page template content type is built-in. It is a subtype of `base:structured`, and has the following definition:
+
+super-type:: base:structured
+is-abstract:: false
+is-final:: true
+allow-child-content:: true
+
+=== Template folder (portal:template-folder)
+
+Every site automatically creates a child content of this type named _templates, using the built-in type `portal:template-folder`. The templates folder contains all the page templates for the site. It may not hold any other content type, and it may not be created manually in any other location.
+
+super-type:: base:folder
+is-abstract:: false
+is-final:: true
+allow-child-content:: portal:page-template

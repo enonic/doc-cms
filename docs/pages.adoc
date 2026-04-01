@@ -1,14 +1,14 @@
-= Sites and pages
+= Pages and Sites
 :imagesdir: images
 :toc: right
 :y: icon:check[role="green"]
 :n: icon:times[role="red"]
 
-The page concept allow you to create rich visually oriented content via building blocks called components. 
+This is an advanced concept that allows you to build rich and visually oriented content via building blocks called page components. 
 
 == Introduction
 
-Pages are an optional feature, only available within a <<content-types#, Site>>. Similar to <<mixins#, Mixins>>, a page can be added to any content item. The page can then be edited visually, by adding and arranging components.
+Pages are an optional feature, which are only available for content created within a <<content-types#, Site>>. Similar to <<mixins#, Mixins>>, a page can be added to any content item. The page can then be edited visually, by adding and arranging components.
 
 == Concept
 
@@ -16,20 +16,20 @@ Enonic's page concept spans across different schemas, content-types, and feature
 
 === Schema definitions
 
-<<page#, Page Component>>:: The root component of a page, defining the overall capabilities and structure of the page.
-<<regions#, Regions>>:: Define areas of a page or layout where other components can be placed.
-<<parts#, Part component>>:: Leaf components, used to add content to a page.
-<<layouts#, Layouts>>:: Define a specific layout of regions, to be reused across pages.
+* <<page#, Page Component>>:: The root component of a page, defining the overall capabilities and structure of the page.
+* <<regions#, Regions>>:: Define areas of a page or layout where other components can be placed.
+* <<parts#, Part component>>:: Leaf components, used to add content to a page.
+* <<layouts#, Layout component>>:: Define a specific layout of regions, to be reused across pages.
 
 === Content types
 
-<<../content-types/site#, Sites>>:: A special type of content item, used to define a website.
-<<../page-templates#, Page templates>>:: A special type of page component, used to define a template for pages. A page template can be used to create pages with a predefined structure and content.
-<<../content-types/fragments#, Fragments>>:: A built-in content type allowing you to reuse components across pages.
+* <<../content-types/site#, Sites>>:: A special type of content item, used to define a website.
+* <<../page-templates#, Page templates>>:: A special type of page component, used to define a template for pages. A page template can be used to create pages with a predefined structure and content.
+* <<../content-types/fragments#, Page Fragments>>:: A built-in content type allowing you to reuse components across pages.
 
-=== Visual editor
+=== Page editor
 
-Additionally, Content Studio's visual editor allow you to work with components in a visual manner, by dragging and dropping components, and editing them directly on the page. This is a powerful way to create rich content, without having to write any code.
+Additionally, if enabled in your front-end. Content Studio's visual page editor allow you to work with components in a visual manner, by dragging and dropping components, and editing them directly on the page. This is a powerful way to create rich content, without having to write any code.
 
 Seen from Content Studio, a page, and it's component structure might look like this:
 

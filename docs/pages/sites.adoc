@@ -12,15 +12,27 @@ Sites unlock powerful functionality for managing websites and creating visually 
 
 Similar to content projects, you may add applications to a site. For sites however, purpose-specific applications like sitemap.xml, robots.txt, Google Analytics, SEO Metafields, and Siteimprove introduce features and management capabilities beyond that of basic content.
 
-== Site content type
+== Usage
 
-`Site` is a built-in content type, which means a site can easily be created anywhere in your content structure.
+Site content serves the purpose of acting as website's root entry. It enables selecting and configuring applications for a website. Content types, components, filters, x-data and more from the applications selected will be available for use inside the site content tree based on the site configuration.
 
-Site content items are special in the way that you may add applications to them. Similar to projects, functionality and schemas from the app will be available in the scope of the site.
+Sites can be created anywhere in your content structure, but they are commonly created as a child of the root content.
 
-NOTE: Apps added to <<projects#, a project>> will not apply to a site, unless explicitly added there as well.
+
+== Defition (portal:site)
+
+The site content type is built-in. It is a subtype of `base:structured`, and has the following definition:
+
+super-type:: base:structured
+is-abstract:: false
+is-final:: true
+allow-child-content:: true
+
 
 == The site engine
+
+TODO: Point to Enonic App developer
+
 
 When rendering sites and pages with the Enonic framework, request handling and resolving is performed by the <<../runtime/engines/site-engine#, site engine>>. It offers site-specific capabilities and request handling such as:
 

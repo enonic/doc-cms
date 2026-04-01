@@ -8,35 +8,52 @@ Schemas are the heart of the CMS, enabling you to express your content model as 
 
 Schemas are used to define various editorial elements within the CMS, such as <<content-types#, Content Types>> and <<mixins#, Mixins>>. Schemas may contain a <<form#, Form>> which allow you to declare advanced data structures within your content.
 
-== Descriptors
+== Installation and usage
 
-TODO YAML example
+Schemas are deployed to Enonic XP via Enonic apps. When an application gets installed, the schemas are registered in the system, and instantly reflected in Content Studio and related APIs. 
+
+Visit the https://developer.enonic.com/docs/dev[Enonic App development docs] for more information on how to create and deploy Enonic apps.
+
+
+== Definition
+
+Schemas are defined in YAML files. A schema definition commonly contains the following elements:
 
 * Namespace and name (i.e. "com.example:article")
-* Kind (i.e. "content-type", "mixin" etc)
-* Configuration (Specific to each schema kind)
+* <<#kinds, Kind>> (i.e. "content-type", "mixin")
+* Configuration (Validated fields for each schema kind)
 * <<form#, Form>> (Optionally defines a form, and hence the data structure of the content)
-* Indexing rules (optionally defines indexing rules for the form inputs)
+* Attributes (User-defined non-validated fields)
 
-Content Studio is available in multiple languages, and you may also <<i18n#, translate>> your schemas in multiple languages, for better usability. 
+TODO: Example descriptor
 
-== Deployment
-
-Schemas are deployed to Enonic XP via Enonic apps. Once installed, the schemas are registered in the system, and reflected in the APIs. Content Studio also uses the schemas to generate the user interfaces for the respective editorial items. Schemas are organized in namespaces to prevent naming conflicts and promote reuse. 
-
-== Kinds
+[kinds]
+== Schema kinds
 Enonic currently support the following content schemas kinds. Each kind has a specific role in the CMS, and may have specific configuration options.
 
-* content-type
-* mixin
-* page
-* part
-* layout
-* form-fragments
-* macro
-* styles
+=== Reuse
+* <<schemas/form-fragments#, Form Fragments>>
+* <<mixins#, Mixins>>
+
+=== Content types
+
+* <<content/content-types#, Content Types>>
+* <<media/media-types#, Media Types>>
+
+=== Rich Text
+
+* <<richtext/macros#, Macros>>
+* <<richtext/styles#, Styles>>
+
+=== Page domain
+
+* <<pages#, Pages>>
+* <<pages/parts#, Parts>>
+* <<pages/layouts#, Layouts>>
 
 
-== Other use-cases
+== Schema localization
 
-Enonic XP re-uses the schema concept in other contexts than the CMS. For instance, identity providers and tasks also use schemas for configuration. In these cases, only a generic subset of the form items are supported, and the form output will not be persisted as content, but rather stored in the identity provider or task definition.
+You may provide <<i18n#, translations>> for your schemas in multiple languages for better usability. 
+
+

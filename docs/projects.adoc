@@ -2,13 +2,24 @@
 :toc: right
 :imagesdir: ../images
 
-Create independent content repositories for your  teams and projects.
+Create independent content repositories for your teams and digital properties.
 
 == Introduction
 
 Content projects represent the starting point of working with Enonic CMS. In order to create content, you first need to create a project. Project defines if your content is public or private, and what type of content may be produced there. 
 
 == Project settings
+
+=== Language
+
+TODO
+
+== Layering
+
+TODO
+
+<<content/layering#, Layered projects>> allow you to create multiple layers of content, where each layer inherits content from the layer above. This allows you to create different versions of your content for different purposes, such as staging and production.
+
 
 === Basics
 * Identifier - a unique id within the installation. Cannot be changed when first created

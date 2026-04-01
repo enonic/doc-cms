@@ -1,39 +1,44 @@
-= Fragments
+= Page Fragments
 :toc: right
 :imagesdir: images
 
-Fragments enable reuse of components across different pages.
+Page Fragments enable reuse of components across different pages.
 
 == Introduction
 
-A fragment is essentially a component (or a tree of components) stored as an individual content item. 
+A page fragment is a content item of the content type `portal:fragment`. It represents a reusable page component. A content of this type contains a page component (Part, Layout, Text, Image) that can be re-used in other pages. But it only needs to be maintained in one place.
 
-A component that has been turned into a fragment can be reused across different pages.
 
-When a fragment is altered, the change will apply to every page that uses it. This also adds a range of new possibilities when creating pages, such as time based publishing and permission control selected components of a page.
+There is a default page for rendering and edit fragments. The default page does not have any styles defined, but it is possible to render it with the application theme and styles by defining a controller <<../framework/mappings.adoc#,mapping>> with `<match>type:'portal:fragment'</match>`
 
 == Usage
 
-A fragment can be created from any component on a given page. Using Content Studio, a fragment is created by selecting a component, and then choosing `Create fragment` from the context menu.
+To create a Fragment in Content Studio: Edit an existing page, select a component and click “Create Fragment”. Once created, the fragment content can be referenced in other pages by inserting a Fragment component in the page.
 
-The fragment is then saved as a separate content instance, with the content type `portal:fragment`. This means the fragement can be managed and published, just like any other content item.
+Changes applied to a fragment will immediately be available in the pages that reference the fragment.
 
 image::fragment-component.png[Converting a layout to a component, 1440px]
 
 Once a fragments is created, it can be inserted on pages just like any other component. Using Content Studio, simply insert a fragment component, an choose the fragment content item from the list.
 
-== Fragment preview
+== Preview
 
-Fragments can be edited via the content form view, or visually if enabled.
+Like pages, fragments can be edited via the content form view, or even visually if enabled in your front-end.
 
-Since fragments are not pages, they may require special handling in order to be rendered in a visually appealing manner (with styles etc).
-
-NOTE: This will also require some tuning when using the <<../../framework/components#, Enonic framework>>.
+TODO:
+Developers using the Enonic framewrk may enable visual editing of fragments via a <<../framework/mappings.adoc#,mapping>> with `<match>type:'portal:fragment'</match>`
 
 == Search
 
-Since a fragment is a separate content item, text stored in the fragment will not be indexed on the pages where it is in use.
-
-This means that even if a fragment is placed on a page, searching for content within the fragment will not yield hits on the pages where it is included.
+Since a fragment is a separate content item, text stored in the fragment will not be indexed on the pages where it is in use. This means that even if a fragment is placed on a page, searching for content within the fragment will not yield hits on the pages where it is included.
 
 NOTE: When performing queries against content from customer facing solutions, make sure fragment content types are excluded - as fragments are generally not directly available to end users.
+
+== Definition (portal:fragment)
+
+The Fragment content type has the following defiinition:
+
+super-type:: base:structured
+is-abstract:: false
+is-final:: true
+allow-child-content:: true

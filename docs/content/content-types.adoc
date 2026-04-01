@@ -1,0 +1,119 @@
+= Content Types
+:imagesdir: ../images
+:toc: right
+:y: icon:check[role="green"]
+:n: icon:times[role="red"]
+
+Content types is the foundational schema type in Enonic XP. All content items must be based on a content type. Content types are used to define the sturcture and capabilities of a content items.
+
+== Name
+Every content type has a unique identifier in the following format `<namespace>:<name>`. Content types are either built-in, or custom defined by developers. 
+
+== Usage
+
+Content types schemas are defined via YAML definitions. Below is an example content type definition:
+
+[source,xml]
+----
+<content-type>
+  <display-name>Person</display-name>  // <1>
+  <display-name-label>Full Name</display-name-label> // <2>
+  <description>Create a new person</description>  // <3>
+  <super-type>base:structured</super-type>  // <4>
+  <is-abstract>false</is-abstract>  // <5>
+  <is-final>true</is-final>  // <6>
+  <is-built-in>false</is-built-in>   // <7>
+  <allow-child-content>true</allow-child-content>  // <8>
+  <allow-child-content-type>base:folder</allow-child-content-type>  // <9>
+  <allow-child-content-type>${app}:article-*</allow-child-content-type>
+  <form/> // <10>
+</content-type>
+----
+
+<1> *display-name* (required) The human readable name of the content type.
+Optionally specify the <<../api/lib-i18n.adoc#,i18n>> attribute to define a mapping to localize the value.
+The localization key must then be declared and localised in the resource bundle.
+<2> *display-name-label* (optional; _since v7.1_) Enables you to override the default <Display Name> placeholder used in the content form.
+<3> *description* (optional) Set a description that is shown when creating the content type.
+<4> *super-type* (required) Refers to one of the <<#base-types, base types>>. You should normally use `base:structured`.
+<5> *is-abstract* (optional; default: false) If true, you cannot create content with this content type.
+<6> *is-final* (optional; default: false) If true, it is not possible to create new content types that “extend” this.
+<7> *is-built-in* (optional; default: false) Only specified by built-in content types.
+<8> *allow-child-content* (optional; default: true) If false, no content will be allowed to be created or moved under content of this content type
+(e.g. prevents child content under media)
+<9> *allow-child-content-type* (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <<./schemas/input-types/contentselector#allowContentType, MATCH>>. image:xp-770.svg[XP 7.7.0,opts=inline]
+<10> *form* (required) The custom <<schemas#forms,Form>> definition for your content type.
+
+NOTE: `allow-child-content-type` will not have effect if `allow-child-content` is set to `false`
+
+
+== Icon
+A content type may optionally have its own specific icon which is used to represent the content type in Content Studio. The icon can be assigned to the content type by supplying a PNG or SVG file with the same name as the content type i.e. `my-content-type.svg`.
+
+[[base-types]]
+== Abstract Base types
+
+All content types must extend one of the <<base-types, base content types>>. The base content types are fundamental content types built into Enonic XP, which all other content types build upon. They provide a common behavior and capabilities that all content types inherit.
+
+TODO: Verify
+Common for all base content types is that they are all subtypes of the root content type `base:content`, which is the most basic content type in Enonic XP. The `base:content` type is abstract and cannot be used directly to create content items, but it provides a common set of properties and capabilities that all content types inherit.
+
+NOTE: You may not specify a custom content type as a supertype, nor may you create circular dependencies between content types.
+
+Enonic XP ships with a set of abstract types that every other content type builds upon. They are all located in the `base` namespace. The base types are:
+
+=== Structured (base:structured)
+
+The structured base type supports <<../forms#, form definitions>>, and is as such the common foundation for <<custom#, custom content types>>.
+
+is-abstract:: true
+is-final:: false
+allow-child-content:: true
+
+=== Media (base:media)
+[[base-media]]
+
+Files uploaded to XP are stored as content items based on one of the <<media/media-types#, media types>>.
+
+is-abstract:: true
+is-final:: false
+allow-child-content:: false
+
+
+== Built in Content Types
+
+Enonic XP also ships with a set of concrete types that are ready to be used as they are.
+
+=== Shortcut (base:shortcut)
+Used for referencing or redirecting to another content item in the structure.
+Optional name-value parameters can be set to be added to the redirect URL.
+
+is-abstract:: false
+is-final:: true
+allow-child-content:: true
+
+
+=== Folder (base:folder)
+Folders are simply containers for child content, with no other properties than their name and Display Name. They are helpful in organizing your content.
+
+is-abstract:: false
+is-final:: false
+allow-child-content:: true
+
+
+=== Unstructured (base:unstructured)
+
+The unstructured content type is a special content type that permits the creation of any property or structure without actually defining it first. It can only be used via API.
+
+This is convenient for storing content, when the properties and their types vary from instance to instance - and the item needs to be editorially managed and published. Consider using XP's https://developer.enonic.com/docs/xp/stable/storage[NoSQL storage] instead if your data does not require editorial management and publication.
+
+Since the content data is unstructured (basically schemaless), there is currently no default user interface (i.e. in Content Studio) that facilitates editing of the unstructured content.
+
+is-abstract:: false
+is-final:: true
+allow-child-content:: true
+
+
+== Extend with mixins
+
+You may dynamically extend both built-in and custom-defined content types through the use of <<mixins#,Mixins>>.

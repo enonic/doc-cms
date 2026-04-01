@@ -1,0 +1,8 @@
+= Integrations
+:toc: right
+:imagesdir: ../images
+
+TODO: Describe standard integrations and link to Enonic Market
+
+== Introduction
+

@@ -5,6 +5,10 @@
       "document": "index"
     },
     {
+      "title": "Projects & roles",
+      "document": "projects"
+    },
+    {
       "title": "Schema system",
       "document": "schemas",
       "menuItems": [
@@ -121,27 +125,13 @@
       ]
     },
     {
-      "title": "Projects & roles",
-      "document": "projects"
-    },
-    {
-      "title": "Content Types",
-      "document": "content-types",
-      "menuItems": [
-        {
-          "title": "Base types",
-          "document": "base-types"
-        },
-        {
-          "title": "Custom types",
-          "document": "custom-types"
-        }
-      ]
-    },
-    {
       "title": "Content",
       "document": "content",
       "menuItems": [
+        {
+          "title": "Content Types",
+          "document": "content-types"
+        },
         {
           "title": "Lifecycle",
           "document": "lifecycle"
@@ -173,7 +163,11 @@
         {
           "title": "Versions",
           "document": "versions"
-        }
+        },
+        {
+          "title": "Content Indexing",
+          "document": "content-indexing"
+        }      
       ]
     },
     {
@@ -183,7 +177,11 @@
         {
           "title": "Media types",
           "document": "media-types"
-        }
+        },
+        {
+          "title": "Media indexing",
+          "document": "media-indexing"
+        }      
       ]
     },
     {
@@ -205,9 +203,13 @@
       ]
     },
     {
-      "title": "Pages",
+      "title": "Pages and Sites",
       "document": "pages",
       "menuItems": [
+        {
+          "title": "Sites",
+          "document": "sites"
+        },
         {
           "title": "Page components",
           "document": "page"
@@ -233,10 +235,6 @@
           "document": "component-filtering"
         },
         {
-          "title": "Sites",
-          "document": "sites"
-        },
-        {
           "title": "Page templates",
           "document": "page-templates"
         },
@@ -245,8 +243,8 @@
           "document": "page-fragments"
         },      
         {
-          "title": "Visual editor",
-          "document": "visual-editor"
+          "title": "Page editor",
+          "document": "page-editor"
         }        
       ]
     },
@@ -278,7 +276,7 @@
     },
     {
       "title": "Release notes",
-      "document": "release-notes"
+      "document": "release"
     }
   ]
 }
