@@ -443,7 +443,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#rendering">Rendering</a></li>
+<li><a href="#rendering">Rendering</a>
+<ul class="sectlevel2">
+<li><a href="#definition_portalpage_template">Definition (portal:page-template)</a></li>
+<li><a href="#template_folder_portaltemplate_folder">Template folder (portal:template-folder)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -459,10 +464,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>portal:page-template</code> is a built-in content type in Enonic XP, and similar to <a href="pages.ahtml">pages</a>, they are only available in the context of a site.</p>
+<p>Page template is a built-in content type in Enonic XP, and similar to <a href="pages.ahtml">pages</a>, they are only available in the context of a site.</p>
 </div>
 <div class="paragraph">
-<p>Page templates may act as a base setup when creating new pages, but a more powerful application is to let editors control the presentation/page setup of other structured content types like Articles.</p>
+<p>Page templates may act as a base setup when creating new custom pages, but a more powerful application is to let editors control the presentation/page setup of other structured content types like Articles.</p>
 </div>
 </div>
 </div>
@@ -470,10 +475,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Editors work with, edit and publish page templates like any other content. Naturally, the main focus on a page template is setting up a page.</p>
-</div>
-<div class="paragraph">
-<p>Like for any other page, at least one <a href="pages.ahtml">page component</a> must be available in order to actually create a page template.</p>
+<p>Editors work with, edit and publish page templates like any other content. Naturally, the main focus on a page template is setting up a page. Like for any other page, at least one <a href="pages.ahtml">page component</a> must be available in order to actually create a page template.</p>
 </div>
 <div class="paragraph">
 <p>In addition to creating the page itself, editors may flag which content types the page template applies to. By specifying <code>Article</code> as the supported content type, the page template will be reused for rendering of all articles in the site.</p>
@@ -499,7 +501,8 @@ A single <code>Article</code> may also be configured with a custom page, or it m
 <h2 id="rendering"><a class="link" href="#rendering">Rendering</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Page template rendering is built-in functionality when using the <a href="../framework/components.ahtml">Enonic Framework</a>.</p>
+<p>TODO:
+Page template rendering is built-in functionality when using the <a href="../framework/components.ahtml">Enonic Framework</a>.</p>
 </div>
 <div class="paragraph">
 <p>If you are using a 3rd party front-end, you will have to ensure the same logic is also applied there.</p>
@@ -516,12 +519,64 @@ Also, check out our <a href="https://developer.enonic.com/docs/next.xp">Next.js 
 </tr>
 </table>
 </div>
+<div class="sect2">
+<h3 id="definition_portalpage_template"><a class="link" href="#definition_portalpage_template">Definition (portal:page-template)</a></h3>
+<div class="paragraph">
+<p>The page template content type is built-in. It is a subtype of <code>base:structured</code>, and has the following definition:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:structured</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>true</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>true</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="template_folder_portaltemplate_folder"><a class="link" href="#template_folder_portaltemplate_folder">Template folder (portal:template-folder)</a></h3>
+<div class="paragraph">
+<p>Every site automatically creates a child content of this type named _templates, using the built-in type <code>portal:template-folder</code>. The templates folder contains all the page templates for the site. It may not hold any other content type, and it may not be created manually in any other location.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:folder</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>true</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>portal:page-template</p>
+</dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 09:32:48 UTC
+Last updated 2026-04-01 15:14:31 UTC
 </div>
 </div>
 </body>

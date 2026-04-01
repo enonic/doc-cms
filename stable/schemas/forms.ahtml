@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#concept">Concept</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#beyond_cms">Beyond CMS</a></li>
 </ul>
 </div>
 </div>
@@ -506,10 +507,30 @@ The persisted output from the above form might look something like this:</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="beyond_cms"><a class="link" href="#beyond_cms">Beyond CMS</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enonic XP re-uses the form concept in other contexts than the CMS. For instance, identity providers and tasks also use schemas for their configuration.  In these cases the form output will not be persisted as content, but rather stored in the respective context (e.g. identity provider configuration). However, the same form definition approach is used, and the same validation rules apply.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only a generic subset of form items are supported in these contexts.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 09:32:48 UTC
+Last updated 2026-04-01 15:14:31 UTC
 </div>
 </div>
 </body>

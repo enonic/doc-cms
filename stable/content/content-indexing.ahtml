@@ -5,8 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="The portal content types are a set of pre-defined content types that are used for building websites in Enonic XP">
-<title>Portal content types</title>
+<title>Content indexing</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,164 +435,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article toc2 toc-right">
+<body class="article">
 <div id="header">
-<h1>Portal content types</h1>
-<div class="details">
-<span id="author" class="author">The portal content types are a set of pre-defined content types that are used for building websites in Enonic XP</span><br>
-</div>
-<div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a>
-<ul class="sectlevel2">
-<li><a href="#site_portalsite">Site (portal:site)</a></li>
-<li><a href="#page_template_portalpage_template">Page Template (portal:page-template)</a></li>
-<li><a href="#template_folder_portaltemplate_folder">Template folder (portal:template-folder)</a></li>
-<li><a href="#fragment_portalfragment">Fragment (portal:fragment)</a></li>
-</ul>
-</li>
-</ul>
-</div>
+<h1>Content indexing</h1>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Portal types are are located in the <code>portal</code> namespace, and are all subtypes of the abstract type <code>base:structured</code>. Portal types go hand in hand with the <a href="components.ahtml">Page Component schemas</a>. The portal content types are:</p>
-</div>
-<div class="sect2">
-<h3 id="site_portalsite"><a class="link" href="#site_portalsite">Site (portal:site)</a></h3>
-<div class="paragraph">
-<p>Site content items serves the purpose of acting as website root entries. It enables selecting and configuring applications for a website. Content types, components, filters, x-data and more from the applications selected will be available for use inside the site content tree.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Application-specific content types may only be used within a site, to which the application has been added.
-</td>
-</tr>
-</table>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">super-type</dt>
-<dd>
-<p>base:structured</p>
-</dd>
-<dt class="hdlist1">is-abstract</dt>
-<dd>
-<p>false</p>
-</dd>
-<dt class="hdlist1">is-final</dt>
-<dd>
-<p>true</p>
-</dd>
-<dt class="hdlist1">allow-child-content</dt>
-<dd>
-<p>true</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="page_template_portalpage_template"><a class="link" href="#page_template_portalpage_template">Page Template (portal:page-template)</a></h3>
-<div class="paragraph">
-<p>Instead of always having to configure the page controller for each content, page templates provide a default setup for how a content type is displayed on a site.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">super-type</dt>
-<dd>
-<p>base:structured</p>
-</dd>
-<dt class="hdlist1">is-abstract</dt>
-<dd>
-<p>false</p>
-</dd>
-<dt class="hdlist1">is-final</dt>
-<dd>
-<p>true</p>
-</dd>
-<dt class="hdlist1">allow-child-content</dt>
-<dd>
-<p>true</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="template_folder_portaltemplate_folder"><a class="link" href="#template_folder_portaltemplate_folder">Template folder (portal:template-folder)</a></h3>
-<div class="paragraph">
-<p>This is a special content type. Every site automatically creates a child content of this type named _templates. The templates folder holds all the page templates of that site. It may not hold any other content type, and it may not be created manually in any other location.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">super-type</dt>
-<dd>
-<p>base:folder</p>
-</dd>
-<dt class="hdlist1">is-abstract</dt>
-<dd>
-<p>false</p>
-</dd>
-<dt class="hdlist1">is-final</dt>
-<dd>
-<p>true</p>
-</dd>
-<dt class="hdlist1">allow-child-content</dt>
-<dd>
-<p>portal:page-template</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="fragment_portalfragment"><a class="link" href="#fragment_portalfragment">Fragment (portal:fragment)</a></h3>
-<div class="paragraph">
-<p>The Fragment content type represents a reusable page component. A content of this type contains a page component(Part, Layout, Text, Image) that can be re-used in other pages. But it only needs to be maintained in one place.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">super-type</dt>
-<dd>
-<p>base:structured</p>
-</dd>
-<dt class="hdlist1">is-abstract</dt>
-<dd>
-<p>false</p>
-</dd>
-<dt class="hdlist1">is-final</dt>
-<dd>
-<p>true</p>
-</dd>
-<dt class="hdlist1">allow-child-content</dt>
-<dd>
-<p>true</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>To create a content of type <code>portal:fragment</code> edit an existing page with Page Editor, select the context menu of an existing component in the page, and then clicking on “Create Fragment”. Once created, the fragment content can be referenced in other pages by inserting a Fragment component in the page.</p>
-</div>
-<div class="paragraph">
-<p>A Fragment content can be edited with Page Editor and the changes applied to the component will immediately be available in the pages that include the fragment. When a page containing fragment a component is rendered, the components of the portal:fragment content pointed by the fragment component are rendered in the place of the fragment component.</p>
-</div>
-<div class="paragraph">
-<p>There is a default page for rendering and edit fragments. The default page does not have any styles defined, but it is possible to render it with the application theme and styles by defining a controller <a href="../framework/mappings.ahtml">mapping</a> with <code>&lt;match&gt;type:'portal:fragment'&lt;/match&gt;</code></p>
-</div>
-</div>
-</div>
+<p>TODO</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 09:32:48 UTC
+Last updated 2026-04-01 15:14:31 UTC
 </div>
 </div>
 </body>

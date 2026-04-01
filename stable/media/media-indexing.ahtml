@@ -5,8 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="By defining your own content types, you can create a content model that is perfectly tailored to your needs.">
-<title>Custom content types</title>
+<title>Media indexing</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,74 +435,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article toc2 toc-right">
+<body class="article">
 <div id="header">
-<h1>Custom content types</h1>
-<div class="details">
-<span id="author" class="author">By defining your own content types, you can create a content model that is perfectly tailored to your needs.</span><br>
-</div>
-<div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#supertype">SuperType</a></li>
-<li><a href="#icon">Icon</a></li>
-</ul>
-</div>
+<h1>Media indexing</h1>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Custom content types are defined with schemas, and can be used in the same way as built-in content types. You can create as many custom content types as you need, and organize them in your own namespaces for better reuse and organization.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Custom content types are defined in YAML, and must be placed in the <code>site/content-types</code> directory of your app. The content type definition must be placed in a subdirectory matching the content type name, and the file name must match the content type name as well. For example, a content type with the name <code>com.example:article</code> must be defined in <code>site/content-types/article/article.yaml</code>. You may only have one content type per directory, but you can of course have as many directories as you like.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="supertype"><a class="link" href="#supertype">SuperType</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>TODO: Verify</p>
-</div>
-<div class="paragraph">
-<p>The supertype attribute of a content type defines the handling of the content type. For most cases, it should be set to <code>base:structured</code>, which is a very flexible supertype which among other things support the definition of <a href="../forms.ahtml">../forms.ahtml</a>, and hence structured content.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You may not specify a custom content type as a supertype, nor may you create circular dependencies between content types. This is to ensure that the form mechanics are consistent and predictable, and to avoid potential issues with circular dependencies between content types.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="icon"><a class="link" href="#icon">Icon</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>A content type may optionally have its own specific icon which is used to represent the content type in Content Studio. The icon can be assigned to the content type by adding a PNG or SVG file with the same name in the content type directory: <code>my-content-type.svg</code></p>
-</div>
-</div>
+<p>TODO</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 09:32:48 UTC
+Last updated 2026-04-01 15:14:31 UTC
 </div>
 </div>
 </body>

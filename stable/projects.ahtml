@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Content Types</title>
+<title>Content projects</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,14 +437,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Content Types</h1>
+<h1>Content projects</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#name">Name</a></li>
-<li><a href="#built_in_types">Built-in types</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#extend_with_mixins">Extend with mixins</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#project_settings">Project settings</a>
+<ul class="sectlevel2">
+<li><a href="#language">Language</a></li>
+</ul>
+</li>
+<li><a href="#layering">Layering</a>
+<ul class="sectlevel2">
+<li><a href="#basics">Basics</a></li>
+<li><a href="#access_mode">Access mode</a></li>
+<li><a href="#roles">Roles</a></li>
+<li><a href="#applications">Applications</a></li>
+</ul>
+</li>
+<li><a href="#storage">Storage</a></li>
+<li><a href="#site_engine">Site engine</a></li>
+<li><a href="#api">API</a></li>
 </ul>
 </div>
 </div>
@@ -452,95 +465,132 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content types is the foundational schema type in Enonic XP. All content items must be based on a content type. Content types are used to define the sturcture and capabilities of a content items.</p>
+<p>Create independent content repositories for your teams and digital properties.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="name"><a class="link" href="#name">Name</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Every content type has a unique identifier in the following format <code>&lt;namespace&gt;:&lt;name&gt;</code>. Content types are either built-in, or custom defined by developers.</p>
+<p>Content projects represent the starting point of working with Enonic CMS. In order to create content, you first need to create a project. Project defines if your content is public or private, and what type of content may be produced there.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="built_in_types"><a class="link" href="#built_in_types">Built-in types</a></h2>
+<h2 id="project_settings"><a class="link" href="#project_settings">Project settings</a></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="language"><a class="link" href="#language">Language</a></h3>
 <div class="paragraph">
-<p>In addition to the custom defined types, several <a href="#built-in">[built-in]</a> content types exits. These use reserved namespaces such as <code>base</code>, <code>media</code> and <code>portal</code>, and are available for use in your content model. Built-in content types are typically used as super-types for custom content types, but can also be used directly when creating content items.</p>
+<p>TODO</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="layering"><a class="link" href="#layering">Layering</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content types schemas are defined via YAML definitions. Below is an example content type definition:</p>
+<p>TODO</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;content-type&gt;
-  &lt;display-name&gt;Person&lt;/display-name&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;display-name-label&gt;Full Name&lt;/display-name-label&gt; <i class="conum" data-value="2"></i><b>(2)</b>
-  &lt;description&gt;Create a new person&lt;/description&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-  &lt;super-type&gt;base:structured&lt;/super-type&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
-  &lt;is-abstract&gt;false&lt;/is-abstract&gt;  <i class="conum" data-value="5"></i><b>(5)</b>
-  &lt;is-final&gt;true&lt;/is-final&gt;  <i class="conum" data-value="6"></i><b>(6)</b>
-  &lt;is-built-in&gt;false&lt;/is-built-in&gt;   <i class="conum" data-value="7"></i><b>(7)</b>
-  &lt;allow-child-content&gt;true&lt;/allow-child-content&gt;  <i class="conum" data-value="8"></i><b>(8)</b>
-  &lt;allow-child-content-type&gt;base:folder&lt;/allow-child-content-type&gt;  <i class="conum" data-value="9"></i><b>(9)</b>
-  &lt;allow-child-content-type&gt;${app}:article-*&lt;/allow-child-content-type&gt;
-  &lt;form/&gt; <i class="conum" data-value="10"></i><b>(10)</b>
-&lt;/content-type&gt;</code></pre>
+<div class="paragraph">
+<p><a href="content/layering.ahtml">Layered projects</a> allow you to create multiple layers of content, where each layer inherits content from the layer above. This allows you to create different versions of your content for different purposes, such as staging and production.</p>
+</div>
+<div class="sect2">
+<h3 id="basics"><a class="link" href="#basics">Basics</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Identifier - a unique id within the installation. Cannot be changed when first created</p>
+</li>
+<li>
+<p>Display name - a human readable name</p>
+</li>
+<li>
+<p>Default language - Specifies the default language for content created in the project</p>
+</li>
+</ul>
 </div>
 </div>
-<div class="colist arabic">
+<div class="sect2">
+<h3 id="access_mode"><a class="link" href="#access_mode">Access mode</a></h3>
+<div class="paragraph">
+<p>Project access mode defines default read permissions for it&#8217;s content.
+The available values are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Public (Everyone can read the content)</p>
+</li>
+<li>
+<p>Private (only users with project roles can read the content)</p>
+</li>
+<li>
+<p>Custom (a specific list of principals can be granted access to read the content, i.e. Employees)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To handle private and custom mode, a special "viewer" role is created and given read access to the content items.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="roles"><a class="link" href="#roles">Roles</a></h3>
+<div class="paragraph">
+<p>To provide access to a project or manage it, users can be granted special roles.
+The following roles are available per project:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contributor - Access to project and issues (must be given specific permissions to create or manage any content)</p>
+</li>
+<li>
+<p>Author - Same as contributor, but can additionally create and update content anywhere in the structure</p>
+</li>
+<li>
+<p>Editor - Same as Author, but with full permissions and access to rich-text editor source mode</p>
+</li>
+<li>
+<p>Owner - Same as Editor, but can also manage the project settings</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For each project, dedicated principal roles are created. The roles are named as follows:
+<code>com.enonic.cms.project.&lt;id&gt;.&lt;roletype&gt;</code></p>
+</div>
+<div class="paragraph">
+<p>An example might be com.enonic.cms.myproject.author.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="applications"><a class="link" href="#applications">Applications</a></h3>
+<div class="paragraph">
+<p>Applications can be assigned directly to a content project. Most functionality, schemas (content types, mixins, x-data) as well as controller mappings be available within the scope of the project, until a site item appears.</p>
+</div>
+<div class="paragraph">
+<p>Unlike sites, content at project level does not support pages, fragments and page page templates, so content preview and rendring must be done directly via <a href="../framework/mappings.ahtml">Mappings</a>.</p>
+</div>
+<div class="paragraph">
+<p>It is also worth noting that configurations of applications assigned to a project will be published instantly - unlike changes to a site.</p>
+</div>
+<div class="admonitionblock important">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>display-name</strong> (required) The human readable name of the content type.
-Optionally specify the <a href="../api/lib-i18n.ahtml">i18n</a> attribute to define a mapping to localize the value.
-The localization key must then be declared and localised in the resource bundle.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>display-name-label</strong> (optional; <em>since v7.1</em>) Enables you to override the default &lt;Display Name&gt; placeholder used in the content form.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>description</strong> (optional) Set a description that is shown when creating the content type.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><strong>super-type</strong> (required) Refers to the root controller of the form. For custom content types this should typically be set to <code>base:structured</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td><strong>is-abstract</strong> (optional; default: false) If true, you cannot create content with this content type.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td><strong>is-final</strong> (optional; default: false) If true, it is not possible to create new content types that “extend” this.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td><strong>is-built-in</strong> (optional; default: false) Only specified by built-in content types.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
-<td><strong>allow-child-content</strong> (optional; default: true) If false, no content will be allowed to be created or moved under content of this content type
-(e.g. prevents child content under media)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="9"></i><b>9</b></td>
-<td><strong>allow-child-content-type</strong> (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <a href="./schemas/input-types/contentselector.ahtml#allowContentType">MATCH</a>. <span class="image"><span class="alt">XP 7.7.0</span></span></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="10"></i><b>10</b></td>
-<td><strong>form</strong> (required) The custom <a href="schemas.ahtml#forms">Form</a> definition for your content type.</td>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Sites override project applications. If a site should use an application already assigned to its project, you must assign the application directly to the site.
+</td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p><a href="layers.ahtml">Layered projects</a> inherit application settings from parent layers, just like .</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -549,25 +599,46 @@ The localization key must then be declared and localised in the resource bundle.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>allow-child-content-type</code> will not have effect if <code>allow-child-content</code> is set to <code>false</code>
+Sites inside the project are isolated and have no access to project&#8217;s or each other&#8217;s apps.
 </td>
 </tr>
 </table>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="extend_with_mixins"><a class="link" href="#extend_with_mixins">Extend with mixins</a></h2>
+<h2 id="storage"><a class="link" href="#storage">Storage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You may dynamically extend both built-in and custom-defined content types through the use of <a href="mixins.ahtml">Mixins</a>.</p>
+<p>Another important purpose of projecs is to strictly isolate the content from other projects.
+As such, each project gets a dedicated <a href="../storage.ahtml">repository</a>.</p>
+</div>
+<div class="paragraph">
+<p>This means, that editors of a particular project will not be able to see, use or link to content within other projects.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="site_engine"><a class="link" href="#site_engine">Site engine</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="../runtime/engines/site-engine.ahtml">Site engine</a> provides access to content in a specific branch of a specific project at <code>/site/{projectId}/{branch}</code>, where <code>{projectId}</code> is a unique project identifier. For example, draft items of a project with identifier ´myproject´ can be accessed via internal path <code>/site/myproject/draft</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="api"><a class="link" href="#api">API</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To programmatically manage projects, use the <a href="../api/lib-project.ahtml">project API</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 09:32:48 UTC
+Last updated 2026-04-01 15:14:31 UTC
 </div>
 </div>
 </body>

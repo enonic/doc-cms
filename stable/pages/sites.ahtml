@@ -442,7 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#site_content_type">Site content type</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#defition_portalsite">Defition (portal:site)</a></li>
 <li><a href="#the_site_engine">The site engine</a></li>
 <li><a href="#site_xml">site.xml</a></li>
 </ul>
@@ -480,31 +481,50 @@ For a hands on introduction to sites and the concepts described here, visit the 
 </div>
 </div>
 <div class="sect1">
-<h2 id="site_content_type"><a class="link" href="#site_content_type">Site content type</a></h2>
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Site</code> is a built-in content type, which means a site can easily be created anywhere in your content structure.</p>
+<p>Site content serves the purpose of acting as website&#8217;s root entry. It enables selecting and configuring applications for a website. Content types, components, filters, x-data and more from the applications selected will be available for use inside the site content tree based on the site configuration.</p>
 </div>
 <div class="paragraph">
-<p>Site content items are special in the way that you may add applications to them. Similar to projects, functionality and schemas from the app will be available in the scope of the site.</p>
+<p>Sites can be created anywhere in your content structure, but they are commonly created as a child of the root content.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Apps added to <a href="projects.ahtml">a project</a> will not apply to a site, unless explicitly added there as well.
-</td>
-</tr>
-</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="defition_portalsite"><a class="link" href="#defition_portalsite">Defition (portal:site)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The site content type is built-in. It is a subtype of <code>base:structured</code>, and has the following definition:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:structured</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>true</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>true</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="the_site_engine"><a class="link" href="#the_site_engine">The site engine</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>TODO: Point to Enonic App developer</p>
+</div>
 <div class="paragraph">
 <p>When rendering sites and pages with the Enonic framework, request handling and resolving is performed by the <a href="../runtime/engines/site-engine.ahtml">site engine</a>. It offers site-specific capabilities and request handling such as:</p>
 </div>
@@ -623,7 +643,7 @@ Apps added to <a href="projects.ahtml">a project</a> will not apply to a site, u
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 09:32:48 UTC
+Last updated 2026-04-01 15:14:31 UTC
 </div>
 </div>
 </body>

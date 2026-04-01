@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Fragments</title>
+<title>Page Fragments</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,14 +437,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Fragments</h1>
+<h1>Page Fragments</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#fragment_preview">Fragment preview</a></li>
+<li><a href="#preview">Preview</a></li>
 <li><a href="#search">Search</a></li>
+<li><a href="#definition_portalfragment">Definition (portal:fragment)</a></li>
 </ul>
 </div>
 </div>
@@ -452,7 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Fragments enable reuse of components across different pages.</p>
+<p>Page Fragments enable reuse of components across different pages.</p>
 </div>
 </div>
 </div>
@@ -460,13 +461,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A fragment is essentially a component (or a tree of components) stored as an individual content item.</p>
+<p>A page fragment is a content item of the content type <code>portal:fragment</code>. It represents a reusable page component. A content of this type contains a page component (Part, Layout, Text, Image) that can be re-used in other pages. But it only needs to be maintained in one place.</p>
 </div>
 <div class="paragraph">
-<p>A component that has been turned into a fragment can be reused across different pages.</p>
-</div>
-<div class="paragraph">
-<p>When a fragment is altered, the change will apply to every page that uses it. This also adds a range of new possibilities when creating pages, such as time based publishing and permission control selected components of a page.</p>
+<p>There is a default page for rendering and edit fragments. The default page does not have any styles defined, but it is possible to render it with the application theme and styles by defining a controller <a href="../framework/mappings.ahtml">mapping</a> with <code>&lt;match&gt;type:'portal:fragment'&lt;/match&gt;</code></p>
 </div>
 </div>
 </div>
@@ -474,10 +472,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A fragment can be created from any component on a given page. Using Content Studio, a fragment is created by selecting a component, and then choosing <code>Create fragment</code> from the context menu.</p>
+<p>To create a Fragment in Content Studio: Edit an existing page, select a component and click “Create Fragment”. Once created, the fragment content can be referenced in other pages by inserting a Fragment component in the page.</p>
 </div>
 <div class="paragraph">
-<p>The fragment is then saved as a separate content instance, with the content type <code>portal:fragment</code>. This means the fragement can be managed and published, just like any other content item.</p>
+<p>Changes applied to a fragment will immediately be available in the pages that reference the fragment.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -490,25 +488,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="fragment_preview"><a class="link" href="#fragment_preview">Fragment preview</a></h2>
+<h2 id="preview"><a class="link" href="#preview">Preview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Fragments can be edited via the content form view, or visually if enabled.</p>
+<p>Like pages, fragments can be edited via the content form view, or even visually if enabled in your front-end.</p>
 </div>
 <div class="paragraph">
-<p>Since fragments are not pages, they may require special handling in order to be rendered in a visually appealing manner (with styles etc).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This will also require some tuning when using the <a href="../../framework/components.ahtml">Enonic framework</a>.
-</td>
-</tr>
-</table>
+<p>TODO:
+Developers using the Enonic framewrk may enable visual editing of fragments via a <a href="../framework/mappings.ahtml">mapping</a> with <code>&lt;match&gt;type:'portal:fragment'&lt;/match&gt;</code></p>
 </div>
 </div>
 </div>
@@ -516,10 +503,7 @@ This will also require some tuning when using the <a href="../../framework/compo
 <h2 id="search"><a class="link" href="#search">Search</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Since a fragment is a separate content item, text stored in the fragment will not be indexed on the pages where it is in use.</p>
-</div>
-<div class="paragraph">
-<p>This means that even if a fragment is placed on a page, searching for content within the fragment will not yield hits on the pages where it is included.</p>
+<p>Since a fragment is a separate content item, text stored in the fragment will not be indexed on the pages where it is in use. This means that even if a fragment is placed on a page, searching for content within the fragment will not yield hits on the pages where it is included.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -535,10 +519,38 @@ When performing queries against content from customer facing solutions, make sur
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="definition_portalfragment"><a class="link" href="#definition_portalfragment">Definition (portal:fragment)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Fragment content type has the following defiinition:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:structured</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>true</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>true</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 09:32:48 UTC
+Last updated 2026-04-01 15:14:31 UTC
 </div>
 </div>
 </body>

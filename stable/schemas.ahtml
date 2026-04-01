@@ -446,10 +446,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#descriptors">Descriptors</a></li>
-<li><a href="#deployment">Deployment</a></li>
-<li><a href="#kinds">Kinds</a></li>
-<li><a href="#other_use_cases">Other use-cases</a></li>
+<li><a href="#installation_and_usage">Installation and usage</a></li>
+<li><a href="#definition">Definition</a></li>
+<li><a href="#kinds">Schema kinds</a>
+<ul class="sectlevel2">
+<li><a href="#reuse">Reuse</a></li>
+<li><a href="#content_types">Content types</a></li>
+<li><a href="#rich_text">Rich Text</a></li>
+<li><a href="#page_domain">Page domain</a></li>
+</ul>
+</li>
+<li><a href="#schema_localization">Schema localization</a></li>
 </ul>
 </div>
 </div>
@@ -470,10 +477,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="descriptors"><a class="link" href="#descriptors">Descriptors</a></h2>
+<h2 id="installation_and_usage"><a class="link" href="#installation_and_usage">Installation and usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO YAML example</p>
+<p>Schemas are deployed to Enonic XP via Enonic apps. When an application gets installed, the schemas are registered in the system, and instantly reflected in Content Studio and related APIs.</p>
+</div>
+<div class="paragraph">
+<p>Visit the <a href="https://developer.enonic.com/docs/dev">Enonic App development docs</a> for more information on how to create and deploy Enonic apps.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="definition"><a class="link" href="#definition">Definition</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Schemas are defined using YAML files. A schema definition commonly contains the following elements:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -481,80 +499,99 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Namespace and name (i.e. "com.example:article")</p>
 </li>
 <li>
-<p>Kind (i.e. "content-type", "mixin" etc)</p>
+<p><a href="#kinds">Kind</a> (i.e. "content-type", "mixin")</p>
 </li>
 <li>
-<p>Configuration (Specific to each schema kind)</p>
+<p>Configuration (Validated fields for each schema kind)</p>
 </li>
 <li>
 <p><a href="form.ahtml">Form</a> (Optionally defines a form, and hence the data structure of the content)</p>
 </li>
 <li>
-<p>Indexing rules (optionally defines indexing rules for the form inputs)</p>
+<p>Attributes (User-defined non-validated fields)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Content Studio is available in multiple languages, and you may also <a href="i18n.ahtml">translate</a> your schemas in multiple languages, for better usability.</p>
+<p>TODO: Example descriptor</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="deployment"><a class="link" href="#deployment">Deployment</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Schemas are deployed to Enonic XP via Enonic apps. Once installed, the schemas are registered in the system, and reflected in the APIs. Content Studio also uses the schemas to generate the user interfaces for the respective editorial items. Schemas are organized in namespaces to prevent naming conflicts and promote reuse.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="kinds"><a class="link" href="#kinds">Kinds</a></h2>
+<h2 id="kinds"><a class="link" href="#kinds">Schema kinds</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Enonic currently support the following content schemas kinds. Each kind has a specific role in the CMS, and may have specific configuration options.</p>
 </div>
+<div class="sect2">
+<h3 id="reuse"><a class="link" href="#reuse">Reuse</a></h3>
 <div class="ulist">
 <ul>
 <li>
-<p>content-type</p>
+<p><a href="schemas/form-fragments.ahtml">Form Fragments</a></p>
 </li>
 <li>
-<p>mixin</p>
+<p><a href="mixins.ahtml">Mixins</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="content_types"><a class="link" href="#content_types">Content types</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="content/content-types.ahtml">Content Types</a></p>
 </li>
 <li>
-<p>page</p>
+<p><a href="media/media-types.ahtml">Media Types</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rich_text"><a class="link" href="#rich_text">Rich Text</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="richtext/macros.ahtml">Macros</a></p>
 </li>
 <li>
-<p>part</p>
+<p><a href="richtext/styles.ahtml">Styles</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="page_domain"><a class="link" href="#page_domain">Page domain</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="pages.ahtml">Pages</a></p>
 </li>
 <li>
-<p>layout</p>
+<p><a href="pages/parts.ahtml">Parts</a></p>
 </li>
 <li>
-<p>form-fragments</p>
-</li>
-<li>
-<p>macro</p>
-</li>
-<li>
-<p>styles</p>
+<p><a href="pages/layouts.ahtml">Layouts</a></p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="other_use_cases"><a class="link" href="#other_use_cases">Other use-cases</a></h2>
+<h2 id="schema_localization"><a class="link" href="#schema_localization">Schema localization</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic XP re-uses the schema concept in other contexts than the CMS. For instance, identity providers and tasks also use schemas for configuration. In these cases, only a generic subset of the form items are supported, and the form output will not be persisted as content, but rather stored in the identity provider or task definition.</p>
+<p>You may provide <a href="i18n.ahtml">translations</a> for your schemas in multiple languages for better usability.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 09:32:48 UTC
+Last updated 2026-04-01 15:14:31 UTC
 </div>
 </div>
 </body>
