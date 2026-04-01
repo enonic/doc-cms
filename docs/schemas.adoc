@@ -17,7 +17,7 @@ Visit the https://developer.enonic.com/docs/dev[Enonic App development docs] for
 
 == Definition
 
-Schemas are defined in YAML files. A schema definition commonly contains the following elements:
+Schemas are defined using YAML files. A schema definition commonly contains the following elements:
 
 * Namespace and name (i.e. "com.example:article")
 * <<#kinds, Kind>> (i.e. "content-type", "mixin")
@@ -27,7 +27,7 @@ Schemas are defined in YAML files. A schema definition commonly contains the fol
 
 TODO: Example descriptor
 
-[kinds]
+[[kinds]]
 == Schema kinds
 Enonic currently support the following content schemas kinds. Each kind has a specific role in the CMS, and may have specific configuration options.
 
