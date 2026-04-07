@@ -482,33 +482,32 @@ Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-se
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;!-- Basic Sample --&gt;
-&lt;input name="mycustomselector" type="CustomSelector"&gt;
-  &lt;label&gt;My Custom Selector&lt;/label&gt;
-  &lt;occurrences minimum="0" maximum="0"/&gt;
-  &lt;config&gt;
-    &lt;service&gt;my-custom-selector&lt;/service&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;/config&gt;
-&lt;/input&gt;
+<pre class="highlight"><code class="language-yaml" data-lang="yaml"># Basic Sample
+- type: "CustomSelector"
+  name: "mycustomselector"
+  label: "My Custom Selector"
+  occurrences:
+    min: 0
+    max: 0
+  service: "my-custom-selector"  <i class="conum" data-value="1"></i><b>(1)</b>
 
-&lt;!-- Sample with parameters --&gt;
-&lt;input name="musicTrack" type="CustomSelector"&gt;
-  &lt;label&gt;Intro song&lt;/label&gt;
-  &lt;config&gt;
-    &lt;service&gt;spotify-music-selector&lt;/service&gt;
-    &lt;param value="genre"&gt;classic&lt;/param&gt;   <i class="conum" data-value="2"></i><b>(2)</b>
-    &lt;param value="sortBy"&gt;length&lt;/param&gt;
-  &lt;/config&gt;
-&lt;/input&gt;
+# Sample with parameters
+- type: "CustomSelector"
+  name: "musicTrack"
+  label: "Intro song"
+  service: "spotify-music-selector"
+  param:  <i class="conum" data-value="2"></i><b>(2)</b>
+    - value: "genre"
+      label: "classic"
+    - value: "sortBy"
+      label: "length"
 
-&lt;!-- Gallery mode --&gt;
-&lt;input name="albumCover" type="CustomSelector"&gt;
-  &lt;label&gt;Album cover&lt;/label&gt;
-  &lt;config&gt;
-    &lt;service&gt;spotify-album-cover-selector&lt;/service&gt;
-    &lt;galleryMode&gt;true&lt;/galleryMode&gt;   <i class="conum" data-value="3"></i><b>(3)</b>
-  &lt;/config&gt;
-&lt;/input&gt;</code></pre>
+# Gallery mode
+- type: "CustomSelector"
+  name: "albumCover"
+  label: "Album cover"
+  service: "spotify-album-cover-selector"
+  galleryMode: true  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -610,7 +609,7 @@ Inline image content (for example, SVG)</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

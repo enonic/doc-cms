@@ -448,6 +448,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#allowpath_samples">allowPath Samples</a></li>
 </ul>
 </li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -474,19 +475,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mycontentselector" type="ContentSelector"&gt;
-  &lt;label&gt;My ContentSelector&lt;/label&gt;
-  &lt;occurrences minimum="0" maximum="0"/&gt;
-  &lt;config&gt;
-    &lt;allowContentType&gt;citation&lt;/allowContentType&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-    &lt;allowContentType&gt;my.other.app:quote&lt;/allowContentType&gt;
-    &lt;allowPath&gt;${site}/people/&lt;/allowPath&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-    &lt;allowPath&gt;./*&lt;/allowPath&gt;
-    &lt;allowPath&gt;/quotes*&lt;/allowPath&gt;
-    &lt;treeMode&gt;true&lt;/treeMode&gt;   <i class="conum" data-value="3"></i><b>(3)</b>
-    &lt;hideToggleIcon&gt;true&lt;/hideToggleIcon&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
-  &lt;/config&gt;
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ContentSelector"
+  name: "mycontentselector"
+  label: "My ContentSelector"
+  occurrences:
+    min: 0
+    max: 0
+  allowContentType:  <i class="conum" data-value="1"></i><b>(1)</b>
+    - "citation"
+    - "my.other.app:quote"
+  allowPath:  <i class="conum" data-value="2"></i><b>(2)</b>
+    - "${site}/people/"
+    - "./*"
+    - "/quotes*"
+  treeMode: true  <i class="conum" data-value="3"></i><b>(3)</b>
+  hideToggleIcon: true  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -596,7 +599,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowContentType&gt;citation&lt;/allowContentType&gt;</pre>
+<pre>allowContentType:
+  - "citation"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -604,7 +608,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowContentType&gt;my.other.app:quote&lt;/allowContentType&gt;</pre>
+<pre>allowContentType:
+  - "my.other.app:quote"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -612,7 +617,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowContentType&gt;*:quote&lt;/allowContentType&gt;</pre>
+<pre>allowContentType:
+  - "*:quote"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -620,7 +626,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowContentType&gt;${app}:*&lt;/allowContentType&gt;</pre>
+<pre>allowContentType:
+  - "${app}:*"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -628,7 +635,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowContentType&gt;*:banana*&lt;/allowContentType&gt;</pre>
+<pre>allowContentType:
+  - "*:banana*"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -636,7 +644,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowContentType&gt;^(?!base:folder$)*&lt;/allowContentType&gt;</pre>
+<pre>allowContentType:
+  - "^(?!base:folder$)*"</pre>
 </div>
 </div>
 </div>
@@ -652,7 +661,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowPath&gt;*&lt;/allowPath&gt;</pre>
+<pre>allowPath:
+  - "*"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -663,7 +673,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowPath&gt;${site}/*&lt;/allowPath&gt;</pre>
+<pre>allowPath:
+  - "${site}/*"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -673,7 +684,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowPath&gt;${site}/people/*&lt;/allowPath&gt;</pre>
+<pre>allowPath:
+  - "${site}/people/*"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -685,7 +697,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowPath&gt;/mySite/people*&lt;/allowPath&gt;</pre>
+<pre>allowPath:
+  - "/mySite/people*"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -693,7 +706,8 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowPath&gt;./*&lt;/allowPath&gt;</pre>
+<pre>allowPath:
+  - "./*"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -701,10 +715,38 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;allowPath&gt;../*&lt;/allowPath&gt;</pre>
+<pre>allowPath:
+  - "../*"</pre>
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The stored value is the content ID (string) of the referenced item. When multiple selections are allowed, the value is an array.</p>
+</div>
+<div class="listingblock">
+<div class="title">Single reference</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mycontentselector": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Multiple references</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mycontentselector": [
+    "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ]
+}</code></pre>
 </div>
 </div>
 </div>
@@ -712,7 +754,7 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

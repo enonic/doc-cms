@@ -491,21 +491,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">display-name</dt>
+<dt class="hdlist1">title</dt>
 <dd>
-<p>A simple human readable display name.</p>
-</dd>
-<dt class="hdlist1">display-name@i18n</dt>
-<dd>
-<p>The key to look up the display-name text in the localization bundles. Optional. Visit <a href="schemas/localization.ahtml">Schema localization</a> for more details.</p>
+<p>A simple human readable display name. Supports <a href="../schemas/i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</p>
 </dd>
 <dt class="hdlist1">description</dt>
 <dd>
-<p>A description to show in the Insert macro dialog in Content Studio.</p>
-</dd>
-<dt class="hdlist1">description@i18n</dt>
-<dd>
-<p>The key to look up the description text in the localization bundles. Optional. Visit <a href="schemas/localization.ahtml">Schema localization</a> for more details.</p>
+<p>A description to show in the Insert macro dialog in Content Studio. Also supports localization.</p>
 </dd>
 <dt class="hdlist1">config</dt>
 <dd>
@@ -538,23 +530,24 @@ If you don&#8217;t have a input with the <code>name="body"</code>, the generated
 </table>
 </div>
 <div class="paragraph">
-<p>Its path follows the pattern <code>src/main/resources/site/macros/&lt;macroName&gt;/&lt;macroName&gt;.xml</code></p>
+<p>Its path follows the pattern <code>src/main/resources/site/macros/&lt;macroName&gt;/&lt;macroName&gt;.yaml</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-XML" data-lang="XML">&lt;macro&gt;
-  &lt;display-name i18n="a-macro.display-name"&gt;Current user&lt;/display-name&gt;
-  &lt;description i18n="a-macro.description"&gt;Shows currently logged user&lt;/description&gt;
-
-  &lt;form&gt;
-    &lt;input name="body" type="TextLine"&gt;
-      &lt;label&gt;Macro body&lt;/label&gt;
-    &lt;/input&gt;
-    &lt;input name="defaultText" type="TextLine"&gt;
-      &lt;label&gt;Text to show if no user logged in&lt;/label&gt;
-    &lt;/input&gt;
-  &lt;/form&gt;
-&lt;/macro&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Macro"
+title:
+  text: "Current user"
+  i18n: "a-macro.display-name"
+description:
+  text: "Shows currently logged user"
+  i18n: "a-macro.description"
+form:
+  - type: "TextLine"
+    name: "body"
+    label: "Macro body"
+  - type: "TextLine"
+    name: "defaultText"
+    label: "Text to show if no user logged in"</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -568,9 +561,6 @@ The macro texts (display-name, description, label and help-text from config inpu
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>Although not strictly required, it is recommended to create a descriptor, as it provides the required details for adding macros through the UI in Content Studio.</p>
 </div>
 </div>
 </div>
@@ -725,7 +715,7 @@ A macro may optionally have its own specific icon. The icon can be assigned to t
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

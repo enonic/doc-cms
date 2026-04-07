@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -469,13 +470,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="myctyfilter" type="ContentTypeFilter"&gt;
-  &lt;label&gt;My CTYFilter&lt;/label&gt;
-  &lt;occurrences minimum="0" maximum="0"/&gt;
-  &lt;config&gt;
-    &lt;context&gt;true&lt;/context&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;/config&gt;
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ContentTypeFilter"
+  name: "myctyfilter"
+  label: "My CTYFilter"
+  occurrences:
+    min: 0
+    max: 0
+  context: true  <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -488,10 +489,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The stored value is the fully qualified content type name (string).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "myctyfilter": "com.example.myapp:article"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Multiple selections</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "myctyfilter": [
+    "com.example.myapp:article",
+    "base:folder"
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

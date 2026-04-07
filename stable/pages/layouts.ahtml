@@ -467,7 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Create a layout by placing a descriptor file in your project, like this: `src/main/resources/site/layouts/&lt;layout-name&gt;/&lt;layout-name&gt;.xml.</p>
+<p>Create a layout by placing a descriptor file in your project, like this: <code>src/main/resources/site/layouts/&lt;layout-name&gt;/&lt;layout-name&gt;.yaml</code>.</p>
 </div>
 <div class="paragraph">
 <p>Similar to the page descriptor, the layout descriptor supports both schema forms and <a href="regions.ahtml">regions</a>.</p>
@@ -475,15 +475,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Sample layout with three regions</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;layout&gt;
-  &lt;display-name&gt;3 regions&lt;/display-name&gt;
-  &lt;form /&gt;
-  &lt;regions&gt;
-    &lt;region name="left"/&gt;
-    &lt;region name="main"/&gt;
-    &lt;region name="right"/&gt;
-  &lt;/regions&gt;
-&lt;/layout&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Layout"
+title: "3 regions"
+form: []
+regions:
+  - name: "left"
+  - name: "main"
+  - name: "right"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -510,7 +508,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

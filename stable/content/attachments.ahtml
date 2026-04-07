@@ -517,6 +517,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </dl>
 </div>
 <div class="paragraph">
+<p>Example of how attachments appear in the content data:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "attachments": [
+    {
+      "name": "document.pdf",
+      "label": "source",
+      "size": 238764,
+      "mimeType": "application/pdf",
+      "binary": "document.pdf",
+      "text": "Extracted text content from the PDF..."
+    },
+    {
+      "name": "photo.jpg",
+      "label": "source",
+      "size": 102400,
+      "mimeType": "image/jpeg",
+      "binary": "photo.jpg"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>You may query for attachments using the Content API, and also search for attachments based on their properties, e.g., <code>attachment.name</code> or <code>attachment.text</code> using Enonic&#8217;s Query API.</p>
 </div>
 </div>
@@ -535,7 +561,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

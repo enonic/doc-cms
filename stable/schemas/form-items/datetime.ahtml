@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -450,7 +451,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A simple field for dates with time.  A pop-up box with a calendar and time selector allows easy editing.</p>
+<p>A field for dates with time and timezone. A pop-up box with a calendar and time selector allows easy editing.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For dates without timezone, use <a href="instant.ahtml">Instant</a> instead.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -458,8 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The user format is <code>yyyy-MM-dd hh:mm</code> for example, <code>2015-02-09 09:00</code>. The date-time could be of type
-<code>local</code> (no timezone) or with a timezone. This is done using configuration:</p>
+<p>The user format is <code>yyyy-MM-dd hh:mm</code> for example, <code>2015-02-09 09:00</code>. The timezone is always included.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -473,23 +485,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mydatetime" type="DateTime"&gt;
-  &lt;label&gt;My DateTime&lt;/label&gt;
-  &lt;config&gt;
-    &lt;timezone&gt;true&lt;/timezone&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;/config&gt;
-  &lt;default&gt;2011-09-12&lt;/default&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "DateTime"
+  name: "mydatetime"
+  label: "My DateTime"
+  default: "2011-09-12T12:00+01:00"  <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>timezone</strong> set to <code>true</code> if timezone information should be used. Default is <code>false</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
 <td><strong>default</strong> date value to be used. The format for the default date value can be:</td>
 </tr>
 </table>
@@ -499,10 +504,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Combined date and time in ISO 8601 format, with timezone: <code>yyyy-MM-ddThh:mm±hh:mm</code>  (e.g. "2016-12-31T23:59+01:00")</p>
-</li>
-<li>
-<p>Combined date and time in ISO 8601 format, without timezone: <code>yyyy-MM-ddThh:mm</code>  (e.g. "2016-12-31T23:59")</p>
+<p>Combined date and time in ISO 8601 format with timezone: <code>yyyy-MM-ddThh:mm±hh:mm</code>  (e.g. "2016-12-31T23:59+01:00")</p>
 </li>
 <li>
 <p>Relative datetime expression (e.g. "+1year -12hours")</p>
@@ -573,35 +575,42 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 </div>
 <div class="paragraph">
-<p>If <code>&lt;default&gt;</code> value is set for an input, the Date/Time picker will display "<strong>Set default</strong>" button for setting the default value with one click.</p>
+<p>If <code>default</code> value is set for an input, the Date/Time picker will display "<strong>Set default</strong>" button for setting the default value with one click.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="dateTimeDefaultTz" type="DateTime"&gt;
-  &lt;label&gt;DateTime (with tz and default value)&lt;/label&gt;
-  &lt;config&gt;
-    &lt;timezone&gt;true&lt;/timezone&gt;
-  &lt;/config&gt;
-  &lt;default&gt;2000-01-01T12:30+01:00&lt;/default&gt;
-&lt;/input&gt;
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "DateTime"
+  name: "dateTimeDefault"
+  label: "DateTime (with default value)"
+  default: "2000-01-01T12:30+01:00"
 
-&lt;input name="dateTimeDefaultNoTz" type="DateTime"&gt;
-  &lt;label&gt;DateTime (without tz and default value)&lt;/label&gt;
-  &lt;default&gt;2000-01-01T12:30&lt;/default&gt;
-&lt;/input&gt;
+- type: "DateTime"
+  name: "dateTimeRelative"
+  label: "DateTime (relative default value)"
+  default: "+1year -12hours"
 
-&lt;input name="dateTimeRelative" type="DateTime"&gt;
-  &lt;label&gt;DateTime (relative default value)&lt;/label&gt;
-  &lt;default&gt;+1year -12hours&lt;/default&gt;
-&lt;/input&gt;
-
-&lt;input name="dateTimeNow" type="DateTime"&gt;
-  &lt;label&gt;DateTime (current time as default value)&lt;/label&gt;
-  &lt;default&gt;now&lt;/default&gt;
-&lt;/input&gt;</code></pre>
+- type: "DateTime"
+  name: "dateTimeNow"
+  label: "DateTime (current time as default value)"
+  default: "now"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The value is stored as an ISO 8601 date-time string with timezone offset.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mydatetime": "2016-12-31T23:59:00+01:00"
+}</code></pre>
 </div>
 </div>
 </div>
@@ -609,7 +618,7 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

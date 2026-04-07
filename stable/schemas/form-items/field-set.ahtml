@@ -474,22 +474,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Sample field-set definition containing a single input-type</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;field-set&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;label i18n="metadata.label"&gt;Metadata&lt;/label&gt;
-  &lt;items&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-    &lt;input name="tags" type="Tag"&gt;
-      &lt;label&gt;Tags for tag cloud&lt;/label&gt;
-      &lt;occurrences minimum="0" maximum="5"/&gt;
-    &lt;/input&gt;
-  &lt;/items&gt;
-&lt;/field-set&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "FieldSet"  <i class="conum" data-value="1"></i><b>(1)</b>
+  label:
+    text: "Metadata"
+    i18n: "metadata.label"
+  items:  <i class="conum" data-value="2"></i><b>(2)</b>
+    - type: "Tag"
+      name: "tags"
+      label: "Tags for tag cloud"
+      occurrences:
+        min: 0
+        max: 5</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>field-set</strong> does not need a name since it is only visual, and does not affect the data model</td>
+<td><strong>FieldSet</strong> does not need a name since it is only visual, and does not affect the data model</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -510,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

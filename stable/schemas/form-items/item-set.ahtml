@@ -518,20 +518,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Item Set example with two inputs</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;item-set name="contact_info"&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;label i18n="contact_info.label"&gt;Contact Info&lt;/label&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-  &lt;occurrences minimum="0" maximum="0"/&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-  &lt;items&gt;
-    &lt;input name="label" type="TextLine"&gt;
-      &lt;label&gt;Label&lt;/label&gt;
-      &lt;occurrences minimum="0" maximum="1"/&gt;
-    &lt;/input&gt;
-    &lt;input name="phone_number" type="TextLine"&gt;
-      &lt;label&gt;Phone Number&lt;/label&gt;
-      &lt;occurrences minimum="0" maximum="1"/&gt;
-    &lt;/input&gt;
-  &lt;/items&gt;
-&lt;/item-set&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ItemSet"
+  name: "contact_info"  <i class="conum" data-value="1"></i><b>(1)</b>
+  label:  <i class="conum" data-value="2"></i><b>(2)</b>
+    text: "Contact Info"
+    i18n: "contact_info.label"
+  occurrences:  <i class="conum" data-value="3"></i><b>(3)</b>
+    min: 0
+    max: 0
+  items:
+    - type: "TextLine"
+      name: "label"
+      label: "Label"
+      occurrences:
+        min: 0
+        max: 1
+    - type: "TextLine"
+      name: "phone_number"
+      label: "Phone Number"
+      occurrences:
+        min: 0
+        max: 1</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -612,7 +619,7 @@ Arrays are added based on the actual number of items created, not the schema def
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

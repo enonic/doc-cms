@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>GeoPoint input type</title>
+<title>Content projects</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>GeoPoint input type</h1>
+<h1>Content projects</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#appearance">Appearance</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#output">Output</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#branches">Branches</a></li>
+<li><a href="#general_settings">General settings</a></li>
+<li><a href="#access_mode">Access mode</a></li>
+<li><a href="#roles">Roles</a></li>
+<li><a href="#layering">Layering</a></li>
+<li><a href="#applications">Features</a></li>
+<li><a href="#site_engine">Site engine</a></li>
 </ul>
 </div>
 </div>
@@ -451,66 +456,125 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Stores a GPS coordinate as two comma-separated decimal numbers.</p>
+<p>Independent repositories that provide strict isolation of content, allowing for different access modes and configurations.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="images/Geo-point.png" alt="text input with a longitude and latitude numbers" width="700">
+<div class="paragraph">
+<p>Content projects represent the starting point of working with Enonic CMS. In order to create content, you first need to create a project. Project defines if your content is public or private, and what type of content may be produced there. This means, that editors of a particular project will not be able to see, use or link to content within other projects.</p>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="branches"><a class="link" href="#branches">Branches</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each project has two branches where content may exist. The <code>draft</code> branch, where all editorial activity occurs, and the <code>master</code> branch which is where the published content resides. When content is published, it is replicated from the <code>draft</code> branch to the <code>master</code> branch. This means that the <code>draft</code> branch may contain unpublished changes, while the <code>master</code> branch always contains the latest published version of the content.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="general_settings"><a class="link" href="#general_settings">General settings</a></h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>The first number must be between -90 and 90, where a negative number indicates a location south of equator and a positive is north of the equator.</p>
+<p>Identifier - a unique id within the installation. Cannot be changed when first created</p>
 </li>
 <li>
-<p>The second number must be between -180 and 180, where a negative number indicates a location in the western hemisphere and a positive number is a location in the eastern hemisphere.</p>
+<p>Display name - a human readable name</p>
+</li>
+<li>
+<p>Default language - Specifies the default language for content created in the project</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="access_mode"><a class="link" href="#access_mode">Access mode</a></h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "GeoPoint"
-  name: "mygeopoint"
-  label: "My GeoPoint"
-  occurrences:
-    min: 0
-    max: 1
-  default: "51.5,-0.1"  <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<div class="paragraph">
+<p>Project access mode defines default read permissions for it&#8217;s content.
+The available values are:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Public (Everyone can read the content)</p>
+</li>
+<li>
+<p>Private (only users with project roles can read the content)</p>
+</li>
+<li>
+<p>Custom (a specific list of principals can be granted access to read the content, i.e. Employees)</p>
+</li>
+</ul>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>default</strong> specifies a default string value for the GeoPoint, for example <code>51.5,-0.1</code>.</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>To handle private and custom mode, a special "viewer" role is created and given read access to the content items.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<h2 id="roles"><a class="link" href="#roles">Roles</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The value is stored as a comma-separated string of latitude and longitude.</p>
+<p>To provide access to a project or manage it, users can be granted special roles.
+The following roles are available per project:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mygeopoint": "51.5,-0.1"
-}</code></pre>
+<div class="ulist">
+<ul>
+<li>
+<p>Contributor - Access to project and issues (must be given specific permissions to create or manage any content)</p>
+</li>
+<li>
+<p>Author - Same as contributor, but can additionally create and update content anywhere in the structure</p>
+</li>
+<li>
+<p>Editor - Same as Author, but with full permissions and access to rich-text editor source mode</p>
+</li>
+<li>
+<p>Owner - Same as Editor, but can also manage the project settings</p>
+</li>
+</ul>
 </div>
+<div class="paragraph">
+<p>For each project, dedicated principal roles are created. The roles are named as follows:
+<code>com.enonic.cms.project.&lt;id&gt;.&lt;roletype&gt;</code></p>
+</div>
+<div class="paragraph">
+<p>An example might be com.enonic.cms.myproject.author.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="layering"><a class="link" href="#layering">Layering</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="content/layering.ahtml">Project layering</a> is a powerful feature that, where each layer inherits content from the parent layer above. This allows you to create different versions of your content for different purposes, such as translations or content for different markets.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="applications"><a class="link" href="#applications">Features</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By assigning and configuring Enonic apps for a projects, their Schemas, Extensions and other functionality will be available within the scope of the project. For example, you might have a project for a blog, where you assign a blogging application that provides content types and components for creating blog posts.  It is also worth noting that any configuration of these applications will instantly be reflected, both in Content Studio and via API.</p>
+</div>
+<div class="paragraph">
+<p><a href="layers.ahtml">Layered projects</a> automatically inherit application settings from parent layers, unless they are overridden in the child layer. This means that if you assign an application to a parent layer, it will be available in all child layers, unless you explicitly override it in a child layer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="site_engine"><a class="link" href="#site_engine">Site engine</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="../runtime/engines/site-engine.ahtml">Site engine</a> provides access to content in a specific branch of a specific project at <code>/site/{projectId}/{branch}</code>, where <code>{projectId}</code> is a unique project identifier. For example, draft items of a project with identifier ´myproject´ can be accessed via internal path <code>/site/myproject/draft</code>.</p>
 </div>
 </div>
 </div>

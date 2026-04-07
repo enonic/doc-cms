@@ -445,12 +445,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#usage">Usage</a></li>
 <li><a href="#form_items_grouped_by_output">Form items grouped by output</a>
 <ul class="sectlevel2">
-<li><a href="#reference">Reference</a></li>
 <li><a href="#string">String</a></li>
-<li><a href="#number">Number</a></li>
+<li><a href="#reference">Reference</a></li>
+<li><a href="#attachment_reference">Attachment Reference</a></li>
+<li><a href="#long">Long</a></li>
+<li><a href="#double">Double</a></li>
 <li><a href="#boolean">Boolean</a></li>
-<li><a href="#geopoint">Geopoint</a></li>
-<li><a href="#propertyset_object">PropertySet (object)</a></li>
+<li><a href="#geopoint">GeoPoint</a></li>
+<li><a href="#localdate">LocalDate</a></li>
+<li><a href="#localtime">LocalTime</a></li>
+<li><a href="#instant">Instant</a></li>
+<li><a href="#datetime">DateTime</a></li>
+<li><a href="#set_propertyset">Set (PropertySet)</a></li>
 <li><a href="#no_output">No output</a></li>
 </ul>
 </li>
@@ -489,27 +495,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input type="InputTypeName" name="myname" &gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;label i18n="myname.label"&gt;My label&lt;/label&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-  &lt;default/&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-  &lt;help-text i18n="myname.help-text"&gt;Help text here&lt;/help-text&gt;   <i class="conum" data-value="4"></i><b>(4)</b>
-  &lt;occurrences minimum="0" maximum="1"/&gt;   <i class="conum" data-value="5"></i><b>(5)</b>
-  &lt;config/&gt;  <i class="conum" data-value="6"></i><b>(6)</b>
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "InputTypeName"  <i class="conum" data-value="1"></i><b>(1)</b>
+  name: "myname"
+  label:  "My label" <i class="conum" data-value="2"></i><b>(2)</b>
+  default: ""  <i class="conum" data-value="3"></i><b>(3)</b>
+  help-text: "Help text here" <i class="conum" data-value="4"></i><b>(4)</b>
+  occurrences:  <i class="conum" data-value="5"></i><b>(5)</b>
+    min: 0
+    max: 1
+  # config properties are specified directly  <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>input</strong> contains two mandatory attributes:<br>
-<em>@name</em> is used when storing the data in a property, and must be unique on each level.<br>
-<em>@type</em> refers to one of the many input types which are listed below.</td>
+<td><strong>type</strong> and <strong>name</strong> are mandatory:<br>
+<em>name</em> is used when storing the data in a property, and must be unique on each level.<br>
+<em>type</em> refers to one of the many input types which are listed below.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>label</strong> is another mandatory field that holds the human readable value that will be displayed when listing the input type control in the administrative interface<br>
-<em>@i18n</em> is an optional attribute holding the key to localization phrase of the form (see <a href="localization.ahtml">localization</a>).</td>
+<td><strong>label</strong> is another mandatory field that holds the human readable value that will be displayed when listing the input type control in the administrative interface.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -518,18 +525,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
 <td><strong>help-text</strong> is an optional field that lets you specify a text label shown below the input field. Used for explanation of the field&#8217;s purpose.<br>
-<em>@i18n</em> is an optional attribute holding the key to localization phrase of the form (see <a href="localization.ahtml">localization</a>).</td>
+Like <code>label</code>, supports <a href="i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
 <td><strong>occurrences</strong> is an optional field used to control the number of values stored by a single input.<br>
-<em>@minimum</em> set to to zero means the input is not mandatory<br>
-<em>@maximum</em> to zero means there is no upper limit to the number of values.<br>
-This element is optional, if omitted the default will be <code>minimum="0"</code> and <code>maximum="1"</code>.</td>
+<em>min</em> set to zero means the input is not mandatory<br>
+<em>max</em> set to zero means there is no upper limit to the number of values.<br>
+This element is optional, if omitted the default will be <code>min: 0</code> and <code>max: 1</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
-<td><strong>config</strong> is an optional element designed to hold custom configuration for each input-type.</td>
+<td>Config properties are specified directly on the form item, rather than in a separate config element.</td>
 </tr>
 </table>
 </div>
@@ -538,35 +545,155 @@ This element is optional, if omitted the default will be <code>minimum="0"</code
 <div class="sect1">
 <h2 id="form_items_grouped_by_output"><a class="link" href="#form_items_grouped_by_output">Form items grouped by output</a></h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="reference"><a class="link" href="#reference">Reference</a></h3>
-
+<div class="paragraph">
+<p>Each form item produces a value of a specific <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types">value type</a>. The value type determines how the data is stored and indexed.</p>
 </div>
 <div class="sect2">
 <h3 id="string"><a class="link" href="#string">String</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="number"><a class="link" href="#number">Number</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="boolean"><a class="link" href="#boolean">Boolean</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="geopoint"><a class="link" href="#geopoint">Geopoint</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="propertyset_object"><a class="link" href="#propertyset_object">PropertySet (object)</a></h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#item-set.adoc">Item set</a></p>
+<p><a href="#textline.adoc">TextLine</a> — single line plain text</p>
 </li>
 <li>
-<p><a href="#option-set.adoc">Option set</a></p>
+<p><a href="#textarea.adoc">TextArea</a> — multi-line plain text</p>
+</li>
+<li>
+<p><a href="#htmlarea.adoc">HtmlArea</a> — multi-line rich text (HTML)</p>
+</li>
+<li>
+<p><a href="#combobox.adoc">ComboBox</a> — select from predefined options</p>
+</li>
+<li>
+<p><a href="#radiobutton.adoc">RadioButton</a> — single select from predefined options</p>
+</li>
+<li>
+<p><a href="#tag.adoc">Tag</a> — free-text tags</p>
+</li>
+<li>
+<p><a href="#customselector.adoc">CustomSelector</a> — custom data source selection</p>
+</li>
+<li>
+<p><a href="#contenttypefilter.adoc">ContentTypeFilter</a> — content type name</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reference"><a class="link" href="#reference">Reference</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#contentselector.adoc">ContentSelector</a> — reference to other content</p>
+</li>
+<li>
+<p><a href="#imageselector.adoc">ImageSelector</a> — reference to image content</p>
+</li>
+<li>
+<p><a href="#mediaselector.adoc">MediaSelector</a> — reference to media content</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="attachment_reference"><a class="link" href="#attachment_reference">Attachment Reference</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#attachmentuploader.adoc">AttachmentUploader</a> — file attachment</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="long"><a class="link" href="#long">Long</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#long.adoc">Long</a> — 64-bit integer number</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="double"><a class="link" href="#double">Double</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#double.adoc">Double</a> — 64-bit floating-point number</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="boolean"><a class="link" href="#boolean">Boolean</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#checkbox.adoc">CheckBox</a> — true/false value</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="geopoint"><a class="link" href="#geopoint">GeoPoint</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#geopoint.adoc">GeoPoint</a> — latitude/longitude coordinate</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="localdate"><a class="link" href="#localdate">LocalDate</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#date.adoc">Date</a> — date without time</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="localtime"><a class="link" href="#localtime">LocalTime</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#time.adoc">Time</a> — time without date</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="instant"><a class="link" href="#instant">Instant</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#instant.adoc">Instant</a> — date and time without timezone</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="datetime"><a class="link" href="#datetime">DateTime</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#datetime.adoc">DateTime</a> — date and time with timezone</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="set_propertyset"><a class="link" href="#set_propertyset">Set (PropertySet)</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#item-set.adoc">ItemSet</a> — nested group of form items</p>
+</li>
+<li>
+<p><a href="#option-set.adoc">OptionSet</a> — selectable groups of form items</p>
 </li>
 </ul>
 </div>
@@ -576,7 +703,7 @@ This element is optional, if omitted the default will be <code>minimum="0"</code
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#field-set.adoc">Field set</a></p>
+<p><a href="#field-set.adoc">FieldSet</a> — visual grouping only</p>
 </li>
 </ul>
 </div>
@@ -586,7 +713,7 @@ This element is optional, if omitted the default will be <code>minimum="0"</code
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

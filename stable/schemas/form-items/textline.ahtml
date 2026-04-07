@@ -444,6 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
 <li><a href="#spellcheck">Spell checking</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -473,22 +474,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;!-- Basic sample --&gt;
-&lt;input name="mytextline" type="TextLine"&gt;
-  &lt;label&gt;My TextLine&lt;/label&gt;
-&lt;/input&gt;
+<pre class="highlight"><code class="language-yaml" data-lang="yaml"># Basic sample
+- type: "TextLine"
+  name: "mytextline"
+  label: "My TextLine"
 
-&lt;!-- Using regex validation and a default value. --&gt;
-&lt;input name="socialsecuritynumber" type="TextLine"&gt;
-  &lt;label&gt;My SSN&lt;/label&gt;
-  &lt;occurrences minimum="1" maximum="3"/&gt;
-  &lt;default&gt;000-00-0000&lt;/default&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;config&gt;
-    &lt;max-length&gt;11&lt;/max-length&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-    &lt;show-counter&gt;true&lt;/show-counter&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-    &lt;regexp&gt;\b\d{3}-\d{2}-\d{4}\b&lt;/regexp&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
-  &lt;/config&gt;
-&lt;/input&gt;</code></pre>
+# Using regex validation and a default value.
+- type: "TextLine"
+  name: "socialsecuritynumber"
+  label: "My SSN"
+  occurrences:
+    min: 1
+    max: 3
+  default: "000-00-0000"  <i class="conum" data-value="1"></i><b>(1)</b>
+  max-length: 11  <i class="conum" data-value="2"></i><b>(2)</b>
+  show-counter: true  <i class="conum" data-value="3"></i><b>(3)</b>
+  regexp: "\\b\\d{3}-\\d{2}-\\d{4}\\b"  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -577,10 +578,25 @@ by the spell checker. Text in the second is in Norsk Bokmål and correctly check
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The value is stored as a string.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mytextline": "Some text value"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

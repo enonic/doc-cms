@@ -442,6 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -458,10 +459,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mytag" type="Tag"&gt;
-  &lt;label&gt;My Tag&lt;/label&gt;
-  &lt;occurrences minimum="0" maximum="0"/&gt;
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "Tag"
+  name: "mytag"
+  label: "My Tag"
+  occurrences:
+    min: 0
+    max: 0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tags are stored as strings. With multiple occurrences, the values are returned as an array.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mytag": [
+    "first-tag",
+    "second tag",
+    "The third tag"
+  ]
+}</code></pre>
 </div>
 </div>
 </div>
@@ -469,7 +491,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

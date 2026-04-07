@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -450,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Combobox allows you to select one or more options from a statically defined list.</p>
+<p>A ComboBox lets the user select one or more options from a statically defined list. The selected values are stored as strings.</p>
 </div>
 </div>
 </div>
@@ -472,22 +473,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mycombobox" type="ComboBox"&gt;
-  &lt;label&gt;My Combobox&lt;/label&gt;
-  &lt;occurrences minimum="1" maximum="2"/&gt;
-  &lt;config&gt;
-    &lt;option value="one"&gt;Option One&lt;/option&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-    &lt;option value="two"&gt;Option Two&lt;/option&gt;
-  &lt;/config&gt;
-  &lt;default&gt;one&lt;/default&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ComboBox"
+  name: "mycombobox"
+  label: "My Combobox"
+  occurrences:
+    min: 1
+    max: 2
+  options:  <i class="conum" data-value="1"></i><b>(1)</b>
+    - value: "one"
+      label: "Option One"
+    - value: "two"
+      label: "Option Two"
+  default: "one"  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>option</strong> elements and the <code>@value</code> attribute defines the actual value to store when the option is selected. Multiple <code>option</code> elements are allowed and ordered.</td>
+<td><strong>options</strong> define the available choices. The <code>value</code> is stored when the option is selected. Multiple options are allowed and ordered.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -497,10 +501,49 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When a single option is selected, the value is returned as a string. When multiple options are selected (via <code>occurrences</code>), the values are returned as an array.</p>
+</div>
+<div class="listingblock">
+<div class="title">Single selection</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mycombobox": "one"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Multiple selections</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mycombobox": [
+    "one",
+    "two"
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The stored values correspond to the <code>value</code> attributes in the schema, not the display labels.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

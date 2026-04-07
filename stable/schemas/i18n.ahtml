@@ -460,7 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Simply add an <code>i18n="key"</code> attribute to the form elements. The key mustmatch an entry in your application&#8217;s <code>src/main/resources/i18n/phrases.properties</code> file.</p>
+<p>Any localizable field can be either a simple string, or an object with <code>text</code> and <code>i18n</code> properties. The <code>i18n</code> key must match an entry in your application&#8217;s <code>src/main/resources/i18n/phrases.properties</code> file.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -475,7 +475,7 @@ Schema localization uses the same properties files format as the rest of XP. Ple
 </table>
 </div>
 <div class="paragraph">
-<p>Localization is optional. If the <code>i18n</code> attribute is not specified, the value of the XML element will be used.</p>
+<p>Localization is optional. When a field is a simple string, no localization is applied. When an <code>i18n</code> key is specified but no matching translation is found, the <code>text</code> value is used as fallback.</p>
 </div>
 </div>
 </div>
@@ -488,26 +488,39 @@ Schema localization uses the same properties files format as the rest of XP. Ple
 <div class="listingblock">
 <div class="title">Localized content type schema</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
-&lt;content-type&gt;
-  &lt;display-name i18n="person.display-name"&gt;Person&lt;/display-name&gt;
-  &lt;super-type&gt;base:structured&lt;/super-type&gt;
-  &lt;form&gt;
-    &lt;input type="TextLine" name="name"&gt;
-      &lt;label i18n="person.name.label"&gt;Name&lt;/label&gt;
-      &lt;occurrences minimum="1" maximum="1"/&gt;
-    &lt;/input&gt;
-    &lt;input type="TextLine" name="age"&gt;
-      &lt;label i18n="person.age.label"&gt;Age&lt;/label&gt;
-      &lt;occurrences minimum="1" maximum="1"/&gt;
-    &lt;/input&gt;
-    &lt;input type="imageSelector" name="photo"&gt;
-      &lt;label i18n="person.photo.label"&gt;Photo&lt;/label&gt;
-      &lt;help-text i18n="person.photo.help-text"&gt;Passport photo&lt;/help-text&gt;
-      &lt;occurrences minimum="0" maximum="1"/&gt;
-    &lt;/input&gt;
-  &lt;/form&gt;
-&lt;/content-type&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"
+title:
+  text: "Person"
+  i18n: "person.title"
+superType: "base:structured"
+form:
+  - type: "TextLine"
+    name: "name"
+    label:
+      text: "Name"
+      i18n: "person.name.label"
+    occurrences:
+      min: 1
+      max: 1
+  - type: "TextLine"
+    name: "age"
+    label:
+      text: "Age"
+      i18n: "person.age.label"
+    occurrences:
+      min: 1
+      max: 1
+  - type: "ImageSelector"
+    name: "photo"
+    label:
+      text: "Photo"
+      i18n: "person.photo.label"
+    help-text:
+      text: "Passport photo"
+      i18n: "person.photo.help-text"
+    occurrences:
+      min: 0
+      max: 1</code></pre>
 </div>
 </div>
 </div>
@@ -516,12 +529,12 @@ Schema localization uses the same properties files format as the rest of XP. Ple
 <h2 id="supported_fields"><a class="link" href="#supported_fields">Supported Fields</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In general, the following schema elements support the <code>i18n</code> localization attribute:</p>
+<p>In general, the following schema elements support localization via the <code>text</code>/<code>i18n</code> object pattern:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>displayName</p>
+<p>title</p>
 </li>
 <li>
 <p>label</p>
@@ -543,7 +556,7 @@ Schema localization uses the same properties files format as the rest of XP. Ple
 <h2 id="translation_files"><a class="link" href="#translation_files">Translation files</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The translated texts for each of the i18n keys should be placed in the corresponding <code>phrases.properties</code> file within the same application where the schema is defined.</p>
+<p>The translated texts for each of the i18n keys should be placed in a corresponding <code>phrases.properties</code> in the same namespace as the schema.</p>
 </div>
 <div class="paragraph">
 <p>Steps to add the translations for a schema:</p>
@@ -558,9 +571,9 @@ Schema localization uses the same properties files format as the rest of XP. Ple
 <div class="listingblock">
 <div class="title">Example files to support English and Norwegian</div>
 <div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">src/main/resources/i18n/phrases.properties
-src/main/resources/i18n/phrases_en.properties
-src/main/resources/i18n/phrases_no.properties</code></pre>
+<pre class="highlight"><code class="language-properties" data-lang="properties">src/main/resources/cms/i18n/phrases.properties
+src/main/resources/cms/i18n/phrases_en.properties
+src/main/resources/cms/i18n/phrases_no.properties</code></pre>
 </div>
 </div>
 </li>
@@ -572,7 +585,7 @@ src/main/resources/i18n/phrases_no.properties</code></pre>
 <div class="listingblock">
 <div class="title">phrases_en.properties</div>
 <div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">person.display-name=Person
+<pre class="highlight"><code class="language-properties" data-lang="properties">person.title=Person
 person.name.label=Name
 person.age.label=Age
 person.photo.label=Photo
@@ -582,7 +595,7 @@ person.photo.help-text=Passport photo</code></pre>
 <div class="listingblock">
 <div class="title">phrases_no.properties</div>
 <div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">person.display-name=Person
+<pre class="highlight"><code class="language-properties" data-lang="properties">person.title=Person
 person.name.label=Navn
 person.age.label=Alder
 person.photo.label=Bilde
@@ -593,20 +606,17 @@ person.photo.help-text=Passbilde</code></pre>
 <li>
 <p>fallback file <code>phrases.properties</code> file</p>
 <div class="paragraph">
-<p>It is recommended to have default phrases file. This will be used if the translation for the browser language cannot be found.</p>
+<p>If this does not exist, the system will use the <code>text</code> value from the schema as fallback for any missing translations. If it does exist, it will be used as fallback for any missing translations instead of the <code>text</code> value from the schema. This allows you to provide default translations without having to add the <code>text</code> value in the schema itself.</p>
 </div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>For more details, check out the <a href="../../api/lib-i18n.ahtml">runtime localization docs</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

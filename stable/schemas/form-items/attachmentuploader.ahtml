@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -475,9 +476,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="myattachment" type="AttachmentUploader"&gt;
-  &lt;label&gt;My AttachmentUploader&lt;/label&gt;
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "AttachmentUploader"
+  name: "myattachment"
+  label: "My AttachmentUploader"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The stored value is the name (string) of an <a href="../../content/attachments.ahtml">attachment</a> on the content item. The file itself is stored as an attachment, not as a separate content. See <a href="../../content/attachments.ahtml">Attachments</a> for details on how attachments are stored and indexed.</p>
+</div>
+<div class="listingblock">
+<div class="title">Single attachment</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "myattachment": "document.pdf"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Multiple attachments (if occurrences allows)</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "myattachment": [
+    "document.pdf",
+    "spreadsheet.xlsx"
+  ]
+}</code></pre>
 </div>
 </div>
 </div>
@@ -485,7 +513,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

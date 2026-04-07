@@ -468,7 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Like pages and layouts, parts needs a descriptor. Place the descriptor in your project as follows: <code>src/main/resources/site/parts/&lt;part-name&gt;/&lt;part-name&gt;.xml`</code>.</p>
+<p>Like pages and layouts, parts needs a descriptor. Place the descriptor in your project as follows: <code>src/main/resources/site/parts/&lt;part-name&gt;/&lt;part-name&gt;.yaml</code>.</p>
 </div>
 <div class="paragraph">
 <p>Each part may also declare a form using the schema system. The form data will be stored together with each component instance.</p>
@@ -476,10 +476,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Example part descriptor</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;part&gt;
-  &lt;display-name&gt;Content List&lt;/display-name&gt;
-  &lt;form /&gt;
-&lt;/part&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Part"
+title: "Content List"
+form: []</code></pre>
 </div>
 </div>
 </div>
@@ -526,7 +525,7 @@ In the screenshots below parts "<em>HTML Area Example</em>" and "<em>Image filte
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

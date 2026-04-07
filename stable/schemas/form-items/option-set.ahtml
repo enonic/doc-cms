@@ -546,64 +546,68 @@ Easily shuffle the order of the option sets by dragging the cards from the grip 
 <div class="listingblock">
 <div class="title">Sample 1: single-select setup with the options <code>hr</code>, <code>text</code>, <code>gallery</code> and <code>quote</code>.</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;option-set name="blockOptionSet"&gt;
-  &lt;label&gt;Content blocks&lt;/label&gt;
-  &lt;occurrences minimum="0" maximum="0"/&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;help-text&gt;Create content with optional blocks&lt;/help-text&gt;
-  &lt;options minimum="1" maximum="1"&gt;   <i class="conum" data-value="2"></i><b>(2)</b>
-    &lt;option name="hr"&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-      &lt;label&gt;Horisontal line&lt;/label&gt;
-      &lt;help-text&gt;Adds a separator between blocks&lt;/help-text&gt;
-    &lt;/option&gt;
-    &lt;option name="text"&gt;
-      &lt;label&gt;Text&lt;/label&gt;
-      &lt;items&gt;
-        &lt;input name="text" type="TextArea"&gt;
-          &lt;label&gt;Text&lt;/label&gt;
-          &lt;occurrences minimum="1" maximum="1"/&gt;
-        &lt;/input&gt;
-      &lt;/items&gt;
-    &lt;/option&gt;
-    &lt;option name="gallery"&gt;
-      &lt;label&gt;Image gallery&lt;/label&gt;
-      &lt;items&gt;
-        &lt;input name="images" type="ImageSelector"&gt;
-          &lt;label&gt;Images&lt;/label&gt;
-          &lt;occurrences minimum="1" maximum="0"/&gt;
-          &lt;config/&gt;
-        &lt;/input&gt;
-      &lt;/items&gt;
-    &lt;/option&gt;
-    &lt;option name="quote"&gt;
-      &lt;label&gt;Quote&lt;/label&gt;
-      &lt;items&gt;
-        &lt;input name="quote" type="TextLine"&gt;
-          &lt;label&gt;Quote&lt;/label&gt;
-          &lt;occurrences minimum="1" maximum="1"/&gt;
-        &lt;/input&gt;
-        &lt;input name="quotee" type="TextLine"&gt;
-          &lt;label&gt;Quotee&lt;/label&gt;
-          &lt;occurrences minimum="1" maximum="1"/&gt;
-        &lt;/input&gt;
-      &lt;/items&gt;
-    &lt;/option&gt;
-  &lt;/options&gt;
-&lt;/option-set&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "OptionSet"
+  name: "blockOptionSet"
+  label: "Content blocks"
+  occurrences:  <i class="conum" data-value="1"></i><b>(1)</b>
+    min: 0
+    max: 0
+  help-text: "Create content with optional blocks"
+  selection:  <i class="conum" data-value="2"></i><b>(2)</b>
+    min: 1
+    max: 1
+  options:  <i class="conum" data-value="3"></i><b>(3)</b>
+    - name: "hr"
+      label: "Horisontal line"
+      help-text: "Adds a separator between blocks"
+    - name: "text"
+      label: "Text"
+      items:
+        - type: "TextArea"
+          name: "text"
+          label: "Text"
+          occurrences:
+            min: 1
+            max: 1
+    - name: "gallery"
+      label: "Image gallery"
+      items:
+        - type: "ImageSelector"
+          name: "images"
+          label: "Images"
+          occurrences:
+            min: 1
+            max: 0
+    - name: "quote"
+      label: "Quote"
+      items:
+        - type: "TextLine"
+          name: "quote"
+          label: "Quote"
+          occurrences:
+            min: 1
+            max: 1
+        - type: "TextLine"
+          name: "quotee"
+          label: "Quotee"
+          occurrences:
+            min: 1
+            max: 1</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>occurences</strong> Set value to maximum=0 for unlimited option-set (block) instances</td>
+<td><strong>occurences</strong> Set value to max=0 for unlimited option-set (block) instances</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>options/@maximum</strong> Refers to selectable options per instance. A value of 1 &#8658; single-select mode.</td>
+<td><strong>selection/max</strong> Refers to selectable options per instance. A value of 1 &#8658; single-select mode.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>option</strong> (required) Container of options. Each option may be empty or contain items, just like an item set.</td>
+<td><strong>options</strong> (required) Container of options. Each option may be empty or contain items, just like an item set.</td>
 </tr>
 </table>
 </div>
@@ -707,50 +711,54 @@ For multi-select options sets, it is also possible to pre-select options by defa
 <div class="listingblock">
 <div class="title">Multi-select option set with the coloring option selected by default.</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;option-set name="styling"&gt;
-  &lt;label&gt;Room styling&lt;/label&gt;
-  &lt;expanded&gt;true&lt;/expanded&gt; <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;occurrences minimum="1" maximum="1"/&gt; <i class="conum" data-value="2"></i><b>(2)</b>
-  &lt;help-text&gt;Select up to 2 options&lt;/help-text&gt;
-  &lt;options minimum="1" maximum="2"&gt; <i class="conum" data-value="3"></i><b>(3)</b> <i class="conum" data-value="4"></i><b>(4)</b>
-    &lt;option name="coloring"&gt; <i class="conum" data-value="5"></i><b>(5)</b>
-      &lt;label&gt;Coloring&lt;/label&gt;
-      &lt;help-text&gt;Select a color palette for the room&lt;/help-text&gt;
-      &lt;default&gt;true&lt;/default&gt; <i class="conum" data-value="6"></i><b>(6)</b>
-      &lt;items&gt;
-      &lt;input name="palette" type="ComboBox"&gt;
-        &lt;label&gt;Palette&lt;/label&gt;
-        &lt;occurrences minimum="1" maximum="1"/&gt;
-        &lt;config&gt;
-          &lt;option value="spring"&gt;Spring&lt;/option&gt;
-          &lt;option value="summer"&gt;Summer&lt;/option&gt;
-          &lt;option value="autumn"&gt;Autumn&lt;/option&gt;
-          &lt;option value="winter"&gt;Winter&lt;/option&gt;
-        &lt;/config&gt;
-        &lt;default&gt;spring&lt;/default&gt;
-      &lt;/input&gt;
-      &lt;/items&gt;
-    &lt;/option&gt;
-    &lt;option name="wood"&gt;
-      &lt;label&gt;Wood upgrade&lt;/label&gt;
-      &lt;help-text&gt;Wooden floor and doors&lt;/help-text&gt;
-    &lt;/option&gt;
-    &lt;option name="curtains"&gt;
-      &lt;label&gt;Include curtains&lt;/label&gt;
-      &lt;help-text&gt;Adds curtains to all windows&lt;/help-text&gt;
-    &lt;/option&gt;
-    &lt;option name="wallpaper"&gt;
-      &lt;label&gt;Exclusive wallpaper&lt;/label&gt;
-      &lt;items&gt;
-        &lt;input name="product" type="ContentSelector"&gt;
-          &lt;label&gt;Wallpaper&lt;/label&gt;
-          &lt;occurrences minimum="1" maximum="1"/&gt;
-          &lt;config/&gt;
-        &lt;/input&gt;
-      &lt;/items&gt;
-    &lt;/option&gt;
-  &lt;/options&gt;
-&lt;/option-set&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "OptionSet"
+  name: "styling"
+  label: "Room styling"
+  expanded: true  <i class="conum" data-value="1"></i><b>(1)</b>
+  occurrences:  <i class="conum" data-value="2"></i><b>(2)</b>
+    min: 1
+    max: 1
+  help-text: "Select up to 2 options"
+  selection:  <i class="conum" data-value="3"></i><b>(3)</b> <i class="conum" data-value="4"></i><b>(4)</b>
+    min: 1
+    max: 2
+  options:
+    - name: "coloring"  <i class="conum" data-value="5"></i><b>(5)</b>
+      label: "Coloring"
+      help-text: "Select a color palette for the room"
+      selected: true  <i class="conum" data-value="6"></i><b>(6)</b>
+      items:
+        - type: "ComboBox"
+          name: "palette"
+          label: "Palette"
+          occurrences:
+            min: 1
+            max: 1
+          options:
+            - value: "spring"
+              label: "Spring"
+            - value: "summer"
+              label: "Summer"
+            - value: "autumn"
+              label: "Autumn"
+            - value: "winter"
+              label: "Winter"
+          default: "spring"
+    - name: "wood"
+      label: "Wood upgrade"
+      help-text: "Wooden floor and doors"
+    - name: "curtains"
+      label: "Include curtains"
+      help-text: "Adds curtains to all windows"
+    - name: "wallpaper"
+      label: "Exclusive wallpaper"
+      items:
+        - type: "ContentSelector"
+          name: "product"
+          label: "Wallpaper"
+          occurrences:
+            min: 1
+            max: 1</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -765,19 +773,19 @@ For multi-select options sets, it is also possible to pre-select options by defa
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>options/@minimum</strong> (required) Minimum number of options that must be selected in this option set.</td>
+<td><strong>selection/min</strong> (required) Minimum number of options that must be selected in this option set.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><strong>options/@maximum</strong> (required) Maximum number of options to create. &gt; 1 &#8658; multi-select mode. 1 &#8658; single-select mode.</td>
+<td><strong>selection/max</strong> (required) Maximum number of options to create. &gt; 1 &#8658; multi-select mode. 1 &#8658; single-select mode.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td><strong>option/@name</strong> (required) Must be unique within the option set.</td>
+<td><strong>option name</strong> (required) Must be unique within the option set.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
-<td><strong>default</strong> Set to <code>true</code> to pre-select one of the options.</td>
+<td><strong>selected</strong> Set to <code>true</code> to pre-select one of the options.</td>
 </tr>
 </table>
 </div>
@@ -823,7 +831,7 @@ The <code>_selected</code> property contains information about which options wer
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

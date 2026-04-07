@@ -485,61 +485,60 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;content-type&gt;
-  &lt;display-name&gt;Person&lt;/display-name&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;display-name-label&gt;Full Name&lt;/display-name-label&gt; <i class="conum" data-value="2"></i><b>(2)</b>
-  &lt;description&gt;Create a new person&lt;/description&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-  &lt;super-type&gt;base:structured&lt;/super-type&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
-  &lt;is-abstract&gt;false&lt;/is-abstract&gt;  <i class="conum" data-value="5"></i><b>(5)</b>
-  &lt;is-final&gt;true&lt;/is-final&gt;  <i class="conum" data-value="6"></i><b>(6)</b>
-  &lt;is-built-in&gt;false&lt;/is-built-in&gt;   <i class="conum" data-value="7"></i><b>(7)</b>
-  &lt;allow-child-content&gt;true&lt;/allow-child-content&gt;  <i class="conum" data-value="8"></i><b>(8)</b>
-  &lt;allow-child-content-type&gt;base:folder&lt;/allow-child-content-type&gt;  <i class="conum" data-value="9"></i><b>(9)</b>
-  &lt;allow-child-content-type&gt;${app}:article-*&lt;/allow-child-content-type&gt;
-  &lt;form/&gt; <i class="conum" data-value="10"></i><b>(10)</b>
-&lt;/content-type&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: “ContentType”  <i class="conum" data-value="1"></i><b>(1)</b>
+title: “Person”  <i class="conum" data-value="2"></i><b>(2)</b>
+displayNameLabel: “Full Name”  <i class="conum" data-value="3"></i><b>(3)</b>
+description: “Create a new person”  <i class="conum" data-value="4"></i><b>(4)</b>
+superType: “base:structured”  <i class="conum" data-value="5"></i><b>(5)</b>
+abstract: false  <i class="conum" data-value="6"></i><b>(6)</b>
+final: true  <i class="conum" data-value="7"></i><b>(7)</b>
+allowChildContent: true  <i class="conum" data-value="8"></i><b>(8)</b>
+allowChildContentType:  <i class="conum" data-value="9"></i><b>(9)</b>
+  - “base:folder”
+  - “${app}:article-*”
+form: []  <i class="conum" data-value="10"></i><b>(10)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>display-name</strong> (required) The human readable name of the content type.
-Optionally specify the <a href="../api/lib-i18n.ahtml">i18n</a> attribute to define a mapping to localize the value.
-The localization key must then be declared and localised in the resource bundle.</td>
+<td><strong>kind</strong> identifies this as a ContentType schema.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>display-name-label</strong> (optional; <em>since v7.1</em>) Enables you to override the default &lt;Display Name&gt; placeholder used in the content form.</td>
+<td><strong>title</strong> (required) The human readable name of the content type.
+Optionally use localization to define a mapping to localize the value.
+The localization key must then be declared and localised in the resource bundle.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>description</strong> (optional) Set a description that is shown when creating the content type.</td>
+<td><strong>displayNameLabel</strong> (optional) Enables you to override the default &lt;Display Name&gt; placeholder used in the content form.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><strong>super-type</strong> (required) Refers to one of the <a href="#base-types">base types</a>. You should normally use <code>base:structured</code>.</td>
+<td><strong>description</strong> (optional) Set a description that is shown when creating the content type.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td><strong>is-abstract</strong> (optional; default: false) If true, you cannot create content with this content type.</td>
+<td><strong>superType</strong> (required) Refers to one of the <a href="#base-types">base types</a>. You should normally use <code>base:structured</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
-<td><strong>is-final</strong> (optional; default: false) If true, it is not possible to create new content types that “extend” this.</td>
+<td><strong>abstract</strong> (optional; default: false) If true, you cannot create content with this content type.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
-<td><strong>is-built-in</strong> (optional; default: false) Only specified by built-in content types.</td>
+<td><strong>final</strong> (optional; default: false) If true, it is not possible to create new content types that “extend” this.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="8"></i><b>8</b></td>
-<td><strong>allow-child-content</strong> (optional; default: true) If false, no content will be allowed to be created or moved under content of this content type
+<td><strong>allowChildContent</strong> (optional; default: true) If false, no content will be allowed to be created or moved under content of this content type
 (e.g. prevents child content under media)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="9"></i><b>9</b></td>
-<td><strong>allow-child-content-type</strong> (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <a href="./schemas/input-types/contentselector.ahtml#allowContentType">MATCH</a>. <span class="image"><span class="alt">XP 7.7.0</span></span></td>
+<td><strong>allowChildContentType</strong> (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <a href="./schemas/input-types/contentselector.ahtml#allowContentType">MATCH</a>. <span class="image"><span class="alt">XP 7.7.0</span></span></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="10"></i><b>10</b></td>
@@ -732,7 +731,7 @@ Optional name-value parameters can be set to be added to the redirect URL.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

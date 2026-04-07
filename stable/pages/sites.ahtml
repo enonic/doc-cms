@@ -578,40 +578,38 @@ For a hands on introduction to sites and the concepts described here, visit the 
 </ul>
 </div>
 <div class="paragraph">
-<p>The descriptor must be placed in your app as: <code>src/main/resources/site/site.xml</code></p>
+<p>The descriptor must be placed in your app as: <code>src/main/resources/site/site.yaml</code></p>
 </div>
 <div class="listingblock">
-<div class="title">Minimal site.xml example</div>
+<div class="title">Minimal site.yaml example</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;site&gt;
-  &lt;form/&gt;
-&lt;/site&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Site"
+form: []</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Site.xml with all options in use</div>
+<div class="title">Site.yaml with all options in use</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;site&gt;
-  &lt;form&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-    &lt;input type="TextLine" name="company"&gt;
-      &lt;label&gt;Company&lt;/label&gt;
-      &lt;occurrences minimum="1" maximum="1"/&gt;
-    &lt;/input&gt;
-    &lt;mixin name="address"/&gt;
-  &lt;/form&gt;
-  &lt;x-data name="seo-settings"/&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-  &lt;mappings&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-    &lt;mapping controller="/site/foobar/api.js" order="10"&gt;
-      &lt;pattern&gt;/api/v\d+/.*&lt;/pattern&gt;
-    &lt;/mapping&gt;
-    &lt;mapping controller="/site/pages/default/default.js"&gt;
-      &lt;match&gt;type:'portal:fragment'&lt;/match&gt;
-    &lt;/mapping&gt;
-  &lt;/mappings&gt;
-  &lt;processors&gt;
-    &lt;response-processor name="tracker" order="10"/&gt; <i class="conum" data-value="4"></i><b>(4)</b> <i class="conum" data-value="5"></i><b>(5)</b>
-  &lt;/processors&gt;
-&lt;/site&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Site"
+form:  <i class="conum" data-value="1"></i><b>(1)</b>
+  - type: "TextLine"
+    name: "company"
+    label: "Company"
+    occurrences:
+      min: 1
+      max: 1
+  - mixin: "address"
+xdata:  <i class="conum" data-value="2"></i><b>(2)</b>
+  - name: "seo-settings"
+mappings:  <i class="conum" data-value="3"></i><b>(3)</b>
+  - controller: "/site/foobar/api.js"
+    order: 10
+    pattern: "/api/v\\d+/.*"
+  - controller: "/site/pages/default/default.js"
+    match: "type:'portal:fragment'"
+processors:
+  - name: "tracker"  <i class="conum" data-value="4"></i><b>(4)</b> <i class="conum" data-value="5"></i><b>(5)</b>
+    order: 10</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -643,7 +641,7 @@ For a hands on introduction to sites and the concepts described here, visit the 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

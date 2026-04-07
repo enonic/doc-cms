@@ -458,7 +458,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>At the root of every page, you will find the page component. Most sites only need a single page component, as this can be reused across all pages.</p>
 </div>
 <div class="paragraph">
-<p>To create a page component, add a component descriptor file to your project <code>src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name.xml&gt;</code>.</p>
+<p>To create a page component, add a component descriptor file to your project <code>src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name.yaml&gt;</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -478,42 +478,38 @@ The name you choose for a component will be used in the underlying data of the s
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To create a page component, place a descriptor file in your project: `src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name&gt;.xml.</p>
+<p>To create a page component, place a descriptor file in your project: <code>src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name&gt;.yaml</code>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample page descriptor</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;page&gt;
-  &lt;display-name i18n="component.page.name"&gt;My first page&lt;/display-name&gt; <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="2"></i><b>(2)</b>
-  &lt;description&gt;Front page of our site&lt;/description&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-  &lt;form/&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
-  &lt;regions&gt;
-    &lt;region name="main"/&gt;  <i class="conum" data-value="5"></i><b>(5)</b>
-  &lt;/regions&gt;
-&lt;/page&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Page"
+title:  <i class="conum" data-value="1"></i><b>(1)</b>
+  text: "My first page"
+  i18n: "component.page.name"
+description: "Front page of our site"  <i class="conum" data-value="2"></i><b>(2)</b>
+form: []  <i class="conum" data-value="3"></i><b>(3)</b>
+regions:  <i class="conum" data-value="4"></i><b>(4)</b>
+  - name: "main"</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>display-name</strong> provides a display name used by the editorial interface</td>
+<td><strong>title</strong> provides a display name used by the editorial interface. Supports <a href="../schemas/i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>display-name/i18n</strong> optionally specify localization key</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
 <td><strong>description</strong> Description field shown when creating a part in content studio</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
 <td><strong>form</strong> allows the definition of a configuration form based on the <a href="schemas.ahtml">schema system</a></td>
 </tr>
 <tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td><strong>region</strong> optionally specify <a href="pages/regions.ahtml">regions</a> for the page.</td>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>regions</strong> optionally specify <a href="pages/regions.ahtml">regions</a> for the page.</td>
 </tr>
 </table>
 </div>
@@ -534,7 +530,7 @@ A page component may define zero, to many regions. Conventionally, a page should
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

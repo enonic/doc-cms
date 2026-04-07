@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -476,13 +477,11 @@ that makes sense is a minimum of zero and a maximum of one, which is default and
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input  name="mycheckbox" type="CheckBox"&gt;
-  &lt;label&gt;My Checkbox&lt;/label&gt;
-  &lt;default&gt;checked&lt;/default&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;config&gt;
-    &lt;alignment&gt;right&lt;/alignment&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-  &lt;/config&gt;
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "CheckBox"
+  name: "mycheckbox"
+  label: "My Checkbox"
+  default: "checked"  <i class="conum" data-value="1"></i><b>(1)</b>
+  alignment: "right"  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -499,10 +498,38 @@ that makes sense is a minimum of zero and a maximum of one, which is default and
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The value is stored as a boolean.</p>
+</div>
+<div class="listingblock">
+<div class="title">Checked</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mycheckbox": true
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When the checkbox is unchecked, the property is omitted from the output entirely.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

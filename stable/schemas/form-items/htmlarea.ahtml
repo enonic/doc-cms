@@ -443,6 +443,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a>
+<ul class="sectlevel2">
+<li><a href="#raw_output">Raw output</a></li>
+<li><a href="#processed_output">Processed output</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -472,22 +478,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="myhtmlarea" type="HtmlArea"&gt;
-  &lt;label&gt;My HtmlArea&lt;/label&gt;
-  &lt;default&gt;&lt;h3&gt;Enter description here&lt;/h3&gt;&lt;/default&gt; <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;config&gt;
-    &lt;exclude&gt;*&lt;/exclude&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-    &lt;include&gt;JustifyLeft JustifyRight | Bold Italic&lt;/include&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-    &lt;allowHeadings&gt;h2 h4 h6&lt;/allowHeadings&gt;  <i class="conum" data-value="4"></i><b>(4)</b>
-  &lt;/config&gt;
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "HtmlArea"
+  name: "myhtmlarea"
+  label: "My HtmlArea"
+  default: "&lt;h3&gt;Enter description here&lt;/h3&gt;"  <i class="conum" data-value="1"></i><b>(1)</b>
+  exclude: "*"  <i class="conum" data-value="2"></i><b>(2)</b>
+  include: "JustifyLeft JustifyRight | Bold Italic"  <i class="conum" data-value="3"></i><b>(3)</b>
+  allowHeadings: "h2 h4 h6"  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>default</strong> can contain any valid HTML elements, but tags must be correctly closed since the input type is defined inside an XML.</td>
+<td><strong>default</strong> can contain any valid HTML elements.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -727,10 +731,40 @@ HTML Area is configured with a default set of tools, but the toolbar can be cust
 </table>
 </div>
 </div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The value is stored as a raw HTML string. The HTML contains Enonic-specific markup for internal links, images, and macros that need processing before rendering.</p>
+</div>
+<div class="sect2">
+<h3 id="raw_output"><a class="link" href="#raw_output">Raw output</a></h3>
+<div class="paragraph">
+<p>When the HTML content is stored, internal links, images, and macros are represented with special markup that needs to be processed before rendering. For example, an internal link will be stored as <code>&lt;a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"&gt;internal link&lt;/a&gt;</code>, where the <code>href</code> attribute contains a reference to the content item.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "myhtmlarea": "&lt;h3&gt;Hello world&lt;/h3&gt;&lt;p&gt;This is &lt;strong&gt;rich text&lt;/strong&gt; with an &lt;a href=\"content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9\"&gt;internal link&lt;/a&gt;.&lt;/p&gt;"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="processed_output"><a class="link" href="#processed_output">Processed output</a></h3>
+<div class="paragraph">
+<p>Enonic offers HTML processing functions that will convert the stored HTML into a format more suitable for rendering. For example, the <code>content://</code> links will be converted to relative URLs that can be used in the front-end.</p>
+</div>
+<div class="paragraph">
+<p>For more details, consult the <a href="../../richtext.ahtml#html-processing">HTML processing</a> documentation.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

@@ -462,14 +462,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Limit part to specific content types</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;part&gt;
-  &lt;display-name&gt;My article part&lt;/display-name&gt;
-  &lt;form&gt;&lt;/form&gt;
-  &lt;config&gt;
-    &lt;allow-on-content-type&gt;my.cool.app:my-cool-type&lt;/allow-on-content-type&gt;
-    &lt;allow-on-content-type&gt;${app}:article*&lt;/allow-on-content-type&gt;
-  &lt;/config&gt;
-&lt;/part&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Part"
+title: "My article part"
+form: []
+allowOnContentType:
+  - "my.cool.app:my-cool-type"
+  - "${app}:article*"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -478,13 +476,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Advanced example using regular expression</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;part&gt;
-  &lt;display-name&gt;My article part&lt;/display-name&gt;
-  &lt;form&gt;&lt;/form&gt;
-  &lt;config&gt;
-    &lt;allow-on-content-type&gt;^(?!.*[:]post$).*$&lt;/allow-on-content-type&gt;
-  &lt;/config&gt;
-&lt;/part&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Part"
+title: "My article part"
+form: []
+allowOnContentType:
+  - "^(?!.*[:]post$).*$"</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -504,7 +500,7 @@ This restriction is only implemented in Content Studio, and will not be enforced
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

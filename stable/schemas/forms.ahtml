@@ -478,19 +478,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Forms are declared statically in YAML, using a format that looks like this:</p>
 </div>
-<div class="paragraph">
-<p>TODO</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;form&gt;
-  &lt;input name="firstname" type="TextLine"&gt;
-    &lt;label&gt;First Name&lt;/label&gt;
-  &lt;/input&gt;
-  &lt;input name="lastname" type="TextLine"&gt;
-    &lt;label&gt;Last Name&lt;/label&gt;
-  &lt;/input&gt;
-&lt;/form&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">form:
+  - type: "TextLine"
+    name: "firstname"
+    label: "First Name"
+  - type: "TextLine"
+    name: "lastname"
+    label: "Last Name"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -530,7 +526,7 @@ Only a generic subset of form items are supported in these contexts.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

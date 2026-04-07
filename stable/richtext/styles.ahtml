@@ -484,35 +484,36 @@ At the moment, custom styles are only supported for Images.
 <h2 id="descriptor"><a class="link" href="#descriptor">Descriptor</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>styles.xml</code> file declares the custom styles for your app.</p>
+<p>The <code>styles.yaml</code> file declares the custom styles for your app.</p>
 </div>
 <div class="paragraph">
 <p>Example style definition:</p>
 </div>
 <div class="listingblock">
-<div class="title">/src/main/resources/site/styles.xml</div>
+<div class="title">/src/main/resources/site/styles.yaml</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;styles css="styles/styles.css" xmlns="urn:enonic:xp:model:1.0"&gt; <i class="conum" data-value="1"></i><b>(1)</b>
-  &lt;image name="editor-image-cinema"&gt; <i class="conum" data-value="2"></i><b>(2)</b>
-    &lt;display-name&gt;Cinema&lt;/display-name&gt;
-    &lt;aspect-ratio&gt;21:9&lt;/aspect-ratio&gt;
-  &lt;/image&gt;
-  &lt;image name="editor-image-sepia"&gt;
-    &lt;display-name&gt;Old photo&lt;/display-name&gt;
-    &lt;filter&gt;sepia(25)&lt;/filter&gt;
-  &lt;/image&gt;
-&lt;/styles&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Style"
+css: "styles/styles.css"  <i class="conum" data-value="1"></i><b>(1)</b>
+styles:
+  - type: "image"  <i class="conum" data-value="2"></i><b>(2)</b>
+    name: "editor-image-cinema"
+    title: "Cinema"
+    aspect-ratio: "21:9"
+  - type: "image"
+    name: "editor-image-sepia"
+    title: "Old photo"
+    filter: "sepia(25)"</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The optional <code>css</code> attribute references a file in your app&#8217;s <code>/src/main/resources/assets/</code> folder. The CSS declared in this file will be loaded into Content Studio&#8217;s rich text editor to provide client-side styling.</td>
+<td>The optional <code>css</code> property references a file in your app&#8217;s <code>/src/main/resources/assets/</code> folder. The CSS declared in this file will be loaded into Content Studio&#8217;s rich text editor to provide client-side styling.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Each <code>&lt;image&gt;</code> element declares a custom style that can be applied to images inserted in the rich text editor.
+<td>Each image style declares a custom style that can be applied to images inserted in the rich text editor.
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -590,7 +591,7 @@ As of now, <code>aspect-ratio</code> and <code>filter</code> are the only option
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

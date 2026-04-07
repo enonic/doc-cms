@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -469,35 +470,51 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="myimage" type="ImageSelector"&gt;
-  &lt;label&gt;My Image&lt;/label&gt;
-  &lt;occurrences minimum="0" maximum="1"/&gt;
-  &lt;config&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-    &lt;allowPath&gt;${site}/*&lt;/allowPath&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-    &lt;treeMode&gt;true&lt;/treeMode&gt;
-    &lt;hideToggleIcon&gt;true&lt;/hideToggleIcon&gt;
-  &lt;/config&gt;
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ImageSelector"
+  name: "myimage"
+  label: "My Image"
+  occurrences:
+    min: 0
+    max: 1
+  allowPath:  <i class="conum" data-value="1"></i><b>(1)</b>
+    - "${site}/*"  <i class="conum" data-value="2"></i><b>(2)</b>
+  treeMode: true
+  hideToggleIcon: true</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>With the exception of <code>&lt;allowContentType&gt;</code> (which is not supported here) and <code>&lt;allowPath&gt;</code>, ImageSelector supports the same configuration options as <a href="contentselector.ahtml">ContentSelector</a>.</td>
+<td>With the exception of <code>allowContentType</code> (which is not supported here) and <code>allowPath</code>, ImageSelector supports the same configuration options as <a href="contentselector.ahtml">ContentSelector</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>By default, Image Selector displays all images from the root. If you want to limit images to the same site, use <code>&lt;allowPath&gt;${site}/*&lt;/allowPath&gt;</code></td>
+<td>By default, Image Selector displays all images from the root. If you want to limit images to the same site, use <code>allowPath: ["${site}/*"]</code></td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The stored value is the content ID (string) of the selected image. Like <a href="contentselector.ahtml">ContentSelector</a>, the value is a reference to the image content item.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "myimage": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

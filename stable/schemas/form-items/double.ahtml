@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -469,18 +470,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mydouble" type="Double"&gt;
-  &lt;label&gt;My Double&lt;/label&gt;
-  &lt;default&gt;3.89&lt;/default&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-&lt;/input&gt;
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "Double"
+  name: "mydouble"
+  label: "My Double"
+  default: 3.89  <i class="conum" data-value="1"></i><b>(1)</b>
 
-&lt;input name="angle" type="Double"&gt;
-  &lt;label&gt;Angle (rad)&lt;/label&gt;
-  &lt;config&gt;
-    &lt;min&gt;0&lt;/min&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
-    &lt;max&gt;3.14159&lt;/max&gt;  <i class="conum" data-value="3"></i><b>(3)</b>
-  &lt;/config&gt;
-&lt;/input&gt;</code></pre>
+- type: "Double"
+  name: "angle"
+  label: "Angle (rad)"
+  min: 0  <i class="conum" data-value="2"></i><b>(2)</b>
+  max: 3.14159  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -491,20 +490,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>config/min</strong> optionally specifies the minimum allowed value</td>
+<td><strong>min</strong> optionally specifies the minimum allowed value</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>config/max</strong> optionally specifies the maximum allowed value</td>
+<td><strong>max</strong> optionally specifies the maximum allowed value</td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The value is stored as a floating-point number.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mydouble": 3.89
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

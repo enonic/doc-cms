@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -469,10 +470,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="mytime" type="Time"&gt;
-  &lt;label&gt;My Time&lt;/label&gt;
-  &lt;default&gt;13:22&lt;/default&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "Time"
+  name: "mytime"
+  label: "My Time"
+  default: "13:22"  <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -534,33 +535,19 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 <div class="paragraph">
 <p>If <code>&lt;default&gt;</code> value is set for an input, the Time picker will display "<strong>Set default</strong>" button for setting the default value with one click.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Examples:</p>
+<p>The value is stored as a time string in 24h format.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="dateTimeDefaultTz" type="DateTime"&gt;
-  &lt;label&gt;DateTime (with tz and default value)&lt;/label&gt;
-  &lt;config&gt;
-    &lt;timezone&gt;true&lt;/timezone&gt;
-  &lt;/config&gt;
-  &lt;default&gt;2000-01-01T12:30+01:00&lt;/default&gt;
-&lt;/input&gt;
-
-&lt;input name="dateTimeDefaultNoTz" type="DateTime"&gt;
-  &lt;label&gt;DateTime (without tz and default value)&lt;/label&gt;
-  &lt;default&gt;2000-01-01T12:30&lt;/default&gt;
-&lt;/input&gt;
-
-&lt;input name="dateTimeRelative" type="DateTime"&gt;
-  &lt;label&gt;DateTime (relative default value)&lt;/label&gt;
-  &lt;default&gt;+1year -12hours&lt;/default&gt;
-&lt;/input&gt;
-
-&lt;input name="dateTimeNow" type="DateTime"&gt;
-  &lt;label&gt;DateTime (current time as default value)&lt;/label&gt;
-  &lt;default&gt;now&lt;/default&gt;
-&lt;/input&gt;</code></pre>
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "mytime": "13:22"
+}</code></pre>
 </div>
 </div>
 </div>
@@ -568,7 +555,7 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

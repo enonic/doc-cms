@@ -469,13 +469,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Example - page component with a single region</div>
 <div class="content">
-<pre class="highlight"><code class="language-XML" data-lang="XML">&lt;page&gt;
-  &lt;display-name&gt;The main page&lt;/display-name&gt;
-  &lt;form/&gt;
-  &lt;regions&gt;
-    &lt;region name="main"/&gt;
-  &lt;/regions&gt;
-&lt;/page&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Page"
+title: "The main page"
+form: []
+regions:
+  - name: "main"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -484,15 +482,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Sample layout with three regions</div>
 <div class="content">
-<pre class="highlight"><code class="language-XML" data-lang="XML">&lt;layout&gt;
-  &lt;display-name&gt;The main page&lt;/display-name&gt;
-  &lt;form/&gt;
-  &lt;regions&gt;
-    &lt;region name="left"/&gt;
-    &lt;region name="middle"/&gt;
-    &lt;region name="right"/&gt;
-  &lt;/regions&gt;
-&lt;/layout&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Layout"
+title: "The main page"
+form: []
+regions:
+  - name: "left"
+  - name: "middle"
+  - name: "right"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -572,7 +568,7 @@ Empty regions are never persisted. Region names are only determined from the com
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

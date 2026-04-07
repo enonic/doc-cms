@@ -441,7 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Content</h1>
 <div class="details">
 <span id="author" class="author">toc: right</span><br>
-<span id="revdate">Content is the central editorial element in the CMS.</span>
+<span id="revdate">Content is the core entity in Enonic CMS. Every content item has a specific content type and life cycle.</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -458,7 +458,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Every Content item has a specific content type, which defines its data structure and capabilities. Content can be created, edited, published and deleted in Content Studio, and can also be manipulated programmatically via the Content API. Content items are stored in content projects. They are indexed and can be searched for using Enonic&#8217;s Query API.</p>
+<p>Content can be created, edited, published and deleted via Content Studio, or manipulated programmatically. Every Content item has a specific <a href="content/content-type.ahtml">content type</a>, which defines its data structure and capabilities. Content items are stored in <a href="projects.ahtml">content projects</a>, where each item is indexed and can be searched for and accessed via API.</p>
 </div>
 </div>
 </div>
@@ -485,7 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>

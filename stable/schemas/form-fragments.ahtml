@@ -470,57 +470,55 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO
-Like other schemas, Form fragments are defined in YAML. <code>site/mixins/[name]/[name].xml</code>. I.e. <code>src/main/resources/site/mixins/address/address.xml</code>.</p>
+<p>Like other schemas, Form fragments are defined in YAML.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample form fragment</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;mixin&gt;
-  &lt;display-name&gt;Full address&lt;/display-name&gt;
-  &lt;form&gt;
-    &lt;input type="TextLine" name="addressLine"&gt;
-      &lt;label&gt;Street address&lt;/label&gt;
-      &lt;occurrences minimum="0" maximum="2"/&gt;
-    &lt;/input&gt;
-    &lt;input type="TextLine" name="city"&gt;
-      &lt;label&gt;City&lt;/label&gt;
-      &lt;occurrences minimum="1" maximum="1"/&gt;
-    &lt;/input&gt;
-    &lt;input type="TextLine" name="zipCode"&gt;
-      &lt;label&gt;Zip code&lt;/label&gt;
-      &lt;occurrences minimum="1" maximum="1"/&gt;
-    &lt;/input&gt;
-    &lt;input type="TextLine" name="country"&gt;
-      &lt;label&gt;Country&lt;/label&gt;
-      &lt;occurrences minimum="1" maximum="1"/&gt;
-    &lt;/input&gt;
-  &lt;/form&gt;
-&lt;/mixin&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Mixin"
+title: "Full address"
+form:
+  - type: "TextLine"
+    name: "addressLine"
+    label: "Street address"
+    occurrences:
+      min: 0
+      max: 2
+  - type: "TextLine"
+    name: "city"
+    label: "City"
+    occurrences:
+      min: 1
+      max: 1
+  - type: "TextLine"
+    name: "zipCode"
+    label: "Zip code"
+    occurrences:
+      min: 1
+      max: 1
+  - type: "TextLine"
+    name: "country"
+    label: "Country"
+    occurrences:
+      min: 1
+      max: 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Below is an example of a simple content type that references the address mixin above.</p>
 </div>
 <div class="paragraph">
-<p>The mixin fields will simply be merged into the content type schema.</p>
+<p>The mixin form fields will simply be included into the final content type schema.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;content-type&gt;
-  &lt;display-name&gt;Using mixins&lt;/display-name&gt;
-  &lt;form&gt;
-    &lt;input type="TextLine" name="firstName"&gt;
-      &lt;label&gt;First Name&lt;/label&gt;
-      &lt;occurrences minimum="1" maximum="1"/&gt;
-    &lt;/input&gt;
-    &lt;input type="TextLine" name="lastName"&gt;
-      &lt;label&gt;Last Name&lt;/label&gt;
-      &lt;occurrences minimum="1" maximum="1"/&gt;
-    &lt;/input&gt;
-    &lt;mixin name="address"/&gt;
-  &lt;/form&gt;
-&lt;/content-type&gt;</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"
+title: "Using mixins"
+form:
+  - type: "TextLine"
+    name: "firstName"
+    label: "First Name"
+  - include: "address"</code></pre>
 </div>
 </div>
 </div>
@@ -536,7 +534,7 @@ Like other schemas, Form fragments are defined in YAML. <code>site/mixins/[name]
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 11:45:22 UTC
+Last updated 2026-04-07 16:32:26 UTC
 </div>
 </div>
 </body>
