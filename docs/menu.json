@@ -5,10 +5,6 @@
       "document": "index"
     },
     {
-      "title": "Projects",
-      "document": "projects"
-    },
-    {
       "title": "Schemas",
       "document": "schemas",
       "menuItems": [
@@ -129,6 +125,10 @@
       "document": "content",
       "menuItems": [
         {
+          "title": "Projects",
+          "document": "content/projects"
+        },
+        {
           "title": "Content Types",
           "document": "content/content-types"
         },
@@ -141,12 +141,12 @@
           "document": "content/anatomy"
         },
         {
-          "title": "Attachments",
-          "document": "content/attachments"
-        },
-        {
           "title": "References",
           "document": "content/references"
+        },
+        {
+          "title": "Attachments",
+          "document": "content/attachments"
         },
         {
           "title": "Layering",
@@ -165,7 +165,7 @@
           "document": "content/versions"
         },
         {
-          "title": "Content Indexing",
+          "title": "Indexing",
           "document": "content/content-indexing"
         }
       ]
@@ -203,7 +203,7 @@
       ]
     },
     {
-      "title": "Pages and Sites",
+      "title": "Sites and Pages",
       "document": "pages",
       "menuItems": [
         {

@@ -17,36 +17,34 @@ Application developers must create a service that returns results according to t
 
 Below are several sample usages of CustomSelector:
 
-[source,xml]
+[source,yaml]
 ----
+# Basic Sample
+- type: "CustomSelector"
+  name: "mycustomselector"
+  label: "My Custom Selector"
+  occurrences:
+    min: 0
+    max: 0
+  service: "my-custom-selector"  # <1>
 
-<!-- Basic Sample -->
-<input name="mycustomselector" type="CustomSelector">
-  <label>My Custom Selector</label>
-  <occurrences minimum="0" maximum="0"/>
-  <config>
-    <service>my-custom-selector</service>  // <1>
-  </config>
-</input>
+# Sample with parameters
+- type: "CustomSelector"
+  name: "musicTrack"
+  label: "Intro song"
+  service: "spotify-music-selector"
+  param:  # <2>
+    - value: "genre"
+      label: "classic"
+    - value: "sortBy"
+      label: "length"
 
-<!-- Sample with parameters -->
-<input name="musicTrack" type="CustomSelector">
-  <label>Intro song</label>
-  <config>
-    <service>spotify-music-selector</service>
-    <param value="genre">classic</param>   // <2>
-    <param value="sortBy">length</param>
-  </config>
-</input>
-
-<!-- Gallery mode -->
-<input name="albumCover" type="CustomSelector">
-  <label>Album cover</label>
-  <config>
-    <service>spotify-album-cover-selector</service>
-    <galleryMode>true</galleryMode>   // <3>
-  </config>
-</input>
+# Gallery mode
+- type: "CustomSelector"
+  name: "albumCover"
+  label: "Album cover"
+  service: "spotify-album-cover-selector"
+  galleryMode: true  # <3>
 ----
 <1> *service* holds the name of a JavaScript service file, located under ``/resources/services/[my-custom-selector]/[my-custom-selector].js``. You can also refer to a service file in another application, for example *com.myapplication.app:myservice*.
 <2> *param* lets you pass parameters to the service. This allows for the service to be used in different contexts. There can be multiple parameters or none. The parameters will be included in the HTTP request to the service as name-value query parameters.

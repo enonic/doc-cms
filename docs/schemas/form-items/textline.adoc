@@ -15,24 +15,24 @@ image::TextLine.png[Text Line with various settings, 700]
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<!-- Basic sample -->
-<input name="mytextline" type="TextLine">
-  <label>My TextLine</label>
-</input>
+# Basic sample
+- type: "TextLine"
+  name: "mytextline"
+  label: "My TextLine"
 
-<!-- Using regex validation and a default value. -->
-<input name="socialsecuritynumber" type="TextLine">
-  <label>My SSN</label>
-  <occurrences minimum="1" maximum="3"/>
-  <default>000-00-0000</default>  // <1>
-  <config>
-    <max-length>11</max-length>  // <2>
-    <show-counter>true</show-counter>  // <3>
-    <regexp>\b\d{3}-\d{2}-\d{4}\b</regexp>  // <4>
-  </config>
-</input>
+# Using regex validation and a default value.
+- type: "TextLine"
+  name: "socialsecuritynumber"
+  label: "My SSN"
+  occurrences:
+    min: 1
+    max: 3
+  default: "000-00-0000"  # <1>
+  max-length: 11  # <2>
+  show-counter: true  # <3>
+  regexp: "\\b\\d{3}-\\d{2}-\\d{4}\\b"  # <4>
 ----
 <1> *default* specifies the default string for the TextArea
 <2> *max-length* specifies the maximum allowed number of characters (default: unlimited)
@@ -63,3 +63,14 @@ image::TextLine-spellcheck-2.png[Spell checking in TextLine, 400]
 NOTE: In the second screenshot above English text in the first input is grammatically correct,
 but language of the content is set to Norsk Bokmål, therefore English text is not recognised
 by the spell checker. Text in the second is in Norsk Bokmål and correctly checked for spelling errors.
+
+== Output
+
+The value is stored as a string.
+
+[source,JSON]
+----
+{
+  "mytextline": "Some text value"
+}
+----

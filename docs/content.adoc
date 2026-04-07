@@ -1,12 +1,14 @@
 = Content
 toc: right
 :imagesdir: images
-Content is the central editorial element in the CMS.
+Content is the core entity in Enonic CMS. Every content item has a specific content type and life cycle.
 
 == Intro
-Every Content item has a specific content type, which defines its data structure and capabilities. Content can be created, edited, published and deleted in Content Studio, and can also be manipulated programmatically via the Content API. Content items are stored in content projects. They are indexed and can be searched for using Enonic's Query API.
+Content can be created, edited, published and deleted via Content Studio, or manipulated programmatically. Every Content item has a specific <<content/content-type#, content type>>, which defines its data structure and capabilities. Content items are stored in <<projects#, content projects>>, where each item is indexed and can be searched for and accessed via API.
 
 == Content authoring
+
+
 
 
 == Anatomy

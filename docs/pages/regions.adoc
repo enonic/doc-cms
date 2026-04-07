@@ -12,31 +12,27 @@ Regions enable editors to create complex component structures, such as pages. On
 Regions are declared statically within other components. Below is a sample definition of a page component with a single region `main`:
 
 .Example - page component with a single region
-[source,XML]
+[source,yaml]
 ----
-<page>
-  <display-name>The main page</display-name>
-  <form/>
-  <regions>
-    <region name="main"/>
-  </regions>
-</page>
+kind: "Page"
+title: "The main page"
+form: []
+regions:
+  - name: "main"
 ----
 
 And here is a layout defining three regions:
 
 .Sample layout with three regions
-[source,XML]
+[source,yaml]
 ----
-<layout>
-  <display-name>The main page</display-name>
-  <form/>
-  <regions>
-    <region name="left"/>
-    <region name="middle"/>
-    <region name="right"/>
-  </regions>
-</layout>
+kind: "Layout"
+title: "The main page"
+form: []
+regions:
+  - name: "left"
+  - name: "middle"
+  - name: "right"
 ----
 
 From Content Studio, this is what regions look like in the page form:

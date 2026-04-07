@@ -13,19 +13,28 @@ image::TextArea.png[Text Area with various settings, 700]
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="mytextarea" type="TextArea">
-  <label>My TextArea</label>
-  <default>Default text goes here</default>  // <1>
-  <config>
-    <max-length>42</max-length>  // <2>
-    <show-counter>true</show-counter>  // <3>
-  </config>
-</input>
+- type: "TextArea"
+  name: "mytextarea"
+  label: "My TextArea"
+  default: "Default text goes here"  # <1>
+  max-length: 42  # <2>
+  show-counter: true  # <3>
 ----
 <1> *default* specifies the default string for the TextArea
 <2> *max-length* specifies the maximum allowed number of characters (default: unlimited)
 <3> *show-counter* specifies whether text length counter should be shown (default: hidden)
 
 NOTE: Contents of TextArea support browser based spellcheckers in the same way as described for <<textline#spellcheck, TextLine>>.
+
+== Output
+
+The value is stored as a plain text string.
+
+[source,JSON]
+----
+{
+  "mytextarea": "This is plain text.\nLine breaks are preserved."
+}
+----

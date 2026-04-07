@@ -56,41 +56,39 @@ This descriptor serves multiple purposes:
 * Define controller and filter <<../framework/mappings#, mappings>>.
 * Define <<../framework/processors#, response processors>>.
 
-The descriptor must be placed in your app as: `src/main/resources/site/site.xml`
+The descriptor must be placed in your app as: `src/main/resources/site/site.yaml`
 
-.Minimal site.xml example
-[source,xml]
+.Minimal site.yaml example
+[source,yaml]
 ----
-<site>
-  <form/>
-</site>
+kind: "Site"
+form: []
 ----
 
 
-.Site.xml with all options in use
-[source,xml]
+.Site.yaml with all options in use
+[source,yaml]
 ----
-<site>
-  <form>  // <1>
-    <input type="TextLine" name="company">
-      <label>Company</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
-    <mixin name="address"/>
-  </form>
-  <x-data name="seo-settings"/>  // <2>
-  <mappings>  // <3>
-    <mapping controller="/site/foobar/api.js" order="10">
-      <pattern>/api/v\d+/.*</pattern>
-    </mapping>
-    <mapping controller="/site/pages/default/default.js">
-      <match>type:'portal:fragment'</match>
-    </mapping>
-  </mappings>
-  <processors>
-    <response-processor name="tracker" order="10"/> // <4> <5>
-  </processors>
-</site>
+kind: "Site"
+form:  # <1>
+  - type: "TextLine"
+    name: "company"
+    label: "Company"
+    occurrences:
+      min: 1
+      max: 1
+  - mixin: "address"
+xdata:  # <2>
+  - name: "seo-settings"
+mappings:  # <3>
+  - controller: "/site/foobar/api.js"
+    order: 10
+    pattern: "/api/v\\d+/.*"
+  - controller: "/site/pages/default/default.js"
+    match: "type:'portal:fragment'"
+processors:
+  - name: "tracker"  # <4> <5>
+    order: 10
 ----
 
 <1> Define a <<schemas#forms,form>> for this app. The form is used to create site specific configuration for the app.

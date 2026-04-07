@@ -38,22 +38,29 @@ image::itemset-5.png[Nested item-sets, 670]
 The definition below will allow for multiple entries of phone numbers with labels:
 
 .Item Set example with two inputs
-[source,xml]
+[source,yaml]
 ----
-<item-set name="contact_info">  // <1>
-  <label i18n="contact_info.label">Contact Info</label>  // <2>
-  <occurrences minimum="0" maximum="0"/>  // <3>
-  <items>
-    <input name="label" type="TextLine">
-      <label>Label</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
-    <input name="phone_number" type="TextLine">
-      <label>Phone Number</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
-  </items>
-</item-set>
+- type: "ItemSet"
+  name: "contact_info"  # <1>
+  label:  # <2>
+    text: "Contact Info"
+    i18n: "contact_info.label"
+  occurrences:  # <3>
+    min: 0
+    max: 0
+  items:
+    - type: "TextLine"
+      name: "label"
+      label: "Label"
+      occurrences:
+        min: 0
+        max: 1
+    - type: "TextLine"
+      name: "phone_number"
+      label: "Phone Number"
+      occurrences:
+        min: 0
+        max: 1
 ----
 <1> *name* defines the mapping to the property name
 <2> *label* - The displayed identfier of the input.

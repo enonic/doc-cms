@@ -18,44 +18,50 @@ TIP: If you want to inject fields inside content type's form rather than appendi
 
 == Definition
 
-The file with X-data schema must be placed in the folder `site/x-data/[name]` and called `[name].xml`. For example, _site/x-data/address/address.xml_.
+The file with X-data schema must be placed in the folder `site/x-data/[name]` and called `[name].yaml`. For example, _site/x-data/address/address.yaml_.
 
-[source,xml]
+[source,yaml]
 ----
-<x-data>
-  <display-name>Full address</display-name>
-  <form>
-    <input type="TextLine" name="addressLine">
-      <label>Street address</label>
-      <occurrences minimum="0" maximum="2"/>
-    </input>
-    <input type="TextLine" name="city">
-      <label>City</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
-    <input type="TextLine" name="zipCode">
-      <label>Zip code</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
-    <input type="TextLine" name="country">
-      <label>Country</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
-  </form>
-</x-data>
+kind: "XData"
+title: "Full address"
+form:
+  - type: "TextLine"
+    name: "addressLine"
+    label: "Street address"
+    occurrences:
+      min: 0
+      max: 2
+  - type: "TextLine"
+    name: "city"
+    label: "City"
+    occurrences:
+      min: 1
+      max: 1
+  - type: "TextLine"
+    name: "zipCode"
+    label: "Zip code"
+    occurrences:
+      min: 1
+      max: 1
+  - type: "TextLine"
+    name: "country"
+    label: "Country"
+    occurrences:
+      min: 1
+      max: 1
 ----
 
 == Usage
 
 To activate X-data for your project or site, it must be referenced in the application's `site.xml`. The example below adds the `address` X-data to all content types within its scope.
 
-./src/main/resource/site/site.xml
-[source,xml]
+./src/main/resource/site/site.yaml
+[source,yaml]
 ----
-<site>
-  <x-data name="address"/>
-  <form/>
-</site>
+kind: "Site"
+xdata:
+  - name: "address"
+form: []
 ----
 
 == Configuration
@@ -67,14 +73,17 @@ By default x-data will be added to content items of all types with no option to 
 
 If `allowContentTypes` and `optional` attributes are not set, the x-data will automatically be enabled for all content types. See <<schemas/input-types/contentselector#allowContentType, modes>> of content type filtering.
 
-[source,xml]
+[source,yaml]
 ----
-<site>
-  <x-data name="my-x-data-1" />
-  <x-data name="my-x-data-2" allowContentTypes="^(?!base:folder$).*" />
-  <x-data name="my-x-data-3" allowContentTypes="portal:site" optional="true" />
-  <form/>
-</site>
+kind: "Site"
+xdata:
+  - name: "my-x-data-1"
+  - name: "my-x-data-2"
+    allowContentTypes: "^(?!base:folder$).*"
+  - name: "my-x-data-3"
+    allowContentTypes: "portal:site"
+    optional: true
+form: []
 ----
 
 In the example above _my-x-data-1_ will be enabled for all content types, with no option to disable it in the Content Wizard.

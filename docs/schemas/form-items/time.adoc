@@ -13,12 +13,12 @@ image::Time-selector.png[input field with a hour and minute selector above it, 7
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="mytime" type="Time">
-  <label>My Time</label>
-  <default>13:22</default>  // <1>
-</input>
+- type: "Time"
+  name: "mytime"
+  label: "My Time"
+  default: "13:22"  # <1>
 ----
 <1> *default* date value to be used. The format for the default date value can be:
 
@@ -42,30 +42,14 @@ An offset can also be the string ``now``, which means current date and time.
 
 If `<default>` value is set for an input, the Time picker will display "*Set default*" button for setting the default value with one click.
 
-Examples:
 
-[source,xml]
+== Output
+
+The value is stored as a time string in 24h format.
+
+[source,JSON]
 ----
-<input name="dateTimeDefaultTz" type="DateTime">
-  <label>DateTime (with tz and default value)</label>
-  <config>
-    <timezone>true</timezone>
-  </config>
-  <default>2000-01-01T12:30+01:00</default>
-</input>
-
-<input name="dateTimeDefaultNoTz" type="DateTime">
-  <label>DateTime (without tz and default value)</label>
-  <default>2000-01-01T12:30</default>
-</input>
-
-<input name="dateTimeRelative" type="DateTime">
-  <label>DateTime (relative default value)</label>
-  <default>+1year -12hours</default>
-</input>
-
-<input name="dateTimeNow" type="DateTime">
-  <label>DateTime (current time as default value)</label>
-  <default>now</default>
-</input>
+{
+  "mytime": "13:22"
+}
 ----

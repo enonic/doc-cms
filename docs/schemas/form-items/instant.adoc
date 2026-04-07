@@ -1,0 +1,77 @@
+= Instant input type
+
+:imagesdir: images
+:toc: right
+:y: icon:check[role="green"]
+:n: icon:times[role="red"]
+
+A field for dates with time, without timezone. An instant represents a specific point in time, independent of any timezone. Use <<datetime#, DateTime>> when you need to preserve timezone information.
+
+== Appearance
+
+A pop-up box with a calendar and time selector allows easy editing, similar to <<datetime#, DateTime>> but without timezone selection.
+
+//TODO: add screenshot
+
+== Usage
+
+[source,yaml]
+----
+- type: "Instant"
+  name: "myinstant"
+  label: "My Instant"
+  default: "2025-06-15T12:00:00"  # <1>
+----
+<1> *default* value to be used. The format for the default value can be:
+
+====
+* Date and time in ISO 8601 format without timezone: ``yyyy-MM-ddThh:mm``  (e.g. "2025-06-15T12:00")
+* Relative datetime expression (e.g. "+1year -12hours")
+
+A relative date expression is a sequence of one or more datetime offsets.
+An offset consists of: a plus or minus sign, followed by an integer, followed by a date/time unit string (e.g. "+3 days")
+
+.Unit strings
+|===
+| Singular | Plural | initial letter
+
+| "year" | "years" | "y"
+| "month"| "months"| "M"
+| "week" | "weeks" | "w"
+| "day"  | "days"  | "d"
+| "hour" | "hours" | "h"
+| "minute" | "minutes" | "m"
+|===
+
+An offset can also be the string ``now``, which means current date and time.
+====
+
+If `default` value is set for an input, the picker will display "*Set default*" button for setting the default value with one click.
+
+Examples:
+
+[source,yaml]
+----
+- type: "Instant"
+  name: "publishedAt"
+  label: "Published at"
+  default: "now"
+
+- type: "Instant"
+  name: "expiresAt"
+  label: "Expires at"
+  default: "+1year"
+----
+
+== Output
+
+The value is stored as an ISO 8601 date-time string without timezone.
+
+[source,JSON]
+----
+{
+  "myinstant": "2025-06-15T12:00:00"
+}
+----
+
+NOTE: Unlike <<datetime#, DateTime>> which includes a timezone offset (e.g. `+01:00`), Instant stores the date and time without timezone information.

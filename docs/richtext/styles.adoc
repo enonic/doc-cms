@@ -15,28 +15,29 @@ NOTE: At the moment, custom styles are only supported for Images.
 
 == Descriptor
 
-The `styles.xml` file declares the custom styles for your app.
+The `styles.yaml` file declares the custom styles for your app.
 
 Example style definition:
 
-./src/main/resources/site/styles.xml
-[source,xml]
+./src/main/resources/site/styles.yaml
+[source,yaml]
 ----
-<styles css="styles/styles.css" xmlns="urn:enonic:xp:model:1.0"> // <1>
-  <image name="editor-image-cinema"> // <2>
-    <display-name>Cinema</display-name>
-    <aspect-ratio>21:9</aspect-ratio>
-  </image>
-  <image name="editor-image-sepia">
-    <display-name>Old photo</display-name>
-    <filter>sepia(25)</filter>
-  </image>
-</styles>
+kind: "Style"
+css: "styles/styles.css"  # <1>
+styles:
+  - type: "image"  # <2>
+    name: "editor-image-cinema"
+    title: "Cinema"
+    aspect-ratio: "21:9"
+  - type: "image"
+    name: "editor-image-sepia"
+    title: "Old photo"
+    filter: "sepia(25)"
 ----
 
-<1> The optional `css` attribute references a file in your app's `/src/main/resources/assets/` folder. The CSS declared in this file will be loaded into Content Studio's rich text editor to provide client-side styling.
+<1> The optional `css` property references a file in your app's `/src/main/resources/assets/` folder. The CSS declared in this file will be loaded into Content Studio's rich text editor to provide client-side styling.
 
-<2> Each `<image>` element declares a custom style that can be applied to images inserted in the rich text editor.
+<2> Each image style declares a custom style that can be applied to images inserted in the rich text editor.
 +
 NOTE: As of now, `aspect-ratio` and `filter` are the only options available for server-side image processing.
 

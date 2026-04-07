@@ -19,12 +19,32 @@ image::Attachment.png[An empty attachment input box, 700]
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="myattachment" type="AttachmentUploader">
-  <label>My AttachmentUploader</label>
-</input>
+- type: "AttachmentUploader"
+  name: "myattachment"
+  label: "My AttachmentUploader"
 ----
 
+== Output
 
+The stored value is the name (string) of an <<../../content/attachments#, attachment>> on the content item. The file itself is stored as an attachment, not as a separate content. See <<../../content/attachments#, Attachments>> for details on how attachments are stored and indexed.
 
+.Single attachment
+[source,JSON]
+----
+{
+  "myattachment": "document.pdf"
+}
+----
+
+.Multiple attachments (if occurrences allows)
+[source,JSON]
+----
+{
+  "myattachment": [
+    "document.pdf",
+    "spreadsheet.xlsx"
+  ]
+}
+----

@@ -16,20 +16,18 @@ image::Html-area-editor.png[Input field with a toolbar at the top. Source and fu
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="myhtmlarea" type="HtmlArea">
-  <label>My HtmlArea</label>
-  <default><h3>Enter description here</h3></default> // <1>
-  <config>
-    <exclude>*</exclude>  // <2>
-    <include>JustifyLeft JustifyRight | Bold Italic</include>  // <3>
-    <allowHeadings>h2 h4 h6</allowHeadings>  // <4>
-  </config>
-</input>
+- type: "HtmlArea"
+  name: "myhtmlarea"
+  label: "My HtmlArea"
+  default: "<h3>Enter description here</h3>"  # <1>
+  exclude: "*"  # <2>
+  include: "JustifyLeft JustifyRight | Bold Italic"  # <3>
+  allowHeadings: "h2 h4 h6"  # <4>
 ----
 
-<1> *default* can contain any valid HTML elements, but tags must be correctly closed since the input type is defined inside an XML.
+<1> *default* can contain any valid HTML elements.
 <2> *exclude* optionally removes the standard tools from the editor toolbar
 <3> *include* optionally adds more tools to the editor toolbar.
 <4> *allowHeadings* space-separated list of allowed heading tags (from `<h1>` to `<h6>`); by default all are allowed
@@ -94,3 +92,24 @@ Below is the complete list of available editor tools:
 | TextColor | Text color
 | Undo | Undo the last action
 |===
+
+== Output
+
+The value is stored as a raw HTML string. The HTML contains Enonic-specific markup for internal links, images, and macros that need processing before rendering.
+
+=== Raw output
+
+When the HTML content is stored, internal links, images, and macros are represented with special markup that needs to be processed before rendering. For example, an internal link will be stored as `<a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9">internal link</a>`, where the `href` attribute contains a reference to the content item.
+
+[source,JSON]
+----
+{
+  "myhtmlarea": "<h3>Hello world</h3><p>This is <strong>rich text</strong> with an <a href=\"content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9\">internal link</a>.</p>"
+}
+----
+
+=== Processed output
+
+Enonic offers HTML processing functions that will convert the stored HTML into a format more suitable for rendering. For example, the `content://` links will be converted to relative URLs that can be used in the front-end.
+
+For more details, consult the <<../../richtext#html-processing, HTML processing>> documentation.

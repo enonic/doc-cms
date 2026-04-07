@@ -5,33 +5,32 @@ At least one page component must be available in your project to be able to crea
 == Introduction
 At the root of every page, you will find the page component. Most sites only need a single page component, as this can be reused across all pages. 
 
-To create a page component, add a component descriptor file to your project `src/main/resources/site/pages/<page-name>/<page-name.xml>`.
+To create a page component, add a component descriptor file to your project `src/main/resources/site/pages/<page-name>/<page-name.yaml>`.
 
 NOTE: The name you choose for a component will be used in the underlying data of the stored page. So choose your name wisely.
 
 == Usage
 
-To create a page component, place a descriptor file in your project: `src/main/resources/site/pages/<page-name>/<page-name>.xml.
+To create a page component, place a descriptor file in your project: `src/main/resources/site/pages/<page-name>/<page-name>.yaml`.
 
 
 .Sample page descriptor
-[source,xml]
+[source,yaml]
 ----
-<page>
-  <display-name i18n="component.page.name">My first page</display-name> // <1> <2>
-  <description>Front page of our site</description>  // <3>
-  <form/>  // <4>
-  <regions>
-    <region name="main"/>  // <5>
-  </regions>
-</page>
+kind: "Page"
+title:  # <1>
+  text: "My first page"
+  i18n: "component.page.name"
+description: "Front page of our site"  # <2>
+form: []  # <3>
+regions:  # <4>
+  - name: "main"
 ----
 
-<1> *display-name* provides a display name used by the editorial interface
-<2> *display-name/i18n* optionally specify localization key
-<3> *description* Description field shown when creating a part in content studio
-<4> *form* allows the definition of a configuration form based on the <<schemas#,schema system>>
-<5> *region* optionally specify <<pages/regions#, regions>> for the page. 
+<1> *title* provides a display name used by the editorial interface. Supports <<../schemas/i18n#,localization>> via the `text`/`i18n` object pattern.
+<2> *description* Description field shown when creating a part in content studio
+<3> *form* allows the definition of a configuration form based on the <<schemas#,schema system>>
+<4> *regions* optionally specify <<pages/regions#, regions>> for the page. 
 
 NOTE: A page component may define zero, to many regions. Conventionally, a page should at least define a single region called `main`.
 

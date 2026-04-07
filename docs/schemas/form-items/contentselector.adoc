@@ -12,21 +12,23 @@ image::Content-selector-default.png[An input box with a dropdown options below i
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="mycontentselector" type="ContentSelector">
-  <label>My ContentSelector</label>
-  <occurrences minimum="0" maximum="0"/>
-  <config>
-    <allowContentType>citation</allowContentType>  // <1>
-    <allowContentType>my.other.app:quote</allowContentType>
-    <allowPath>${site}/people/</allowPath>  // <2>
-    <allowPath>./*</allowPath>
-    <allowPath>/quotes*</allowPath>
-    <treeMode>true</treeMode>   // <3>
-    <hideToggleIcon>true</hideToggleIcon>  // <4>
-  </config>
-</input>
+- type: "ContentSelector"
+  name: "mycontentselector"
+  label: "My ContentSelector"
+  occurrences:
+    min: 0
+    max: 0
+  allowContentType:  # <1>
+    - "citation"
+    - "my.other.app:quote"
+  allowPath:  # <2>
+    - "${site}/people/"
+    - "./*"
+    - "/quotes*"
+  treeMode: true  # <3>
+  hideToggleIcon: true  # <4>
 ----
 <1> *allowContentType* is used to limit the content types that may be selected using the <<allowContentType>>
 <2> *allowPath* is used to limit the path of the content that may be selected using the <<allowPath Samples>>. By default, Content Selector
@@ -83,27 +85,33 @@ To further clarify, in XP:
 ====
 Content type "citation" within your current application +
 
-  <allowContentType>citation</allowContentType>
+  allowContentType:
+    - "citation"
 
 Content type "quote" from the application "my.other.app" +
 
-  <allowContentType>my.other.app:quote</allowContentType>
+  allowContentType:
+    - "my.other.app:quote"
 
 Content types "quote" from any application +
 
-  <allowContentType>*:quote</allowContentType>
+  allowContentType:
+    - "*:quote"
 
 Any content types from current application +
 
-  <allowContentType>${app}:*</allowContentType>
+  allowContentType:
+    - "${app}:*"
 
 All content types starting with banana (using regular expressions) +
 
-  <allowContentType>*:banana*</allowContentType>
+  allowContentType:
+    - "*:banana*"
 
 All content types except 'base:folder' +
 
-  <allowContentType>^(?!base:folder$)*</allowContentType>
+  allowContentType:
+    - "^(?!base:folder$)*"
 ====
 
 === allowPath Samples
@@ -111,7 +119,8 @@ All content types except 'base:folder' +
 ====
 Allow all content starting from the root +
 
-    <allowPath>*</allowPath>
+    allowPath:
+      - "*"
 
 
 Only content from the current site (but from any location), e.g +
@@ -119,14 +128,16 @@ Only content from the current site (but from any location), e.g +
 * /mySite/articles/new-blog-post +
 * /mySite/someFolder/anotherFolder/rubarb/lettuce +
 
-  <allowPath>${site}/*</allowPath>
+  allowPath:
+    - "${site}/*"
 
 
 All children of <site>/people, e.g +
 * /mySite/people/myContent +
 * /mySite/people/myGroup/anotherContent +
 
-  <allowPath>${site}/people/*</allowPath>
+  allowPath:
+    - "${site}/people/*"
 
 
 All content in mySite starting with people, including children, e.g +
@@ -135,14 +146,40 @@ All content in mySite starting with people, including children, e.g +
 * /mySite/peoples/myContent +
 * /mySite/people/myGroup/anotherContent +
 
-  <allowPath>/mySite/people*</allowPath>
+  allowPath:
+    - "/mySite/people*"
 
 
 All children of the current content +
 
-  <allowPath>./*</allowPath>
+  allowPath:
+    - "./*"
 
 All children of the current content's parent +
 
-  <allowPath>../*</allowPath>
+  allowPath:
+    - "../*"
 ====
+
+== Output
+
+The stored value is the content ID (string) of the referenced item. When multiple selections are allowed, the value is an array.
+
+.Single reference
+[source,JSON]
+----
+{
+  "mycontentselector": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+}
+----
+
+.Multiple references
+[source,JSON]
+----
+{
+  "mycontentselector": [
+    "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ]
+}
+----

@@ -10,17 +10,16 @@ Parts are leaf-nodes in the component structure. Parts are typically used in com
 
 == Usage
 
-Like pages and layouts, parts needs a descriptor. Place the descriptor in your project as follows: `src/main/resources/site/parts/<part-name>/<part-name>.xml``.
+Like pages and layouts, parts needs a descriptor. Place the descriptor in your project as follows: `src/main/resources/site/parts/<part-name>/<part-name>.yaml`.
 
 Each part may also declare a form using the schema system. The form data will be stored together with each component instance.
 
 .Example part descriptor
-[source,xml]
+[source,yaml]
 ----
-<part>
-  <display-name>Content List</display-name>
-  <form />
-</part>
+kind: "Part"
+title: "Content List"
+form: []
 ----
 
 == Custom icon

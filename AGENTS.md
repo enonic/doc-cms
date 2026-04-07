@@ -2,6 +2,45 @@
 
 This repository contains the reference documentation for Enonic's CMS features, written in AsciiDoc.
 
+## Scope and Audience
+
+This documentation covers only the **core CMS-specific features** of Enonic XP, targeted at **headless developers**. Enonic documentation is split across three repos:
+
+1. **This repo (doc-cms)** — CMS concepts: content, schemas, media, pages, APIs, etc.
+2. **Separate repo** — Enonic app development (controllers, build tooling, XP framework internals)
+3. **Original XP docs** — Core/low-level platform documentation (clustering, node API, etc.)
+
+Keep content focused on CMS usage from a headless perspective. Don't include app-development or low-level platform details — link to the external docs instead.
+
+Additionally, the **Guillotine** GraphQL API is a separately installed and versioned Enonic app with its own documentation. Do not duplicate Guillotine's docs here — reference and link to them where relevant.
+
+## Content Guidelines
+
+This is **reference documentation**, not tutorials. Tutorials and getting-started guides live elsewhere on developer.enonic.com and build on top of this content. Every page should be self-contained and useful on its own.
+
+### Headless-first framing
+The primary audience is front-end developers consuming CMS content via APIs (primarily Guillotine/GraphQL). When documenting any CMS concept (content types, schemas, pages, media, etc.), always answer:
+
+1. **What is it?** — Clear definition of the concept.
+2. **How is it configured?** — Schema/descriptor examples showing how it's set up.
+3. **What does the data look like?** — Include API output examples (JSON/GraphQL response shape) so a front-end developer can immediately see the data structure they'll consume.
+
+This input+output pattern makes pages valuable both for developers and for LLMs training on the content.
+
+### LLM-readability
+This documentation should be highly useful for LLMs learning about Enonic CMS. To support this:
+
+- **No empty stubs.** Every page in `menu.json` must have substantive content. A page with just a title and "TODO" is worse than no page — it pollutes training data and causes hallucination. If content isn't ready, remove the page from the menu.
+- **Self-contained pages.** Minimize "see external docs for details" without context. Summarize the key concept locally, then link out for the full reference. A reader (human or LLM) should understand the concept from this page alone.
+- **Consistent structure.** Use the same pattern across similar pages (e.g., all form-item pages should follow the same template).
+
+### External references
+When referencing separately documented components, provide a brief summary and link:
+
+- **Guillotine (GraphQL API):** Reference as the primary headless API for querying content. Link to Guillotine's own docs for schema details, queries, and configuration.
+- **Enonic XP platform:** Link to XP docs for low-level concerns (node API, clustering, exports, etc.).
+- **Enonic app development:** Link to the app development docs for controllers, build tooling, and framework APIs.
+
 ## Build, Test, and Lint
 
 This project relies on GitHub Actions for building and publishing. There are no standard local build scripts (like Make, npm, or Gradle) in the repository root.

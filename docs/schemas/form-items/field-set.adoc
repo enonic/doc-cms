@@ -13,19 +13,21 @@ image::fieldset-1.png[Example of a fieldset, 689]
 == Usage
 
 .Sample field-set definition containing a single input-type
-[source,xml]
+[source,yaml]
 ----
-<field-set>  // <1>
-  <label i18n="metadata.label">Metadata</label>
-  <items>  // <2>
-    <input name="tags" type="Tag">
-      <label>Tags for tag cloud</label>
-      <occurrences minimum="0" maximum="5"/>
-    </input>
-  </items>
-</field-set>
+- type: "FieldSet"  # <1>
+  label:
+    text: "Metadata"
+    i18n: "metadata.label"
+  items:  # <2>
+    - type: "Tag"
+      name: "tags"
+      label: "Tags for tag cloud"
+      occurrences:
+        min: 0
+        max: 5
 ----
-<1> *field-set* does not need a name since it is only visual, and does not affect the data model
+<1> *FieldSet* does not need a name since it is only visual, and does not affect the data model
 <2> *items* allow placement of form items to be contained within it
 
 == Output

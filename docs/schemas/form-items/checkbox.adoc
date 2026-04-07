@@ -18,15 +18,27 @@ image::Checkboxes.png[two checkboxes one is selected the other is not, 200]
 
 Sample definition with a default checked, right aligned checkbox.
 
-[source,xml]
+[source,yaml]
 ----
-<input  name="mycheckbox" type="CheckBox">
-  <label>My Checkbox</label>
-  <default>checked</default>  // <1>
-  <config>
-    <alignment>right</alignment>  // <2>
-  </config>
-</input>
+- type: "CheckBox"
+  name: "mycheckbox"
+  label: "My Checkbox"
+  default: "checked"  # <1>
+  alignment: "right"  # <2>
 ----
 <1> *default* - Use `checked` to check it, default is unchecked.
 <2> *alignment* defines placement of checkbox relative to label text. Supported values are: "left", "right", "top", "bottom", default is "left".
+
+== Output
+
+The value is stored as a boolean.
+
+.Checked
+[source,JSON]
+----
+{
+  "mycheckbox": true
+}
+----
+
+NOTE: When the checkbox is unchecked, the property is omitted from the output entirely.

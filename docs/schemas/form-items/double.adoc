@@ -13,22 +13,30 @@ image::Double.png[An inpt field with a lot of decimal numbers, 700]
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="mydouble" type="Double">
-  <label>My Double</label>
-  <default>3.89</default>  // <1>
-</input>
+- type: "Double"
+  name: "mydouble"
+  label: "My Double"
+  default: 3.89  # <1>
 
-<input name="angle" type="Double">
-  <label>Angle (rad)</label>
-  <config>
-    <min>0</min>  // <2>
-    <max>3.14159</max>  // <3>
-  </config>
-</input>
+- type: "Double"
+  name: "angle"
+  label: "Angle (rad)"
+  min: 0  # <2>
+  max: 3.14159  # <3>
 ----
 <1> *default* can be any double-precision floating-point number, with the dot character as decimal separator
-<2> *config/min* optionally specifies the minimum allowed value
-<3> *config/max* optionally specifies the maximum allowed value
+<2> *min* optionally specifies the minimum allowed value
+<3> *max* optionally specifies the maximum allowed value
 
+== Output
+
+The value is stored as a floating-point number.
+
+[source,JSON]
+----
+{
+  "mydouble": 3.89
+}
+----

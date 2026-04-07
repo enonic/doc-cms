@@ -14,14 +14,36 @@ image::Content-type-default.png[input field with a dropdown of all content, 700]
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="myctyfilter" type="ContentTypeFilter">
-  <label>My CTYFilter</label>
-  <occurrences minimum="0" maximum="0"/>
-  <config>
-    <context>true</context>  // <1>
-  </config>
-</input>
+- type: "ContentTypeFilter"
+  name: "myctyfilter"
+  label: "My CTYFilter"
+  occurrences:
+    min: 0
+    max: 0
+  context: true  # <1>
 ----
 <1> *context* `true` limits the list of content types to the applications configured for the current site. Default is `false`.
+
+== Output
+
+The stored value is the fully qualified content type name (string).
+
+[source,JSON]
+----
+{
+  "myctyfilter": "com.example.myapp:article"
+}
+----
+
+.Multiple selections
+[source,JSON]
+----
+{
+  "myctyfilter": [
+    "com.example.myapp:article",
+    "base:folder"
+  ]
+}
+----

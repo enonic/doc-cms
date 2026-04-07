@@ -9,18 +9,31 @@ The MediaSelector is a specialized version of the <<contentselector#, ContentSel
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="mymedia" type="MediaSelector">
-  <label>My Media</label>
-  <occurrences minimum="0" maximum="1"/>
-  <config>  // <1>
-    <allowContentType>media:archive</allowContentType>
-    <allowPath>${site}/*</allowPath>  // <2>
-    <treeMode>true</treeMode>
-    <hideToggleIcon>true</hideToggleIcon>
-  </config>
-</input>
+- type: "MediaSelector"
+  name: "mymedia"
+  label: "My Media"
+  occurrences:
+    min: 0
+    max: 1
+  allowContentType:  # <1>
+    - "media:archive"
+  allowPath:  # <2>
+    - "${site}/*"
+  treeMode: true
+  hideToggleIcon: true
 ----
-<1> MediaSelector supports the same configuration options as <<contentselector#, ContentSelector>>, but is limited to using `media:*` content types in the `<allowContentType>` configuration.
+<1> MediaSelector supports the same configuration options as <<contentselector#, ContentSelector>>, but is limited to using `media:*` content types in the `allowContentType` configuration.
 <2> Just like <<imageselector#, ImageSelector>>, MediaSelector by default displays all media items starting from the content root.
+
+== Output
+
+The stored value is the content ID (string) of the selected media item. Like <<contentselector#, ContentSelector>>, the value is a reference to the media content item.
+
+[source,JSON]
+----
+{
+  "mymedia": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+}
+----

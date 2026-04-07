@@ -5,7 +5,7 @@
 :y: icon:check[role="green"]
 :n: icon:times[role="red"]
 
-Combobox allows you to select one or more options from a statically defined list.
+A ComboBox lets the user select one or more options from a statically defined list. The selected values are stored as strings.
 
 == Appearance
 
@@ -15,18 +15,46 @@ image::Combobox.png[two options, both can be selected via checkboxes, 700]
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="mycombobox" type="ComboBox">
-  <label>My Combobox</label>
-  <occurrences minimum="1" maximum="2"/>
-  <config>
-    <option value="one">Option One</option>  // <1>
-    <option value="two">Option Two</option>
-  </config>
-  <default>one</default>  // <2>
-</input>
+- type: "ComboBox"
+  name: "mycombobox"
+  label: "My Combobox"
+  occurrences:
+    min: 1
+    max: 2
+  options:  # <1>
+    - value: "one"
+      label: "Option One"
+    - value: "two"
+      label: "Option Two"
+  default: "one"  # <2>
 ----
-<1> *option* elements and the `@value` attribute defines the actual value to store when the option is selected. Multiple `option` elements are allowed and ordered.
+<1> *options* define the available choices. The `value` is stored when the option is selected. Multiple options are allowed and ordered.
 <2> *default* is optional, and may be equal to _one_ of the option values.
+
+== Output
+
+When a single option is selected, the value is returned as a string. When multiple options are selected (via `occurrences`), the values are returned as an array.
+
+.Single selection
+[source,JSON]
+----
+{
+  "mycombobox": "one"
+}
+----
+
+.Multiple selections
+[source,JSON]
+----
+{
+  "mycombobox": [
+    "one",
+    "two"
+  ]
+}
+----
+
+NOTE: The stored values correspond to the `value` attributes in the schema, not the display labels.
 

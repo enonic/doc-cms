@@ -5,34 +5,30 @@
 :y: icon:check[role="green"]
 :n: icon:times[role="red"]
 
-A simple field for dates with time.  A pop-up box with a calendar and time selector allows easy editing.
+A field for dates with time and timezone. A pop-up box with a calendar and time selector allows easy editing.
+
+TIP: For dates without timezone, use <<instant#, Instant>> instead.
 
 == Appearance
 
-The user format is `yyyy-MM-dd hh:mm` for example, `2015-02-09 09:00`. The date-time could be of type
-`local` (no timezone) or with a timezone. This is done using configuration:
+The user format is `yyyy-MM-dd hh:mm` for example, `2015-02-09 09:00`. The timezone is always included.
 
 image::Datetime-selector.png[Input field with both a calander and time selection above, 500]
 
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="mydatetime" type="DateTime">
-  <label>My DateTime</label>
-  <config>
-    <timezone>true</timezone>  // <1>
-  </config>
-  <default>2011-09-12</default>  // <2>
-</input>
+- type: "DateTime"
+  name: "mydatetime"
+  label: "My DateTime"
+  default: "2011-09-12T12:00+01:00"  # <1>
 ----
-<1> *timezone* set to `true` if timezone information should be used. Default is `false`.
-<2> *default* date value to be used. The format for the default date value can be:
+<1> *default* date value to be used. The format for the default date value can be:
 
 ====
-* Combined date and time in ISO 8601 format, with timezone: ``yyyy-MM-ddThh:mm±hh:mm``  (e.g. "2016-12-31T23:59+01:00")
-* Combined date and time in ISO 8601 format, without timezone: ``yyyy-MM-ddThh:mm``  (e.g. "2016-12-31T23:59")
+* Combined date and time in ISO 8601 format with timezone: ``yyyy-MM-ddThh:mm±hh:mm``  (e.g. "2016-12-31T23:59+01:00")
 * Relative datetime expression (e.g. "+1year -12hours")
 
 Note that the ISO8601 format consists of concatenating a complete date expression, the letter ``T`` as a delimiter, and a valid time expression.
@@ -58,32 +54,35 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 An offset can also be the string ``now``, which means current date and time.
 ====
 
-If `<default>` value is set for an input, the Date/Time picker will display "*Set default*" button for setting the default value with one click.
+If `default` value is set for an input, the Date/Time picker will display "*Set default*" button for setting the default value with one click.
 
 Examples:
 
-[source,xml]
+[source,yaml]
 ----
-<input name="dateTimeDefaultTz" type="DateTime">
-  <label>DateTime (with tz and default value)</label>
-  <config>
-    <timezone>true</timezone>
-  </config>
-  <default>2000-01-01T12:30+01:00</default>
-</input>
+- type: "DateTime"
+  name: "dateTimeDefault"
+  label: "DateTime (with default value)"
+  default: "2000-01-01T12:30+01:00"
 
-<input name="dateTimeDefaultNoTz" type="DateTime">
-  <label>DateTime (without tz and default value)</label>
-  <default>2000-01-01T12:30</default>
-</input>
+- type: "DateTime"
+  name: "dateTimeRelative"
+  label: "DateTime (relative default value)"
+  default: "+1year -12hours"
 
-<input name="dateTimeRelative" type="DateTime">
-  <label>DateTime (relative default value)</label>
-  <default>+1year -12hours</default>
-</input>
+- type: "DateTime"
+  name: "dateTimeNow"
+  label: "DateTime (current time as default value)"
+  default: "now"
+----
 
-<input name="dateTimeNow" type="DateTime">
-  <label>DateTime (current time as default value)</label>
-  <default>now</default>
-</input>
+== Output
+
+The value is stored as an ISO 8601 date-time string with timezone offset.
+
+[source,JSON]
+----
+{
+  "mydatetime": "2016-12-31T23:59:00+01:00"
+}
 ----

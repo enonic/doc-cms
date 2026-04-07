@@ -6,47 +6,60 @@ Labels and texts in schemas can be displayed in the users preferred language (ba
 
 == Introduction
 
-Simply add an `i18n="key"` attribute to the form elements. The key mustmatch an entry in your application's `src/main/resources/i18n/phrases.properties` file.
+Any localizable field can be either a simple string, or an object with `text` and `i18n` properties. The `i18n` key must match an entry in your application's `src/main/resources/i18n/phrases.properties` file.
 
 NOTE: Schema localization uses the same properties files format as the rest of XP. Please consult the <<../../framework/i18n#, framework localization docs>> for more details.
 
-Localization is optional. If the `i18n` attribute is not specified, the value of the XML element will be used.
+Localization is optional. When a field is a simple string, no localization is applied. When an `i18n` key is specified but no matching translation is found, the `text` value is used as fallback.
 
 == Example
 
 Below is an example of a content type where localization has been enabled.
 
 .Localized content type schema
-[source,xml]
+[source,yaml]
 ----
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<content-type>
-  <display-name i18n="person.display-name">Person</display-name>
-  <super-type>base:structured</super-type>
-  <form>
-    <input type="TextLine" name="name">
-      <label i18n="person.name.label">Name</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
-    <input type="TextLine" name="age">
-      <label i18n="person.age.label">Age</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
-    <input type="imageSelector" name="photo">
-      <label i18n="person.photo.label">Photo</label>
-      <help-text i18n="person.photo.help-text">Passport photo</help-text>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
-  </form>
-</content-type>
+kind: "ContentType"
+title:
+  text: "Person"
+  i18n: "person.title"
+superType: "base:structured"
+form:
+  - type: "TextLine"
+    name: "name"
+    label:
+      text: "Name"
+      i18n: "person.name.label"
+    occurrences:
+      min: 1
+      max: 1
+  - type: "TextLine"
+    name: "age"
+    label:
+      text: "Age"
+      i18n: "person.age.label"
+    occurrences:
+      min: 1
+      max: 1
+  - type: "ImageSelector"
+    name: "photo"
+    label:
+      text: "Photo"
+      i18n: "person.photo.label"
+    help-text:
+      text: "Passport photo"
+      i18n: "person.photo.help-text"
+    occurrences:
+      min: 0
+      max: 1
 ----
 
 
 == Supported Fields
 
-In general, the following schema elements support the `i18n` localization attribute:
+In general, the following schema elements support localization via the `text`/`i18n` object pattern:
 
-* displayName
+* title
 * label
 * help-text
 * description
@@ -55,7 +68,7 @@ Other elements may also support localization, simply try adding the attribute to
 
 == Translation files
 
-The translated texts for each of the i18n keys should be placed in the corresponding `phrases.properties` file within the same application where the schema is defined.
+The translated texts for each of the i18n keys should be placed in a corresponding `phrases.properties` in the same namespace as the schema. 
 
 Steps to add the translations for a schema:
 
@@ -66,9 +79,9 @@ Steps to add the translations for a schema:
 .Example files to support English and Norwegian
 [source,properties]
 ----
-src/main/resources/i18n/phrases.properties
-src/main/resources/i18n/phrases_en.properties
-src/main/resources/i18n/phrases_no.properties
+src/main/resources/cms/i18n/phrases.properties
+src/main/resources/cms/i18n/phrases_en.properties
+src/main/resources/cms/i18n/phrases_no.properties
 ----
 +
 . Add the i18n keys from the schema in each of the phrases.properties files.
@@ -78,7 +91,7 @@ Each line should have the key, an equals `=` sign, and the text in the specific 
 .phrases_en.properties
 [source,properties]
 ----
-person.display-name=Person
+person.title=Person
 person.name.label=Name
 person.age.label=Age
 person.photo.label=Photo
@@ -88,7 +101,7 @@ person.photo.help-text=Passport photo
 .phrases_no.properties
 [source,properties]
 ----
-person.display-name=Person
+person.title=Person
 person.name.label=Navn
 person.age.label=Alder
 person.photo.label=Bilde
@@ -97,6 +110,4 @@ person.photo.help-text=Passbilde
 +
 . fallback file `phrases.properties` file
 +
-It is recommended to have default phrases file. This will be used if the translation for the browser language cannot be found.
-
-For more details, check out the <<../../api/lib-i18n#,runtime localization docs>>
+If this does not exist, the system will use the `text` value from the schema as fallback for any missing translations. If it does exist, it will be used as fallback for any missing translations instead of the `text` value from the schema. This allows you to provide default translations without having to add the `text` value in the schema itself.

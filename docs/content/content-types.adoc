@@ -13,35 +13,34 @@ Every content type has a unique identifier in the following format `<namespace>:
 
 Content types schemas are defined via YAML definitions. Below is an example content type definition:
 
-[source,xml]
+[source,yaml]
 ----
-<content-type>
-  <display-name>Person</display-name>  // <1>
-  <display-name-label>Full Name</display-name-label> // <2>
-  <description>Create a new person</description>  // <3>
-  <super-type>base:structured</super-type>  // <4>
-  <is-abstract>false</is-abstract>  // <5>
-  <is-final>true</is-final>  // <6>
-  <is-built-in>false</is-built-in>   // <7>
-  <allow-child-content>true</allow-child-content>  // <8>
-  <allow-child-content-type>base:folder</allow-child-content-type>  // <9>
-  <allow-child-content-type>${app}:article-*</allow-child-content-type>
-  <form/> // <10>
-</content-type>
+kind: “ContentType”  # <1>
+title: “Person”  # <2>
+displayNameLabel: “Full Name”  # <3>
+description: “Create a new person”  # <4>
+superType: “base:structured”  # <5>
+abstract: false  # <6>
+final: true  # <7>
+allowChildContent: true  # <8>
+allowChildContentType:  # <9>
+  - “base:folder”
+  - “${app}:article-*”
+form: []  # <10>
 ----
 
-<1> *display-name* (required) The human readable name of the content type.
-Optionally specify the <<../api/lib-i18n.adoc#,i18n>> attribute to define a mapping to localize the value.
+<1> *kind* identifies this as a ContentType schema.
+<2> *title* (required) The human readable name of the content type.
+Optionally use localization to define a mapping to localize the value.
 The localization key must then be declared and localised in the resource bundle.
-<2> *display-name-label* (optional; _since v7.1_) Enables you to override the default <Display Name> placeholder used in the content form.
-<3> *description* (optional) Set a description that is shown when creating the content type.
-<4> *super-type* (required) Refers to one of the <<#base-types, base types>>. You should normally use `base:structured`.
-<5> *is-abstract* (optional; default: false) If true, you cannot create content with this content type.
-<6> *is-final* (optional; default: false) If true, it is not possible to create new content types that “extend” this.
-<7> *is-built-in* (optional; default: false) Only specified by built-in content types.
-<8> *allow-child-content* (optional; default: true) If false, no content will be allowed to be created or moved under content of this content type
+<3> *displayNameLabel* (optional) Enables you to override the default <Display Name> placeholder used in the content form.
+<4> *description* (optional) Set a description that is shown when creating the content type.
+<5> *superType* (required) Refers to one of the <<#base-types, base types>>. You should normally use `base:structured`.
+<6> *abstract* (optional; default: false) If true, you cannot create content with this content type.
+<7> *final* (optional; default: false) If true, it is not possible to create new content types that “extend” this.
+<8> *allowChildContent* (optional; default: true) If false, no content will be allowed to be created or moved under content of this content type
 (e.g. prevents child content under media)
-<9> *allow-child-content-type* (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <<./schemas/input-types/contentselector#allowContentType, MATCH>>. image:xp-770.svg[XP 7.7.0,opts=inline]
+<9> *allowChildContentType* (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <<./schemas/input-types/contentselector#allowContentType, MATCH>>. image:xp-770.svg[XP 7.7.0,opts=inline]
 <10> *form* (required) The custom <<schemas#forms,Form>> definition for your content type.
 
 NOTE: `allow-child-content-type` will not have effect if `allow-child-content` is set to `false`

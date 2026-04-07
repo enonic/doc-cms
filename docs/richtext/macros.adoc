@@ -21,14 +21,10 @@ A user can add macro instructions by typing in the macro manually. But more conv
 
 A macro descriptor is an xml file that allows assigning a user-friendly name, and a description to the macro. It also has a configuration to define the types and names of the macro parameters.
 
-display-name::
-A simple human readable display name.
-display-name@i18n::
-The key to look up the display-name text in the localization bundles. Optional. Visit <<schemas/localization#, Schema localization>> for more details.
+title::
+A simple human readable display name. Supports <<../schemas/i18n#, localization>> via the `text`/`i18n` object pattern.
 description::
-A description to show in the Insert macro dialog in Content Studio.
-description@i18n::
-The key to look up the description text in the localization bundles. Optional. Visit <<schemas/localization#, Schema localization>> for more details.
+A description to show in the Insert macro dialog in Content Studio. Also supports localization.
 config::
 The config element is a form where each input element corresponds to a macro parameter. The macro body is represented with an input named "body".
 
@@ -36,28 +32,28 @@ NOTE: The config form does not support nested elements, so <<schemas/item-set#, 
 
 IMPORTANT: If you don't have a input with the `name="body"`, the generated macro tag will be self closing `[disable][macro attr="" /][/disable]``
 
-Its path follows the pattern `src/main/resources/site/macros/<macroName>/<macroName>.xml`
+Its path follows the pattern `src/main/resources/site/macros/<macroName>/<macroName>.yaml`
 
-[source, XML]
+[source, yaml]
 ----
-<macro>
-  <display-name i18n="a-macro.display-name">Current user</display-name>
-  <description i18n="a-macro.description">Shows currently logged user</description>
-
-  <form>
-    <input name="body" type="TextLine">
-      <label>Macro body</label>
-    </input>
-    <input name="defaultText" type="TextLine">
-      <label>Text to show if no user logged in</label>
-    </input>
-  </form>
-</macro>
+kind: "Macro"
+title:
+  text: "Current user"
+  i18n: "a-macro.display-name"
+description:
+  text: "Shows currently logged user"
+  i18n: "a-macro.description"
+form:
+  - type: "TextLine"
+    name: "body"
+    label: "Macro body"
+  - type: "TextLine"
+    name: "defaultText"
+    label: "Text to show if no user logged in"
 ----
 
 TIP: The macro texts (display-name, description, label and help-text from config input types) can be provided in multiple languages. Visit <<schemas/localization#, Schema localization>> for more details.
 
-Although not strictly required, it is recommended to create a descriptor, as it provides the required details for adding macros through the UI in Content Studio.
 
 == Controller
 

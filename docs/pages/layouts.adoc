@@ -10,22 +10,20 @@ Layouts are primarily used to visually organize or format your page. Layouts sho
 
 == Usage
 
-Create a layout by placing a descriptor file in your project, like this: `src/main/resources/site/layouts/<layout-name>/<layout-name>.xml.
+Create a layout by placing a descriptor file in your project, like this: `src/main/resources/site/layouts/<layout-name>/<layout-name>.yaml`.
 
 Similar to the page descriptor, the layout descriptor supports both schema forms and <<regions#, regions>>. 
 
 .Sample layout with three regions
-[source,xml]
+[source,yaml]
 ----
-<layout>
-  <display-name>3 regions</display-name>
-  <form />
-  <regions>
-    <region name="left"/>
-    <region name="main"/>
-    <region name="right"/>
-  </regions>
-</layout>
+kind: "Layout"
+title: "3 regions"
+form: []
+regions:
+  - name: "left"
+  - name: "main"
+  - name: "right"
 ----
 
 Here is what an empty layout with tree regions might look like in Content Studio's visual page editor:

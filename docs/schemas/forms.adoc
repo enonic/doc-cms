@@ -20,17 +20,15 @@ Once a form is populated and submitted, the end-result will be a property struct
 
 Forms are declared statically in YAML, using a format that looks like this:
 
-TODO
-[source,xml]
+[source,yaml]
 ----
-<form>
-  <input name="firstname" type="TextLine">
-    <label>First Name</label>
-  </input>
-  <input name="lastname" type="TextLine">
-    <label>Last Name</label>
-  </input>
-</form>
+form:
+  - type: "TextLine"
+    name: "firstname"
+    label: "First Name"
+  - type: "TextLine"
+    name: "lastname"
+    label: "Last Name"
 ----
 
 The form implementation controls how the data is actually persisted.

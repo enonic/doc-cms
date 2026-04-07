@@ -14,32 +14,40 @@ image::Radio-buttons.png[two button where one of them is selected, 200]
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="myradiobutton" type="RadioButton">
-  <label>My RadioButton</label>
-  <occurrences minimum="1" maximum="1"/>  // <1>
-  <config>
-    <option value="one" i18n="option_one.label">Option One</option>  // <2>
-    <option value="two" i18n="option_two.label">Option Two</option>
-  </config>
-  <default>one</default>  // <3>
-</input>
+- type: "RadioButton"
+  name: "myradiobutton"
+  label: "My RadioButton"
+  occurrences:
+    min: 1
+    max: 1  # <1>
+  options:  # <2>
+    - value: "one"
+      label:
+        text: "Option One"
+        i18n: "option_one.label"
+    - value: "two"
+      label:
+        text: "Option Two"
+        i18n: "option_two.label"
+  default: "one"  # <3>
 ----
 <1> *occurrences* only make supports minimum=1 or 0 - maximum will always be 1.
-<2> *option* elements and the `@value` attribute defines the actual value to store when the option is selected.
-Multiple ``option`` elements are allowed and ordered. Optional `i18n` attribute can be used to localise the option label.
+<2> *options* define the available choices. The `value` is stored when the option is selected.
+Multiple options are allowed and ordered. Option labels support <<../../schemas/i18n#,localization>> via the `text`/`i18n` object pattern.
 <3> *default* is optional, and may be equal to one of the option values.
 
-[#tag]
-== Tag
+== Output
 
-A simple input for adding free-text tags. Tags will be autocompleted based on tags in other items with the same property name.
+The stored value is the `value` attribute (string) of the selected option. Only one value can be selected.
 
-[source,xml]
+[source,JSON]
 ----
-<input name="mytag" type="Tag">
-  <label>My Tag</label>
-  <occurrences minimum="0" maximum="0"/>
-</input>
+{
+  "myradiobutton": "one"
+}
 ----
+
+NOTE: The stored value corresponds to the `value` attribute, not the display label.
+

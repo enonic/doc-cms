@@ -13,17 +13,29 @@ image::Image-selector.png[Input box with a grid of images to select below it, 50
 
 == Usage
 
-[source,xml]
+[source,yaml]
 ----
-<input name="myimage" type="ImageSelector">
-  <label>My Image</label>
-  <occurrences minimum="0" maximum="1"/>
-  <config>  // <1>
-    <allowPath>${site}/*</allowPath>  // <2>
-    <treeMode>true</treeMode>
-    <hideToggleIcon>true</hideToggleIcon>
-  </config>
-</input>
+- type: "ImageSelector"
+  name: "myimage"
+  label: "My Image"
+  occurrences:
+    min: 0
+    max: 1
+  allowPath:  # <1>
+    - "${site}/*"  # <2>
+  treeMode: true
+  hideToggleIcon: true
 ----
-<1> With the exception of `<allowContentType>` (which is not supported here) and `<allowPath>`, ImageSelector supports the same configuration options as <<contentselector#, ContentSelector>>.
-<2> By default, Image Selector displays all images from the root. If you want to limit images to the same site, use `<allowPath>${site}/*</allowPath>`
+<1> With the exception of `allowContentType` (which is not supported here) and `allowPath`, ImageSelector supports the same configuration options as <<contentselector#, ContentSelector>>.
+<2> By default, Image Selector displays all images from the root. If you want to limit images to the same site, use `allowPath: ["${site}/*"]`
+
+== Output
+
+The stored value is the content ID (string) of the selected image. Like <<contentselector#, ContentSelector>>, the value is a reference to the image content item.
+
+[source,JSON]
+----
+{
+  "myimage": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+}
+----
