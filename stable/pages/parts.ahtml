@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Part components</title>
+<title>Parts and Layouts</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,14 +437,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Part components</h1>
+<h1>Parts and Layouts</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
+<li><a href="#parts">Parts</a>
+<ul class="sectlevel2">
 <li><a href="#usage">Usage</a></li>
 <li><a href="#custom_icon">Custom icon</a></li>
-<li><a href="#rendering">Rendering</a></li>
+</ul>
+</li>
+<li><a href="#layouts">Layouts</a>
+<ul class="sectlevel2">
+<li><a href="#usage_2">Usage</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -452,26 +459,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Part components are similar to layout and page components, but do not support regions.</p>
+<p>Parts and layouts are the building blocks editors place inside <a href="page.ahtml#regions">regions</a> to compose pages.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="parts"><a class="link" href="#parts">Parts</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Parts are leaf-nodes in the component structure. Parts are typically used in combination with forms, and have a vast range of application areas.</p>
+<p>Parts are leaf components in the page structure — they do not contain regions. Parts are typically used in combination with forms, and have a vast range of application areas.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="usage"><a class="link" href="#usage">Usage</a></h3>
 <div class="paragraph">
-<p>Like pages and layouts, parts needs a descriptor. Place the descriptor in your project as follows: <code>src/main/resources/site/parts/&lt;part-name&gt;/&lt;part-name&gt;.yaml</code>.</p>
+<p>Place a descriptor in your project: <code>src/main/resources/site/parts/&lt;part-name&gt;/&lt;part-name&gt;.yaml</code>.</p>
 </div>
 <div class="paragraph">
-<p>Each part may also declare a form using the schema system. The form data will be stored together with each component instance.</p>
+<p>Each part may declare a form using the schema system. The form data will be stored together with each component instance.</p>
 </div>
 <div class="listingblock">
 <div class="title">Example part descriptor</div>
@@ -482,19 +486,13 @@ form: []</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="custom_icon"><a class="link" href="#custom_icon">Custom icon</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="custom_icon"><a class="link" href="#custom_icon">Custom icon</a></h3>
 <div class="paragraph">
-<p><span class="image"><span class="alt">XP 7.2.0</span></span></p>
+<p>Parts support custom icons that replace the standard part icon in Content Studio. Place an icon (PNG or SVG) in the part folder with the same name as the descriptor.</p>
 </div>
 <div class="paragraph">
-<p>Parts support the definition of custom icon. The icon replaces the standard part icon when working in Content Studio. Simply place an icon (in either PNG or SVG format) in the part folder.</p>
-</div>
-<div class="paragraph">
-<p>For example, if folder/part is called <em>mypart</em> then part descriptor is called <em>mypart.xml</em> and the icon file should be called either <em>mypart.svg</em> or <em>mypart.png</em>.
-In the screenshots below parts "<em>HTML Area Example</em>" and "<em>Image filters test</em>" are using custom icons.</p>
+<p>For example, if the part is called <em>mypart</em>, the icon file should be called either <em>mypart.svg</em> or <em>mypart.png</em>.</p>
 </div>
 <div class="paragraph">
 <p>Below are examples of what custom icons may look like in Content Studio.</p>
@@ -511,21 +509,48 @@ In the screenshots below parts "<em>HTML Area Example</em>" and "<em>Image filte
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="rendering"><a class="link" href="#rendering">Rendering</a></h2>
+<h2 id="layouts"><a class="link" href="#layouts">Layouts</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Parts can be rendered using your favorite front-end framework.</p>
+<p>Layouts are essentially parts that support regions <a href="page.ahtml#regions">regions</a>. This allows editors to create nested structures of components within the page. Layouts are commonly used to style groups of components in a specific way, or for columnar presentation of parts.</p>
+</div>
+<div class="sect2">
+<h3 id="usage_2"><a class="link" href="#usage_2">Usage</a></h3>
+<div class="paragraph">
+<p>Place a descriptor in your project: <code>src/main/resources/site/layouts/&lt;layout-name&gt;/&lt;layout-name&gt;.yaml</code>.</p>
 </div>
 <div class="paragraph">
-<p>Visit the <a href="../../framework/components.ahtml">component rendering</a> section for details on rendering parts with the Enonic Framework.</p>
+<p>Similar to page descriptors, layouts support both schema forms and regions.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample layout with three regions</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Layout"
+title: "3 regions"
+form: []
+regions:
+  - name: "left"
+  - name: "main"
+  - name: "right"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is what an empty layout with three regions might look like in Content Studio&#8217;s visual page editor:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/3-region-layout-wrapped.png" alt="Layout selected in the page editor" width="1012px">
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 16:32:26 UTC
+Last updated 2026-04-07 17:14:02 UTC
 </div>
 </div>
 </body>

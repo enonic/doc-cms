@@ -5,8 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="At least one page component must be available in your project to be able to create pages.">
-<title>Page</title>
+<title>Page components</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,19 +437,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Page</h1>
-<div class="details">
-<span id="author" class="author">At least one page component must be available in your project to be able to create pages.</span><br>
-</div>
+<h1>Page components</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#regions">Regions</a></li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>At least one page component must be available in your project to be able to create pages.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
@@ -458,7 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>At the root of every page, you will find the page component. Most sites only need a single page component, as this can be reused across all pages.</p>
 </div>
 <div class="paragraph">
-<p>To create a page component, add a component descriptor file to your project <code>src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name.yaml&gt;</code>.</p>
+<p>To create a page component, place a descriptor file in your project: <code>src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name&gt;.yaml</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -477,9 +482,6 @@ The name you choose for a component will be used in the underlying data of the s
 <div class="sect1">
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>To create a page component, place a descriptor file in your project: <code>src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name&gt;.yaml</code>.</p>
-</div>
 <div class="listingblock">
 <div class="title">Sample page descriptor</div>
 <div class="content">
@@ -501,15 +503,15 @@ regions:  <i class="conum" data-value="4"></i><b>(4)</b>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>description</strong> Description field shown when creating a part in content studio</td>
+<td><strong>description</strong> Description field shown when creating a part in Content Studio</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>form</strong> allows the definition of a configuration form based on the <a href="schemas.ahtml">schema system</a></td>
+<td><strong>form</strong> allows the definition of a configuration form based on the <a href="../schemas.ahtml">schema system</a></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><strong>regions</strong> optionally specify <a href="pages/regions.ahtml">regions</a> for the page.</td>
+<td><strong>regions</strong> optionally specify one or more regions for the page</td>
 </tr>
 </table>
 </div>
@@ -520,7 +522,89 @@ regions:  <i class="conum" data-value="4"></i><b>(4)</b>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A page component may define zero, to many regions. Conventionally, a page should at least define a single region called <code>main</code>.
+A page component may define zero to many regions. Conventionally, a page should at least define a single region called <code>main</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="regions"><a class="link" href="#regions">Regions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Regions are named drop zones where editors can place other page components. Only page and <a href="parts.ahtml#layouts">layout</a> components support regions. Each region must have a unique name within the component.</p>
+</div>
+<div class="paragraph">
+<p>From Content Studio, this is what regions may look like in the page form:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/component-input-type.png" alt="Component editor" width="527px">
+</div>
+</div>
+<div class="paragraph">
+<p>And here is what the same structure might look like in the visual page editor.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The dropzones are empty regions.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/3-region-layout.png" alt="Layout with three empty regions" width="1012px">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Using the Content API, you may access a JSON representation of the hierarchical structure of components and regions on a page.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample JSON from the Content API</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "page": {
+    "type": "page",
+    "path": "/",
+    "descriptor": "com.enonic.app.superhero:default",
+    "regions": {
+      "main": {
+        "components": [
+          {
+            "path": "/main/0",
+            "type": "layout",
+            "descriptor": "com.enonic.app.superhero:three-column",
+            "config": {},
+            "regions": {}
+          }
+        ],
+        "name": "main"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Empty regions are never persisted. Region names are only determined from the component path.
 </td>
 </tr>
 </table>
@@ -530,7 +614,7 @@ A page component may define zero, to many regions. Conventionally, a page should
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 16:32:26 UTC
+Last updated 2026-04-07 17:14:02 UTC
 </div>
 </div>
 </body>

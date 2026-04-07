@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Pages and Sites</title>
+<title>Sites and Pages</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,15 +437,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Pages and Sites</h1>
+<h1>Sites and Pages</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#concept">Concept</a>
+<li><a href="#sites">Sites</a>
 <ul class="sectlevel2">
-<li><a href="#schema_definitions">Schema definitions</a></li>
-<li><a href="#content_types">Content types</a></li>
+<li><a href="#site_apps">Site apps</a></li>
+</ul>
+</li>
+<li><a href="#pages">Pages</a>
+<ul class="sectlevel2">
+<li><a href="#page_components">Page components</a></li>
 <li><a href="#page_editor">Page editor</a></li>
 </ul>
 </li>
@@ -456,55 +459,81 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is an advanced concept that allows you to build rich and visually oriented content via building blocks called page components.</p>
+<p>Sites and pages allow you to build rich, visually oriented content using building blocks called page components.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="sites"><a class="link" href="#sites">Sites</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Pages are an optional feature, which are only available for content created within a <a href="content-types.ahtml">Site</a>. Similar to <a href="mixins.ahtml">Mixins</a>, a page can be added to any content item. The page can then be edited visually, by adding and arranging components.</p>
+<p>Sites represent the root of a website within a content project. Creating a site unlocks the ability to manage <a href="page.ahtml">pages</a>, <a href="page-templates.ahtml">page templates</a>, and <a href="fragments.ahtml">fragments</a>.</p>
+</div>
+<div class="paragraph">
+<p>Site (<code>portal:site</code>) is a built-in content type. Sites can be created anywhere in your content structure, but are commonly placed at the project root. The site also serves as the root for the URL structure of your website.</p>
+</div>
+<div class="sect2">
+<h3 id="site_apps"><a class="link" href="#site_apps">Site apps</a></h3>
+<div class="paragraph">
+<p>Similar to projects, you may add applications to a site. Content types, components, mixins and more from the selected applications will be available within the site scope. Purpose-specific applications like sitemap.xml, SEO Metafields, and similar can introduce additional site-relative features.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Site and application configuration is handled through app descriptors. Visit the <a href="https://developer.enonic.com/docs/code">Enonic App development docs</a> for details on <code>site.yaml</code> and <code>cms.yaml</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For a hands-on introduction, visit the <a href="https://developer.enonic.com/docs/my-first-site">My first site tutorial</a>.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="concept"><a class="link" href="#concept">Concept</a></h2>
+<h2 id="pages"><a class="link" href="#pages">Pages</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic&#8217;s page concept spans across different schemas, content-types, and features in Enonic XP, which enable you to create rich content in a visual manner. The page concept is made up of the following key ingredients:</p>
+<p>Pages are an optional feature available for content created within a site. A page can be added to any content item, and then edited visually by adding and arranging components.</p>
 </div>
 <div class="sect2">
-<h3 id="schema_definitions"><a class="link" href="#schema_definitions">Schema definitions</a></h3>
+<h3 id="page_components"><a class="link" href="#page_components">Page components</a></h3>
+<div class="paragraph">
+<p>The page concept is made up of the following building blocks:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="page.ahtml">Page Component</a>:: The root component of a page, defining the overall capabilities and structure of the page.</p>
+<p><a href="page.ahtml">Page</a>:: The root component, defining the overall structure via <a href="page.ahtml#regions">regions</a>.</p>
 </li>
 <li>
-<p><a href="regions.ahtml">Regions</a>:: Define areas of a page or layout where other components can be placed.</p>
+<p><a href="parts.ahtml">Parts</a>:: Leaf components, used to add content to a page.</p>
 </li>
 <li>
-<p><a href="parts.ahtml">Part component</a>:: Leaf components, used to add content to a page.</p>
+<p><a href="parts.ahtml#layouts">Layouts</a>:: Components that define regions, used for columnar or grouped presentation of parts.</p>
 </li>
 <li>
-<p><a href="layouts.ahtml">Layout component</a>:: Define a specific layout of regions, to be reused across pages.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="content_types"><a class="link" href="#content_types">Content types</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="../content-types/site.ahtml">Sites</a>:: A special type of content item, used to define a website.</p>
+<p><a href="text.ahtml">Text</a>:: A built-in component for inline rich text.</p>
 </li>
 <li>
-<p><a href="../page-templates.ahtml">Page templates</a>:: A special type of page component, used to define a template for pages. A page template can be used to create pages with a predefined structure and content.</p>
+<p><a href="page-templates.ahtml">Page templates</a>:: Reusable page setups that can be applied to content items automatically.</p>
 </li>
 <li>
-<p><a href="../content-types/fragments.ahtml">Page Fragments</a>:: A built-in content type allowing you to reuse components across pages.</p>
+<p><a href="fragments.ahtml">Fragments</a>:: Reusable component instances shared across pages.</p>
 </li>
 </ul>
 </div>
@@ -512,10 +541,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="page_editor"><a class="link" href="#page_editor">Page editor</a></h3>
 <div class="paragraph">
-<p>Additionally, if enabled in your front-end. Content Studio&#8217;s visual page editor allow you to work with components in a visual manner, by dragging and dropping components, and editing them directly on the page. This is a powerful way to create rich content, without having to write any code.</p>
+<p>Content Studio&#8217;s visual page editor allows editors to work with components by dragging and dropping them, and editing them directly on the page.</p>
 </div>
 <div class="paragraph">
-<p>Seen from Content Studio, a page, and it&#8217;s component structure might look like this:</p>
+<p>Seen from Content Studio, a page and its component structure might look like this:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -528,7 +557,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 16:32:26 UTC
+Last updated 2026-04-07 17:14:02 UTC
 </div>
 </div>
 </body>

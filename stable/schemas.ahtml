@@ -570,10 +570,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><a href="pages.ahtml">Pages</a></p>
 </li>
 <li>
-<p><a href="pages/parts.ahtml">Parts</a></p>
-</li>
-<li>
-<p><a href="pages/layouts.ahtml">Layouts</a></p>
+<p><a href="pages/parts.ahtml">Parts and Layouts</a></p>
 </li>
 </ul>
 </div>
@@ -591,7 +588,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 16:32:26 UTC
+Last updated 2026-04-07 17:14:02 UTC
 </div>
 </div>
 </body>

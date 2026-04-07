@@ -452,7 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content Studio offers a visual editing mode which is handy when working with pages and components.</p>
+<p>Content Studio offers a visual editing mode based on pages and components.</p>
 </div>
 </div>
 </div>
@@ -571,7 +571,7 @@ For an empty region dropzone to appear in the editor, a target element must be p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 16:32:26 UTC
+Last updated 2026-04-07 17:14:02 UTC
 </div>
 </div>
 </body>
