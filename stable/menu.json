@@ -5,11 +5,11 @@
       "document": "index"
     },
     {
-      "title": "Projects & roles",
+      "title": "Projects",
       "document": "projects"
     },
     {
-      "title": "Schema system",
+      "title": "Schemas",
       "document": "schemas",
       "menuItems": [
         {
@@ -26,98 +26,98 @@
           "menuItems": [
             {
               "title": "AttachmentUploader",
-              "document": "attachmentuploader"
+              "document": "schemas/form-items/attachmentuploader"
             },
             {
               "title": "CheckBox",
-              "document": "checkbox"
+              "document": "schemas/form-items/checkbox"
             },
             {
               "title": "ComboBox",
-              "document": "combobox"
+              "document": "schemas/form-items/combobox"
             },
             {
               "title": "ContentSelector",
-              "document": "contentselector"
+              "document": "schemas/form-items/contentselector"
             },
             {
               "title": "ContentTypeFilter",
-              "document": "contenttypefilter"
+              "document": "schemas/form-items/contenttypefilter"
             },
             {
               "title": "CustomSelector",
-              "document": "customselector"
+              "document": "schemas/form-items/customselector"
             },
             {
               "title": "Date",
-              "document": "date"
+              "document": "schemas/form-items/date"
             },
             {
               "title": "DateTime",
-              "document": "datetime"
+              "document": "schemas/form-items/datetime"
             },
             {
               "title": "Double",
-              "document": "double"
+              "document": "schemas/form-items/double"
             },
             {
               "title": "GeoPoint",
-              "document": "geopoint"
+              "document": "schemas/form-items/geopoint"
             },
             {
               "title": "FieldSet",
-              "document": "field-set"
+              "document": "schemas/form-items/field-set"
             },
             {
               "title": "HtmlArea",
-              "document": "htmlarea"
+              "document": "schemas/form-items/htmlarea"
             },
             {
               "title": "ImageSelector",
-              "document": "imageselector"
+              "document": "schemas/form-items/imageselector"
             },
             {
               "title": "Instant",
-              "document": "instant"
+              "document": "schemas/form-items/instant"
             },
             {
               "title": "ItemSet",
-              "document": "item-set"
+              "document": "schemas/form-items/item-set"
             },
             {
               "title": "Long",
-              "document": "long"
+              "document": "schemas/form-items/long"
             },
             {
               "title": "MediaSelector",
-              "document": "mediaselector"
+              "document": "schemas/form-items/mediaselector"
             },
             {
               "title": "OptionSet",
-              "document": "option-set"
+              "document": "schemas/form-items/option-set"
             },
             {
               "title": "RadioButton",
-              "document": "radiobutton"
+              "document": "schemas/form-items/radiobutton"
             },
             {
               "title": "Tag",
-              "document": "tag"
+              "document": "schemas/form-items/tag"
             },
             {
               "title": "TextArea",
-              "document": "textarea"
+              "document": "schemas/form-items/textarea"
             },
             {
               "title": "TextLine",
-              "document": "textline"
+              "document": "schemas/form-items/textline"
             },
             {
               "title": "Time",
-              "document": "time"
+              "document": "schemas/form-items/time"
             }
           ]
-        },      
+        },
         {
           "title": "Schema Localization",
           "document": "schemas/i18n"
@@ -130,44 +130,44 @@
       "menuItems": [
         {
           "title": "Content Types",
-          "document": "content-types"
+          "document": "content/content-types"
         },
         {
           "title": "Lifecycle",
-          "document": "lifecycle"
+          "document": "content/lifecycle"
         },
         {
           "title": "Anatomy",
-          "document": "anatomy"
+          "document": "content/anatomy"
         },
         {
           "title": "Attachments",
-          "document": "attachments"
+          "document": "content/attachments"
         },
         {
           "title": "References",
-          "document": "references"
+          "document": "content/references"
         },
         {
           "title": "Layering",
-          "document": "layering"
+          "document": "content/layering"
         },
         {
           "title": "Permissions",
-          "document": "permissions"
+          "document": "content/permissions"
         },
         {
           "title": "Validation",
-          "document": "validation"
+          "document": "content/validators"
         },
         {
           "title": "Versions",
-          "document": "versions"
+          "document": "content/versions"
         },
         {
           "title": "Content Indexing",
-          "document": "content-indexing"
-        }      
+          "document": "content/content-indexing"
+        }
       ]
     },
     {
@@ -176,17 +176,17 @@
       "menuItems": [
         {
           "title": "Media types",
-          "document": "media-types"
+          "document": "media/media-types"
         },
         {
           "title": "Media indexing",
-          "document": "media-indexing"
-        }      
+          "document": "media/media-indexing"
+        }
       ]
     },
     {
       "title": "Mixins",
-      "document": "mixin"
+      "document": "mixins"
     },
     {
       "title": "Rich text",
@@ -194,12 +194,12 @@
       "menuItems": [
         {
           "title": "Macros",
-          "document": "macro"
-        },            
+          "document": "richtext/macros"
+        },
         {
           "title": "Styles",
-          "document": "styles"
-        }     
+          "document": "richtext/styles"
+        }
       ]
     },
     {
@@ -208,44 +208,44 @@
       "menuItems": [
         {
           "title": "Sites",
-          "document": "sites"
+          "document": "pages/sites"
         },
         {
           "title": "Page components",
-          "document": "page"
+          "document": "pages/page"
         },
         {
           "title": "Regions",
-          "document": "regions"
+          "document": "pages/regions"
         },
         {
           "title": "Parts",
-          "document": "parts"
+          "document": "pages/parts"
         },
         {
           "title": "Layouts",
-          "document": "layouts"
+          "document": "pages/layouts"
         },
         {
           "title": "Text Component",
-          "document": "text-component"
+          "document": "pages/text"
         },
         {
           "title": "Component Filtering",
-          "document": "component-filtering"
+          "document": "pages/filtering"
         },
         {
           "title": "Page templates",
-          "document": "page-templates"
+          "document": "pages/page-templates"
         },
         {
           "title": "Page Fragments",
-          "document": "page-fragments"
-        },      
+          "document": "pages/fragments"
+        },
         {
           "title": "Page editor",
-          "document": "page-editor"
-        }        
+          "document": "pages/page-editor"
+        }
       ]
     },
     {
@@ -259,15 +259,15 @@
         {
           "title": "Image API",
           "document": "apis/image"
-        },  
+        },
         {
           "title": "Attachment API",
           "document": "apis/attachment"
-        },  
+        },
         {
           "title": "Other APIs",
           "document": "apis/other"
-        }        
+        }
       ]
     },
     {
