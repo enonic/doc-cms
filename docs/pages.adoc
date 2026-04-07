@@ -1,36 +1,42 @@
-= Pages and Sites
+= Sites and Pages
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
-This is an advanced concept that allows you to build rich and visually oriented content via building blocks called page components. 
+Sites and pages allow you to build rich, visually oriented content using building blocks called page components.
 
-== Introduction
+== Sites
 
-Pages are an optional feature, which are only available for content created within a <<content-types#, Site>>. Similar to <<mixins#, Mixins>>, a page can be added to any content item. The page can then be edited visually, by adding and arranging components.
+Sites represent the root of a website within a content project. Creating a site unlocks the ability to manage <<page#, pages>>, <<page-templates#, page templates>>, and <<fragments#, fragments>>.
 
-== Concept
+Site (`portal:site`) is a built-in content type. Sites can be created anywhere in your content structure, but are commonly placed at the project root. The site also serves as the root for the URL structure of your website.
 
-Enonic's page concept spans across different schemas, content-types, and features in Enonic XP, which enable you to create rich content in a visual manner. The page concept is made up of the following key ingredients:
+=== Site apps
 
-=== Schema definitions
+Similar to projects, you may add applications to a site. Content types, components, mixins and more from the selected applications will be available within the site scope. Purpose-specific applications like sitemap.xml, SEO Metafields, and similar can introduce additional site-relative features.
 
-* <<page#, Page Component>>:: The root component of a page, defining the overall capabilities and structure of the page.
-* <<regions#, Regions>>:: Define areas of a page or layout where other components can be placed.
-* <<parts#, Part component>>:: Leaf components, used to add content to a page.
-* <<layouts#, Layout component>>:: Define a specific layout of regions, to be reused across pages.
+NOTE: Site and application configuration is handled through app descriptors. Visit the https://developer.enonic.com/docs/code[Enonic App development docs] for details on `site.yaml` and `cms.yaml`.
 
-=== Content types
+NOTE: For a hands-on introduction, visit the https://developer.enonic.com/docs/my-first-site[My first site tutorial].
 
-* <<../content-types/site#, Sites>>:: A special type of content item, used to define a website.
-* <<../page-templates#, Page templates>>:: A special type of page component, used to define a template for pages. A page template can be used to create pages with a predefined structure and content.
-* <<../content-types/fragments#, Page Fragments>>:: A built-in content type allowing you to reuse components across pages.
+== Pages
+
+Pages are an optional feature available for content created within a site. A page can be added to any content item, and then edited visually by adding and arranging components.
+
+=== Page components
+
+The page concept is made up of the following building blocks:
+
+* <<page#, Page>>:: The root component, defining the overall structure via <<page#regions, regions>>.
+* <<parts#, Parts>>:: Leaf components, used to add content to a page.
+* <<parts#layouts, Layouts>>:: Components that define regions, used for columnar or grouped presentation of parts.
+* <<text#, Text>>:: A built-in component for inline rich text.
+* <<page-templates#, Page templates>>:: Reusable page setups that can be applied to content items automatically.
+* <<fragments#, Fragments>>:: Reusable component instances shared across pages.
 
 === Page editor
 
-Additionally, if enabled in your front-end. Content Studio's visual page editor allow you to work with components in a visual manner, by dragging and dropping components, and editing them directly on the page. This is a powerful way to create rich content, without having to write any code.
+Content Studio's visual page editor allows editors to work with components by dragging and dropping them, and editing them directly on the page.
 
-Seen from Content Studio, a page, and it's component structure might look like this:
+Seen from Content Studio, a page and its component structure might look like this:
 
 image::page-components.png[Component editor, 1440px]

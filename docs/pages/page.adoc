@@ -1,18 +1,18 @@
-= Page 
+= Page components
+:toc: right
+:imagesdir: images
+
 At least one page component must be available in your project to be able to create pages.
 
-
 == Introduction
-At the root of every page, you will find the page component. Most sites only need a single page component, as this can be reused across all pages. 
 
-To create a page component, add a component descriptor file to your project `src/main/resources/site/pages/<page-name>/<page-name.yaml>`.
+At the root of every page, you will find the page component. Most sites only need a single page component, as this can be reused across all pages.
+
+To create a page component, place a descriptor file in your project: `src/main/resources/site/pages/<page-name>/<page-name>.yaml`.
 
 NOTE: The name you choose for a component will be used in the underlying data of the stored page. So choose your name wisely.
 
 == Usage
-
-To create a page component, place a descriptor file in your project: `src/main/resources/site/pages/<page-name>/<page-name>.yaml`.
-
 
 .Sample page descriptor
 [source,yaml]
@@ -28,9 +28,56 @@ regions:  # <4>
 ----
 
 <1> *title* provides a display name used by the editorial interface. Supports <<../schemas/i18n#,localization>> via the `text`/`i18n` object pattern.
-<2> *description* Description field shown when creating a part in content studio
-<3> *form* allows the definition of a configuration form based on the <<schemas#,schema system>>
-<4> *regions* optionally specify <<pages/regions#, regions>> for the page. 
+<2> *description* Description field shown when creating a part in Content Studio
+<3> *form* allows the definition of a configuration form based on the <<../schemas#,schema system>>
+<4> *regions* optionally specify one or more regions for the page
 
-NOTE: A page component may define zero, to many regions. Conventionally, a page should at least define a single region called `main`.
+NOTE: A page component may define zero to many regions. Conventionally, a page should at least define a single region called `main`.
 
+== Regions
+
+Regions are named drop zones where editors can place other page components. Only page and <<parts#layouts, layout>> components support regions. Each region must have a unique name within the component.
+
+From Content Studio, this is what regions may look like in the page form:
+
+image::component-input-type.png[Component editor, 527px]
+
+And here is what the same structure might look like in the visual page editor.
+
+NOTE: The dropzones are empty regions.
+
+//TODO replace
+image::3-region-layout.png[Layout with three empty regions, 1012px]
+
+
+== Output
+
+Using the Content API, you may access a JSON representation of the hierarchical structure of components and regions on a page.
+
+.Sample JSON from the Content API
+[source,JSON]
+----
+{
+  "page": {
+    "type": "page",
+    "path": "/",
+    "descriptor": "com.enonic.app.superhero:default",
+    "regions": {
+      "main": {
+        "components": [
+          {
+            "path": "/main/0",
+            "type": "layout",
+            "descriptor": "com.enonic.app.superhero:three-column",
+            "config": {},
+            "regions": {}
+          }
+        ],
+        "name": "main"
+      }
+    }
+  }
+}
+----
+
+NOTE: Empty regions are never persisted. Region names are only determined from the component path.

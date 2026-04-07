@@ -1,6 +1,6 @@
 = Visual page editor
 
-Content Studio offers a visual editing mode which is handy when working with pages and components.
+Content Studio offers a visual editing mode based on pages and components.
 
 == Introduction
 

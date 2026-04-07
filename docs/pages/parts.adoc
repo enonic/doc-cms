@@ -1,18 +1,18 @@
-= Part components
+= Parts and Layouts
 :toc: right
 :imagesdir: images
 
-Part components are similar to layout and page components, but do not support regions.
+Parts and layouts are the building blocks editors place inside <<page#regions, regions>> to compose pages.
 
-== Introduction
+== Parts
 
-Parts are leaf-nodes in the component structure. Parts are typically used in combination with forms, and have a vast range of application areas.
+Parts are leaf components in the page structure — they do not contain regions. Parts are typically used in combination with forms, and have a vast range of application areas.
 
-== Usage
+=== Usage
 
-Like pages and layouts, parts needs a descriptor. Place the descriptor in your project as follows: `src/main/resources/site/parts/<part-name>/<part-name>.yaml`.
+Place a descriptor in your project: `src/main/resources/site/parts/<part-name>/<part-name>.yaml`.
 
-Each part may also declare a form using the schema system. The form data will be stored together with each component instance.
+Each part may declare a form using the schema system. The form data will be stored together with each component instance.
 
 .Example part descriptor
 [source,yaml]
@@ -22,13 +22,11 @@ title: "Content List"
 form: []
 ----
 
-== Custom icon
-image:xp-720.svg[XP 7.2.0,opts=inline]
+=== Custom icon
 
-Parts support the definition of custom icon. The icon replaces the standard part icon when working in Content Studio. Simply place an icon (in either PNG or SVG format) in the part folder.
+Parts support custom icons that replace the standard part icon in Content Studio. Place an icon (PNG or SVG) in the part folder with the same name as the descriptor.
 
-For example, if folder/part is called _mypart_ then part descriptor is called _mypart.xml_ and the icon file should be called either _mypart.svg_ or _mypart.png_.
-In the screenshots below parts "_HTML Area Example_" and "_Image filters test_" are using custom icons.
+For example, if the part is called _mypart_, the icon file should be called either _mypart.svg_ or _mypart.png_.
 
 Below are examples of what custom icons may look like in Content Studio.
 
@@ -36,8 +34,28 @@ image::part-selector.png[Custom icon as seen in the part selector, 289]
 image::component-tree.png[Custom icons in the page components tree, 422]
 
 
-== Rendering
+== Layouts
 
-Parts can be rendered using your favorite front-end framework. 
+Layouts are essentially parts that support regions <<page#regions, regions>>. This allows editors to create nested structures of components within the page. Layouts are commonly used to style groups of components in a specific way, or for columnar presentation of parts.
 
-Visit the <<../../framework/components#, component rendering>> section for details on rendering parts with the Enonic Framework.
+=== Usage
+
+Place a descriptor in your project: `src/main/resources/site/layouts/<layout-name>/<layout-name>.yaml`.
+
+Similar to page descriptors, layouts support both schema forms and regions.
+
+.Sample layout with three regions
+[source,yaml]
+----
+kind: "Layout"
+title: "3 regions"
+form: []
+regions:
+  - name: "left"
+  - name: "main"
+  - name: "right"
+----
+
+Here is what an empty layout with three regions might look like in Content Studio's visual page editor:
+
+image::3-region-layout-wrapped.png[Layout selected in the page editor, 1012px]

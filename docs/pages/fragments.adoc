@@ -8,7 +8,6 @@ Page Fragments enable reuse of components across different pages.
 
 A page fragment is a content item of the content type `portal:fragment`. It represents a reusable page component. A content of this type contains a page component (Part, Layout, Text, Image) that can be re-used in other pages. But it only needs to be maintained in one place.
 
-
 There is a default page for rendering and edit fragments. The default page does not have any styles defined, but it is possible to render it with the application theme and styles by defining a controller <<../framework/mappings.adoc#,mapping>> with `<match>type:'portal:fragment'</match>`
 
 == Usage

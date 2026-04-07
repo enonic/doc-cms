@@ -1,6 +1,7 @@
 = Rich text component
 :toc: right
 :imagesdir: images
+
 Visually add and edit rich text within a region.
 
 == Introduction

@@ -48,8 +48,7 @@ Enonic currently support the following content schemas kinds. Each kind has a sp
 === Page domain
 
 * <<pages#, Pages>>
-* <<pages/parts#, Parts>>
-* <<pages/layouts#, Layouts>>
+* <<pages/parts#, Parts and Layouts>>
 
 
 == Schema localization

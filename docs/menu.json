@@ -207,24 +207,12 @@
       "document": "pages",
       "menuItems": [
         {
-          "title": "Sites",
-          "document": "pages/sites"
-        },
-        {
-          "title": "Page components",
+          "title": "Pages and Regions",
           "document": "pages/page"
         },
         {
-          "title": "Regions",
-          "document": "pages/regions"
-        },
-        {
-          "title": "Parts",
+          "title": "Parts and Layouts",
           "document": "pages/parts"
-        },
-        {
-          "title": "Layouts",
-          "document": "pages/layouts"
         },
         {
           "title": "Text Component",
