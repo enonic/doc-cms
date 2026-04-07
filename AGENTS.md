@@ -14,7 +14,7 @@ This project relies on GitHub Actions for building and publishing. There are no 
 
 - **Source Directory:** All documentation source files are located in `docs/`.
 - **Format:** Content is written in [AsciiDoc](https://asciidoc.org/) (`.adoc`).
-- **Publishing:** The build chrunches and imports the result into Enonic XP, where it will be only one of many aggregated documentation packages. 
+- **Publishing:** The build crunches and imports the result into Enonic XP, where it will be only one of many aggregated documentation packages. 
 - **Location:** This documentation will be published in a specific location on developer.enonic.com, but controlled from the CMS.
 - **Structure:** The structure of the adoc files are mapped to a corresponding relative URL. For example `/docs/framework.adoc` and `/docs/framework/yikes.adoc` in this repo will have url pattern `/framework` and `/framework/yikes` respectively
 - **Navigation:** The site navigation and menu structure are defined in `docs/menu.json`.
@@ -25,9 +25,9 @@ This project relies on GitHub Actions for building and publishing. There are no 
 ## Key Conventions
 
 - **Images:**
-  - Images are stored in relative folders like  `images/` or `media/`.
-  - In AsciiDoc files, the `:imagesdir:` is typically set to `media` or `image`, mapping files to the respective folders.
-  - Example: `image::my-image.png[]` (where `my-image.png` is placed in `docs/media/`).
+  - Images are stored in `images/` subdirectories relative to the referencing `.adoc` file (e.g., `docs/content/images/`, `docs/schemas/form-items/images/`).
+  - In AsciiDoc files, the `:imagesdir:` is typically set to `images`, mapping files to the respective folders.
+  - Example: `image::my-image.png[]` (where `my-image.png` is placed in `docs/content/images/`).
 - **Menu Updates:** When adding new documentation pages, you MUST update `docs/menu.json` to ensure they appear in the docs navigation.
 - **Links:** Use relative links between `.adoc` files (e.g., `<<path/to/doc#,Label>>`).
 - **Variables:** Use attributes defined in `docs/.variables.adoc` for consistent naming (e.g., `{release}`).
