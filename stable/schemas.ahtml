@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Schemas are used to define various editorial elements within the CMS, such as <a href="content-types.ahtml">Content Types</a> and <a href="mixins.ahtml">Mixins</a>. Schemas may contain a <a href="form.ahtml">Form</a> which allow you to declare advanced data structures within your content.</p>
+<p>Schemas are used to define various editorial elements within the CMS, such as <a href="content-types.ahtml">Content Types</a> and <a href="content/mixins.ahtml">Mixins</a>. Schemas may contain a <a href="form.ahtml">Form</a> which allow you to declare advanced data structures within your content.</p>
 </div>
 </div>
 </div>
@@ -531,7 +531,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><a href="schemas/form-fragments.ahtml">Form Fragments</a></p>
 </li>
 <li>
-<p><a href="mixins.ahtml">Mixins</a></p>
+<p><a href="content/mixins.ahtml">Mixins</a></p>
 </li>
 </ul>
 </div>
@@ -588,7 +588,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 05:51:05 UTC
+Last updated 2026-04-08 15:19:51 UTC
 </div>
 </div>
 </body>

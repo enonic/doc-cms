@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="toc: right">
 <title>Content</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -439,53 +438,176 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article toc2 toc-right">
 <div id="header">
 <h1>Content</h1>
-<div class="details">
-<span id="author" class="author">toc: right</span><br>
-<span id="revdate">Content is the core entity in Enonic CMS. Every content item has a specific content type and life cycle.</span>
-</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#intro">Intro</a></li>
-<li><a href="#content_authoring">Content authoring</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#content_editor">Content editor</a></li>
 <li><a href="#anatomy">Anatomy</a></li>
-<li><a href="#security">Security</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content can be created, edited, published and deleted via Content Studio, or manipulated programmatically. Every Content item has a specific <a href="content/content-type.ahtml">content type</a>, which defines its data structure and capabilities. Content items are stored in <a href="projects.ahtml">content projects</a>, where each item is indexed and can be searched for and accessed via API.</p>
+<p>Content is the core entity in Enonic CMS. Every content item has a specific content type and life cycle.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="content_authoring"><a class="link" href="#content_authoring">Content authoring</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>Content is normally managed via Content Studio, but can also be accessed and manipulated programmatically via APIs. Content items have a specific <a href="content/content-types.ahtml">Content Type</a>, which defines its data structure and capabilities. Content items are stored in isolated <a href="content/projects.ahtml">Content Projects</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="content_editor"><a class="link" href="#content_editor">Content editor</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Content items are created and edited in Content Studio, which provides a user-friendly interface for managing content. The content editor interface is generated based on the content type&#8217;s form definition, which means that the editor interface is automatically tailored to the specific content type being edited.</p>
+</div>
+<div class="paragraph">
+<p>Content items have a <a href="content/life-cycle.ahtml">life cycle</a> that includes states such as draft, published, and archived.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="anatomy"><a class="link" href="#anatomy">Anatomy</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content items can be accessed via the GraphQL API, which can be used by front-end developers to access content programmatically. The GraphQL API is generated based on the content type&#8217;s schema and form definition, and provides a powerful and flexible way to query for content items and their properties.</p>
+<p>Every content item has a set of standard properties that are automatically generated and maintained by the system. Below is an overview of the persisted JSON structure of a content item:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="security"><a class="link" href="#security">Security</a></h2>
-<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",  <i class="conum" data-value="1"></i><b>(1)</b>
+  "_name": "my-article",  <i class="conum" data-value="2"></i><b>(2)</b>
+  "_path": "/my-site/articles/my-article",  <i class="conum" data-value="3"></i><b>(3)</b>
+  "_parentPath": "/my-site/articles",
+  "_versionKey": "f1e2d3c4-b5a6-7890-abcd-ef1234567890",  <i class="conum" data-value="4"></i><b>(4)</b>
+  "_timestamp": "2025-06-15T12:00:00Z",  <i class="conum" data-value="5"></i><b>(5)</b>
+  "_sortorder": "modifiedTime DESC",  <i class="conum" data-value="6"></i><b>(6)</b>
+  "_manualordervalue": 0,
 
+  "type": "com.example:article",  <i class="conum" data-value="7"></i><b>(7)</b>
+  "language": "en",  <i class="conum" data-value="8"></i><b>(8)</b>
+
+  "displayName": "My Article",  <i class="conum" data-value="9"></i><b>(9)</b>
+  "data": { ... }, <i class="conum" data-value="10"></i><b>(10)</b>
+  "x": [ ... ],  <i class="conum" data-value="11"></i><b>(11)</b>
+  "components": [ ... ],  <i class="conum" data-value="12"></i><b>(12)</b>
+  "attachments": [ ... ],  <i class="conum" data-value="13"></i><b>(13)</b>
+
+  "creator": "user:system:admin",  <i class="conum" data-value="14"></i><b>(14)</b>
+  "createdTime": "2025-01-01T10:00:00Z",
+  "modifier": "user:system:editor",
+  "modifiedTime": "2025-06-15T12:00:00Z",
+  "owner": "user:system:admin",
+
+  "publish": {  <i class="conum" data-value="15"></i><b>(15)</b>
+    "from": "2025-01-15T08:00:00Z",
+    "to": "2026-01-15T08:00:00Z",
+    "first": "2025-01-15T08:00:00Z",
+    "time": "2025-06-15T12:00:00Z"
+  },
+
+  "_references": [ ... ],  <i class="conum" data-value="16"></i><b>(16)</b>
+  "_alltext": "My Article ...",  <i class="conum" data-value="17"></i><b>(17)</b>
+  "_score": 1.23,  <i class="conum" data-value="18"></i><b>(18)</b>
+  "_permissions": { ... }  <i class="conum" data-value="19"></i><b>(19)</b>
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>_id</strong> — unique content identifier (UUID), generated automatically.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>_name</strong> — content name, used in the URL path.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>_path</strong> / <strong>_parentPath</strong> — full content path, and parent path.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>_versionKey</strong> — identifier of the current content version.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td><strong>_timestamp</strong> — last change to the content version.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td><strong>_sortorder</strong> / <strong>_manualordervalue</strong> — controls default sorting of child items. Defaults to <code>modifiedTime DESC</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td><strong>type</strong> — the qualified content type name. Set at creation, cannot be changed.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td><strong>language</strong> — locale of the content.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td><strong>displayName</strong> — human-readable name, typically used in lists, search results, and as the content title.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td><strong>data</strong> — the editorial content, structured according to the <a href="content/content-types.ahtml">content type</a> form definition.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td><strong>x</strong> — structured by <a href="content/mixins.ahtml">mixin</a> form definition, grouped by namespaced keys.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td><strong>components</strong> — present if the item contains a <a href="pages.ahtml">page</a> with components.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="13"></i><b>13</b></td>
+<td><strong>attachments</strong> — optional array of <a href="content/attachments.ahtml">attachments</a> stored within the content item.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="14"></i><b>14</b></td>
+<td><strong>creator</strong> / <strong>createdTime</strong> / <strong>modifier</strong> / <strong>modifiedTime</strong> / <strong>owner</strong> — audit trail properties.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="15"></i><b>15</b></td>
+<td><strong>publish</strong> — publishing metadata. <code>from</code>/<code>to</code> define the publish window. <code>first</code> is set on first publish and never changes. <code>time</code> is updated on every publish.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="16"></i><b>16</b></td>
+<td><strong>_references</strong> — aggregation of all outbound <a href="content/references.ahtml">references</a> to other content items in the project.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="17"></i><b>17</b></td>
+<td><strong>_alltext</strong> — all fulltext-analyzed fields (TextLine, TextArea, HtmlArea) gathered in one property, used for search.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="18"></i><b>18</b></td>
+<td><strong>_score</strong> — calculated relevance score, only present in search results.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="19"></i><b>19</b></td>
+<td><strong>_permissions</strong> — <a href="content/permissions.ahtml">access control</a> settings for the content item.</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 05:51:05 UTC
+Last updated 2026-04-08 15:19:51 UTC
 </div>
 </div>
 </body>

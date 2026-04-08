@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Content anatomy</title>
+<title>Content projects</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,258 +437,151 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Content anatomy</h1>
+<h1>Content projects</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#system_properties">System properties</a></li>
-<li><a href="#content_specific_properties">Content specific properties</a></li>
-<li><a href="#meta_properties">Meta properties</a></li>
-<li><a href="#publishing_properties">Publishing properties</a></li>
-<li><a href="#permissions_properties">Permissions properties</a></li>
-<li><a href="#indexing_properties">Indexing properties</a></li>
+<li><a href="#branches">Branches</a></li>
+<li><a href="#general_settings">General settings</a></li>
+<li><a href="#access_mode">Access mode</a></li>
+<li><a href="#roles">Roles</a></li>
+<li><a href="#layering">Layering</a></li>
+<li><a href="#applications">Features</a></li>
+<li><a href="#site_engine">Site engine</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Independent repositories that provide strict isolation of content, allowing for different access modes and configurations.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Every content item in Enonic XP has a set of standard properties that are automatically generated and maintained by the system. These properties are not defined in the form, but are generally available for use in your content modelling and search. Some of these properties are read-only, while others can be set via special API functions.</p>
+<p>Content projects represent the starting point of working with Enonic CMS. In order to create content, you first need to create a project. Project defines if your content is public or private, and what type of content may be produced there. This means, that editors of a particular project will not be able to see, use or link to content within other projects.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="system_properties"><a class="link" href="#system_properties">System properties</a></h2>
+<h2 id="branches"><a class="link" href="#branches">Branches</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These properties are used to identify the content item, and to maintain the content structure.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">_id</dt>
-<dd>
-<p>Holds the unique id of the content, typically generated automatically in the form of a UUID.</p>
-</dd>
-<dt class="hdlist1">_name</dt>
-<dd>
-<p>Holds the name of the content</p>
-</dd>
-<dt class="hdlist1">_parentPath</dt>
-<dd>
-<p>Reference to parent content path.</p>
-</dd>
-<dt class="hdlist1">_path</dt>
-<dd>
-<p>Full content path</p>
-</dd>
-<dt class="hdlist1">_sortorder</dt>
-<dd>
-<p>Controls the default sorting of child items in the content structure when fetching child items. If not set, API will default to by <code>modifiedTime DESC</code>.</p>
-</dd>
-<dt class="hdlist1">_manualordervalue</dt>
-<dd>
-<p>When '_sortorder' is set to manual, this property holds the order value for each child item.</p>
-</dd>
-<dt class="hdlist1">_timestamp</dt>
-<dd>
-<p>The last change to the content version.</p>
-</dd>
-<dt class="hdlist1">_versionKey</dt>
-<dd>
-<p>The id of the node version.</p>
-</dd>
-</dl>
+<p>Each project has two branches where content may exist. The <code>draft</code> branch, where all editorial activity occurs, and the <code>master</code> branch which is where the published content resides. When content is published, it is replicated from the <code>draft</code> branch to the <code>master</code> branch. This means that the <code>draft</code> branch may contain unpublished changes, while the <code>master</code> branch always contains the latest published version of the content.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="content_specific_properties"><a class="link" href="#content_specific_properties">Content specific properties</a></h2>
+<h2 id="general_settings"><a class="link" href="#general_settings">General settings</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Identifier - a unique id within the installation. Cannot be changed when first created</p>
+</li>
+<li>
+<p>Display name - a human readable name</p>
+</li>
+<li>
+<p>Default language - Specifies the default language for content created in the project</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="access_mode"><a class="link" href="#access_mode">Access mode</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These properties contain the editorial content of the item, and are composed from the various schemas such as content-types, mixins and page components.</p>
+<p>Project access mode defines default read permissions for it&#8217;s content.
+The available values are:</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">displayName</dt>
-<dd>
-<p>Common human readable name for the content, typically used in lists and search results or as the content title.</p>
-</dd>
-<dt class="hdlist1">data</dt>
-<dd>
-<p>A property-set containing all user defined properties defined in the content-type.</p>
-</dd>
-<dt class="hdlist1">x</dt>
-<dd>
-<p>Property-set containing mixin content. Each mixin will have its own property-set.</p>
-</dd>
-<dt class="hdlist1">component</dt>
-<dd>
-<p>Available if the item contains a customized page or is pinned to a page template.</p>
-</dd>
-<dt class="hdlist1">attatchment</dt>
-<dd>
-<p>If the item contains one or more attachments, contains an array of property-sets with the following properties:</p>
-</dd>
-<dt class="hdlist1">attachment.size</dt>
-<dd>
-<p>Attachment size</p>
-</dd>
-<dt class="hdlist1">attachment.label</dt>
-<dd>
-<p>Attachment label</p>
-</dd>
-<dt class="hdlist1">attachment.mimetype</dt>
-<dd>
-<p>Attachment mime-type</p>
-</dd>
-<dt class="hdlist1">attachment.name</dt>
-<dd>
-<p>Attachment name</p>
-</dd>
-<dt class="hdlist1">attachment.binary</dt>
-<dd>
-<p>Attachment reference (defaults to file name)</p>
-</dd>
-<dt class="hdlist1">attachment.text</dt>
-<dd>
-<p>Text extracted from the attachment, e.g., PDF files</p>
-</dd>
-</dl>
+<div class="ulist">
+<ul>
+<li>
+<p>Public (Everyone can read the content)</p>
+</li>
+<li>
+<p>Private (only users with project roles can read the content)</p>
+</li>
+<li>
+<p>Custom (a specific list of principals can be granted access to read the content, i.e. Employees)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To handle private and custom mode, a special "viewer" role is created and given read access to the content items.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="meta_properties"><a class="link" href="#meta_properties">Meta properties</a></h2>
-<div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>The qualified content-type name, e.g. <code>myapp:article</code>. Set when creating the content item, and cannot be changed afterwards.</p>
-</dd>
-<dt class="hdlist1">language</dt>
-<dd>
-<p>The locale-property of the content.</p>
-</dd>
-<dt class="hdlist1">modifiedTime</dt>
-<dd>
-<p>Last time the content was modified.</p>
-</dd>
-<dt class="hdlist1">creator</dt>
-<dd>
-<p>The user principal that created the content.</p>
-</dd>
-<dt class="hdlist1">createdTime</dt>
-<dd>
-<p>The timestamp when the content was created.</p>
-</dd>
-<dt class="hdlist1">owner</dt>
-<dd>
-<p>The user user that owns the content.</p>
-</dd>
-</dl>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="publishing_properties"><a class="link" href="#publishing_properties">Publishing properties</a></h2>
+<h2 id="roles"><a class="link" href="#roles">Roles</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Publishing metadata properties are automatically maintained by the system when content is published.</p>
+<p>To provide access to a project or manage it, users can be granted special roles.
+The following roles are available per project:</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">publish.from</dt>
-<dd>
-<p>The time when the content was first published.</p>
-</dd>
-<dt class="hdlist1">publish.to</dt>
-<dd>
-<p>The time when the content is to expire.</p>
-</dd>
-<dt class="hdlist1">publish.first</dt>
-<dd>
-<p>The time when the content was first published. Generally the same as publish.from, but will not be updated if the content is unpublished and re-published.</p>
-</dd>
-<dt class="hdlist1">publish.time</dt>
-<dd>
-<p>The time when the content was published. Will only exist in the versions of a content that has been publised. New value every time the content gets published.</p>
-</dd>
-</dl>
+<div class="ulist">
+<ul>
+<li>
+<p>Contributor - Access to project and issues (must be given specific permissions to create or manage any content)</p>
+</li>
+<li>
+<p>Author - Same as contributor, but can additionally create and update content anywhere in the structure</p>
+</li>
+<li>
+<p>Editor - Same as Author, but with full permissions and access to rich-text editor source mode</p>
+</li>
+<li>
+<p>Owner - Same as Editor, but can also manage the project settings</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For each project, dedicated principal roles are created. The roles are named as follows:
+<code>com.enonic.cms.project.&lt;id&gt;.&lt;roletype&gt;</code></p>
+</div>
+<div class="paragraph">
+<p>An example might be com.enonic.cms.myproject.author.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="permissions_properties"><a class="link" href="#permissions_properties">Permissions properties</a></h2>
+<h2 id="layering"><a class="link" href="#layering">Layering</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These are properties related to the permissions of the content item. They are controlled by system level permissions.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">_permissions_read</dt>
-<dd>
-<p>The principals that have read access.</p>
-</dd>
-<dt class="hdlist1">_permissions_create</dt>
-<dd>
-<p>The principals that have create access.</p>
-</dd>
-<dt class="hdlist1">_permissions_delete</dt>
-<dd>
-<p>The principals that have delete access.</p>
-</dd>
-<dt class="hdlist1">_permissions_modify</dt>
-<dd>
-<p>The principals that have modify access.</p>
-</dd>
-<dt class="hdlist1">_permissions_publish</dt>
-<dd>
-<p>The principals that have publish access.</p>
-</dd>
-<dt class="hdlist1">_permissions_readpermissions</dt>
-<dd>
-<p>The principals that have access to read the content permissions.</p>
-</dd>
-<dt class="hdlist1">_permissions_writepermissions</dt>
-<dd>
-<p>The principals that have access to change the content permissions.</p>
-</dd>
-</dl>
+<p><a href="content/layering.ahtml">Project layering</a> is a powerful feature that, where each layer inherits content from the parent layer above. This allows you to create different versions of your content for different purposes, such as translations or content for different markets.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="indexing_properties"><a class="link" href="#indexing_properties">Indexing properties</a></h2>
+<h2 id="applications"><a class="link" href="#applications">Features</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These properties are automatically maintained by the system when content is indexed, or calculated at query time. Used for search and relevance ranking.</p>
+<p>By assigning and configuring Enonic apps for a projects, their Schemas, Extensions and other functionality will be available within the scope of the project. For example, you might have a project for a blog, where you assign a blogging application that provides content types and components for creating blog posts.  It is also worth noting that any configuration of these applications will instantly be reflected, both in Content Studio and via API.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">_alltext</dt>
-<dd>
-<p>A collection of all fulltext-analyzed fields (textLine, textArea, htmlArea) in the content item, gathered in one property</p>
-</dd>
-<dt class="hdlist1">_references</dt>
-<dd>
-<p>Outgoing references to other content.</p>
-</dd>
-<dt class="hdlist1">_score</dt>
-<dd>
-<p>Calculated relevance for a hit, only available in search results.</p>
-</dd>
-</dl>
+<div class="paragraph">
+<p><a href="layers.ahtml">Layered projects</a> automatically inherit application settings from parent layers, unless they are overridden in the child layer. This means that if you assign an application to a parent layer, it will be available in all child layers, unless you explicitly override it in a child layer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="site_engine"><a class="link" href="#site_engine">Site engine</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="../runtime/engines/site-engine.ahtml">Site engine</a> provides access to content in a specific branch of a specific project at <code>/site/{projectId}/{branch}</code>, where <code>{projectId}</code> is a unique project identifier. For example, draft items of a project with identifier ´myproject´ can be accessed via internal path <code>/site/myproject/draft</code>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 05:51:05 UTC
+Last updated 2026-04-08 15:19:51 UTC
 </div>
 </div>
 </body>
