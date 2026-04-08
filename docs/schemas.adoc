@@ -6,7 +6,7 @@ Schemas are the heart of the CMS, enabling you to express your content model as 
 
 == Introduction
 
-Schemas are used to define various editorial elements within the CMS, such as <<content-types#, Content Types>> and <<mixins#, Mixins>>. Schemas may contain a <<form#, Form>> which allow you to declare advanced data structures within your content.
+Schemas are used to define various editorial elements within the CMS, such as <<content-types#, Content Types>> and <<content/mixins#, Mixins>>. Schemas may contain a <<form#, Form>> which allow you to declare advanced data structures within your content.
 
 == Installation and usage
 
@@ -33,7 +33,7 @@ Enonic currently support the following content schemas kinds. Each kind has a sp
 
 === Reuse
 * <<schemas/form-fragments#, Form Fragments>>
-* <<mixins#, Mixins>>
+* <<content/mixins#, Mixins>>
 
 === Content types
 

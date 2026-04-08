@@ -5,6 +5,10 @@
       "document": "index"
     },
     {
+      "title": "Projects",
+      "document": "projects"
+    },
+    {
       "title": "Schemas",
       "document": "schemas",
       "menuItems": [
@@ -125,20 +129,16 @@
       "document": "content",
       "menuItems": [
         {
-          "title": "Projects",
-          "document": "content/projects"
-        },
-        {
           "title": "Content Types",
           "document": "content/content-types"
         },
         {
-          "title": "Lifecycle",
-          "document": "content/lifecycle"
+          "title": "Mixins",
+          "document": "content/mixins"
         },
         {
-          "title": "Anatomy",
-          "document": "content/anatomy"
+          "title": "Lifecycle",
+          "document": "content/lifecycle"
         },
         {
           "title": "References",
@@ -165,8 +165,8 @@
           "document": "content/versions"
         },
         {
-          "title": "Indexing",
-          "document": "content/content-indexing"
+          "title": "Querying",
+          "document": "content/querying"
         }
       ]
     },
@@ -183,10 +183,6 @@
           "document": "media/media-indexing"
         }
       ]
-    },
-    {
-      "title": "Mixins",
-      "document": "mixins"
     },
     {
       "title": "Rich text",
