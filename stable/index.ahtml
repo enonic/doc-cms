@@ -451,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This documentation covers the core concepts and features which make up Enonic&#8217;s CMS capabilities.</p>
+<p>This documentation covers the core concepts and features which make up Enonic&#8217;s core CMS capabilities.</p>
 </div>
 </div>
 </div>
@@ -459,7 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic&#8217;s CMS capabilities are built on top of the Enonic XP core features. The heart of the CMS is a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in the API, as well as Content Studio, along with full server-side validation, indexing and querying capabilities.</p>
+<p>Enonic&#8217;s CMS is built on top of the Enonic XP platform core. The heart of the CMS is a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in the API, as well as Content Studio, along with full server-side validation, indexing and querying capabilities.</p>
 </div>
 <div class="paragraph">
 <p>TODO: Quickstart, Developer 101</p>
@@ -521,7 +521,7 @@ interface available on Enonic Market</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 17:14:02 UTC
+Last updated 2026-04-08 05:51:05 UTC
 </div>
 </div>
 </body>

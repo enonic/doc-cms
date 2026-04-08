@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Content Mixin schemas</title>
+<title>Mixins</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Content Mixin schemas</h1>
+<h1>Mixins</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#definition">Definition</a></li>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#configuration">Configuration</a></li>
+<li><a href="#cms_yaml">CMS.yaml</a>
+<ul class="sectlevel2">
+<li><a href="#options">Options</a></li>
+</ul>
+</li>
+<li><a href="#output">Output</a></li>
+<li><a href="#graphql">GraphQL</a></li>
 </ul>
 </div>
 </div>
@@ -451,44 +457,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO
-It is often useful to be able to share a set of fields across different content types.
-Xtra data, or X-data for short was designed specifically for this purpose.</p>
-</div>
-<div class="paragraph">
-<p>By defining x-data schemas, developers may dynamically inject these extra fields to all, or a specified list of content types.
-For instance, the SEO Meta fields application makes use of this, so editors may fine-tune SEO settings across all different content they produce.</p>
-</div>
-<div class="paragraph">
-<p>In Content Studio, X-data is visualized as a separate step in the publishing form.</p>
-</div>
-<div class="paragraph">
-<p>X-data (short for <em>eXtra data</em>) makes it possible to dynamically extend existing content types with a new form.
-When editing content, X-data fields will be displayed inside a separate step in the content form.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-If you want to inject fields inside content type&#8217;s form rather than appending a form, consider using <a href="schemas/mixins.ahtml">a mixin</a>
-</td>
-</tr>
-</table>
+<p>Define a set of fields to be shared across content types.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="definition"><a class="link" href="#definition">Definition</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The file with X-data schema must be placed in the folder <code>site/x-data/[name]</code> and called <code>[name].yaml</code>. For example, <em>site/x-data/address/address.yaml</em>.</p>
+<p>Horizontal inheritance is a programming concept where fields can be reused across different objects. Mixins make it possible to dynamically extend existing existing content types with additional fields.</p>
+</div>
+<div class="paragraph">
+<p>A Mixin may be added to all, or a specified list of content types. For instance, the SEO Meta fields application makes use of this, so editors may fine-tune SEO settings across all different content they produce. Also, Mixins may be explicitly enabled or made optional, so the editors may ensable or disable the mixin on a per content item basis.</p>
+</div>
+<div class="paragraph">
+<p>In Content Studio, mixins are visualized as a separate tabs in the content editor.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The file with mixin schema must be placed in the folder <code>cms/mixins/[name]</code> and called <code>[name].yaml</code>. For example, <em>site/mixins/address/address.yaml</em>.</p>
 </div>
 <div class="listingblock">
+<div class="title">address.yaml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "XData"
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Mixin"
 title: "Full address"
 form:
   - type: "TextLine"
@@ -520,63 +516,144 @@ form:
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="cms_yaml"><a class="link" href="#cms_yaml">CMS.yaml</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To activate X-data for your project or site, it must be referenced in the application&#8217;s <code>site.xml</code>. The example below adds the <code>address</code> X-data to all content types within its scope.</p>
+<p>To activate a mixin for your project or site, it must be referenced in the application&#8217;s CMS descriptor. The example below adds the <code>address</code> mixin to all content within its scope.</p>
 </div>
 <div class="listingblock">
-<div class="title">/src/main/resource/site/site.yaml</div>
+<div class="title">cms.yaml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Site"
-xdata:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "CMS"
+mixins:
   - name: "address"
 form: []</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="options"><a class="link" href="#options">Options</a></h3>
 <div class="paragraph">
-<p>It&#8217;s possible to restrict X-data for specific content types using regular expressions. This is especially convenient when you apply X-data to all content types via <code>site.xml</code> but want to exclude some content types.</p>
+<p>It&#8217;s possible to restrict a mixin for specific content types using regular expressions. This is especially convenient when you apply a mixin to all content types via the CMS descriptor but want to exclude some content types.</p>
 </div>
 <div class="paragraph">
-<p>Use regular expressions in the <code>allowContentTypes</code> attribute of the <code>&lt;x-data/&gt;</code> field inside <code>site.xml</code> to enable or disable it for specific content type(s).
-By default x-data will be added to content items of all types with no option to remove it but you can make it optional by setting <code>optional</code> attribute to <em>true</em>. Optional x-data has to be manually enabled inside Content Wizard to be added to the content data.</p>
+<p>Use regular expressions in the <code>allowContentTypes</code> attribute to enable or disable it for specific content type(s).
+By default a mixin will be added to content items of all types with no option to remove it, but you can make it optional by setting <code>optional</code> to <em>true</em>. Optional mixins have to be manually enabled inside Content Wizard to be added to the content data.</p>
 </div>
 <div class="paragraph">
-<p>If <code>allowContentTypes</code> and <code>optional</code> attributes are not set, the x-data will automatically be enabled for all content types. See <a href="schemas/input-types/contentselector.ahtml#allowContentType">modes</a> of content type filtering.</p>
+<p>If <code>allowContentTypes</code> and <code>optional</code> are not set, the mixin will automatically be enabled for all content types. See <a href="schemas/form-items/contentselector.ahtml#allowContentType">modes</a> of content type filtering.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Site"
-xdata:
-  - name: "my-x-data-1"
-  - name: "my-x-data-2"
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "CMS"
+mixins:
+  - name: "my-mixin-1" <i class="conum" data-value="1"></i><b>(1)</b>
+  - name: "my-mixin-2" <i class="conum" data-value="2"></i><b>(2)</b>
     allowContentTypes: "^(?!base:folder$).*"
-  - name: "my-x-data-3"
+  - name: "my-mixin-3" <i class="conum" data-value="3"></i><b>(3)</b>
     allowContentTypes: "portal:site"
     optional: true
 form: []</code></pre>
 </div>
 </div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>my-mixin-1</code> will automatically be enabled for all content types, with no option to disable it in the Content Studio.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>my-mixin-2</code> will be added for all content types with no option to remove it in the Content Studio, except for content type <code>base:folder</code> for which it will not be shown at all.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><code>my-mixin-3</code> optionally enabled for built-in content type <code>portal:site</code></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>In the example above <em>my-x-data-1</em> will be enabled for all content types, with no option to disable it in the Content Wizard.</p>
+<p>Mixin content is stored in the content under the key <code>x</code> (short for miXin).</p>
 </div>
 <div class="paragraph">
-<p><em>my-x-data-2</em> will be added for all content types with no option to remove it in the Content Wizard, except for content type <code>base:folder</code> for which it will not be shown at all.</p>
+<p>To avoid conflict between mixins from different namespaces, the namespace is used as a prefix. For example, if you have the namespace <code>com.company</code>, with a mixin called <code>address</code> containing a field <code>city</code>, the value of that field will be stored and searchable <code>x.com-company.address.city</code>.</p>
 </div>
 <div class="paragraph">
-<p><em>my-x-data-3</em> will be enabled only for sites (which are using internal content type <code>portal:site</code>) and will be optional, meaning user has to manually turn it on in the Content Wizard.</p>
+<p>The JSON structure of the mixin content will look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "x": {
+    "com-company": {
+        "address": {
+            "city": "Oslo"
+        }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Namespaces are transformed by replacing dots with dashes. So <code>com.company</code> becomes <code>com-company</code>. This is done to ensure that the keys are valid for content querying.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When querying content with mixins via the GraphQL API, the mixin fields are available under the <code>x</code> field. For example, to query the JSON structure shown above, you would use the following GraphQL query:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">{
+  guillotine {
+    query(key: "contentid") {
+      x {
+      	com_company {
+          address {
+          	city
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Due to GraphQL field naming restrictions (<code>-</code> and <code>.</code> are not allowed), dots are replaced with underscores. So <code>com.company</code> becomes <code>com_company</code>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 17:14:02 UTC
+Last updated 2026-04-08 05:51:05 UTC
 </div>
 </div>
 </body>
