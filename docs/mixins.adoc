@@ -1,28 +1,25 @@
-= Content Mixin schemas
+= Mixins
 :toc: right
 :imagesdir: images
 
-TODO
-It is often useful to be able to share a set of fields across different content types.
-Xtra data, or X-data for short was designed specifically for this purpose.
+Define a set of fields to be shared across content types.
 
-By defining x-data schemas, developers may dynamically inject these extra fields to all, or a specified list of content types.
-For instance, the SEO Meta fields application makes use of this, so editors may fine-tune SEO settings across all different content they produce.
+== Introduction
 
-In Content Studio, X-data is visualized as a separate step in the publishing form.
+Horizontal inheritance is a programming concept where fields can be reused across different objects. Mixins make it possible to dynamically extend existing existing content types with additional fields.
 
-X-data (short for _eXtra data_) makes it possible to dynamically extend existing content types with a new form.
-When editing content, X-data fields will be displayed inside a separate step in the content form.
+A Mixin may be added to all, or a specified list of content types. For instance, the SEO Meta fields application makes use of this, so editors may fine-tune SEO settings across all different content they produce. Also, Mixins may be explicitly enabled or made optional, so the editors may ensable or disable the mixin on a per content item basis.
 
-TIP: If you want to inject fields inside content type's form rather than appending a form, consider using <<schemas/mixins.adoc#,a mixin>>
+In Content Studio, mixins are visualized as a separate tabs in the content editor.
 
-== Definition
+== Usage
 
-The file with X-data schema must be placed in the folder `site/x-data/[name]` and called `[name].yaml`. For example, _site/x-data/address/address.yaml_.
+The file with mixin schema must be placed in the folder `cms/mixins/[name]` and called `[name].yaml`. For example, _site/mixins/address/address.yaml_.
 
+.address.yaml
 [source,yaml]
 ----
-kind: "XData"
+kind: "Mixin"
 title: "Full address"
 form:
   - type: "TextLine"
@@ -51,43 +48,90 @@ form:
       max: 1
 ----
 
-== Usage
+== CMS.yaml
 
-To activate X-data for your project or site, it must be referenced in the application's `site.xml`. The example below adds the `address` X-data to all content types within its scope.
+To activate a mixin for your project or site, it must be referenced in the application's CMS descriptor. The example below adds the `address` mixin to all content within its scope.
 
-./src/main/resource/site/site.yaml
+.cms.yaml
 [source,yaml]
 ----
-kind: "Site"
-xdata:
+kind: "CMS"
+mixins:
   - name: "address"
 form: []
 ----
 
-== Configuration
+=== Options
 
-It's possible to restrict X-data for specific content types using regular expressions. This is especially convenient when you apply X-data to all content types via `site.xml` but want to exclude some content types.
+It's possible to restrict a mixin for specific content types using regular expressions. This is especially convenient when you apply a mixin to all content types via the CMS descriptor but want to exclude some content types.
 
-Use regular expressions in the `allowContentTypes` attribute of the `<x-data/>` field inside `site.xml` to enable or disable it for specific content type(s).
-By default x-data will be added to content items of all types with no option to remove it but you can make it optional by setting `optional` attribute to _true_. Optional x-data has to be manually enabled inside Content Wizard to be added to the content data.
+Use regular expressions in the `allowContentTypes` attribute to enable or disable it for specific content type(s).
+By default a mixin will be added to content items of all types with no option to remove it, but you can make it optional by setting `optional` to _true_. Optional mixins have to be manually enabled inside Content Wizard to be added to the content data.
 
-If `allowContentTypes` and `optional` attributes are not set, the x-data will automatically be enabled for all content types. See <<schemas/input-types/contentselector#allowContentType, modes>> of content type filtering.
+If `allowContentTypes` and `optional` are not set, the mixin will automatically be enabled for all content types. See <<schemas/form-items/contentselector#allowContentType, modes>> of content type filtering.
 
 [source,yaml]
 ----
-kind: "Site"
-xdata:
-  - name: "my-x-data-1"
-  - name: "my-x-data-2"
+kind: "CMS"
+mixins:
+  - name: "my-mixin-1" # <1>
+  - name: "my-mixin-2" # <2>
     allowContentTypes: "^(?!base:folder$).*"
-  - name: "my-x-data-3"
+  - name: "my-mixin-3" # <3>
     allowContentTypes: "portal:site"
     optional: true
 form: []
 ----
 
-In the example above _my-x-data-1_ will be enabled for all content types, with no option to disable it in the Content Wizard.
+<1> `my-mixin-1` will automatically be enabled for all content types, with no option to disable it in the Content Studio.
 
-_my-x-data-2_ will be added for all content types with no option to remove it in the Content Wizard, except for content type `base:folder` for which it will not be shown at all.
+<2> `my-mixin-2` will be added for all content types with no option to remove it in the Content Studio, except for content type `base:folder` for which it will not be shown at all.
 
-_my-x-data-3_ will be enabled only for sites (which are using internal content type `portal:site`) and will be optional, meaning user has to manually turn it on in the Content Wizard.
+<3> `my-mixin-3` optionally enabled for built-in content type `portal:site`
+
+
+== Output
+
+Mixin content is stored in the content under the key `x` (short for miXin). 
+
+To avoid conflict between mixins from different namespaces, the namespace is used as a prefix. For example, if you have the namespace `com.company`, with a mixin called `address` containing a field `city`, the value of that field will be stored and searchable `x.com-company.address.city`.
+
+The JSON structure of the mixin content will look like this:
+
+[source,JSON]
+----
+{
+  "x": {
+    "com-company": {
+        "address": {
+            "city": "Oslo"
+        }
+    }
+  }
+}
+----
+
+NOTE: Namespaces are transformed by replacing dots with dashes. So `com.company` becomes `com-company`. This is done to ensure that the keys are valid for content querying.
+
+== GraphQL
+
+When querying content with mixins via the GraphQL API, the mixin fields are available under the `x` field. For example, to query the JSON structure shown above, you would use the following GraphQL query:
+
+[source,GraphQL]
+----
+{
+  guillotine {
+    query(key: "contentid") {
+      x {
+      	com_company {
+          address {
+          	city
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+NOTE: Due to GraphQL field naming restrictions (`-` and `.` are not allowed), dots are replaced with underscores. So `com.company` becomes `com_company`.

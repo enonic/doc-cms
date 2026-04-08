@@ -4,11 +4,11 @@
 :y: icon:check[role="green"]
 :n: icon:times[role="red"]
 
-This documentation covers the core concepts and features which make up Enonic's CMS capabilities.
+This documentation covers the core concepts and features which make up Enonic's core CMS capabilities.
 
 == Introduction
 
-Enonic's CMS capabilities are built on top of the Enonic XP core features. The heart of the CMS is a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in the API, as well as Content Studio, along with full server-side validation, indexing and querying capabilities.
+Enonic's CMS is built on top of the Enonic XP platform core. The heart of the CMS is a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in the API, as well as Content Studio, along with full server-side validation, indexing and querying capabilities.
 
 TODO: Quickstart, Developer 101
 
