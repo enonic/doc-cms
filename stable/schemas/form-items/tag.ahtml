@@ -460,7 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "Tag"
-  name: "mytag"
+  name: "my_tag"
   label: "My Tag"
   occurrences:
     min: 0
@@ -473,12 +473,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Tags are stored as strings. With multiple occurrences, the values are returned as an array.</p>
+<p><strong>Value type:</strong> <code>String</code> — not included in <code>_alltext</code></p>
+</div>
+<div class="paragraph">
+<p>With multiple occurrences, the values are returned as an array.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mytag": [
+  "my_tag": [
     "first-tag",
     "second tag",
     "The third tag"
@@ -491,7 +494,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

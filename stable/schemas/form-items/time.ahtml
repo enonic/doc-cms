@@ -471,7 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "Time"
-  name: "mytime"
+  name: "my_time"
   label: "My Time"
   default: "13:22"  <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
@@ -541,12 +541,12 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The value is stored as a time string in 24h format.</p>
+<p><strong>Value type:</strong> <code>LocalTime</code> — not included in <code>_alltext</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mytime": "13:22"
+  "my_time": "13:22"
 }</code></pre>
 </div>
 </div>
@@ -555,7 +555,7 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

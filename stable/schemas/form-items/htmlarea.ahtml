@@ -479,7 +479,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "HtmlArea"
-  name: "myhtmlarea"
+  name: "my_htmlarea"
   label: "My HtmlArea"
   default: "&lt;h3&gt;Enter description here&lt;/h3&gt;"  <i class="conum" data-value="1"></i><b>(1)</b>
   exclude: "*"  <i class="conum" data-value="2"></i><b>(2)</b>
@@ -735,7 +735,10 @@ HTML Area is configured with a default set of tools, but the toolbar can be cust
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The value is stored as a raw HTML string. The HTML contains Enonic-specific markup for internal links, images, and macros that need processing before rendering.</p>
+<p><strong>Value type:</strong> <code>String</code> — included in <code>_alltext</code></p>
+</div>
+<div class="paragraph">
+<p>The value is stored as HTML. The HTML contains Enonic-specific markup for internal links, images, and macros that need processing before rendering.</p>
 </div>
 <div class="sect2">
 <h3 id="raw_output"><a class="link" href="#raw_output">Raw output</a></h3>
@@ -745,7 +748,7 @@ HTML Area is configured with a default set of tools, but the toolbar can be cust
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "myhtmlarea": "&lt;h3&gt;Hello world&lt;/h3&gt;&lt;p&gt;This is &lt;strong&gt;rich text&lt;/strong&gt; with an &lt;a href=\"content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9\"&gt;internal link&lt;/a&gt;.&lt;/p&gt;"
+  "my_htmlarea": "&lt;h3&gt;Hello world&lt;/h3&gt;&lt;p&gt;This is &lt;strong&gt;rich text&lt;/strong&gt; with an &lt;a href=\"content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9\"&gt;internal link&lt;/a&gt;.&lt;/p&gt;"
 }</code></pre>
 </div>
 </div>
@@ -764,7 +767,7 @@ HTML Area is configured with a default set of tools, but the toolbar can be cust
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

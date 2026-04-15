@@ -575,6 +575,9 @@ It is also possible to nest item sets inside each other
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p><strong>Value type:</strong> <code>Set</code> — child properties are indexed individually by their respective types.</p>
+</div>
+<div class="paragraph">
 <p>The above definition would produce a property format like this:</p>
 </div>
 <div class="listingblock">
@@ -619,7 +622,7 @@ Arrays are added based on the actual number of items created, not the schema def
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

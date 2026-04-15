@@ -547,7 +547,7 @@ Easily shuffle the order of the option sets by dragging the cards from the grip 
 <div class="title">Sample 1: single-select setup with the options <code>hr</code>, <code>text</code>, <code>gallery</code> and <code>quote</code>.</div>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "OptionSet"
-  name: "blockOptionSet"
+  name: "block_option_set"
   label: "Content blocks"
   occurrences:  <i class="conum" data-value="1"></i><b>(1)</b>
     min: 0
@@ -615,13 +615,16 @@ Easily shuffle the order of the option sets by dragging the cards from the grip 
 <div class="sect2">
 <h3 id="output"><a class="link" href="#output">Output</a></h3>
 <div class="paragraph">
+<p><strong>Value type:</strong> <code>Set</code> — child properties are indexed individually by their respective types.</p>
+</div>
+<div class="paragraph">
 <p>An example output of the above form, where the user has created three instances, using three different options: quote, hr and text.</p>
 </div>
 <div class="listingblock">
 <div class="title">Example output of single-select setup, here with three occurences.</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "blockOptionSet": [
+  "block_option_set": [
     {
       "quote": {
         "quote": "Hi there",
@@ -793,6 +796,9 @@ For multi-select options sets, it is also possible to pre-select options by defa
 <div class="sect2">
 <h3 id="output_2"><a class="link" href="#output_2">Output</a></h3>
 <div class="paragraph">
+<p><strong>Value type:</strong> <code>Set</code> — child properties are indexed individually by their respective types.</p>
+</div>
+<div class="paragraph">
 <p>The output from the example above may look like this:</p>
 </div>
 <div class="listingblock">
@@ -831,7 +837,7 @@ The <code>_selected</code> property contains information about which options wer
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

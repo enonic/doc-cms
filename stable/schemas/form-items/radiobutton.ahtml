@@ -471,7 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "RadioButton"
-  name: "myradiobutton"
+  name: "my_radiobutton"
   label: "My RadioButton"
   occurrences:
     min: 1
@@ -511,12 +511,15 @@ Multiple options are allowed and ordered. Option labels support <a href="../../s
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The stored value is the <code>value</code> attribute (string) of the selected option. Only one value can be selected.</p>
+<p><strong>Value type:</strong> <code>String</code> — not included in <code>_alltext</code></p>
+</div>
+<div class="paragraph">
+<p>The stored value is the <code>value</code> attribute of the selected option. Only one value can be selected.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "myradiobutton": "one"
+  "my_radiobutton": "one"
 }</code></pre>
 </div>
 </div>
@@ -537,7 +540,7 @@ The stored value corresponds to the <code>value</code> attribute, not the displa
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

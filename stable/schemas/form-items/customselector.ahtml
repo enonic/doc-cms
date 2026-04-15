@@ -447,6 +447,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#service_response">Service Response</a></li>
 </ul>
 </li>
+<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -484,7 +485,7 @@ Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-se
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml"># Basic Sample
 - type: "CustomSelector"
-  name: "mycustomselector"
+  name: "my_custom_selector"
   label: "My Custom Selector"
   occurrences:
     min: 0
@@ -493,7 +494,7 @@ Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-se
 
 # Sample with parameters
 - type: "CustomSelector"
-  name: "musicTrack"
+  name: "music_track"
   label: "Intro song"
   service: "spotify-music-selector"
   param:  <i class="conum" data-value="2"></i><b>(2)</b>
@@ -504,7 +505,7 @@ Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-se
 
 # Gallery mode
 - type: "CustomSelector"
-  name: "albumCover"
+  name: "album_cover"
   label: "Album cover"
   service: "spotify-album-cover-selector"
   galleryMode: true  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
@@ -606,10 +607,39 @@ Inline image content (for example, SVG)</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Value type:</strong> <code>String</code> — not included in <code>_alltext</code></p>
+</div>
+<div class="paragraph">
+<p>The stored value is the <code>id</code> of the selected item. When multiple selections are allowed, the value is an array.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "my_custom_selector": "1"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Multiple selections</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "my_custom_selector": [
+    "1",
+    "2"
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

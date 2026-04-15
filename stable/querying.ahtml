@@ -448,18 +448,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#index_configuration">Index configuration</a></li>
 </ul>
 </li>
-<li><a href="#noql">NoQL (string queries)</a>
-<ul class="sectlevel2">
-<li><a href="#basic_syntax">Basic syntax</a></li>
-<li><a href="#comparison_operators">Comparison operators</a></li>
-<li><a href="#in_operator">IN operator</a></li>
-<li><a href="#range">Range</a></li>
-<li><a href="#query_functions">Query functions</a></li>
-<li><a href="#datetime_functions">Date/time functions</a></li>
-<li><a href="#sorting">Sorting</a></li>
-<li><a href="#full_example">Full example</a></li>
-</ul>
-</li>
 <li><a href="#dsl">Query DSL (JSON queries)</a>
 <ul class="sectlevel2">
 <li><a href="#basic_structure">Basic structure</a></li>
@@ -489,7 +477,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content in Enonic CMS is fully indexed and queryable. This page covers how content data is indexed, and how to query it using both string-based and JSON-based query formats.</p>
+<p>All content in Enonic XP is fully indexed and queryable. This page covers how content data is indexed, and how to query it using Query DSL.</p>
 </div>
 </div>
 </div>
@@ -497,20 +485,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="how_content_is_indexed"><a class="link" href="#how_content_is_indexed">How content is indexed</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When content is created or updated, all properties are automatically indexed. The CMS uses a schema-driven indexing system where each property is indexed according to its <a href="#value_types">value type</a>.</p>
+<p>When content is created or updated, every property is automatically indexed. The CMS uses a schema-driven indexing system where each property is indexed according to its <a href="#value_types">value type</a>.</p>
 </div>
 <div class="paragraph">
-<p>Content can be queried through the <a href="../apis/graphql.ahtml">GraphQL API</a> (Guillotine) or programmatically via the content API. Both APIs accept queries in one of two formats:</p>
+<p>Content can be queried through the <a href="../apis/graphql.ahtml">GraphQL API</a> (Guillotine) or via Content API (Enonic apps) using <a href="#dsl">Query DSL</a>&#8201;&#8212;&#8201;a JSON-based query structure.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#noql">NoQL</a>&#8201;&#8212;&#8201;a string-based query language</p>
-</li>
-<li>
-<p><a href="#dsl">Query DSL</a>&#8201;&#8212;&#8201;a JSON-based query structure</p>
-</li>
-</ul>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The older string-based query language <strong>NoQL</strong> is deprecated. For NoQL reference, see the <a href="https://developer.enonic.com/docs/xp/stable/storage/noql">XP documentation</a>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -518,84 +508,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="value_types"><a class="link" href="#value_types">Value types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Every property stored in content has a value type that determines how it is indexed and how it can be queried. The value type is determined by the <a href="../schemas/form-items.ahtml">form item</a> used in the content type schema.</p>
+<p>Every property stored in content has a value type that determines how it is indexed and how it can be queried. The value type is determined by the <a href="schemas/form-items.ahtml">form item</a> used in your schema definition — each form item documents its value type in its Output section.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Value Type</th>
-<th class="tableblock halign-left valign-top">Form Items</th>
-<th class="tableblock halign-left valign-top">Index behavior</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TextLine, TextArea, HtmlArea, ComboBox, RadioButton, ContentSelector, MediaSelector, ImageSelector, CustomSelector, Tag, CheckBox</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indexed as both <code>text</code> (analyzed/searchable) and <code>string</code> (exact match). For TextLine, TextArea, and HtmlArea, the text value is also added to <code>_alltext</code> for fulltext search.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indexed as both <code>number</code> and <code>string</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Double</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Double</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indexed as both <code>number</code> and <code>string</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CheckBox</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indexed as both <code>string</code> and <code>number</code> (0/1).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GeoPoint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GeoPoint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indexed as <code>string</code> (<code>"lat,lon"</code>) and <code>number</code> (for range queries on coordinates).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LocalDate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Date</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indexed as <code>datetime</code> and <code>string</code>. Format: <code>yyyy-MM-dd</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LocalTime</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indexed as <code>string</code>. Format: <code>HH:mm:ss</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LocalDateTime</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Instant</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indexed as <code>datetime</code> and <code>string</code>. Format: <code>yyyy-MM-dd&#8217;T&#8217;HH:mm:ss</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DateTime</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DateTime</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indexed as <code>datetime</code> and <code>string</code>. Always includes timezone. Format: <code>yyyy-MM-dd&#8217;T&#8217;HH:mm:ssZ</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reference</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ContentSelector, MediaSelector, ImageSelector</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Content ID reference. Indexed as <code>string</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BinaryReference</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AttachmentUploader</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reference to an attachment binary. Indexed as <code>string</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ItemSet, OptionSet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not a value itself&#8201;&#8212;&#8201;contains nested properties that are individually indexed using their respective types.</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>For full details on value types and their index behavior, see the <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types">XP value type reference</a>.</p>
+</div>
 <div class="sect2">
 <h3 id="alltext"><a class="link" href="#alltext">_alltext</a></h3>
 <div class="paragraph">
@@ -636,268 +553,10 @@ For details on index configuration, see the <a href="https://developer.enonic.co
 </div>
 </div>
 <div class="sect1">
-<h2 id="noql"><a class="link" href="#noql">NoQL (string queries)</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>NoQL is a string-based query language similar to SQL. It supports filtering, ordering, and search functions.</p>
-</div>
-<div class="sect2">
-<h3 id="basic_syntax"><a class="link" href="#basic_syntax">Basic syntax</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>&lt;expression&gt; [ORDER BY &lt;sort&gt;] [LIMIT &lt;count&gt;] [OFFSET &lt;start&gt;]</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="comparison_operators"><a class="link" href="#comparison_operators">Comparison operators</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>data.rating &gt; 3                               <i class="conum" data-value="1"></i><b>(1)</b>
-data.category = 'news'                        <i class="conum" data-value="2"></i><b>(2)</b>
-data.title LIKE 'enonic*'                     <i class="conum" data-value="3"></i><b>(3)</b>
-data.published != true                        <i class="conum" data-value="4"></i><b>(4)</b>
-data.score &gt;= 4.5 AND data.score &lt;= 9.0       <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Greater than (also <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Equals.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Wildcard matching with <code>*</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Not equals.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Combine with <code>AND</code>, <code>OR</code>. Use parentheses for grouping.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="in_operator"><a class="link" href="#in_operator">IN operator</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>type IN ('com.example:article', 'com.example:blogpost')</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="range"><a class="link" href="#range">Range</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>data.rating IN [3, 5]       # Inclusive range: 3 &lt;= rating &lt;= 5
-data.rating IN (3, 5)       # Exclusive range: 3 &lt; rating &lt; 5
-data.rating IN [3, 5)       # Mixed: 3 &lt;= rating &lt; 5</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="query_functions"><a class="link" href="#query_functions">Query functions</a></h3>
-<div class="paragraph">
-<p>Query functions provide advanced search capabilities within NoQL.</p>
-</div>
-<div class="sect3">
-<h4 id="fulltext"><a class="link" href="#fulltext">fulltext</a></h4>
-<div class="paragraph">
-<p>Searches text-analyzed fields using tokenized matching. The most common way to search content.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>fulltext('data.title', 'headless cms', 'AND')              <i class="conum" data-value="1"></i><b>(1)</b>
-fulltext('_alltext', 'enonic content management', 'OR')     <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Both words must be present in the title.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Any of the words must be present across all text fields.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Operators: <code>AND</code> (all terms), <code>OR</code> (any term).</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="stemmed"><a class="link" href="#stemmed">stemmed</a></h4>
-<div class="paragraph">
-<p>Similar to <code>fulltext</code>, but uses language-aware stemming so that "running" matches "run", "runs", etc.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>stemmed('_alltext', 'running quickly', 'AND', 'en')   <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The fourth parameter specifies the language for stemming.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="ngram"><a class="link" href="#ngram">ngram</a></h4>
-<div class="paragraph">
-<p>Searches using partial word matching (n-gram index). Useful for autocomplete and prefix search.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>ngram('_alltext', 'eno', 'AND')    <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Matches content containing words starting with "eno" (e.g., "Enonic").</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="range_2"><a class="link" href="#range_2">range</a></h4>
-<div class="paragraph">
-<p>Explicit range queries, useful for dates and numbers.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>range('data.publishDate', instant('2025-01-01T00:00:00Z'), '')     <i class="conum" data-value="1"></i><b>(1)</b>
-range('data.rating', 3.0, 8.0, 'true', 'false')                   <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Content published after the given date. Empty string means unbounded.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Fifth and sixth parameters control inclusivity: <code>'true'</code> = inclusive, <code>'false'</code> = exclusive.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="pathmatch"><a class="link" href="#pathmatch">pathMatch</a></h4>
-<div class="paragraph">
-<p>Matches content by path hierarchy.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>pathMatch('_path', '/my-site/articles/')    <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Matches all content under the given path.</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="datetime_functions"><a class="link" href="#datetime_functions">Date/time functions</a></h3>
-<div class="paragraph">
-<p>When querying date and time fields, use the appropriate function to ensure correct type matching:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>data.myDate = dateTime('2025-06-15T12:00:00Z')      <i class="conum" data-value="1"></i><b>(1)</b>
-data.myDate &gt; instant('2025-01-01T00:00:00Z')        <i class="conum" data-value="2"></i><b>(2)</b>
-range('data.created', instant('2025-01-01T00:00:00Z'), instant('2025-12-31T23:59:59Z'))  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>dateTime()</code> for DateTime values (with timezone).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>instant()</code> for point-in-time comparisons.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Date range query.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Also available: <code>date('yyyy-MM-dd')</code>, <code>time('HH:mm:ss')</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="sorting"><a class="link" href="#sorting">Sorting</a></h3>
-<div class="paragraph">
-<p>Append <code>ORDER BY</code> to control result ordering.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>ORDER BY modifiedTime DESC                                 <i class="conum" data-value="1"></i><b>(1)</b>
-ORDER BY data.rating DESC, displayName ASC                 <i class="conum" data-value="2"></i><b>(2)</b>
-ORDER BY geoDistance('data.location', '59.9,10.7') ASC     <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Most recently modified first (default for content).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Multiple sort fields.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Sort by distance from a geographic point.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="full_example"><a class="link" href="#full_example">Full example</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>fulltext('_alltext', 'headless cms', 'OR')
-  AND type = 'com.example:article'
-  AND data.publishDate &lt; instant('2025-07-01T00:00:00Z')
-ORDER BY data.publishDate DESC
-LIMIT 10
-OFFSET 0</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="dsl"><a class="link" href="#dsl">Query DSL (JSON queries)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Query DSL is a JSON-based query format that provides the same capabilities as NoQL in a structured format. It is especially useful when building queries programmatically.</p>
+<p>The Query DSL is a JSON-based query format that provides a structured way to query content. It is especially useful when building queries programmatically.</p>
 </div>
 <div class="sect2">
 <h3 id="basic_structure"><a class="link" href="#basic_structure">Basic structure</a></h3>
@@ -981,7 +640,7 @@ OFFSET 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="range_3"><a class="link" href="#range_3">range</a></h4>
+<h4 id="range"><a class="link" href="#range">range</a></h4>
 <div class="paragraph">
 <p>Range query on a field.</p>
 </div>
@@ -1029,7 +688,7 @@ OFFSET 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="pathmatch_2"><a class="link" href="#pathmatch_2">pathMatch</a></h4>
+<h4 id="pathmatch"><a class="link" href="#pathmatch">pathMatch</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
@@ -1045,7 +704,7 @@ OFFSET 0</code></pre>
 <div class="sect2">
 <h3 id="fulltext_expressions"><a class="link" href="#fulltext_expressions">Fulltext expressions</a></h3>
 <div class="sect3">
-<h4 id="fulltext_2"><a class="link" href="#fulltext_2">fulltext</a></h4>
+<h4 id="fulltext"><a class="link" href="#fulltext">fulltext</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
@@ -1059,7 +718,7 @@ OFFSET 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="stemmed_2"><a class="link" href="#stemmed_2">stemmed</a></h4>
+<h4 id="stemmed"><a class="link" href="#stemmed">stemmed</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
@@ -1074,7 +733,7 @@ OFFSET 0</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="ngram_2"><a class="link" href="#ngram_2">ngram</a></h4>
+<h4 id="ngram"><a class="link" href="#ngram">ngram</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
@@ -1291,7 +950,12 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 <h3 id="content_by_type"><a class="link" href="#content_by_type">Content by type</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>type = 'com.example:article'</code></pre>
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "term": {
+    "field": "type",
+    "value": { "string": "com.example:article" }
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1299,7 +963,12 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 <h3 id="content_by_path"><a class="link" href="#content_by_path">Content by path</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>_path LIKE '/my-site/articles/*'</code></pre>
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "like": {
+    "field": "_path",
+    "value": "/my-site/articles/*"
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1307,8 +976,33 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 <h3 id="published_content_only"><a class="link" href="#published_content_only">Published content only</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>publish.from &lt; instant('2025-06-15T00:00:00Z')
-  AND (publish.to &gt; instant('2025-06-15T00:00:00Z') OR publish.to NOT EXISTS)</code></pre>
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "boolean": {
+    "must": [
+      {
+        "range": {
+          "field": "publish.from",
+          "lt": { "instant": "2025-06-15T00:00:00Z" }
+        }
+      }
+    ],
+    "should": [
+      {
+        "range": {
+          "field": "publish.to",
+          "gt": { "instant": "2025-06-15T00:00:00Z" }
+        }
+      },
+      {
+        "boolean": {
+          "mustNot": [
+            { "exists": { "field": "publish.to" } }
+          ]
+        }
+      }
+    ]
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1316,8 +1010,30 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 <h3 id="fulltext_search_with_type_filter"><a class="link" href="#fulltext_search_with_type_filter">Fulltext search with type filter</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>fulltext('_alltext', 'search terms', 'OR')
-  AND type IN ('com.example:article', 'com.example:page')</code></pre>
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "boolean": {
+    "must": [
+      {
+        "fulltext": {
+          "fields": ["_alltext"],
+          "query": "search terms",
+          "operator": "OR"
+        }
+      }
+    ],
+    "filter": [
+      {
+        "in": {
+          "field": "type",
+          "values": [
+            { "string": "com.example:article" },
+            { "string": "com.example:page" }
+          ]
+        }
+      }
+    ]
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1325,8 +1041,18 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 <h3 id="recently_modified_content"><a class="link" href="#recently_modified_content">Recently modified content</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>modifiedTime &gt; instant('2025-06-01T00:00:00Z')
-ORDER BY modifiedTime DESC</code></pre>
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "query": {
+    "range": {
+      "field": "modifiedTime",
+      "gt": { "instant": "2025-06-01T00:00:00Z" }
+    }
+  },
+  "sort": {
+    "field": "modifiedTime",
+    "direction": "DESC"
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1334,7 +1060,12 @@ ORDER BY modifiedTime DESC</code></pre>
 <h3 id="content_referencing_another_item"><a class="link" href="#content_referencing_another_item">Content referencing another item</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>data.relatedArticle = 'content-id-here'</code></pre>
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "term": {
+    "field": "data.relatedArticle",
+    "value": { "string": "content-id-here" }
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1342,7 +1073,17 @@ ORDER BY modifiedTime DESC</code></pre>
 <h3 id="geolocation_proximity"><a class="link" href="#geolocation_proximity">Geolocation proximity</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>ORDER BY geoDistance('data.location', '59.9139,10.7522')</code></pre>
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "sort": {
+    "field": "data.location",
+    "direction": "ASC",
+    "type": "geoDistance",
+    "value": {
+      "lat": 59.9139,
+      "lon": 10.7522
+    }
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1351,7 +1092,7 @@ ORDER BY modifiedTime DESC</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

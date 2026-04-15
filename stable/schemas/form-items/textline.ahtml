@@ -476,12 +476,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml"># Basic sample
 - type: "TextLine"
-  name: "mytextline"
+  name: "my_textline"
   label: "My TextLine"
 
 # Using regex validation and a default value.
 - type: "TextLine"
-  name: "socialsecuritynumber"
+  name: "social_security_number"
   label: "My SSN"
   occurrences:
     min: 1
@@ -582,12 +582,12 @@ by the spell checker. Text in the second is in Norsk Bokmål and correctly check
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The value is stored as a string.</p>
+<p><strong>Value type:</strong> <code>String</code> — included in <code>_alltext</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mytextline": "Some text value"
+  "my_textline": "Some text value"
 }</code></pre>
 </div>
 </div>
@@ -596,7 +596,7 @@ by the spell checker. Text in the second is in Norsk Bokmål and correctly check
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

@@ -442,8 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#content_editor">Content editor</a></li>
-<li><a href="#anatomy">Anatomy</a></li>
+<li><a href="#standard_properties">Standard properties</a></li>
 </ul>
 </div>
 </div>
@@ -464,21 +463,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="content_editor"><a class="link" href="#content_editor">Content editor</a></h2>
+<h2 id="standard_properties"><a class="link" href="#standard_properties">Standard properties</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content items are created and edited in Content Studio, which provides a user-friendly interface for managing content. The content editor interface is generated based on the content type&#8217;s form definition, which means that the editor interface is automatically tailored to the specific content type being edited.</p>
-</div>
-<div class="paragraph">
-<p>Content items have a <a href="content/life-cycle.ahtml">life cycle</a> that includes states such as draft, published, and archived.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="anatomy"><a class="link" href="#anatomy">Anatomy</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Every content item has a set of standard properties that are automatically generated and maintained by the system. Below is an overview of the persisted JSON structure of a content item:</p>
+<p>Content items are stored in JSON format, within an XP repo. Every content item has a set of standard properties that are automatically generated and maintained via the Content API. Below is an overview of the JSON structure of a content item:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -607,7 +595,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

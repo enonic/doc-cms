@@ -460,7 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "MediaSelector"
-  name: "mymedia"
+  name: "my_media"
   label: "My Media"
   occurrences:
     min: 0
@@ -491,12 +491,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The stored value is the content ID (string) of the selected media item. Like <a href="contentselector.ahtml">ContentSelector</a>, the value is a reference to the media content item.</p>
+<p><strong>Value type:</strong> <code>Reference</code> — not included in <code>_alltext</code></p>
+</div>
+<div class="paragraph">
+<p>The stored value is the content ID of the selected media item. Like <a href="contentselector.ahtml">ContentSelector</a>, the value is a reference to the media content item.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mymedia": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+  "my_media": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
 }</code></pre>
 </div>
 </div>
@@ -505,7 +508,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

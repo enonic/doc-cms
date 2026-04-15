@@ -478,7 +478,7 @@ that makes sense is a minimum of zero and a maximum of one, which is default and
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "CheckBox"
-  name: "mycheckbox"
+  name: "my_checkbox"
   label: "My Checkbox"
   default: "checked"  <i class="conum" data-value="1"></i><b>(1)</b>
   alignment: "right"  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
@@ -502,13 +502,13 @@ that makes sense is a minimum of zero and a maximum of one, which is default and
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The value is stored as a boolean.</p>
+<p><strong>Value type:</strong> <code>Boolean</code> — not included in <code>_alltext</code></p>
 </div>
 <div class="listingblock">
 <div class="title">Checked</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mycheckbox": true
+  "my_checkbox": true
 }</code></pre>
 </div>
 </div>
@@ -529,7 +529,7 @@ When the checkbox is unchecked, the property is omitted from the output entirely
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

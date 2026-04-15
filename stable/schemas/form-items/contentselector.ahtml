@@ -476,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ContentSelector"
-  name: "mycontentselector"
+  name: "my_content_selector"
   label: "My ContentSelector"
   occurrences:
     min: 0
@@ -728,13 +728,16 @@ The pattern will be prefixed by the current application name if it does <em>not<
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The stored value is the content ID (string) of the referenced item. When multiple selections are allowed, the value is an array.</p>
+<p><strong>Value type:</strong> <code>Reference</code> — not included in <code>_alltext</code></p>
+</div>
+<div class="paragraph">
+<p>The stored value is the content ID of the referenced item. When multiple selections are allowed, the value is an array.</p>
 </div>
 <div class="listingblock">
 <div class="title">Single reference</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mycontentselector": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+  "my_content_selector": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
 }</code></pre>
 </div>
 </div>
@@ -742,7 +745,7 @@ The pattern will be prefixed by the current application name if it does <em>not<
 <div class="title">Multiple references</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mycontentselector": [
+  "my_content_selector": [
     "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
     "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ]
@@ -754,7 +757,7 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

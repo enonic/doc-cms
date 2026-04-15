@@ -486,7 +486,7 @@ For dates without timezone, use <a href="instant.ahtml">Instant</a> instead.
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "DateTime"
-  name: "mydatetime"
+  name: "my_datetime"
   label: "My DateTime"
   default: "2011-09-12T12:00+01:00"  <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
@@ -583,17 +583,17 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "DateTime"
-  name: "dateTimeDefault"
+  name: "datetime_default"
   label: "DateTime (with default value)"
   default: "2000-01-01T12:30+01:00"
 
 - type: "DateTime"
-  name: "dateTimeRelative"
+  name: "datetime_relative"
   label: "DateTime (relative default value)"
   default: "+1year -12hours"
 
 - type: "DateTime"
-  name: "dateTimeNow"
+  name: "datetime_now"
   label: "DateTime (current time as default value)"
   default: "now"</code></pre>
 </div>
@@ -604,12 +604,12 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The value is stored as an ISO 8601 date-time string with timezone offset.</p>
+<p><strong>Value type:</strong> <code>DateTime</code> — not included in <code>_alltext</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mydatetime": "2016-12-31T23:59:00+01:00"
+  "my_datetime": "2016-12-31T23:59:00+01:00"
 }</code></pre>
 </div>
 </div>
@@ -618,7 +618,7 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

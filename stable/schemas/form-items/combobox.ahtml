@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ComboBox"
-  name: "mycombobox"
+  name: "my_combobox"
   label: "My Combobox"
   occurrences:
     min: 1
@@ -505,13 +505,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p><strong>Value type:</strong> <code>String</code> — not included in <code>_alltext</code></p>
+</div>
+<div class="paragraph">
 <p>When a single option is selected, the value is returned as a string. When multiple options are selected (via <code>occurrences</code>), the values are returned as an array.</p>
 </div>
 <div class="listingblock">
 <div class="title">Single selection</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mycombobox": "one"
+  "my_combobox": "one"
 }</code></pre>
 </div>
 </div>
@@ -519,7 +522,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Multiple selections</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mycombobox": [
+  "my_combobox": [
     "one",
     "two"
   ]
@@ -543,7 +546,7 @@ The stored values correspond to the <code>value</code> attributes in the schema,
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

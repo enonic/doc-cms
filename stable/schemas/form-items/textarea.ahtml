@@ -471,7 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "TextArea"
-  name: "mytextarea"
+  name: "my_textarea"
   label: "My TextArea"
   default: "Default text goes here"  <i class="conum" data-value="1"></i><b>(1)</b>
   max-length: 42  <i class="conum" data-value="2"></i><b>(2)</b>
@@ -512,12 +512,12 @@ Contents of TextArea support browser based spellcheckers in the same way as desc
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The value is stored as a plain text string.</p>
+<p><strong>Value type:</strong> <code>String</code> — included in <code>_alltext</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mytextarea": "This is plain text.\nLine breaks are preserved."
+  "my_textarea": "This is plain text.\nLine breaks are preserved."
 }</code></pre>
 </div>
 </div>
@@ -526,7 +526,7 @@ Contents of TextArea support browser based spellcheckers in the same way as desc
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

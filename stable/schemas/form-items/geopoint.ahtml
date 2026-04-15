@@ -481,7 +481,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "GeoPoint"
-  name: "mygeopoint"
+  name: "my_geopoint"
   label: "My GeoPoint"
   occurrences:
     min: 0
@@ -503,12 +503,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The value is stored as a comma-separated string of latitude and longitude.</p>
+<p><strong>Value type:</strong> <code>GeoPoint</code> — not included in <code>_alltext</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "mygeopoint": "51.5,-0.1"
+  "my_geopoint": "51.5,-0.1"
 }</code></pre>
 </div>
 </div>
@@ -517,7 +517,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-08 15:19:51 UTC
+Last updated 2026-04-15 15:03:37 UTC
 </div>
 </div>
 </body>

@@ -163,10 +163,6 @@
         {
           "title": "Versions",
           "document": "content/versions"
-        },
-        {
-          "title": "Querying",
-          "document": "content/querying"
         }
       ]
     },
@@ -183,6 +179,10 @@
           "document": "media/media-indexing"
         }
       ]
+    },
+    {
+      "title": "Querying",
+      "document": "querying"
     },
     {
       "title": "Rich text",
