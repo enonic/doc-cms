@@ -16,7 +16,7 @@ image::Long.png[Number input showing a large number, 700]
 [source,yaml]
 ----
 - type: "Long"
-  name: "mylong"
+  name: "my_long"
   label: "My Long"
   default: 42  # <1>
 
@@ -32,11 +32,11 @@ image::Long.png[Number input showing a large number, 700]
 
 == Output
 
-The value is stored as an integer number.
+*Value type:* `Long` — not included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "mylong": 42
+  "my_long": 42
 }
 ----

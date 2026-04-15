@@ -70,6 +70,8 @@ TIP: It is also possible to nest item sets inside each other
 
 == Output
 
+*Value type:* `Set` — child properties are indexed individually by their respective types.
+
 The above definition would produce a property format like this:
 
 .Example with a single item

@@ -17,7 +17,7 @@ image::Radio-buttons.png[two button where one of them is selected, 200]
 [source,yaml]
 ----
 - type: "RadioButton"
-  name: "myradiobutton"
+  name: "my_radiobutton"
   label: "My RadioButton"
   occurrences:
     min: 1
@@ -40,12 +40,14 @@ Multiple options are allowed and ordered. Option labels support <<../../schemas/
 
 == Output
 
-The stored value is the `value` attribute (string) of the selected option. Only one value can be selected.
+*Value type:* `String` — not included in `_alltext`
+
+The stored value is the `value` attribute of the selected option. Only one value can be selected.
 
 [source,JSON]
 ----
 {
-  "myradiobutton": "one"
+  "my_radiobutton": "one"
 }
 ----
 

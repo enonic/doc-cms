@@ -38,7 +38,7 @@ The schema below demonstrates how you may create blocks of structured content us
 [source,yaml]
 ----
 - type: "OptionSet"
-  name: "blockOptionSet"
+  name: "block_option_set"
   label: "Content blocks"
   occurrences:  # <1>
     min: 0
@@ -91,13 +91,15 @@ The schema below demonstrates how you may create blocks of structured content us
 
 === Output
 
+*Value type:* `Set` — child properties are indexed individually by their respective types.
+
 An example output of the above form, where the user has created three instances, using three different options: quote, hr and text.
 
 .Example output of single-select setup, here with three occurences.
 [source,JSON]
 ----
 {
-  "blockOptionSet": [
+  "block_option_set": [
     {
       "quote": {
         "quote": "Hi there",
@@ -204,6 +206,8 @@ The example below demostrates multi-select mode, with the options `Coloring`, `W
 <6> *selected* Set to `true` to pre-select one of the options.
 
 === Output
+
+*Value type:* `Set` — child properties are indexed individually by their respective types.
 
 The output from the example above may look like this:
 

@@ -22,19 +22,21 @@ image::Attachment.png[An empty attachment input box, 700]
 [source,yaml]
 ----
 - type: "AttachmentUploader"
-  name: "myattachment"
+  name: "my_attachment"
   label: "My AttachmentUploader"
 ----
 
 == Output
 
-The stored value is the name (string) of an <<../../content/attachments#, attachment>> on the content item. The file itself is stored as an attachment, not as a separate content. See <<../../content/attachments#, Attachments>> for details on how attachments are stored and indexed.
+*Value type:* `BinaryReference` — not included in `_alltext`
+
+The stored value is the name of an <<../../content/attachments#, attachment>> on the content item. The file itself is stored as an attachment, not as a separate content. See <<../../content/attachments#, Attachments>> for details on how attachments are stored and indexed.
 
 .Single attachment
 [source,JSON]
 ----
 {
-  "myattachment": "document.pdf"
+  "my_attachment": "document.pdf"
 }
 ----
 
@@ -42,7 +44,7 @@ The stored value is the name (string) of an <<../../content/attachments#, attach
 [source,JSON]
 ----
 {
-  "myattachment": [
+  "my_attachment": [
     "document.pdf",
     "spreadsheet.xlsx"
   ]

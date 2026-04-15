@@ -12,7 +12,7 @@ The MediaSelector is a specialized version of the <<contentselector#, ContentSel
 [source,yaml]
 ----
 - type: "MediaSelector"
-  name: "mymedia"
+  name: "my_media"
   label: "My Media"
   occurrences:
     min: 0
@@ -29,11 +29,13 @@ The MediaSelector is a specialized version of the <<contentselector#, ContentSel
 
 == Output
 
-The stored value is the content ID (string) of the selected media item. Like <<contentselector#, ContentSelector>>, the value is a reference to the media content item.
+*Value type:* `Reference` — not included in `_alltext`
+
+The stored value is the content ID of the selected media item. Like <<contentselector#, ContentSelector>>, the value is a reference to the media content item.
 
 [source,JSON]
 ----
 {
-  "mymedia": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+  "my_media": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
 }
 ----

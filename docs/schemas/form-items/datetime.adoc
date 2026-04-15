@@ -21,7 +21,7 @@ image::Datetime-selector.png[Input field with both a calander and time selection
 [source,yaml]
 ----
 - type: "DateTime"
-  name: "mydatetime"
+  name: "my_datetime"
   label: "My DateTime"
   default: "2011-09-12T12:00+01:00"  # <1>
 ----
@@ -61,28 +61,28 @@ Examples:
 [source,yaml]
 ----
 - type: "DateTime"
-  name: "dateTimeDefault"
+  name: "datetime_default"
   label: "DateTime (with default value)"
   default: "2000-01-01T12:30+01:00"
 
 - type: "DateTime"
-  name: "dateTimeRelative"
+  name: "datetime_relative"
   label: "DateTime (relative default value)"
   default: "+1year -12hours"
 
 - type: "DateTime"
-  name: "dateTimeNow"
+  name: "datetime_now"
   label: "DateTime (current time as default value)"
   default: "now"
 ----
 
 == Output
 
-The value is stored as an ISO 8601 date-time string with timezone offset.
+*Value type:* `DateTime` — not included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "mydatetime": "2016-12-31T23:59:00+01:00"
+  "my_datetime": "2016-12-31T23:59:00+01:00"
 }
 ----

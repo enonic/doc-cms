@@ -1,0 +1,497 @@
+= Content Querying
+:toc: right
+:imagesdir: images
+
+All content in Enonic XP is fully indexed and queryable. This page covers how content data is indexed, and how to query it using Query DSL.
+
+== How content is indexed
+
+When content is created or updated, every property is automatically indexed. The CMS uses a schema-driven indexing system where each property is indexed according to its <<#value_types, value type>>.
+
+Content can be queried through the <<../apis/graphql#, GraphQL API>> (Guillotine) or via Content API (Enonic apps) using <<#dsl, Query DSL>> -- a JSON-based query structure.
+
+NOTE: The older string-based query language *NoQL* is deprecated. For NoQL reference, see the https://developer.enonic.com/docs/xp/stable/storage/noql[XP documentation].
+
+[[value_types]]
+== Value types
+
+Every property stored in content has a value type that determines how it is indexed and how it can be queried. The value type is determined by the <<schemas/form-items#, form item>> used in your schema definition — each form item documents its value type in its Output section.
+
+For full details on value types and their index behavior, see the https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types[XP value type reference].
+
+
+=== _alltext
+
+The system automatically populates a special `_alltext` field by aggregating all text-analyzed properties (TextLine, TextArea, HtmlArea). This field enables broad fulltext search across all textual content without specifying individual field names.
+
+
+=== Index configuration
+
+By default, content properties are indexed according to their value type. Content types can customize indexing behavior through index configuration to control:
+
+* Which properties are indexed and how
+* Whether a property should be included in `_alltext`
+* Custom analyzer settings for specific properties
+
+NOTE: For details on index configuration, see the https://developer.enonic.com/docs/xp/stable/storage/indexing[XP indexing documentation].
+
+
+[[dsl]]
+== Query DSL (JSON queries)
+
+The Query DSL is a JSON-based query format that provides a structured way to query content. It is especially useful when building queries programmatically.
+
+=== Basic structure
+
+[source,JSON]
+----
+{
+  "query": { ... },    // <1>
+  "sort": { ... }      // <2>
+}
+----
+<1> Query expression (filter, search, boolean compound).
+<2> Sort expression.
+
+=== Term expressions
+
+==== term
+
+Exact value match on a single field.
+
+[source,JSON]
+----
+{
+  "term": {
+    "field": "type",
+    "value": {
+      "string": "com.example:article"
+    }
+  }
+}
+----
+
+Value types: `string`, `long`, `double`, `boolean`, `instant`, `dateTime`, `localDate`, `localTime`, `localDateTime`.
+
+==== in
+
+Match any of several values.
+
+[source,JSON]
+----
+{
+  "in": {
+    "field": "type",
+    "values": [
+      { "string": "com.example:article" },
+      { "string": "com.example:blogpost" }
+    ]
+  }
+}
+----
+
+==== like
+
+Wildcard matching.
+
+[source,JSON]
+----
+{
+  "like": {
+    "field": "displayName",
+    "value": "My*"
+  }
+}
+----
+
+==== range
+
+Range query on a field.
+
+[source,JSON]
+----
+{
+  "range": {
+    "field": "data.rating",
+    "gt": 3,
+    "lte": 8
+  }
+}
+----
+
+Properties: `gt` (greater than), `gte` (greater than or equal), `lt` (less than), `lte` (less than or equal).
+
+For date fields, use typed values:
+
+[source,JSON]
+----
+{
+  "range": {
+    "field": "data.publishDate",
+    "gte": { "instant": "2025-01-01T00:00:00Z" }
+  }
+}
+----
+
+==== exists
+
+Check that a field has a value.
+
+[source,JSON]
+----
+{
+  "exists": {
+    "field": "data.summary"
+  }
+}
+----
+
+==== pathMatch
+
+[source,JSON]
+----
+{
+  "pathMatch": {
+    "field": "_path",
+    "path": "/my-site/articles/"
+  }
+}
+----
+
+
+=== Fulltext expressions
+
+==== fulltext
+
+[source,JSON]
+----
+{
+  "fulltext": {
+    "fields": ["_alltext"],
+    "query": "headless cms",
+    "operator": "OR"
+  }
+}
+----
+
+==== stemmed
+
+[source,JSON]
+----
+{
+  "stemmed": {
+    "fields": ["_alltext"],
+    "query": "running quickly",
+    "operator": "AND",
+    "language": "en"
+  }
+}
+----
+
+==== ngram
+
+[source,JSON]
+----
+{
+  "ngram": {
+    "fields": ["_alltext"],
+    "query": "eno",
+    "operator": "AND"
+  }
+}
+----
+
+
+=== Boolean (compound queries)
+
+Combine multiple expressions using boolean logic.
+
+[source,JSON]
+----
+{
+  "boolean": {
+    "must": [                                          // <1>
+      {
+        "term": {
+          "field": "type",
+          "value": { "string": "com.example:article" }
+        }
+      },
+      {
+        "fulltext": {
+          "fields": ["_alltext"],
+          "query": "headless",
+          "operator": "OR"
+        }
+      }
+    ],
+    "mustNot": [                                       // <2>
+      {
+        "term": {
+          "field": "data.draft",
+          "value": { "boolean": true }
+        }
+      }
+    ],
+    "filter": [                                        // <3>
+      {
+        "exists": {
+          "field": "data.publishDate"
+        }
+      }
+    ]
+  }
+}
+----
+<1> *must* -- all expressions must match (AND).
+<2> *mustNot* -- none of these expressions may match (NOT).
+<3> *filter* -- must match, but does not affect relevance scoring.
+
+Also available: `should` -- at least one expression should match (OR).
+
+
+=== Sorting (DSL)
+
+[source,JSON]
+----
+{
+  "sort": [
+    {
+      "field": "data.publishDate",
+      "direction": "DESC"
+    },
+    {
+      "field": "displayName",
+      "direction": "ASC"
+    }
+  ]
+}
+----
+
+Geographic distance sort:
+
+[source,JSON]
+----
+{
+  "sort": {
+    "field": "data.location",
+    "direction": "ASC",
+    "type": "geoDistance",
+    "value": {
+      "lat": 59.9,
+      "lon": 10.7
+    }
+  }
+}
+----
+
+
+=== Full DSL example
+
+[source,JSON]
+----
+{
+  "query": {
+    "boolean": {
+      "must": [
+        {
+          "term": {
+            "field": "type",
+            "value": { "string": "com.example:article" }
+          }
+        },
+        {
+          "fulltext": {
+            "fields": ["_alltext"],
+            "query": "headless cms",
+            "operator": "OR"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "range": {
+            "field": "data.publishDate",
+            "lte": { "instant": "2025-07-01T00:00:00Z" }
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "field": "data.publishDate",
+      "direction": "DESC"
+    }
+  ]
+}
+----
+
+
+== Querying content via GraphQL
+
+The <<../apis/graphql#, Guillotine>> GraphQL API provides a `queryDsl` argument on the content query type, accepting the Query DSL format directly. This is the recommended approach for headless applications.
+
+[source,graphql]
+----
+{
+  guillotine {
+    queryDsl(
+      query: {
+        boolean: {
+          must: [
+            { term: { field: "type", value: { string: "com.example:article" } } }
+            { fulltext: { fields: "_alltext", query: "headless", operator: OR } }
+          ]
+        }
+      }
+      sort: {
+        field: "data.publishDate"
+        direction: DESC
+      }
+      first: 10
+    ) {
+      displayName
+      ... on com_example_Article {
+        data {
+          title
+          summary
+          publishDate
+        }
+      }
+    }
+  }
+}
+----
+
+NOTE: For complete Guillotine query documentation, see the https://developer.enonic.com/docs/guillotine[Guillotine documentation].
+
+
+== Common query patterns
+
+=== Content by type
+[source,JSON]
+----
+{
+  "term": {
+    "field": "type",
+    "value": { "string": "com.example:article" }
+  }
+}
+----
+
+=== Content by path
+[source,JSON]
+----
+{
+  "like": {
+    "field": "_path",
+    "value": "/my-site/articles/*"
+  }
+}
+----
+
+=== Published content only
+[source,JSON]
+----
+{
+  "boolean": {
+    "must": [
+      {
+        "range": {
+          "field": "publish.from",
+          "lt": { "instant": "2025-06-15T00:00:00Z" }
+        }
+      }
+    ],
+    "should": [
+      {
+        "range": {
+          "field": "publish.to",
+          "gt": { "instant": "2025-06-15T00:00:00Z" }
+        }
+      },
+      {
+        "boolean": {
+          "mustNot": [
+            { "exists": { "field": "publish.to" } }
+          ]
+        }
+      }
+    ]
+  }
+}
+----
+
+=== Fulltext search with type filter
+[source,JSON]
+----
+{
+  "boolean": {
+    "must": [
+      {
+        "fulltext": {
+          "fields": ["_alltext"],
+          "query": "search terms",
+          "operator": "OR"
+        }
+      }
+    ],
+    "filter": [
+      {
+        "in": {
+          "field": "type",
+          "values": [
+            { "string": "com.example:article" },
+            { "string": "com.example:page" }
+          ]
+        }
+      }
+    ]
+  }
+}
+----
+
+=== Recently modified content
+[source,JSON]
+----
+{
+  "query": {
+    "range": {
+      "field": "modifiedTime",
+      "gt": { "instant": "2025-06-01T00:00:00Z" }
+    }
+  },
+  "sort": {
+    "field": "modifiedTime",
+    "direction": "DESC"
+  }
+}
+----
+
+=== Content referencing another item
+[source,JSON]
+----
+{
+  "term": {
+    "field": "data.relatedArticle",
+    "value": { "string": "content-id-here" }
+  }
+}
+----
+
+=== Geolocation proximity
+[source,JSON]
+----
+{
+  "sort": {
+    "field": "data.location",
+    "direction": "ASC",
+    "type": "geoDistance",
+    "value": {
+      "lat": 59.9139,
+      "lon": 10.7522
+    }
+  }
+}
+----

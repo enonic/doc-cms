@@ -13,7 +13,7 @@ A simple input for adding free-text tags. Tags will be autocompleted based on ta
 [source,yaml]
 ----
 - type: "Tag"
-  name: "mytag"
+  name: "my_tag"
   label: "My Tag"
   occurrences:
     min: 0
@@ -22,12 +22,14 @@ A simple input for adding free-text tags. Tags will be autocompleted based on ta
 
 == Output
 
-Tags are stored as strings. With multiple occurrences, the values are returned as an array.
+*Value type:* `String` — not included in `_alltext`
+
+With multiple occurrences, the values are returned as an array.
 
 [source,JSON]
 ----
 {
-  "mytag": [
+  "my_tag": [
     "first-tag",
     "second tag",
     "The third tag"

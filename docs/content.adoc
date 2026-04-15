@@ -7,17 +7,9 @@ Content is the core entity in Enonic CMS. Every content item has a specific cont
 == Introduction
 Content is normally managed via Content Studio, but can also be accessed and manipulated programmatically via APIs. Content items have a specific <<content/content-types#, Content Type>>, which defines its data structure and capabilities. Content items are stored in isolated <<content/projects#, Content Projects>>.
 
-== Content editor
-Content items are created and edited in Content Studio, which provides a user-friendly interface for managing content. The content editor interface is generated based on the content type's form definition, which means that the editor interface is automatically tailored to the specific content type being edited.
+== Standard properties
 
-Content items have a <<content/life-cycle#, life cycle>> that includes states such as draft, published, and archived.
-
-//TODO image
-
-
-== Anatomy
-
-Every content item has a set of standard properties that are automatically generated and maintained by the system. Below is an overview of the persisted JSON structure of a content item:
+Content items are stored in JSON format, within an XP repo. Every content item has a set of standard properties that are automatically generated and maintained via the Content API. Below is an overview of the JSON structure of a content item:
 
 [source,JSON]
 ----

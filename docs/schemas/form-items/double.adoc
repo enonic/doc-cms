@@ -16,7 +16,7 @@ image::Double.png[An inpt field with a lot of decimal numbers, 700]
 [source,yaml]
 ----
 - type: "Double"
-  name: "mydouble"
+  name: "my_double"
   label: "My Double"
   default: 3.89  # <1>
 
@@ -32,11 +32,11 @@ image::Double.png[An inpt field with a lot of decimal numbers, 700]
 
 == Output
 
-The value is stored as a floating-point number.
+*Value type:* `Double` — not included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "mydouble": 3.89
+  "my_double": 3.89
 }
 ----

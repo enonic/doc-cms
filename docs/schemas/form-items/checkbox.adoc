@@ -21,7 +21,7 @@ Sample definition with a default checked, right aligned checkbox.
 [source,yaml]
 ----
 - type: "CheckBox"
-  name: "mycheckbox"
+  name: "my_checkbox"
   label: "My Checkbox"
   default: "checked"  # <1>
   alignment: "right"  # <2>
@@ -31,13 +31,13 @@ Sample definition with a default checked, right aligned checkbox.
 
 == Output
 
-The value is stored as a boolean.
+*Value type:* `Boolean` — not included in `_alltext`
 
 .Checked
 [source,JSON]
 ----
 {
-  "mycheckbox": true
+  "my_checkbox": true
 }
 ----
 

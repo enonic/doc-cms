@@ -17,7 +17,7 @@ image::Content-type-default.png[input field with a dropdown of all content, 700]
 [source,yaml]
 ----
 - type: "ContentTypeFilter"
-  name: "myctyfilter"
+  name: "my_cty_filter"
   label: "My CTYFilter"
   occurrences:
     min: 0
@@ -28,12 +28,14 @@ image::Content-type-default.png[input field with a dropdown of all content, 700]
 
 == Output
 
-The stored value is the fully qualified content type name (string).
+*Value type:* `String` — not included in `_alltext`
+
+The stored value is the fully qualified content type name.
 
 [source,JSON]
 ----
 {
-  "myctyfilter": "com.example.myapp:article"
+  "my_cty_filter": "com.example.myapp:article"
 }
 ----
 
@@ -41,7 +43,7 @@ The stored value is the fully qualified content type name (string).
 [source,JSON]
 ----
 {
-  "myctyfilter": [
+  "my_cty_filter": [
     "com.example.myapp:article",
     "base:folder"
   ]

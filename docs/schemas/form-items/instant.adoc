@@ -18,7 +18,7 @@ A pop-up box with a calendar and time selector allows easy editing, similar to <
 [source,yaml]
 ----
 - type: "Instant"
-  name: "myinstant"
+  name: "my_instant"
   label: "My Instant"
   default: "2025-06-15T12:00:00"  # <1>
 ----
@@ -53,24 +53,24 @@ Examples:
 [source,yaml]
 ----
 - type: "Instant"
-  name: "publishedAt"
+  name: "published_at"
   label: "Published at"
   default: "now"
 
 - type: "Instant"
-  name: "expiresAt"
+  name: "expires_at"
   label: "Expires at"
   default: "+1year"
 ----
 
 == Output
 
-The value is stored as an ISO 8601 date-time string without timezone.
+*Value type:* `LocalDateTime` — not included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "myinstant": "2025-06-15T12:00:00"
+  "my_instant": "2025-06-15T12:00:00"
 }
 ----
 

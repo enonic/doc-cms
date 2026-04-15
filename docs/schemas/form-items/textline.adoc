@@ -19,12 +19,12 @@ image::TextLine.png[Text Line with various settings, 700]
 ----
 # Basic sample
 - type: "TextLine"
-  name: "mytextline"
+  name: "my_textline"
   label: "My TextLine"
 
 # Using regex validation and a default value.
 - type: "TextLine"
-  name: "socialsecuritynumber"
+  name: "social_security_number"
   label: "My SSN"
   occurrences:
     min: 1
@@ -66,11 +66,11 @@ by the spell checker. Text in the second is in Norsk Bokmål and correctly check
 
 == Output
 
-The value is stored as a string.
+*Value type:* `String` — included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "mytextline": "Some text value"
+  "my_textline": "Some text value"
 }
 ----

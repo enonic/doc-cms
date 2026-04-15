@@ -15,7 +15,7 @@ image::Content-selector-default.png[An input box with a dropdown options below i
 [source,yaml]
 ----
 - type: "ContentSelector"
-  name: "mycontentselector"
+  name: "my_content_selector"
   label: "My ContentSelector"
   occurrences:
     min: 0
@@ -163,13 +163,15 @@ All children of the current content's parent +
 
 == Output
 
-The stored value is the content ID (string) of the referenced item. When multiple selections are allowed, the value is an array.
+*Value type:* `Reference` — not included in `_alltext`
+
+The stored value is the content ID of the referenced item. When multiple selections are allowed, the value is an array.
 
 .Single reference
 [source,JSON]
 ----
 {
-  "mycontentselector": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+  "my_content_selector": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
 }
 ----
 
@@ -177,7 +179,7 @@ The stored value is the content ID (string) of the referenced item. When multipl
 [source,JSON]
 ----
 {
-  "mycontentselector": [
+  "my_content_selector": [
     "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
     "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ]

@@ -19,7 +19,7 @@ The following configuration is common for for most form items:
 [source,yaml]
 ----
 - type: "InputTypeName"  # <1>
-  name: "myname"
+  name: "my_name"
   label:  "My label" # <2>
   default: ""  # <3>
   help-text: "Help text here" # <4>
@@ -32,6 +32,15 @@ The following configuration is common for for most form items:
 <1> *type* and *name* are mandatory: +
 _name_ is used when storing the data in a property, and must be unique on each level. +
 _type_ refers to one of the many input types which are listed below.
++
+NOTE: Use `snake_case` (lowercase with underscores) for all names. Capital letters are flattened during indexing which can cause unexpected query behavior. The `snake_case` convention also ensures clean field names in the <<../apis/graphql#, GraphQL API>>.
++
+[source,yaml]
+----
+name: "my_field_name"    # Recommended
+name: "myFieldName"      # Avoid - capitals are flattened in the index
+name: "myfieldname"      # Avoid - hard to read
+----
 
 <2> *label* is another mandatory field that holds the human readable value that will be displayed when listing the input type control in the administrative interface.
  

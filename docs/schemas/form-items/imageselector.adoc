@@ -16,7 +16,7 @@ image::Image-selector.png[Input box with a grid of images to select below it, 50
 [source,yaml]
 ----
 - type: "ImageSelector"
-  name: "myimage"
+  name: "my_image"
   label: "My Image"
   occurrences:
     min: 0
@@ -31,11 +31,13 @@ image::Image-selector.png[Input box with a grid of images to select below it, 50
 
 == Output
 
-The stored value is the content ID (string) of the selected image. Like <<contentselector#, ContentSelector>>, the value is a reference to the image content item.
+*Value type:* `Reference` — not included in `_alltext`
+
+The stored value is the content ID of the selected image. Like <<contentselector#, ContentSelector>>, the value is a reference to the image content item.
 
 [source,JSON]
 ----
 {
-  "myimage": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+  "my_image": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
 }
 ----

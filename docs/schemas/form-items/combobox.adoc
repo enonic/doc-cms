@@ -18,7 +18,7 @@ image::Combobox.png[two options, both can be selected via checkboxes, 700]
 [source,yaml]
 ----
 - type: "ComboBox"
-  name: "mycombobox"
+  name: "my_combobox"
   label: "My Combobox"
   occurrences:
     min: 1
@@ -35,13 +35,15 @@ image::Combobox.png[two options, both can be selected via checkboxes, 700]
 
 == Output
 
+*Value type:* `String` — not included in `_alltext`
+
 When a single option is selected, the value is returned as a string. When multiple options are selected (via `occurrences`), the values are returned as an array.
 
 .Single selection
 [source,JSON]
 ----
 {
-  "mycombobox": "one"
+  "my_combobox": "one"
 }
 ----
 
@@ -49,7 +51,7 @@ When a single option is selected, the value is returned as a string. When multip
 [source,JSON]
 ----
 {
-  "mycombobox": [
+  "my_combobox": [
     "one",
     "two"
   ]

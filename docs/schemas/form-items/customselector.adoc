@@ -21,7 +21,7 @@ Below are several sample usages of CustomSelector:
 ----
 # Basic Sample
 - type: "CustomSelector"
-  name: "mycustomselector"
+  name: "my_custom_selector"
   label: "My Custom Selector"
   occurrences:
     min: 0
@@ -30,7 +30,7 @@ Below are several sample usages of CustomSelector:
 
 # Sample with parameters
 - type: "CustomSelector"
-  name: "musicTrack"
+  name: "music_track"
   label: "Intro song"
   service: "spotify-music-selector"
   param:  # <2>
@@ -41,7 +41,7 @@ Below are several sample usages of CustomSelector:
 
 # Gallery mode
 - type: "CustomSelector"
-  name: "albumCover"
+  name: "album_cover"
   label: "Album cover"
   service: "spotify-album-cover-selector"
   galleryMode: true  # <3>
@@ -111,6 +111,30 @@ Sample JSON response from a CustomSelector service:
         "type": "image/svg+xml"
       }
     }
+  ]
+}
+----
+
+== Output
+
+*Value type:* `String` — not included in `_alltext`
+
+The stored value is the `id` of the selected item. When multiple selections are allowed, the value is an array.
+
+[source,JSON]
+----
+{
+  "my_custom_selector": "1"
+}
+----
+
+.Multiple selections
+[source,JSON]
+----
+{
+  "my_custom_selector": [
+    "1",
+    "2"
   ]
 }
 ----

@@ -16,7 +16,7 @@ image::TextArea.png[Text Area with various settings, 700]
 [source,yaml]
 ----
 - type: "TextArea"
-  name: "mytextarea"
+  name: "my_textarea"
   label: "My TextArea"
   default: "Default text goes here"  # <1>
   max-length: 42  # <2>
@@ -30,11 +30,11 @@ NOTE: Contents of TextArea support browser based spellcheckers in the same way a
 
 == Output
 
-The value is stored as a plain text string.
+*Value type:* `String` — included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "mytextarea": "This is plain text.\nLine breaks are preserved."
+  "my_textarea": "This is plain text.\nLine breaks are preserved."
 }
 ----

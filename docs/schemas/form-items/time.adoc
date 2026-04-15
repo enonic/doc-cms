@@ -16,7 +16,7 @@ image::Time-selector.png[input field with a hour and minute selector above it, 7
 [source,yaml]
 ----
 - type: "Time"
-  name: "mytime"
+  name: "my_time"
   label: "My Time"
   default: "13:22"  # <1>
 ----
@@ -45,11 +45,11 @@ If `<default>` value is set for an input, the Time picker will display "*Set def
 
 == Output
 
-The value is stored as a time string in 24h format.
+*Value type:* `LocalTime` — not included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "mytime": "13:22"
+  "my_time": "13:22"
 }
 ----

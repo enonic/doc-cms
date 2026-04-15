@@ -19,7 +19,7 @@ image::Geo-point.png[text input with a longitude and latitude numbers, 700]
 [source,yaml]
 ----
 - type: "GeoPoint"
-  name: "mygeopoint"
+  name: "my_geopoint"
   label: "My GeoPoint"
   occurrences:
     min: 0
@@ -30,11 +30,11 @@ image::Geo-point.png[text input with a longitude and latitude numbers, 700]
 
 == Output
 
-The value is stored as a comma-separated string of latitude and longitude.
+*Value type:* `GeoPoint` — not included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "mygeopoint": "51.5,-0.1"
+  "my_geopoint": "51.5,-0.1"
 }
 ----

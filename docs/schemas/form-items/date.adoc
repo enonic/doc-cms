@@ -17,7 +17,7 @@ image::Date-selector.png[Input field with a calander above it and a blue ok butt
 [source,yaml]
 ----
 - type: "Date"
-  name: "mydate"
+  name: "my_date"
   label: "My Date"
   default: "2011-09-12"  # <1>
 ----
@@ -48,11 +48,11 @@ image::Date-selector-default.png[Date selector with default value, 500]
 
 == Output
 
-The value is stored as a date string in ISO 8601 format.
+*Value type:* `LocalDate` — not included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "mydate": "2016-12-31"
+  "my_date": "2016-12-31"
 }
 ----
