@@ -550,12 +550,23 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Multiple occurrences</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "my_time": [
+    "08:00",
+    "13:22"
+  ]
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

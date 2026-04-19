@@ -435,18 +435,133 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-right">
 <div id="header">
 <h1>Media indexing</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#what_gets_indexed">What gets indexed</a></li>
+<li><a href="#full_text_search_example">Full-text search example</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>When a file is uploaded to XP, its textual content and embedded metadata are extracted and indexed automatically using <a href="https://tika.apache.org/">Apache Tika</a>. The contents of PDFs, Word documents, spreadsheets, presentations, and other text-bearing files become searchable alongside regular editorial content — no extra configuration required.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what_gets_indexed"><a class="link" href="#what_gets_indexed">What gets indexed</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Readable text content</strong> — Tika extracts the readable text from text-bearing formats (the words inside a PDF, Word document, spreadsheet, etc.) and stores it in the attachment&#8217;s <code>text</code> field. That text is added to the <code>_alltext</code> index, the default target for full-text search queries.</p>
+</li>
+<li>
+<p><strong>Standard fields</strong> — mime type, file size, and original file name are stored in the attachment fields and searchable for every media type.</p>
+</li>
+<li>
+<p><strong>Additional fields</strong> — <code>media:image</code> content has several standard fields, as well as mixins under <code>x.media.*</code> (EXIF, IPTC, and XMP mapped to <code>imageInfo</code>, <code>cameraInfo</code>, <code>gpsInfo</code>), making camera settings, GPS coordinates, and dimensions directly queryable. See <a href="image.ahtml#automatic-metadata-extraction">Image content type</a> for the full field catalogue.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Apart from images, built-in media types do not produce structured metadata. Tika extracts only the readable content — not file metadata — so properties such as document page counts or video durations are not captured and cannot be searched.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="full_text_search_example"><a class="link" href="#full_text_search_example">Full-text search example</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A full-text query matches the extracted content of every media item alongside editorial text fields. The query below finds all content — including PDFs, Word documents, and any regular content type — where indexed text contains the word "quarterly":</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDsl(
+      query: { fulltext: { fields: ["_alltext"], query: "quarterly" } },
+      first: 20
+    ) {
+      _id
+      displayName
+      type
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "_id": "a1b2c3d4-...",
+          "displayName": "Q1 report.pdf",
+          "type": "media:document"
+        },
+        {
+          "_id": "e5f6g7h8-...",
+          "displayName": "Quarterly review",
+          "type": "com.example.myapp:article"
+        }
+      ]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To restrict a search to media only, add a <code>type</code> filter (see <a href="../querying.ahtml">Querying</a> for the full DSL reference):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDsl(
+      query: {
+        boolean: {
+          must: [
+            { fulltext: { fields: ["_alltext"], query: "quarterly" } },
+            { matchAll: {} }
+          ]
+        }
+      },
+      contentTypes: ["media:document", "media:spreadsheet", "media:presentation"],
+      first: 20
+    ) {
+      _id
+      displayName
+      type
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

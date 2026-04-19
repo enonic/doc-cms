@@ -441,6 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
 <li><a href="#output">Output</a></li>
 </ul>
@@ -451,6 +452,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>A simple input for adding free-text tags. Tags will be autocompleted based on tags in other items with the same property name.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/Tag.png" alt="Tag input with autocompletion" width="700">
+</div>
 </div>
 </div>
 </div>
@@ -494,7 +505,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

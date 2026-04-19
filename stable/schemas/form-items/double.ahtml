@@ -513,12 +513,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Multiple occurrences</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "my_double": [
+    3.89,
+    1.41
+  ]
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

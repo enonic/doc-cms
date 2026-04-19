@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Item Set</title>
+<title>Image content type (media:image)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Item Set</h1>
+<h1>Image content type (media:image)</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#appearance">Appearance</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#output">Output</a></li>
+<li><a href="#standard_fields">Standard fields</a></li>
+<li><a href="#extensibility">Extensibility</a></li>
+<li><a href="#automatic_metadata_extraction">Automatic metadata extraction</a>
+<ul class="sectlevel2">
+<li><a href="#mediaimage">media:image</a></li>
+<li><a href="#mediaimageinfo">media:imageInfo</a></li>
+<li><a href="#mediacamerainfo">media:cameraInfo</a></li>
+<li><a href="#mediagpsinfo">media:gpsInfo</a></li>
+</ul>
+</li>
+<li><a href="#delivery">Delivery</a></li>
+<li><a href="#querying_via_graphql">Querying via GraphQL</a></li>
+<li><a href="#see_also">See also</a></li>
 </ul>
 </div>
 </div>
@@ -451,174 +461,407 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Item sets provide a special capability that allows you to nest form items.</p>
+<p><code>media:image</code> is the built-in content type for bitmap images — JPEG, PNG, WebP, and similar formats. An image content item is created automatically when a supported file is uploaded; XP selects the concrete media type based on the file&#8217;s mime type.</p>
 </div>
-<div class="paragraph">
-<p>Item sets are both visually and semantically grouped as the name of the item set is used in the persisted property structure. An item set actually produces a property set.</p>
-</div>
-<div class="paragraph">
-<p>A new or a single occurrence of an item set is by default expanded and can be collapsed by a click anywhere inside the item set header.</p>
-</div>
-<div class="paragraph">
-<p>Multiple occurrences of an item set will be collapsed by default to ensure better readability of a form containing several occurrences of complex item sets.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Below: A single instance of an itemset for "Contact info".</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-1.png" alt="Single expanded item-set" width="673">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: The label of an item set will dynamically adapt to reflect  content inside of it.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-2.png" alt="Two collapsed item sets" width="where the label reflects the text inside" height="663">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: Collapse item sets to get an overview and easily organize the list of items.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-3.png" alt="Context menu allows to add or remove new items within the list" width="665">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: Easily add new items within a list of item sets.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-4.png" alt="Item-set with context menu" width="690">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: Item sets may be nested to support complex content models.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-5.png" alt="Nested item-sets" width="670">
-</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:media</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>false</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="standard_fields"><a class="link" href="#standard_fields">Standard fields</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The definition below will allow for multiple entries of phone numbers with labels:</p>
+<p>The <code>media:image</code> content type defines a small set of editorial fields:</p>
 </div>
-<div class="listingblock">
-<div class="title">Item Set example with two inputs</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ItemSet"
-  name: "contact_info"  <i class="conum" data-value="1"></i><b>(1)</b>
-  label:  <i class="conum" data-value="2"></i><b>(2)</b>
-    text: "Contact Info"
-    i18n: "contact_info.label"
-  occurrences:  <i class="conum" data-value="3"></i><b>(3)</b>
-    min: 0
-    max: 0
-  items:
-    - type: "TextLine"
-      name: "label"
-      label: "Label"
-      occurrences:
-        min: 0
-        max: 1
-    - type: "TextLine"
-      name: "phone_number"
-      label: "Phone Number"
-      occurrences:
-        min: 0
-        max: 1</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>name</strong> defines the mapping to the property name</td>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>caption</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Visible image caption or longer description. Often prefilled from embedded metadata on upload.</p></td>
 </tr>
 <tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>label</strong> - The displayed identfier of the input.</td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>altText</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alternative text used for accessibility and fallback rendering.</p></td>
 </tr>
 <tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>occurences</strong> control the minimum and maximum instances of the ItemSet that may be created</td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artist</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Photographer or creator credit.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>copyright</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rights information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Free-text tags, searchable alongside other content tags.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>_name</code> (used in the URL path) and <code>displayName</code> (shown in listings) are inherited from the <code>Content</code> interface — see <a href="../content.ahtml#standard-properties">standard content properties</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extensibility"><a class="link" href="#extensibility">Extensibility</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like any other content type, <code>media:image</code> can be extended with custom <a href="../content/mixins.ahtml">mixins</a> to add application-specific fields — for example, a per-image rights matrix or an internal categorisation taxonomy.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="automatic_metadata_extraction"><a class="link" href="#automatic_metadata_extraction">Automatic metadata extraction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When an image is uploaded, Enonic uses <a href="https://tika.apache.org/">Apache Tika</a> to extract embedded metadata following the EXIF, IPTC, and XMP standards. The extracted values populate a set of mixins automatically, making camera settings, GPS coordinates, and file characteristics immediately searchable — see <a href="media-indexing.ahtml">Media indexing</a> for how full-text search works across extracted content.</p>
+</div>
+<div class="paragraph">
+<p>The tables below list the standard mappings from Tika metadata properties to Enonic fields.</p>
+</div>
+<div class="sect2">
+<h3 id="mediaimage"><a class="link" href="#mediaimage">media:image</a></h3>
+<div class="paragraph">
+<p>Editorial fields on the content type that are pre-filled from embedded metadata when present. Editors can override or clear these values.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Tika property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>caption</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dc:description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Caption or description. Typically read from IPTC <em>Description</em> or <em>Caption-Abstract</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>altText</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dc:description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defaults to the same source as <code>caption</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>copyright</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dc:rights</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rights information or photographer name.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artist</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dc:creator</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creator credit.</p></td>
+</tr>
+</tbody>
 </table>
 </div>
-<div class="admonitionblock tip">
-<table>
+<div class="sect2">
+<h3 id="mediaimageinfo"><a class="link" href="#mediaimageinfo">media:imageInfo</a></h3>
+<div class="paragraph">
+<p>Basic image characteristics, applied as a mixin.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-It is also possible to nest item sets inside each other
-</td>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Tika property</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pixelWidth</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tiff:ImageWidth</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image width in pixels.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pixelHeight</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tiff:ImageLength</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image height in pixels.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>byteSize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Content-Length</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File size in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contentType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Content-Type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MIME type, e.g. <code>image/jpeg</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="mediacamerainfo"><a class="link" href="#mediacamerainfo">media:cameraInfo</a></h3>
+<div class="paragraph">
+<p>Camera and exposure settings from EXIF.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Tika property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>make</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tiff:Make</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Camera manufacturer.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>model</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tiff:Model</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Camera model.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lens</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exif:LensModel</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lens model.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>iso</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exif:IsoSpeedRatings</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ISO speed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>focalLength</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exif:FocalLength</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Focal length in mm.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fNumber</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exif:FNumber</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aperture (F-number).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposureTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exif:ExposureTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shutter speed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="mediagpsinfo"><a class="link" href="#mediagpsinfo">media:gpsInfo</a></h3>
+<div class="paragraph">
+<p>Geolocation extracted from the image&#8217;s GPS metadata.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Tika property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>geoPoint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>geo:lat</code>, <code>geo:long</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latitude and longitude.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>altitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>geo:alt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Altitude in meters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>direction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exif:GPSImgDirection</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Direction the camera was facing.</p></td>
+</tr>
+</tbody>
 </table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<h2 id="delivery"><a class="link" href="#delivery">Delivery</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Value type:</strong> <code>Set</code> — child properties are indexed individually by their respective types.</p>
+<p>Images are served through two different APIs depending on what you need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>imageUrl(scale: &#8230;&#8203;, format: &#8230;&#8203;, quality: &#8230;&#8203;)</code> routes through the <a href="../apis/image.ahtml">Image API</a> and returns a transformed variant — scaled, cropped, or re-encoded on the fly. This is what front-ends typically use.</p>
+</li>
+<li>
+<p><code>mediaUrl</code> routes through the <a href="../apis/attachment.ahtml">Attachment API</a> and returns the raw, unmodified <code>source</code> attachment — the original uploaded file.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>The above definition would produce a property format like this:</p>
+<p>Both fields are generated by Guillotine and can be read in the same query that returns the image&#8217;s data — see the example below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="querying_via_graphql"><a class="link" href="#querying_via_graphql">Querying via GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A typical headless client reads editorial fields, the delivery URL, and a subset of the extracted mixins in a single query:</p>
 </div>
 <div class="listingblock">
-<div class="title">Example with a single item</div>
 <div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "contact_info": {
-    "label": "home",
-    "phone_number": "+4712345678"
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/photos/stage.jpg") {
+      _id
+      displayName
+      type
+      ... on media_Image {
+        mediaUrl
+        imageUrl(scale: "width(1200)")
+        data {
+          caption
+          altText
+          artist
+          copyright
+          tags
+        }
+        x {
+          media {
+            imageInfo {
+              pixelWidth
+              pixelHeight
+              byteSize
+              contentType
+            }
+            cameraInfo {
+              make
+              model
+              iso
+              focalLength
+              exposureTime
+            }
+            gpsInfo {
+              geoPoint
+              altitude
+            }
+          }
+        }
+      }
+    }
   }
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Example with multiple items</div>
+<div class="title">Response</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "contact_info": [
-    {
-      "label": "home",
-      "phone_number": "+4712345678"
-    },
-    {
-      "label": "office",
-      "phone_number": "+123456789"
+  "data": {
+    "guillotine": {
+      "get": {
+        "_id": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+        "displayName": "Stage",
+        "type": "media:image",
+        "mediaUrl": "/api/media:attachment/my-project/f3076b5c-...:&lt;fingerprint&gt;/stage.jpg",
+        "imageUrl": "/api/media:image/my-project/f3076b5c-...:&lt;fingerprint&gt;/width-1200/stage.jpg",
+        "data": {
+          "caption": "Opening night.",
+          "altText": "Audience seated facing the stage.",
+          "artist": "Ana Doe",
+          "copyright": "© 2026 Example Productions",
+          "tags": ["launch", "event-2026"]
+        },
+        "x": {
+          "media": {
+            "imageInfo": {
+              "pixelWidth": 4032,
+              "pixelHeight": 3024,
+              "byteSize": 5218340,
+              "contentType": "image/jpeg"
+            },
+            "cameraInfo": {
+              "make": "FUJIFILM",
+              "model": "X-T5",
+              "iso": 400,
+              "focalLength": 35,
+              "exposureTime": "1/125"
+            },
+            "gpsInfo": {
+              "geoPoint": "59.911,10.757",
+              "altitude": 23.5
+            }
+          }
+        }
+      }
     }
-  ]
+  }
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Arrays are added based on the actual number of items created, not the schema definition.
-</td>
-</tr>
-</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see_also"><a class="link" href="#see_also">See also</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../apis/image.ahtml">Image API</a> — URL structure, scaling, and format conversion for image delivery.</p>
+</li>
+<li>
+<p><a href="media-indexing.ahtml">Media indexing</a> — how extracted text and metadata become searchable.</p>
+</li>
+<li>
+<p><a href="media-types.ahtml">Media content types</a> — the full list of built-in media types.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

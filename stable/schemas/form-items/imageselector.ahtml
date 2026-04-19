@@ -512,12 +512,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Multiple occurrences</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "my_image": [
+    "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ]
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

@@ -441,10 +441,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a>
 <ul class="sectlevel2">
-<li><a href="#service_request">Service Request</a></li>
-<li><a href="#service_response">Service Response</a></li>
+<li><a href="#option_json_format">Option JSON format</a></li>
 </ul>
 </li>
 <li><a href="#output">Output</a></li>
@@ -472,11 +472,20 @@ Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-se
 </div>
 </div>
 <div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/Custom-selector.png" alt="Custom selector dropdown with options from an external service" width="700">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Application developers must create a service that returns results according to the required JSON format, and then specify the service name in the input config. For information on creating a service see the
-:ref:`services` section.</p>
+<p>The <code>service</code> attribute points to an HTTP endpoint (a function provided by an Enonic XP app) that returns matching options as JSON. See the Enonic XP app-development docs for how to implement that function.</p>
 </div>
 <div class="paragraph">
 <p>Below are several sample usages of CustomSelector:</p>
@@ -515,69 +524,22 @@ Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-se
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>service</strong> holds the name of a JavaScript service file, located under <code>/resources/services/[my-custom-selector]/[my-custom-selector].js</code>. You can also refer to a service file in another application, for example <strong>com.myapplication.app:myservice</strong>.</td>
+<td><strong>service</strong> — the name of the service function that supplies options. Can reference a function in another application using the <code>com.myapplication.app:myservice</code> form.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>param</strong> lets you pass parameters to the service. This allows for the service to be used in different contexts. There can be multiple parameters or none. The parameters will be included in the HTTP request to the service as name-value query parameters.</td>
+<td><strong>param</strong> lets you pass parameters to the service so the same function can be reused across fields. Parameters are sent as query-string name/value pairs.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>galleryMode</strong> set to <code>true</code> will display the options in a gallery style (three big images in a row), similar to the appearance of an <a href="imageselector.ahtml#appearance">ImageSelector</a>. Useful when images should be emphasized.</td>
+<td><strong>galleryMode</strong> set to <code>true</code> renders options in a gallery style (three big images in a row), similar to <a href="imageselector.ahtml#appearance">ImageSelector</a>. Useful when images should be emphasized.</td>
 </tr>
 </table>
 </div>
 <div class="sect2">
-<h3 id="service_request"><a class="link" href="#service_request">Service Request</a></h3>
+<h3 id="option_json_format"><a class="link" href="#option_json_format">Option JSON format</a></h3>
 <div class="paragraph">
-<p>In addition to the param values, the service will receive the following query parameters in the HTTP request:</p>
-</div>
-<div class="paragraph">
-<p><strong>ids</strong><br>
-Array of item ids already selected in the CustomSelector. The service is expected to return the items with the specified ids.</p>
-</div>
-<div class="paragraph">
-<p><strong>start</strong><br>
-Index of the first item expected. Used for pagination of the results.</p>
-</div>
-<div class="paragraph">
-<p><strong>count</strong><br>
-Maximum number of items expected. Used for pagination of the results.</p>
-</div>
-<div class="paragraph">
-<p><strong>query</strong><br>
-String with the search text typed by the user in the CustomSelector input field.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="service_response"><a class="link" href="#service_response">Service Response</a></h3>
-<div class="paragraph">
-<p>The service controller must have a GET handler that returns results in JSON format.
-The JSON object returned must include <code>total</code> and <code>count</code> properties as numbers, and <code>hits</code> containing an array of items.
-Each item in the hits property must have the following fields:</p>
-</div>
-<div class="paragraph">
-<p><strong>id</strong><br>
-Unique Id of the option</p>
-</div>
-<div class="paragraph">
-<p><strong>displayName</strong><br>
-Option title</p>
-</div>
-<div class="paragraph">
-<p><strong>description (optional)</strong><br>
-Detailed description</p>
-</div>
-<div class="paragraph">
-<p><strong>iconUrl (optional)</strong><br>
-Path to the thumbnail image file</p>
-</div>
-<div class="paragraph">
-<p><strong>icon (optional)</strong><br>
-Inline image content (for example, SVG)</p>
-</div>
-<div class="paragraph">
-<p>Sample JSON response from a CustomSelector service:</p>
+<p>The service function returns JSON with <code>total</code>, <code>count</code>, and a <code>hits</code> array. Each hit becomes a selectable option:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -588,7 +550,7 @@ Inline image content (for example, SVG)</p>
     {
       "id": "1",
       "displayName": "Option number 1",
-      "description": "External SVG file is used as icon",
+      "description": "Short description shown under the title",
       "iconUrl": "/some/path/images/number_1.svg"
     },
     {
@@ -603,6 +565,12 @@ Inline image content (for example, SVG)</p>
   ]
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Each hit requires <code>id</code> and <code>displayName</code>. <code>description</code>, <code>iconUrl</code>, and inline <code>icon</code> are optional. The <code>id</code> is what gets stored when the option is selected — see <a href="#output">Output</a>.</p>
+</div>
+<div class="paragraph">
+<p>For how to implement the service function (request parameters, pagination, filtering), see the Enonic XP app-development docs.</p>
 </div>
 </div>
 </div>
@@ -639,7 +607,7 @@ Inline image content (for example, SVG)</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

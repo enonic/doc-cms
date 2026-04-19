@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Item Set</title>
+<title>Content lifecycle</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Item Set</h1>
+<h1>Content lifecycle</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#appearance">Appearance</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#output">Output</a></li>
+<li><a href="#publish_state">Publish state</a></li>
+<li><a href="#change_state">Change state</a></li>
+<li><a href="#workflow_state">Workflow state</a></li>
+<li><a href="#querying_via_graphql">Querying via GraphQL</a></li>
+<li><a href="#audit_trail">Audit trail</a></li>
 </ul>
 </div>
 </div>
@@ -451,120 +453,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Item sets provide a special capability that allows you to nest form items.</p>
+<p>Every content item carries three independent state dimensions — what the public sees, how the draft compares to the published version, and where the item sits in the editorial workflow. Content Studio surfaces each dimension in a different UI surface so everyday use stays uncluttered.</p>
 </div>
-<div class="paragraph">
-<p>Item sets are both visually and semantically grouped as the name of the item set is used in the persisted property structure. An item set actually produces a property set.</p>
-</div>
-<div class="paragraph">
-<p>A new or a single occurrence of an item set is by default expanded and can be collapsed by a click anywhere inside the item set header.</p>
-</div>
-<div class="paragraph">
-<p>Multiple occurrences of an item set will be collapsed by default to ensure better readability of a form containing several occurrences of complex item sets.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Below: A single instance of an itemset for "Contact info".</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-1.png" alt="Single expanded item-set" width="673">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: The label of an item set will dynamically adapt to reflect  content inside of it.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-2.png" alt="Two collapsed item sets" width="where the label reflects the text inside" height="663">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: Collapse item sets to get an overview and easily organize the list of items.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-3.png" alt="Context menu allows to add or remove new items within the list" width="665">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: Easily add new items within a list of item sets.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-4.png" alt="Item-set with context menu" width="690">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: Item sets may be nested to support complex content models.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-5.png" alt="Nested item-sets" width="670">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The definition below will allow for multiple entries of phone numbers with labels:</p>
-</div>
-<div class="listingblock">
-<div class="title">Item Set example with two inputs</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ItemSet"
-  name: "contact_info"  <i class="conum" data-value="1"></i><b>(1)</b>
-  label:  <i class="conum" data-value="2"></i><b>(2)</b>
-    text: "Contact Info"
-    i18n: "contact_info.label"
-  occurrences:  <i class="conum" data-value="3"></i><b>(3)</b>
-    min: 0
-    max: 0
-  items:
-    - type: "TextLine"
-      name: "label"
-      label: "Label"
-      occurrences:
-        min: 0
-        max: 1
-    - type: "TextLine"
-      name: "phone_number"
-      label: "Phone Number"
-      occurrences:
-        min: 0
-        max: 1</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>name</strong> defines the mapping to the property name</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>label</strong> - The displayed identfier of the input.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>occurences</strong> control the minimum and maximum instances of the ItemSet that may be created</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-It is also possible to nest item sets inside each other
+The publish and change states were split into two separate indicators in XP {release} / Content Studio 6. Earlier versions combined them into a single status.
 </td>
 </tr>
 </table>
@@ -572,39 +470,199 @@ It is also possible to nest item sets inside each other
 </div>
 </div>
 <div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<h2 id="publish_state"><a class="link" href="#publish_state">Publish state</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Value type:</strong> <code>Set</code> — child properties are indexed individually by their respective types.</p>
+<p>The publish state describes whether the item is visible to public consumers — readers of the <code>master</code> branch. It is derived from the publish window and the archive flag, not set directly by editors.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">State</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OFFLINE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Never published, or explicitly unpublished. Not present on the <code>master</code> branch.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SCHEDULED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Published with <code>publish.from</code> in the future. Present on <code>master</code> but not yet visible to the public.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ONLINE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Currently published and within the publish window — visible to the public.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EXPIRED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Was published, but <code>publish.to</code> is in the past. Still on <code>master</code>, no longer visible to the public.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARCHIVED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Moved to the archive. Not returned by standard queries but preserved for restoration.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The publish state is what appears in Content Studio list views — the indicator the editor sees at a glance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="change_state"><a class="link" href="#change_state">Change state</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The change state describes how the current draft compares to the published version. It is surfaced during edit and publish dialogs, where the editor needs to understand what will actually change on publish.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">State</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NEW</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exists only in draft. There is no published version yet.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>MODIFIED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Published, with uncommitted draft edits. Publishing will update the <code>master</code> copy.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>MOVED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Published, but the draft has since been moved to a different path. Publishing will update the path on <code>master</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>UNPUBLISHED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Was published, has since been unpublished. The draft remains and can be published again.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="workflow_state"><a class="link" href="#workflow_state">Workflow state</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The workflow state is a separate, editor-controlled dimension that indicates whether the draft is considered complete.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">State</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IN_PROGRESS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The draft is being worked on.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>READY</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The draft is considered complete and ready for publishing.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>A content item can only be promoted from <code>IN_PROGRESS</code> to <code>READY</code> when all checks pass. One check currently runs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Validity</strong> — all required fields have values, and every value satisfies the form&#8217;s validation rules (types, occurrences, regex patterns, and so on).</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>The above definition would produce a property format like this:</p>
+<p>If the validity check fails, Content Studio highlights the fields that need attention and the promotion is blocked.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="querying_via_graphql"><a class="link" href="#querying_via_graphql">Querying via GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The publish window and audit timestamps are exposed directly on every content item:</p>
 </div>
 <div class="listingblock">
-<div class="title">Example with a single item</div>
 <div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "contact_info": {
-    "label": "home",
-    "phone_number": "+4712345678"
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      _id
+      displayName
+      createdTime
+      modifiedTime
+      publish {
+        from
+        to
+        first
+      }
+    }
   }
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Example with multiple items</div>
+<div class="title">Response</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "contact_info": [
-    {
-      "label": "home",
-      "phone_number": "+4712345678"
-    },
-    {
-      "label": "office",
-      "phone_number": "+123456789"
+  "data": {
+    "guillotine": {
+      "get": {
+        "_id": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+        "displayName": "Hello world",
+        "createdTime": "2026-01-10T10:00:00Z",
+        "modifiedTime": "2026-01-15T08:00:00Z",
+        "publish": {
+          "from": "2026-01-15T08:00:00Z",
+          "to": null,
+          "first": "2026-01-15T08:00:00Z"
+        }
+      }
     }
-  ]
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Find every item scheduled to go online in the future:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDsl(
+      query: {
+        range: {
+          field: "publish.from",
+          from: { instant: "now" }
+        }
+      },
+      sort: { field: "publish.from", direction: ASC }
+    ) {
+      _id
+      displayName
+      publish { from }
+    }
+  }
 }</code></pre>
 </div>
 </div>
@@ -615,10 +673,21 @@ It is also possible to nest item sets inside each other
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Arrays are added based on the actual number of items created, not the schema definition.
+Guillotine queries the <code>master</code> branch by default. Content in the <code>OFFLINE</code>, <code>SCHEDULED</code>, or draft-only states lives on <code>draft</code>, so accessing them requires a Guillotine request against the draft branch — see the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for branch selection and the exact field names that expose the derived publish, change, and workflow states.
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="audit_trail"><a class="link" href="#audit_trail">Audit trail</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every content item preserves enough history to reconstruct what changed, when, and by whom — see <a href="versions.ahtml">Versions</a> for how to access prior states and compare them.</p>
+</div>
+<div class="paragraph">
+<p>Full audit properties (<code>creator</code>, <code>createdTime</code>, <code>modifier</code>, <code>modifiedTime</code>, <code>owner</code>, <code>_timestamp</code>) are documented under <a href="../content.ahtml#standard-properties">standard content properties</a>.</p>
 </div>
 </div>
 </div>

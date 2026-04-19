@@ -461,6 +461,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>A pop-up box with a calendar and time selector allows easy editing, similar to <a href="datetime.ahtml">DateTime</a> but without timezone selection.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Instant-selector.png" alt="Input field with calendar and time selector above it" width="500">
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -584,6 +589,17 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Multiple occurrences</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "my_instant": [
+    "2025-06-15T12:00:00",
+    "2025-07-01T09:30:00"
+  ]
+}</code></pre>
+</div>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -601,7 +617,7 @@ Unlike <a href="datetime.ahtml">DateTime</a> which includes a timezone offset (e
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

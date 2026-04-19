@@ -443,7 +443,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#macro_instructions">Macro instructions</a></li>
 <li><a href="#descriptor">Descriptor</a></li>
-<li><a href="#controller">Controller</a></li>
+<li><a href="#macro_function">Macro function</a></li>
+<li><a href="#output">Output</a></li>
 <li><a href="#built_in_macros">Built-in macros</a></li>
 </ul>
 </div>
@@ -512,7 +513,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The config form does not support nested elements, so <a href="schemas/item-set.ahtml">Item Sets</a> are not allowed in the macro config form. Also the <a href="schemas/input-types/htmlarea.ahtml">HtmlArea</a> input type is not allowed in the config form, since it may contain macros itself.
+The config form does not support nested elements, so <a href="../schemas/form-items/item-set.ahtml">Item Sets</a> are not allowed in the macro config form. Also the <a href="../schemas/form-items/htmlarea.ahtml">HtmlArea</a> input type is not allowed in the config form, since it may contain macros itself.
 </td>
 </tr>
 </table>
@@ -524,7 +525,7 @@ The config form does not support nested elements, so <a href="schemas/item-set.a
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-If you don&#8217;t have a input with the <code>name="body"</code>, the generated macro tag will be self closing <code>[disable][macro attr="" /][/disable]`</code>
+If the config form has no input named <code>body</code>, the generated macro tag will be self-closing — for example, <code>[macro attr="value"/]</code>.
 </td>
 </tr>
 </table>
@@ -557,7 +558,7 @@ form:
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The macro texts (display-name, description, label and help-text from config input types) can be provided in multiple languages. Visit <a href="schemas/localization.ahtml">Schema localization</a> for more details.
+The macro texts (display-name, description, label and help-text from config input types) can be provided in multiple languages. Visit <a href="../schemas/i18n.ahtml">Schema localization</a> for more details.
 </td>
 </tr>
 </table>
@@ -565,102 +566,24 @@ The macro texts (display-name, description, label and help-text from config inpu
 </div>
 </div>
 <div class="sect1">
-<h2 id="controller"><a class="link" href="#controller">Controller</a></h2>
+<h2 id="macro_function"><a class="link" href="#macro_function">Macro function</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When using the Enonic framework, optionally add a JavaScript controller to render the macro.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When using 3rd party front-end frameworks, the controller can also be used to provide a preview of the macro in Content Studio.
-</td>
-</tr>
-</table>
+<p>A macro is rendered by a function declared under <code>src/main/resources/site/macros/&lt;macroName&gt;/&lt;macroName&gt;.js</code>. The function receives a context with the macro&#8217;s <code>name</code>, <code>body</code>, and <code>params</code>, and returns the HTML to insert at the macro&#8217;s position.</p>
 </div>
 <div class="paragraph">
-<p>Its path follows the pattern <code>src/main/resources/site/macros/&lt;macroName&gt;/&lt;macroName&gt;.js</code></p>
+<p>Writing macro functions is an Enonic XP app-development task — see the Enonic XP app-development docs for the full context object, response shape, and page-contribution support.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>During HTML processing, Guillotine invokes each macro&#8217;s function and replaces the macro instruction with the returned HTML. See <a href="../richtext.ahtml#html-processing">HTML processing</a> for how to retrieve the rendered output via GraphQL.</p>
 </div>
 <div class="paragraph">
-<p>A macro controller must export a single <code>macro</code> function that takes a <code>context</code> parameter and returns a response object (see <a href="../framework/http.ahtml#http-response">HTTP Response</a>).</p>
-</div>
-<div class="paragraph">
-<p>The context parameter is a Javascript object with the following properties:</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">name</dt>
-<dd>
-<p>a string containing the macro name.</p>
-</dd>
-<dt class="hdlist1">body</dt>
-<dd>
-<p>a string containing the body of the macro instruction.</p>
-</dd>
-<dt class="hdlist1">params</dt>
-<dd>
-<p>an object with key-value pairs containing the macro parameters. The values are the strings from the macro instruction attributes.</p>
-</dd>
-<dt class="hdlist1">document</dt>
-<dd>
-<p>a string with the HTML document that contains the current macro. The document contains the raw source HTML, before any macro instructions have been executed, and before image or content URLs have been resolved. The document is only an input parameter to the macro, it cannot be modified.</p>
-</dd>
-<dt class="hdlist1">request</dt>
-<dd>
-<p>the request object.</p>
-</dd>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-js" data-lang="js">// Example usage: [currentUser defaultText="Anonymous"/]
-var authLib = require('/lib/xp/auth');
-var portalLib = require('/lib/xp/portal');
-
-exports.macro = function (context) {
-    var defaultText = context.params.defaultText;
-    var macroBody = context.body;
-
-    var user = authLib.getUser();
-    var body = '&lt;span&gt;' + macroBody || (user ? user.displayName : defaultText) + '&lt;/span&gt;';
-
-    var doc = context.document; // HTML document containing the current macro
-    var lineCount = doc.split(/\r\n|\r|\n/).length;
-    if (lineCount &lt;= 1) {
-        return {
-            body: ''
-        }
-    }
-
-    return {
-        body: body,
-        pageContributions: {
-            headEnd: [
-                '&lt;link rel="stylesheet" href="' + portalLib.assetUrl({path: 'css/current-user.css'}) + '"/&gt;'
-            ]
-        }
-    }
-};</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Note that only the <code>body</code> and <code>pageContributions</code> fields of the response are relevant for macro controllers.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-A macro controller can also use libraries, like any other JavaScript controller.
-</td>
-</tr>
-</table>
+<p>The HtmlArea GraphQL type also exposes a <code>macros</code> field that returns the list of macros used in a rich text value, without executing them — useful when the front-end renders macros itself.</p>
 </div>
 </div>
 </div>
@@ -715,7 +638,7 @@ A macro may optionally have its own specific icon. The icon can be assigned to t
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

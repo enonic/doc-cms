@@ -521,12 +521,23 @@ Contents of TextArea support browser based spellcheckers in the same way as desc
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Multiple occurrences</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "my_textarea": [
+    "First paragraph.",
+    "Second paragraph."
+  ]
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

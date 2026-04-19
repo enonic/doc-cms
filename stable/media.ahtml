@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="toc: right">
 <title>Media</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -439,64 +438,212 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article toc2 toc-right">
 <div id="header">
 <h1>Media</h1>
-<div class="details">
-<span id="author" class="author">toc: right</span><br>
-<span id="revnumber">version ,</span>
-<span id="revdate">where a file is the central element</span>
-</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#intro">Intro</a></li>
-<li><a href="#media_types">Media types</a></li>
-<li><a href="#uploading_and_authoring">Uploading and Authoring</a></li>
-<li><a href="#media_api">Media API</a></li>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#anatomy">Anatomy</a></li>
+<li><a href="#media_vs_attachments">Media vs attachments</a></li>
+<li><a href="#delivery_and_querying">Delivery and querying</a></li>
+<li><a href="#further_reading">Further reading</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic treats files just like any other content. This means that media items have a content type, can be organized in a hierarchy, have metadata and properties, and can be accessed via the APIs. Media items are stored in content projects, just like any other content item. They are indexed and can be searched for using Enonic&#8217;s Query API.</p>
+<p>Media are content items where an uploaded file is the primary payload. Every file uploaded to Enonic becomes its own content item — with a path, a content type, permissions, versioning, indexing, and API access — just like any other content.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="media_types"><a class="link" href="#media_types">Media types</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Because media are content, everything documented under <a href="content.ahtml">Content</a> applies: they live in <a href="projects.ahtml">projects</a>, can be <a href="content/references.ahtml">referenced</a> by other items, queried alongside regular content, and published through the normal <a href="content/lifecycle.ahtml">lifecycle</a>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="uploading_and_authoring"><a class="link" href="#uploading_and_authoring">Uploading and Authoring</a></h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="media_api"><a class="link" href="#media_api">Media API</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>What makes them different is the presence of an attached file. On upload, Enonic inspects the file&#8217;s mime type and assigns the appropriate concrete media type — <code>media:image</code>, <code>media:document</code>, <code>media:video</code>, and so on. See <a href="media/media-types.ahtml">Media content types</a> for the full list.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="anatomy"><a class="link" href="#anatomy">Anatomy</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>A media item bundles two things in a single content record:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>The content item itself</strong> — standard <a href="content.ahtml#standard-properties">content properties</a>, plus editorial fields specific to the media type (for images: <code>caption</code>, <code>altText</code>, <code>artist</code>, <code>copyright</code>, <code>tags</code>).</p>
+</li>
+<li>
+<p><strong>One or more attachments</strong> — the actual binary files, stored on the content item under the top-level <code>attachments</code> array.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Every media has at least one attachment</strong> — the original uploaded file. The content&#8217;s <code>data.media.attachment</code> field points to it by name, and the attachment itself is always tagged with <code>label: "source"</code>. This labelling keeps the original upload identifiable even when additional attachments are added later by editors or other apps.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example JSON for a media:document</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "_name": "q1-report.pdf",
+  "_path": "/site/files/q1-report.pdf",
+  "type": "media:document",
+  "displayName": "Q1 report",
 
+  "data": {
+    "media": {
+      "attachment": "q1-report.pdf"       <i class="conum" data-value="1"></i><b>(1)</b>
+    }
+  },
+
+  "attachments": [                        <i class="conum" data-value="2"></i><b>(2)</b>
+    {
+      "name": "q1-report.pdf",
+      "label": "source",                  <i class="conum" data-value="3"></i><b>(3)</b>
+      "mimeType": "application/pdf",
+      "size": 238764,
+      "binary": "q1-report.pdf",
+      "text": "Quarterly earnings overview..."
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>data.media.attachment</strong> — name of the primary attachment, always present. Concrete media types may add editorial fields alongside — for example, <code>media:image</code> adds <code>caption</code>, <code>altText</code>, <code>artist</code>, <code>copyright</code>, and <code>tags</code>. See <a href="media/image.ahtml#standard-fields">Image</a> for the image-specific fields.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>attachments</strong> — the actual binary files. For text-bearing formats (PDF, Word, etc.) the extracted <code>text</code> is stored here and contributes to full-text search.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>label: "source"</strong> — always set on the attachment created from the original upload, so the primary file stays distinguishable from any additional attachments.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Editorial fields and indexing behavior vary per type. See <a href="media/media-types.ahtml">Media content types</a> for the list and <a href="media/media-indexing.ahtml">Media indexing</a> for what gets extracted and searched per type.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="media_vs_attachments"><a class="link" href="#media_vs_attachments">Media vs attachments</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>"Attachment" is a more general mechanism than "media": any content item — not just media — can carry attachments, added through the <a href="schemas/form-items/attachmentuploader.ahtml">AttachmentUploader</a> form item.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Media</th>
+<th class="tableblock halign-left valign-top">Attachment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>What it is</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A content item whose primary purpose is to hold a file.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A file stored inside any content item, secondary to its editorial data.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Has own URL, permissions, lifecycle?</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes — it&#8217;s a full content item.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No — inherits from its parent content.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Referenced from other content?</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, by id — via ImageSelector, MediaSelector, or content references.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No — lives only inside its parent content.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Indexed for search as a separate hit?</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No — indexed alongside its parent.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Typical use</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shared assets: photos, PDFs, videos reused across the site.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supporting files specific to one content item, e.g. a form submission&#8217;s uploads.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In practice: if a file needs to be found, linked, published, or permissioned on its own, make it a media. If it only makes sense in the context of a single content item, attach it.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="content/attachments.ahtml">Attachments</a> for the attachment-within-content pattern.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="delivery_and_querying"><a class="link" href="#delivery_and_querying">Delivery and querying</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Media binaries and data are delivered through dedicated APIs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="apis/image.ahtml">Image API</a> — URL-based delivery with on-the-fly scaling, cropping, and format conversion for <code>media:image</code>.</p>
+</li>
+<li>
+<p><a href="apis/attachment.ahtml">Attachment API</a> — raw file delivery for any attachment, including the primary attachment on non-image media types.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Editorial fields, mixin metadata, and delivery URLs are all available through the headless GraphQL API — see <a href="media/image.ahtml#querying-via-graphql">Image</a> and <a href="media/media-types.ahtml#querying-via-graphql">Media types</a> for worked examples.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="further_reading"><a class="link" href="#further_reading">Further reading</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="media/media-types.ahtml">Media content types</a> — all built-in <code>media:*</code> types.</p>
+</li>
+<li>
+<p><a href="media/image.ahtml">Image content type</a> — the detailed reference for <code>media:image</code>, including standard fields and the full EXIF/IPTC/XMP → mixin mapping.</p>
+</li>
+<li>
+<p><a href="media/media-indexing.ahtml">Media indexing</a> — how file contents and metadata become searchable.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version <br>
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

@@ -447,6 +447,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#query_examples">Query examples</a>
+<ul class="sectlevel2">
+<li><a href="#find_pages_using_a_specific_part">Find pages using a specific part</a></li>
+<li><a href="#find_pages_using_a_specific_fragment">Find pages using a specific fragment</a></li>
+<li><a href="#find_pages_with_a_specific_part_config_value">Find pages with a specific part config value</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -455,7 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Like other schemas, component form values are automatically indexed, including adding text values to the <code>_allText</code> field. Additionally, fields like the component name also get indexed.</p>
+<p>Like other schemas, component form values are automatically indexed, including adding text values to the <code>_alltext</code> field. Additionally, fields like the component name also get indexed.</p>
 </div>
 </div>
 </div>
@@ -554,10 +561,100 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="query_examples"><a class="link" href="#query_examples">Query examples</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="find_pages_using_a_specific_part"><a class="link" href="#find_pages_using_a_specific_part">Find pages using a specific part</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDsl(
+      query: {
+        term: {
+          field: "components.part.descriptor",
+          value: { string: "com.enonic.app.superhero:featured" }
+        }
+      },
+      first: 20
+    ) {
+      _id
+      _path
+      displayName
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find_pages_using_a_specific_fragment"><a class="link" href="#find_pages_using_a_specific_fragment">Find pages using a specific fragment</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDsl(
+      query: {
+        term: {
+          field: "components.fragment.id",
+          value: { string: "5499dfd8-67c2-4712-a0d9-554b9817b4ad" }
+        }
+      }
+    ) {
+      _id
+      _path
+      displayName
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find_pages_with_a_specific_part_config_value"><a class="link" href="#find_pages_with_a_specific_part_config_value">Find pages with a specific part config value</a></h3>
+<div class="paragraph">
+<p>Component configs are addressable by the same flat path, with dots replaced for special characters. For example, the <code>showPostCount</code> flag on the <code>categories</code> part from <code>com.enonic.app.superhero</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDsl(
+      query: {
+        term: {
+          field: "components.part.config.com-enonic-app-superhero.categories.showPostCount",
+          value: { boolean: true }
+        }
+      }
+    ) {
+      _id
+      _path
+      displayName
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When excluding fragments from customer-facing search results, filter out the <code>portal:fragment</code> content type as well — fragment contents are indexed on the fragment itself, not on the pages that reference them.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

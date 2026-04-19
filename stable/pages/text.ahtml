@@ -444,6 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#usage">Usage</a></li>
 <li><a href="#rendering">Rendering</a></li>
+<li><a href="#querying_via_graphql">Querying via GraphQL</a></li>
 </ul>
 </div>
 </div>
@@ -486,17 +487,45 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Text components have specific requirements for styling and HTML output. They are optimized for use in combination with the <a href="../../framework.ahtml">Enonic Framework</a>. Consider implementing <a href="parts.ahtml">parts</a> with an HtmlArea input when using 3rd party frameworks.
+Text components have specific requirements for styling and HTML output, and are optimized for use with Enonic&#8217;s front-end toolkits. When rolling your own integration, consider implementing a <a href="parts.ahtml">part</a> with an HtmlArea input instead, which gives you explicit control over both the form and the output.
 </td>
 </tr>
 </table>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="querying_via_graphql"><a class="link" href="#querying_via_graphql">Querying via GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Text components appear in a page&#8217;s component list as <code>TextComponent</code>, with the rich text available as <code>value</code>. The same stored-vs-processed distinction applies as for regular <a href="../schemas/form-items/htmlarea.ahtml">HtmlArea</a> fields — see <a href="../richtext.ahtml#html-processing">HTML processing</a> for how <code>content://</code> links, image references, and macros are resolved.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      page {
+        regions {
+          components {
+            ... on TextComponent {
+              path
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

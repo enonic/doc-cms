@@ -5,8 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="imagesdir: images">
-<title>Rich Text</title>
+<title>Rich text</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,15 +437,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Rich Text</h1>
-<div class="details">
-<span id="author" class="author">imagesdir: images</span><br>
-</div>
+<h1>Rich text</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#stored_format">Stored format</a></li>
+<li><a href="#html-processing">HTML processing</a>
+<ul class="sectlevel2">
+<li><a href="#graphql_example">GraphQL example</a></li>
+</ul>
+</li>
+<li><a href="#front_end_toolkits">Front-end toolkits</a></li>
 </ul>
 </div>
 </div>
@@ -454,30 +455,154 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Rich text is a type of content that allows you to format text with various styles, such as bold, italic, and headings. It can also include links, images, and other media elements.</p>
+<p>Rich text is structured, author-edited HTML — typically entered via the <a href="schemas/form-items/htmlarea.ahtml">HtmlArea</a> form item. It can include inline images, links to other content items, custom <a href="richtext/styles.ahtml">styles</a>, and <a href="richtext/macros.ahtml">macros</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="stored_format"><a class="link" href="#stored_format">Stored format</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Rich text is used to create visually appealing and structured content within the CMS. It provides a flexible way to present information, making it easier for editors to craft engaging content. Once deployed to Enonic XP, rich text content is rendered by Content Studio and can be accessed via the APIs. Rich text content is organized in schemas to ensure consistency and reusability.</p>
+<p>Rich text is stored as HTML with Enonic-specific markup for internal references:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Internal links</strong> — <code>&lt;a href="content://&lt;contentId&gt;"&gt;&#8230;&#8203;&lt;/a&gt;</code></p>
+</li>
+<li>
+<p><strong>Image references</strong> — <code>&lt;img src="image://&lt;imageId&gt;" /&gt;</code></p>
+</li>
+<li>
+<p><strong>Macros</strong> — plain-text instructions in square brackets, for example <code>[embed] &#8230;&#8203; [/embed]</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example of raw stored HTML:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;h3&gt;Welcome&lt;/h3&gt;
+&lt;p&gt;Read our &lt;a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"&gt;latest post&lt;/a&gt;.&lt;/p&gt;
+&lt;figure&gt;&lt;img src="image://a1b2c3d4-e5f6-7890-abcd-ef1234567890" /&gt;&lt;/figure&gt;
+[embed]&lt;iframe src="https://www.youtube.com/embed/cFfxuWUgcvI" allowfullscreen&gt;&lt;/iframe&gt;[/embed]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Internal references and macros must be resolved before rendering. Guillotine exposes both a raw and a processed variant.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="html-processing"><a class="link" href="#html-processing">HTML processing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO - YAML example.</p>
+<p>Guillotine&#8217;s <code>processedHtml</code> resolver converts stored markup into renderable HTML:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>content://&lt;id&gt;</code> links → relative or absolute content URLs</p>
+</li>
+<li>
+<p><code>image://&lt;id&gt;</code> references → <code>&lt;img&gt;</code> tags served by the <a href="apis/image.ahtml">Image API</a>, with any custom image <a href="richtext/styles.ahtml">styles</a> applied server-side</p>
+</li>
+<li>
+<p>Macros → rendered HTML produced by each macro&#8217;s function (the built-in <code>embed</code> macro passes its body through unchanged)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use <code>processedHtml</code> when rendering; use the raw value or <code>dataAsJson</code> when the front-end needs to do its own processing.</p>
+</div>
+<div class="sect2">
+<h3 id="graphql_example"><a class="link" href="#graphql_example">GraphQL example</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/articles/hello") {
+      displayName
+      ... on com_example_myapp_Article {
+        data {
+          body {
+            raw
+            processedHtml(type: ABSOLUTE)
+            images {
+              _id
+              imageUrl(scale: "width(800)")
+            }
+            links {
+              ... on com_example_myapp_Article {
+                _path
+                displayName
+              }
+            }
+            macros {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Hello world",
+        "data": {
+          "body": {
+            "raw": "&lt;p&gt;Read our &lt;a href=\"content://f3076b5c-...\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;",
+            "processedHtml": "&lt;p&gt;Read our &lt;a href=\"https://example.com/articles/latest-post\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;",
+            "images": [
+              {
+                "_id": "a1b2c3d4-...",
+                "imageUrl": "/api/media:image/my-project/a1b2c3d4-...:&lt;fingerprint&gt;/width-800/photo.jpg"
+              }
+            ],
+            "links": [
+              {
+                "_path": "/articles/latest-post",
+                "displayName": "Latest post"
+              }
+            ],
+            "macros": [
+              { "name": "embed" }
+            ]
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Beyond <code>raw</code> and <code>processedHtml</code>, the HtmlArea GraphQL type also exposes <code>images</code>, <code>links</code>, and <code>macros</code> as typed fields — useful when a front-end needs structured data about references rather than parsing HTML. See the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for the full type definition.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="front_end_toolkits"><a class="link" href="#front_end_toolkits">Front-end toolkits</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rendering processed rich text in a front-end framework — mapping content URLs to routes, swapping image references for responsive <code>&lt;picture&gt;</code> tags, and rendering macros as components — is non-trivial to do by hand. Enonic publishes React components and a Next.js integration (Next.xp) that handle these steps for you. See the <a href="https://developer.enonic.com/templates">Enonic templates and starters</a> for the currently supported toolkits.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

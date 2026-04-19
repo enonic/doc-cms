@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Item Set</title>
+<title>GraphQL API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Item Set</h1>
+<h1>GraphQL API</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#appearance">Appearance</a></li>
+<li><a href="#endpoint">Endpoint</a></li>
+<li><a href="#authorization">Authorization</a></li>
+<li><a href="#schema">Schema</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#output">Output</a></li>
 </ul>
 </div>
 </div>
@@ -451,61 +452,59 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Item sets provide a special capability that allows you to nest form items.</p>
-</div>
-<div class="paragraph">
-<p>Item sets are both visually and semantically grouped as the name of the item set is used in the persisted property structure. An item set actually produces a property set.</p>
-</div>
-<div class="paragraph">
-<p>A new or a single occurrence of an item set is by default expanded and can be collapsed by a click anywhere inside the item set header.</p>
-</div>
-<div class="paragraph">
-<p>Multiple occurrences of an item set will be collapsed by default to ensure better readability of a form containing several occurrences of complex item sets.</p>
+<p>The GraphQL API is Enonic&#8217;s primary headless API. It is provided by <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine</a>, a separately versioned Enonic app that exposes your CMS content as a typed GraphQL schema.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<h2 id="endpoint"><a class="link" href="#endpoint">Endpoint</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Below: A single instance of an itemset for "Contact info".</p>
+<p>By default, the API is available at:</p>
 </div>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="images/itemset-1.png" alt="Single expanded item-set" width="673">
+<pre class="highlight"><code>/api/guillotine:graphql</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Below: The label of an item set will dynamically adapt to reflect  content inside of it.</p>
+<p>The <code>/api/</code> prefix is new in XP {release}. The exact public URL can differ per environment via virtual host configuration, which is commonly used to expose the API on a friendlier path — for example <code><a href="https://api.example.com/graphql" class="bare">https://api.example.com/graphql</a></code>.</p>
 </div>
-<div class="imageblock">
+</div>
+</div>
+<div class="sect1">
+<h2 id="authorization"><a class="link" href="#authorization">Authorization</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Guillotine uses XP&#8217;s IAM system for per-user authorization. Requests are evaluated in the context of the authenticated principal, and content permissions apply to every query — users only see content they are allowed to read.</p>
+</div>
+<div class="paragraph">
+<p>Authenticate requests by passing a bearer token in the <code>Authorization</code> header:</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<img src="images/itemset-2.png" alt="Two collapsed item sets" width="where the label reflects the text inside" height="663">
+<pre class="highlight"><code class="language-bash" data-lang="bash">curl -X POST https://api.example.com/graphql \
+  -H "Authorization: Bearer &lt;token&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Below: Collapse item sets to get an overview and easily organize the list of items.</p>
+<p>Unauthenticated requests run as the anonymous user and can still access content granted <code>READ</code> permission for <code>role:system.everyone</code>.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-3.png" alt="Context menu allows to add or remove new items within the list" width="665">
 </div>
+</div>
+<div class="sect1">
+<h2 id="schema"><a class="link" href="#schema">Schema</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Guillotine generates a GraphQL schema dynamically from the content types, mixins, and x-data registered in the current project. Each <a href="../schemas/forms.ahtml">form</a> field maps to a typed GraphQL field (for example, <code>TextLine</code> → <code>String</code>, <code>ImageSelector</code> → <code>MediaImage</code>, <code>ItemSet</code> → a nested object type), so a front-end developer gets an accurate schema to query against without any manual mapping.</p>
 </div>
 <div class="paragraph">
-<p>Below: Easily add new items within a list of item sets.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-4.png" alt="Item-set with context menu" width="690">
-</div>
+<p>The schema also includes queries for <a href="../pages.ahtml">pages and components</a>, <a href="../content.ahtml">content hierarchies</a>, <a href="../querying.ahtml">full-text search</a>, and references between items.</p>
 </div>
 <div class="paragraph">
-<p>Below: Item sets may be nested to support complex content models.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-5.png" alt="Nested item-sets" width="670">
-</div>
+<p>For the full schema reference, query syntax, extensions, and configuration options, see the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a>.</p>
 </div>
 </div>
 </div>
@@ -513,112 +512,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The definition below will allow for multiple entries of phone numbers with labels:</p>
+<p>Requests are standard GraphQL <code>POST</code> requests with a JSON body containing <code>query</code> and optional <code>variables</code>:</p>
 </div>
 <div class="listingblock">
-<div class="title">Item Set example with two inputs</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ItemSet"
-  name: "contact_info"  <i class="conum" data-value="1"></i><b>(1)</b>
-  label:  <i class="conum" data-value="2"></i><b>(2)</b>
-    text: "Contact Info"
-    i18n: "contact_info.label"
-  occurrences:  <i class="conum" data-value="3"></i><b>(3)</b>
-    min: 0
-    max: 0
-  items:
-    - type: "TextLine"
-      name: "label"
-      label: "Label"
-      occurrences:
-        min: 0
-        max: 1
-    - type: "TextLine"
-      name: "phone_number"
-      label: "Phone Number"
-      occurrences:
-        min: 0
-        max: 1</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">curl -X POST https://api.example.com/graphql \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>name</strong> defines the mapping to the property name</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>label</strong> - The displayed identfier of the input.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>occurences</strong> control the minimum and maximum instances of the ItemSet that may be created</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-It is also possible to nest item sets inside each other
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Value type:</strong> <code>Set</code> — child properties are indexed individually by their respective types.</p>
-</div>
-<div class="paragraph">
-<p>The above definition would produce a property format like this:</p>
 </div>
 <div class="listingblock">
-<div class="title">Example with a single item</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "contact_info": {
-    "label": "home",
-    "phone_number": "+4712345678"
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Hello world"
+      }
+    }
   }
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Example with multiple items</div>
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "contact_info": [
-    {
-      "label": "home",
-      "phone_number": "+4712345678"
-    },
-    {
-      "label": "office",
-      "phone_number": "+123456789"
-    }
-  ]
-}</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Arrays are added based on the actual number of items created, not the schema definition.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>For hands-on examples querying content, pages, images, and more, see the <a href="https://developer.enonic.com/learn/developer-101/stable">Developer 101</a> guide.</p>
 </div>
 </div>
 </div>

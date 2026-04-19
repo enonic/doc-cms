@@ -441,6 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
 <li><a href="#output">Output</a></li>
 </ul>
@@ -451,6 +452,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>The MediaSelector is a specialized version of the <a href="contentselector.ahtml">ContentSelector</a> that is limited to selecting media only (content of type "media:*"), including also uploading new media (any kind of files).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/Media-selector.png" alt="Media selector with a grid of media items" width="500">
+</div>
 </div>
 </div>
 </div>
@@ -503,12 +514,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Multiple occurrences</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "my_media": [
+    "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ]
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

@@ -497,7 +497,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td><strong>options</strong> define the available choices. The <code>value</code> is stored when the option is selected.
-Multiple options are allowed and ordered. Option labels support <a href="../../schemas/i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</td>
+Multiple options are allowed and ordered. Option labels support <a href="../i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -540,7 +540,7 @@ The stored value corresponds to the <code>value</code> attribute, not the displa
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

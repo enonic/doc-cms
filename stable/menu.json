@@ -133,6 +133,10 @@
           "document": "content/content-types"
         },
         {
+          "title": "Built-in types",
+          "document": "content/built-in-types"
+        },
+        {
           "title": "Mixins",
           "document": "content/mixins"
         },
@@ -173,6 +177,10 @@
         {
           "title": "Media types",
           "document": "media/media-types"
+        },
+        {
+          "title": "Image type",
+          "document": "media/image"
         },
         {
           "title": "Media indexing",

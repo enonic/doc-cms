@@ -444,8 +444,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#usage">Usage</a></li>
 <li><a href="#preview">Preview</a></li>
-<li><a href="#search">Search</a></li>
+<li><a href="#search">Search</a>
+<ul class="sectlevel2">
+<li><a href="#de_normalized_site_search">De-normalized site search</a></li>
+</ul>
+</li>
 <li><a href="#definition_portalfragment">Definition (portal:fragment)</a></li>
+<li><a href="#querying-via-graphql">Querying via GraphQL</a>
+<ul class="sectlevel2">
+<li><a href="#inline_resolution_via_a_page">Inline resolution via a page</a></li>
+<li><a href="#manual_traversal">Manual traversal</a></li>
+<li><a href="#direct_access_preview_editing">Direct access (preview / editing)</a></li>
+<li><a href="#find_pages_using_a_given_fragment">Find pages using a given fragment</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -503,7 +515,17 @@ Developers using the Enonic framewrk may enable visual editing of fragments via 
 <h2 id="search"><a class="link" href="#search">Search</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Since a fragment is a separate content item, text stored in the fragment will not be indexed on the pages where it is in use. This means that even if a fragment is placed on a page, searching for content within the fragment will not yield hits on the pages where it is included.</p>
+<p>Fragments are separate content items, and their text content is indexed on the fragment — not on the pages that reference it. The practical implications are important:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A full-text query for a word that appears inside a fragment will match the fragment itself, but <strong>not</strong> the pages where that fragment is embedded.</p>
+</li>
+<li>
+<p>A customer-facing site search will therefore miss relevant pages whenever their visible text lives in shared fragments. It may also surface bare fragment hits that are not meant to be user-reachable.</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -512,10 +534,19 @@ Developers using the Enonic framewrk may enable visual editing of fragments via 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-When performing queries against content from customer facing solutions, make sure fragment content types are excluded - as fragments are generally not directly available to end users.
+Exclude <code>portal:fragment</code> from customer-facing queries to avoid surfacing orphan fragment hits.
 </td>
 </tr>
 </table>
+</div>
+<div class="sect2">
+<h3 id="de_normalized_site_search"><a class="link" href="#de_normalized_site_search">De-normalized site search</a></h3>
+<div class="paragraph">
+<p>When you need a true site search — where a hit points to the page a user would actually land on, regardless of whether the matching text came from the page, a fragment, or a referenced content item — build a separate, de-normalized search index. Enonic&#8217;s <a href="https://developer.enonic.com/docs/explorer">Explorer</a> app is purpose-built for this: it crawls your rendered site (or API output) and produces a search index where each document represents a page with its fully resolved content.</p>
+</div>
+<div class="paragraph">
+<p>This is a general pattern, not a fragment-specific one — the same caveat applies to any headless content composition where multiple content items are stitched together at render time.</p>
+</div>
 </div>
 </div>
 </div>
@@ -547,10 +578,184 @@ When performing queries against content from customer facing solutions, make sur
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="querying-via-graphql"><a class="link" href="#querying-via-graphql">Querying via GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Fragments are consumed in two very different ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Indirectly, via a page that references them</strong> — the normal case. The front-end fetches a page and fragment references are expanded inline so the rendered output does not need to know a component came from a fragment.</p>
+</li>
+<li>
+<p><strong>Directly, by fetching the fragment content item</strong> — mainly for preview routes and editorial interfaces that render or edit a single fragment in isolation. Customer-facing code should almost never fetch fragments directly.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="inline_resolution_via_a_page"><a class="link" href="#inline_resolution_via_a_page">Inline resolution via a page</a></h3>
+<div class="paragraph">
+<p>When fetching a page&#8217;s flat component list, Guillotine supports server-side fragment expansion via the <code>resolveFragment</code> argument on <code>components</code>. With <code>resolveFragment: true</code>, each fragment reference is replaced by the component it wraps, and the <code>FragmentComponent</code> wrapper is never emitted:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      components(resolveFragment: true) {
+        type
+        path
+        ... on PartComponent {
+          descriptor
+          configAsJson
+        }
+        ... on LayoutComponent {
+          descriptor
+        }
+        ... on TextComponent {
+          value
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the simplest integration when the front-end does not need to distinguish fragment-sourced components from direct ones.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="manual_traversal"><a class="link" href="#manual_traversal">Manual traversal</a></h3>
+<div class="paragraph">
+<p>When fragments may be nested — a fragment whose wrapped layout contains another fragment — or when the front-end wants to tag fragment-sourced components, leave <code>resolveFragment: false</code> and walk the fragment manually:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      components(resolveFragment: false) {
+        type
+        path
+        ... on FragmentComponent {
+          fragment {
+            id
+            fragment {
+              components {
+                type
+                path
+                ... on PartComponent {
+                  descriptor
+                  configAsJson
+                }
+              }
+            }
+          }
+        }
+        ... on PartComponent {
+          descriptor
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Each <code>fragment { fragment { components { &#8230;&#8203; } } }</code> hop covers one nesting level. If your content allows fragments-inside-fragments, either switch to <code>resolveFragment: true</code> or recurse as deep as your model permits. Paths on the resolved inner components are fragment-local (e.g. <code>/0</code>) — rewrite them to the parent region&#8217;s path when assembling the final component tree. Enonic&#8217;s <a href="https://developer.enonic.com/templates">front-end toolkits</a> do this for you.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="direct_access_preview_editing"><a class="link" href="#direct_access_preview_editing">Direct access (preview / editing)</a></h3>
+<div class="paragraph">
+<p>A fragment is a content item of type <code>portal:fragment</code>, so it can be fetched like any other content. Use the <code>fragment</code> field on <code>portal_Fragment</code> to retrieve the wrapped component — typically from a preview route:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/site/_fragments/featured-promo") {
+      _id
+      displayName
+      ... on portal_Fragment {
+        fragment {
+          type
+          ... on PartComponent {
+            descriptor
+            configAsJson
+          }
+          ... on LayoutComponent {
+            descriptor
+            regions {
+              components {
+                type
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Customer-facing search should exclude <code>portal:fragment</code> content. Text inside a fragment is indexed on the fragment itself, not on the pages that reference it, so direct fragment hits are usually orphan results.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find_pages_using_a_given_fragment"><a class="link" href="#find_pages_using_a_given_fragment">Find pages using a given fragment</a></h3>
+<div class="paragraph">
+<p>Because fragments are referenced by id in <code>components.fragment.id</code>, a <code>term</code> query pinpoints every page that uses a specific fragment — useful for impact analysis before editing a shared fragment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDsl(
+      query: {
+        term: {
+          field: "components.fragment.id",
+          value: { string: "5499dfd8-67c2-4712-a0d9-554b9817b4ad" }
+        }
+      }
+    ) {
+      _id
+      _path
+      displayName
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

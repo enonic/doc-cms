@@ -514,8 +514,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-If you are manually outputting contents of an HtmlArea input in your template, you might have to use
-<a href="../../../api/lib-portal.ahtml#processHtml">processHtml()</a> function which will process macros and generate correct links inside the HTML content.
+HtmlArea values contain Enonic-specific markup (<code>content://</code> links, image references, macros) that must be resolved before rendering. The headless API exposes a processed variant — see <a href="../../richtext.ahtml#html-processing">HTML processing</a>.
 </td>
 </tr>
 </table>
@@ -752,6 +751,17 @@ HTML Area is configured with a default set of tools, but the toolbar can be cust
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Multiple occurrences</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "my_htmlarea": [
+    "&lt;h3&gt;First block&lt;/h3&gt;",
+    "&lt;p&gt;Second block with a &lt;strong&gt;bold&lt;/strong&gt; word.&lt;/p&gt;"
+  ]
+}</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="processed_output"><a class="link" href="#processed_output">Processed output</a></h3>
@@ -767,7 +777,7 @@ HTML Area is configured with a default set of tools, but the toolbar can be cust
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

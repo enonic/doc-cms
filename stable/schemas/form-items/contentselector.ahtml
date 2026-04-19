@@ -524,16 +524,16 @@ only displays content from the same site.</td>
 <dl>
 <dt class="hdlist1"><code>LEGACY</code></dt>
 <dd>
-<p>this mode simulates the pattern matching functionality that was the default before XP 7.7.0. <span class="image"><span class="alt">XP 7.7.0</span></span></p>
+<p>simulates the pattern-matching behaviour that was the default before XP 7.7.0.</p>
 </dd>
 <dt class="hdlist1"><code>MATCH</code></dt>
 <dd>
-<p>this mode is the current default mode and has a few notable changes from <code>LEGACY</code> mode.</p>
+<p>the current default mode, with notable changes from <code>LEGACY</code>.</p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
-<p>The modes are explained in further detail below. You can configure which mode to use in  <a href="../../../deployment/config.ahtml#admin_rest">the admin config</a>.</p>
+<p>The mode is configured on the XP server — see the Enonic XP docs for details. Both modes are explained below.</p>
 </div>
 <div class="sect3">
 <h4 id="legacy"><a class="link" href="#legacy">Legacy<br></a></h4>
@@ -757,7 +757,7 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

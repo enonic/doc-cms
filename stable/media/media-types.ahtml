@@ -441,8 +441,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#built_in_media_types">Built in media types</a>
+<li><a href="#abstract_base_type_basemedia">Abstract base type (base:media)</a></li>
+<li><a href="#built_in_media_types">Built-in media types</a>
 <ul class="sectlevel2">
 <li><a href="#text_mediatext">Text (media:text)</a></li>
 <li><a href="#data_mediadata">Data (media:data)</a></li>
@@ -459,21 +459,58 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#unknown_mediaunknown">Unknown (media:unknown)</a></li>
 </ul>
 </li>
+<li><a href="#querying_via_graphql">Querying via GraphQL</a>
+<ul class="sectlevel2">
+<li><a href="#listing_mixed_media">Listing mixed media</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="built_in_media_types"><a class="link" href="#built_in_media_types">Built in media types</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic XP automatically detects the type of media files uploaded to the CMS, and assigns them a pre-defined content type, aka Media type. These media types are all located in the <code>media</code> namespace, and are all subtypes of the abstract type <code>base:media</code>. The media types are:</p>
+<p>Media types are the content types assigned automatically to uploaded files. They all live in the <code>media</code> namespace and share a common abstract parent.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="abstract_base_type_basemedia"><a class="link" href="#abstract_base_type_basemedia">Abstract base type (base:media)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All media types inherit from the abstract <code>base:media</code> type, which defines the capabilities shared by every uploaded file — primarily the attached binary and the auto-extracted metadata covered in <a href="media-indexing.ahtml">Media indexing</a>.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:content</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>true</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>false</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p><code>base:media</code> is abstract and cannot be used directly; Enonic picks the correct concrete subtype based on the file&#8217;s mime type at upload time.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="built_in_media_types"><a class="link" href="#built_in_media_types">Built-in media types</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enonic XP automatically detects the type of media files uploaded to the CMS, and assigns them a pre-defined content type. The media types are:</p>
 </div>
 <div class="sect2">
 <h3 id="text_mediatext"><a class="link" href="#text_mediatext">Text (media:text)</a></h3>
@@ -555,10 +592,61 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="querying_via_graphql"><a class="link" href="#querying_via_graphql">Querying via GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Guillotine generates a typed GraphQL type for every media type. All types implement the <code>Content</code> interface and additionally expose media-specific fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>mediaUrl(type: SERVER|ABSOLUTE)</code> — URL to the raw <code>source</code> attachment, served by the <a href="../apis/attachment.ahtml">Attachment API</a>. Returns the original file unmodified — no transformations.</p>
+</li>
+<li>
+<p><code>attachments</code> — list of attached files (the <code>source</code> binary is always present as one).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>media_Image</code> type additionally exposes <code>imageUrl(scale: &#8230;&#8203;, format: &#8230;&#8203;, quality: &#8230;&#8203;)</code>, which routes through the <a href="../apis/image.ahtml">Image API</a> for scaling, cropping, and format conversion — see <a href="image.ahtml">Image content type (media:image)</a> for the complete field reference and a worked GraphQL example.</p>
+</div>
+<div class="sect2">
+<h3 id="listing_mixed_media"><a class="link" href="#listing_mixed_media">Listing mixed media</a></h3>
+<div class="paragraph">
+<p>Use <code>getChildren</code> with inline fragments when a folder may contain different media types:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    getChildren(key: "/my-folder") {
+      displayName
+      type
+      ... on media_Image {
+        imageUrl(scale: "block(400,400)")
+      }
+      ... on media_Document {
+        mediaUrl
+      }
+      ... on media_Video {
+        mediaUrl
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="media-indexing.ahtml">Media indexing</a> for how extracted text and metadata become searchable.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

@@ -444,6 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#the_cms_stack">The CMS stack</a></li>
 <li><a href="#main_features">Main features</a></li>
+<li><a href="#front_end_toolkits">Front-end toolkits</a></li>
 </ul>
 </div>
 </div>
@@ -508,7 +509,7 @@ interface available on Enonic Market</p>
 <strong>Hierarchies:</strong> Organize content in a tree structure.<br>
 <strong>Media:</strong> Image processing and delivery.<br>
 <strong>Versioning:</strong> Version control and branching for content.<br>
-<strong>Workflows:</strong> Define custom content lifecycles and   approval processes.<br>
+<strong>Workflows:</strong> Define custom content lifecycles and approval processes.<br>
 <strong>Layering:</strong> For multi-language and multi-region use-cases.<br>
 <strong>Scalable:</strong> Scale from small projects to global multi-brand deployments<br>
 <strong>Customizable:</strong> Augment the platform, APIs and tooling through custom development.</p>
@@ -518,10 +519,18 @@ interface available on Enonic Market</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="front_end_toolkits"><a class="link" href="#front_end_toolkits">Front-end toolkits</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enonic publishes React components and a Next.js integration (Next.xp) that take the headless APIs documented here and wire them into a running app — including rich text processing, page component rendering, and responsive images. See the <a href="https://developer.enonic.com/templates">Enonic templates and starters</a> for the currently supported toolkits.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:03:37 UTC
+Last updated 2026-04-19 18:20:54 UTC
 </div>
 </div>
 </body>

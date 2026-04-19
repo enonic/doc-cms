@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Item Set</title>
+<title>Built-in content types</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Item Set</h1>
+<h1>Built-in content types</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#appearance">Appearance</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#folder_basefolder">Folder (base:folder)</a>
+<ul class="sectlevel2">
 <li><a href="#output">Output</a></li>
+<li><a href="#graphql">GraphQL</a></li>
+</ul>
+</li>
+<li><a href="#shortcut_baseshortcut">Shortcut (base:shortcut)</a>
+<ul class="sectlevel2">
+<li><a href="#output_2">Output</a></li>
+<li><a href="#graphql_2">GraphQL</a></li>
+</ul>
+</li>
+<li><a href="#unstructured_baseunstructured">Unstructured (base:unstructured)</a>
+<ul class="sectlevel2">
+<li><a href="#output_3">Output</a></li>
+<li><a href="#graphql_3">GraphQL</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -451,174 +466,225 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Item sets provide a special capability that allows you to nest form items.</p>
+<p>Enonic XP ships with a set of concrete content types that are ready to use as-is. Unlike custom <a href="content-types.ahtml">content types</a>, they are not declared in your app — they are always available and cannot be redefined.</p>
 </div>
 <div class="paragraph">
-<p>Item sets are both visually and semantically grouped as the name of the item set is used in the persisted property structure. An item set actually produces a property set.</p>
-</div>
-<div class="paragraph">
-<p>A new or a single occurrence of an item set is by default expanded and can be collapsed by a click anywhere inside the item set header.</p>
-</div>
-<div class="paragraph">
-<p>Multiple occurrences of an item set will be collapsed by default to ensure better readability of a form containing several occurrences of complex item sets.</p>
+<p>This page covers the generic types under the <code>base</code> namespace. Types in the <code>portal</code> namespace (<code>portal:site</code>, <code>portal:page-template</code>, <code>portal:fragment</code>, <code>portal:template-folder</code>) are specific to the <a href="../pages.ahtml">pages and sites</a> concept and documented there.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<h2 id="folder_basefolder"><a class="link" href="#folder_basefolder">Folder (base:folder)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Below: A single instance of an itemset for "Contact info".</p>
+<p>Folders are containers for organizing child content. They have no data properties beyond their name and display name.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-1.png" alt="Single expanded item-set" width="673">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:structured</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>true</p>
+</dd>
+</dl>
 </div>
-</div>
-<div class="paragraph">
-<p>Below: The label of an item set will dynamically adapt to reflect  content inside of it.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-2.png" alt="Two collapsed item sets" width="where the label reflects the text inside" height="663">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: Collapse item sets to get an overview and easily organize the list of items.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-3.png" alt="Context menu allows to add or remove new items within the list" width="665">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: Easily add new items within a list of item sets.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-4.png" alt="Item-set with context menu" width="690">
-</div>
-</div>
-<div class="paragraph">
-<p>Below: Item sets may be nested to support complex content models.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/itemset-5.png" alt="Nested item-sets" width="670">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The definition below will allow for multiple entries of phone numbers with labels:</p>
-</div>
+<div class="sect2">
+<h3 id="output"><a class="link" href="#output">Output</a></h3>
 <div class="listingblock">
-<div class="title">Item Set example with two inputs</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ItemSet"
-  name: "contact_info"  <i class="conum" data-value="1"></i><b>(1)</b>
-  label:  <i class="conum" data-value="2"></i><b>(2)</b>
-    text: "Contact Info"
-    i18n: "contact_info.label"
-  occurrences:  <i class="conum" data-value="3"></i><b>(3)</b>
-    min: 0
-    max: 0
-  items:
-    - type: "TextLine"
-      name: "label"
-      label: "Label"
-      occurrences:
-        min: 0
-        max: 1
-    - type: "TextLine"
-      name: "phone_number"
-      label: "Phone Number"
-      occurrences:
-        min: 0
-        max: 1</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>name</strong> defines the mapping to the property name</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>label</strong> - The displayed identfier of the input.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>occurences</strong> control the minimum and maximum instances of the ItemSet that may be created</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-It is also possible to nest item sets inside each other
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Value type:</strong> <code>Set</code> — child properties are indexed individually by their respective types.</p>
-</div>
-<div class="paragraph">
-<p>The above definition would produce a property format like this:</p>
-</div>
-<div class="listingblock">
-<div class="title">Example with a single item</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "contact_info": {
-    "label": "home",
-    "phone_number": "+4712345678"
+  "_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "_name": "articles",
+  "_path": "/site/articles",
+  "type": "base:folder",
+  "displayName": "Articles",
+  "data": {}
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="graphql"><a class="link" href="#graphql">GraphQL</a></h3>
+<div class="paragraph">
+<p>Most queries treat folders as regular <code>Content</code> — the Content interface covers what folders expose. Use the typed fragment only when you need to make the query type-explicit:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    getChildren(key: "/site") {
+      displayName
+      _path
+      type
+      ... on base_Folder {
+        _id
+      }
+    }
   }
 }</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="shortcut_baseshortcut"><a class="link" href="#shortcut_baseshortcut">Shortcut (base:shortcut)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Shortcuts reference or redirect to another content item. Optional key-value parameters are appended to the redirect URL.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:structured</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>true</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>true</p>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="output_2"><a class="link" href="#output_2">Output</a></h3>
 <div class="listingblock">
-<div class="title">Example with multiple items</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "contact_info": [
-    {
-      "label": "home",
-      "phone_number": "+4712345678"
-    },
-    {
-      "label": "office",
-      "phone_number": "+123456789"
-    }
-  ]
+  "_id": "b2c3d4e5-...",
+  "_name": "latest",
+  "_path": "/site/latest",
+  "type": "base:shortcut",
+  "displayName": "Latest post",
+  "data": {
+    "target": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+    "parameters": [
+      { "name": "utm_source", "value": "internal" }
+    ]
+  }
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Arrays are added based on the actual number of items created, not the schema definition.
-</td>
-</tr>
-</table>
+</div>
+<div class="sect2">
+<h3 id="graphql_2"><a class="link" href="#graphql_2">GraphQL</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/site/latest") {
+      displayName
+      ... on base_Shortcut {
+        data {
+          target {
+            _id
+            _path
+            displayName
+          }
+          parameters {
+            name
+            value
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>target</code> field is a content reference and resolves to the full target content when queried.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="unstructured_baseunstructured"><a class="link" href="#unstructured_baseunstructured">Unstructured (base:unstructured)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unstructured content permits any properties without a declared form. Because it has no schema, Content Studio has no default editor for it — unstructured items are typically created and updated via API.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:structured</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>true</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>true</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Use cases are narrow: items whose properties vary per instance but still need editorial management, publishing, permissions, or versioning. For data that does not need editorial workflows, prefer XP&#8217;s <a href="https://developer.enonic.com/docs/xp/stable/storage">node storage</a> instead.</p>
+</div>
+<div class="sect2">
+<h3 id="output_3"><a class="link" href="#output_3">Output</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "_id": "c3d4e5f6-...",
+  "_name": "telemetry-2026-04-19",
+  "_path": "/site/telemetry/telemetry-2026-04-19",
+  "type": "base:unstructured",
+  "displayName": "Telemetry snapshot",
+  "data": {
+    "collectedAt": "2026-04-19T12:00:00Z",
+    "metrics": {
+      "requests": 42301,
+      "errors": 12
+    },
+    "tags": ["nightly", "prod"]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="graphql_3"><a class="link" href="#graphql_3">GraphQL</a></h3>
+<div class="paragraph">
+<p>Because the schema is not known at build time, Guillotine cannot generate typed fields for unstructured content. Use <code>dataAsJson</code> to retrieve the entire data payload:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/site/telemetry/telemetry-2026-04-19") {
+      displayName
+      type
+      dataAsJson
+    }
+  }
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
