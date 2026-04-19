@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 Specify time in the format hh:mm.  A pop-up box with time selector allows easy editing.
 
@@ -51,5 +49,16 @@ If `<default>` value is set for an input, the Time picker will display "*Set def
 ----
 {
   "my_time": "13:22"
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_time": [
+    "08:00",
+    "13:22"
+  ]
 }
 ----

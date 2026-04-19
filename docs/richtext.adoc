@@ -1,13 +1,111 @@
-= Rich Text
-imagesdir: images
+= Rich text
 :toc: right
+:imagesdir: images
 
-Rich text is a type of content that allows you to format text with various styles, such as bold, italic, and headings. It can also include links, images, and other media elements.
+Rich text is structured, author-edited HTML — typically entered via the <<schemas/form-items/htmlarea#, HtmlArea>> form item. It can include inline images, links to other content items, custom <<richtext/styles#, styles>>, and <<richtext/macros#, macros>>.
 
-== Introduction
+== Stored format
 
-Rich text is used to create visually appealing and structured content within the CMS. It provides a flexible way to present information, making it easier for editors to craft engaging content. Once deployed to Enonic XP, rich text content is rendered by Content Studio and can be accessed via the APIs. Rich text content is organized in schemas to ensure consistency and reusability. 
+Rich text is stored as HTML with Enonic-specific markup for internal references:
 
-== Usage
+* *Internal links* — `<a href="content://<contentId>">...</a>`
+* *Image references* — `<img src="image://<imageId>" />`
+* *Macros* — plain-text instructions in square brackets, for example `[embed] ... [/embed]`
 
-TODO - YAML example.
+Example of raw stored HTML:
+
+[source,html]
+----
+<h3>Welcome</h3>
+<p>Read our <a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9">latest post</a>.</p>
+<figure><img src="image://a1b2c3d4-e5f6-7890-abcd-ef1234567890" /></figure>
+[embed]<iframe src="https://www.youtube.com/embed/cFfxuWUgcvI" allowfullscreen></iframe>[/embed]
+----
+
+Internal references and macros must be resolved before rendering. Guillotine exposes both a raw and a processed variant.
+
+[#html-processing]
+== HTML processing
+
+Guillotine's `processedHtml` resolver converts stored markup into renderable HTML:
+
+* `content://<id>` links → relative or absolute content URLs
+* `image://<id>` references → `<img>` tags served by the <<apis/image#, Image API>>, with any custom image <<richtext/styles#, styles>> applied server-side
+* Macros → rendered HTML produced by each macro's function (the built-in `embed` macro passes its body through unchanged)
+
+Use `processedHtml` when rendering; use the raw value or `dataAsJson` when the front-end needs to do its own processing.
+
+=== GraphQL example
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/articles/hello") {
+      displayName
+      ... on com_example_myapp_Article {
+        data {
+          body {
+            raw
+            processedHtml(type: ABSOLUTE)
+            images {
+              _id
+              imageUrl(scale: "width(800)")
+            }
+            links {
+              ... on com_example_myapp_Article {
+                _path
+                displayName
+              }
+            }
+            macros {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Hello world",
+        "data": {
+          "body": {
+            "raw": "<p>Read our <a href=\"content://f3076b5c-...\">latest post</a>.</p>",
+            "processedHtml": "<p>Read our <a href=\"https://example.com/articles/latest-post\">latest post</a>.</p>",
+            "images": [
+              {
+                "_id": "a1b2c3d4-...",
+                "imageUrl": "/api/media:image/my-project/a1b2c3d4-...:<fingerprint>/width-800/photo.jpg"
+              }
+            ],
+            "links": [
+              {
+                "_path": "/articles/latest-post",
+                "displayName": "Latest post"
+              }
+            ],
+            "macros": [
+              { "name": "embed" }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+Beyond `raw` and `processedHtml`, the HtmlArea GraphQL type also exposes `images`, `links`, and `macros` as typed fields — useful when a front-end needs structured data about references rather than parsing HTML. See the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation] for the full type definition.
+
+== Front-end toolkits
+
+Rendering processed rich text in a front-end framework — mapping content URLs to routes, swapping image references for responsive `<picture>` tags, and rendering macros as components — is non-trivial to do by hand. Enonic publishes React components and a Next.js integration (Next.xp) that handle these steps for you. See the https://developer.enonic.com/templates[Enonic templates and starters] for the currently supported toolkits.

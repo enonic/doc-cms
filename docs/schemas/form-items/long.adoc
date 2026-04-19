@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A simple input for storing integer numbers.
 
@@ -38,5 +36,16 @@ image::Long.png[Number input showing a large number, 700]
 ----
 {
   "my_long": 42
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_long": [
+    42,
+    99
+  ]
 }
 ----

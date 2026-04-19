@@ -2,10 +2,12 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 The MediaSelector is a specialized version of the <<contentselector#, ContentSelector>> that is limited to selecting media only (content of type "media:*"), including also uploading new media (any kind of files).
+
+== Appearance
+
+image::Media-selector.png[Media selector with a grid of media items, 500]
 
 == Usage
 
@@ -37,5 +39,16 @@ The stored value is the content ID of the selected media item. Like <<contentsel
 ----
 {
   "my_media": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_media": [
+    "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ]
 }
 ----

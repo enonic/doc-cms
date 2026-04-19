@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 An input type for selecting _one_ of the available options defined in the `config` element.
 
@@ -35,7 +33,7 @@ image::Radio-buttons.png[two button where one of them is selected, 200]
 ----
 <1> *occurrences* only make supports minimum=1 or 0 - maximum will always be 1.
 <2> *options* define the available choices. The `value` is stored when the option is selected.
-Multiple options are allowed and ordered. Option labels support <<../../schemas/i18n#,localization>> via the `text`/`i18n` object pattern.
+Multiple options are allowed and ordered. Option labels support <<../i18n#,localization>> via the `text`/`i18n` object pattern.
 <3> *default* is optional, and may be equal to one of the option values.
 
 == Output

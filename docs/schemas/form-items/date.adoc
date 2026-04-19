@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A simple field for dates with a calendar pop-up box in the admin console. The default format is ``yyyy-MM-dd``.
 
@@ -54,5 +52,16 @@ image::Date-selector-default.png[Date selector with default value, 500]
 ----
 {
   "my_date": "2016-12-31"
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_date": [
+    "2016-12-31",
+    "2017-01-15"
+  ]
 }
 ----

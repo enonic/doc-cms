@@ -2,18 +2,18 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 Selector with customizable data source. Useful for live integrations with external data sources.
 
-
 TIP: Tutorial: Check out https://developer.enonic.com/docs/build-a-custom-selector[Building a custom selector] for hands on learning.
+
+== Appearance
+
+image::Custom-selector.png[Custom selector dropdown with options from an external service, 700]
 
 == Usage
 
-Application developers must create a service that returns results according to the required JSON format, and then specify the service name in the input config. For information on creating a service see the
-:ref:`services` section.
+The `service` attribute points to an HTTP endpoint (a function provided by an Enonic XP app) that returns matching options as JSON. See the Enonic XP app-development docs for how to implement that function.
 
 Below are several sample usages of CustomSelector:
 
@@ -46,49 +46,13 @@ Below are several sample usages of CustomSelector:
   service: "spotify-album-cover-selector"
   galleryMode: true  # <3>
 ----
-<1> *service* holds the name of a JavaScript service file, located under ``/resources/services/[my-custom-selector]/[my-custom-selector].js``. You can also refer to a service file in another application, for example *com.myapplication.app:myservice*.
-<2> *param* lets you pass parameters to the service. This allows for the service to be used in different contexts. There can be multiple parameters or none. The parameters will be included in the HTTP request to the service as name-value query parameters.
-<3> *galleryMode* set to `true` will display the options in a gallery style (three big images in a row), similar to the appearance of an <<imageselector#appearance,ImageSelector>>. Useful when images should be emphasized.
+<1> *service* — the name of the service function that supplies options. Can reference a function in another application using the `com.myapplication.app:myservice` form.
+<2> *param* lets you pass parameters to the service so the same function can be reused across fields. Parameters are sent as query-string name/value pairs.
+<3> *galleryMode* set to `true` renders options in a gallery style (three big images in a row), similar to <<imageselector#appearance,ImageSelector>>. Useful when images should be emphasized.
 
-=== Service Request
+=== Option JSON format
 
-In addition to the param values, the service will receive the following query parameters in the HTTP request:
-
-*ids* +
-Array of item ids already selected in the CustomSelector. The service is expected to return the items with the specified ids.
-
-*start* +
-Index of the first item expected. Used for pagination of the results.
-
-*count* +
-Maximum number of items expected. Used for pagination of the results.
-
-*query* +
-String with the search text typed by the user in the CustomSelector input field.
-
-
-=== Service Response
-
-The service controller must have a GET handler that returns results in JSON format.
-The JSON object returned must include ``total`` and ``count`` properties as numbers, and ``hits`` containing an array of items.
-Each item in the hits property must have the following fields:
-
-*id* +
-Unique Id of the option
-
-*displayName* +
-Option title
-
-*description (optional)* +
-Detailed description
-
-*iconUrl (optional)* +
-Path to the thumbnail image file
-
-*icon (optional)* +
-Inline image content (for example, SVG)
-
-Sample JSON response from a CustomSelector service:
+The service function returns JSON with `total`, `count`, and a `hits` array. Each hit becomes a selectable option:
 
 [source,JSON]
 ----
@@ -99,7 +63,7 @@ Sample JSON response from a CustomSelector service:
     {
       "id": "1",
       "displayName": "Option number 1",
-      "description": "External SVG file is used as icon",
+      "description": "Short description shown under the title",
       "iconUrl": "/some/path/images/number_1.svg"
     },
     {
@@ -114,6 +78,10 @@ Sample JSON response from a CustomSelector service:
   ]
 }
 ----
+
+Each hit requires `id` and `displayName`. `description`, `iconUrl`, and inline `icon` are optional. The `id` is what gets stored when the option is selected — see <<#output,Output>>.
+
+For how to implement the service function (request parameters, pagination, filtering), see the Enonic XP app-development docs.
 
 == Output
 

@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A plain text, single line input with advanced validation options. Stored as string.
 
@@ -72,5 +70,16 @@ by the spell checker. Text in the second is in Norsk Bokmål and correctly check
 ----
 {
   "my_textline": "Some text value"
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_textline": [
+    "First value",
+    "Second value"
+  ]
 }
 ----

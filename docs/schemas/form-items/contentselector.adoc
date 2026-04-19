@@ -1,8 +1,7 @@
 = ContentSelector input type
 
 :imagesdir: images
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
+:toc: right
 
 References to other content are specified by this input type. Use the toggle icon to switch between the list mode (default) and the tree mode.
 
@@ -42,14 +41,10 @@ image:Content-selector-no-icon.png[Input box without an icon, 500]
 === Allow content type pattern
 XP uses one of two modes when matching content type patterns:
 
-:imagesdir: ../images
+`LEGACY`:: simulates the pattern-matching behaviour that was the default before XP 7.7.0.
+`MATCH`:: the current default mode, with notable changes from `LEGACY`.
 
-`LEGACY`:: this mode simulates the pattern matching functionality that was the default before XP 7.7.0. image:xp-770.svg[XP 7.7.0,opts=inline]
-`MATCH`:: this mode is the current default mode and has a few notable changes from `LEGACY` mode.
-
-The modes are explained in further detail below. You can configure which mode to use in  <<../../../deployment/config.adoc#admin_rest, the admin config>>.
-
-:imagesdir: schemas/images
+The mode is configured on the XP server — see the Enonic XP docs for details. Both modes are explained below.
 
 ==== Legacy +
 

@@ -1,0 +1,66 @@
+= GraphQL API
+:toc: right
+:imagesdir: images
+
+The GraphQL API is Enonic's primary headless API. It is provided by https://developer.enonic.com/docs/guillotine/stable[Guillotine], a separately versioned Enonic app that exposes your CMS content as a typed GraphQL schema.
+
+== Endpoint
+
+By default, the API is available at:
+
+[source]
+----
+/api/guillotine:graphql
+----
+
+The `/api/` prefix is new in XP {release}. The exact public URL can differ per environment via virtual host configuration, which is commonly used to expose the API on a friendlier path — for example `https://api.example.com/graphql`.
+
+== Authorization
+
+Guillotine uses XP's IAM system for per-user authorization. Requests are evaluated in the context of the authenticated principal, and content permissions apply to every query — users only see content they are allowed to read.
+
+Authenticate requests by passing a bearer token in the `Authorization` header:
+
+[source,bash]
+----
+curl -X POST https://api.example.com/graphql \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'
+----
+
+Unauthenticated requests run as the anonymous user and can still access content granted `READ` permission for `role:system.everyone`.
+
+== Schema
+
+Guillotine generates a GraphQL schema dynamically from the content types, mixins, and x-data registered in the current project. Each <<../schemas/forms#, form>> field maps to a typed GraphQL field (for example, `TextLine` → `String`, `ImageSelector` → `MediaImage`, `ItemSet` → a nested object type), so a front-end developer gets an accurate schema to query against without any manual mapping.
+
+The schema also includes queries for <<../pages#, pages and components>>, <<../content#, content hierarchies>>, <<../querying#, full-text search>>, and references between items.
+
+For the full schema reference, query syntax, extensions, and configuration options, see the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation].
+
+== Usage
+
+Requests are standard GraphQL `POST` requests with a JSON body containing `query` and optional `variables`:
+
+[source,bash]
+----
+curl -X POST https://api.example.com/graphql \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'
+----
+
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Hello world"
+      }
+    }
+  }
+}
+----
+
+For hands-on examples querying content, pages, images, and more, see the https://developer.enonic.com/learn/developer-101/stable[Developer 101] guide.

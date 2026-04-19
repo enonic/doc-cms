@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A field for entering multi-line text with rich-formatting options.
 
@@ -33,8 +31,7 @@ image::Html-area-editor.png[Input field with a toolbar at the top. Source and fu
 <4> *allowHeadings* space-separated list of allowed heading tags (from `<h1>` to `<h6>`); by default all are allowed
 
 
-TIP: If you are manually outputting contents of an HtmlArea input in your template, you might have to use
-<<../../../api/lib-portal#processHtml,processHtml()>> function which will process macros and generate correct links inside the HTML content.
+TIP: HtmlArea values contain Enonic-specific markup (`content://` links, image references, macros) that must be resolved before rendering. The headless API exposes a processed variant — see <<../../richtext#html-processing, HTML processing>>.
 
 TIP: HTML Area is configured with a default set of tools, but the toolbar can be customized. Using the config setting, you can exclude specific tools from being shown (use "*" to exclude all tools at once) and/or include those that you want to have in the toolbar. Separate tools with a space and use "|" character to group tool buttons together. A complete list of supported tools can be found below.
 
@@ -107,6 +104,17 @@ When the HTML content is stored, internal links, images, and macros are represen
 ----
 {
   "my_htmlarea": "<h3>Hello world</h3><p>This is <strong>rich text</strong> with an <a href=\"content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9\">internal link</a>.</p>"
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_htmlarea": [
+    "<h3>First block</h3>",
+    "<p>Second block with a <strong>bold</strong> word.</p>"
+  ]
 }
 ----
 

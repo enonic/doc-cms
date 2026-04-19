@@ -2,11 +2,12 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A simple input for adding free-text tags. Tags will be autocompleted based on tags in other items with the same property name.
 
+== Appearance
+
+image::Tag.png[Tag input with autocompletion, 700]
 
 == Usage
 

@@ -1,8 +1,6 @@
 = CMS Fundamentals - Schemas, Content and Modeling
 :imagesdir: schemas/images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 This documentation covers the core concepts and features which make up Enonic's core CMS capabilities.
 
@@ -32,11 +30,15 @@ More applications, such as SEO tools, Google Analytics and more, are available o
 *Hierarchies:* Organize content in a tree structure. +
 *Media:* Image processing and delivery. +
 *Versioning:* Version control and branching for content. +
-*Workflows:* Define custom content lifecycles and   approval processes. +
+*Workflows:* Define custom content lifecycles and approval processes. +
 *Layering:* For multi-language and multi-region use-cases. +
 *Scalable:* Scale from small projects to global multi-brand deployments +
 *Customizable:* Augment the platform, APIs and tooling through custom development.
 
 Being built on top of Enonic XP, developers may adapt the platform, APIs and tooling extensively via Enonic apps, making it a versatile choice for organizations looking to manage their digital content in a way that is optimized for their needs.
+
+== Front-end toolkits
+
+Enonic publishes React components and a Next.js integration (Next.xp) that take the headless APIs documented here and wire them into a running app — including rich text processing, page component rendering, and responsive images. See the https://developer.enonic.com/templates[Enonic templates and starters] for the currently supported toolkits.
 
 

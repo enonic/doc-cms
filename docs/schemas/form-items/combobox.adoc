@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A ComboBox lets the user select one or more options from a statically defined list. The selected values are stored as strings.
 

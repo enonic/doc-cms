@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A simple input type for storing decimal numbers.
 
@@ -38,5 +36,16 @@ image::Double.png[An inpt field with a lot of decimal numbers, 700]
 ----
 {
   "my_double": 3.89
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_double": [
+    3.89,
+    1.41
+  ]
 }
 ----

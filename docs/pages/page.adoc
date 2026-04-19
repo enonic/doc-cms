@@ -81,3 +81,85 @@ Using the Content API, you may access a JSON representation of the hierarchical 
 ----
 
 NOTE: Empty regions are never persisted. Region names are only determined from the component path.
+
+
+== Querying via GraphQL
+
+Guillotine exposes pages in two shapes — a nested tree rooted at the `page` field, or a flat list under `components` (see <<indexing#, Component indexing>>). Use the tree shape when rendering, and the flat list when searching or filtering.
+
+=== Page tree
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      displayName
+      page {
+        descriptor
+        regions {
+          name
+          components {
+            type
+            path
+            ... on PartComponent {
+              descriptor
+              configAsJson
+            }
+            ... on LayoutComponent {
+              descriptor
+              configAsJson
+              regions {
+                name
+                components {
+                  type
+                  path
+                  ... on PartComponent {
+                    descriptor
+                    configAsJson
+                  }
+                }
+              }
+            }
+            ... on TextComponent {
+              text: value
+            }
+            ... on FragmentComponent {
+              fragment {
+                _id
+                displayName
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+=== Flat components list
+
+The flat list mirrors the indexed structure and is easier to iterate when the nested shape isn't needed. The flat `components` field also supports the `resolveFragment` argument — when set to `true`, fragment references are expanded inline so each `FragmentComponent` is replaced by the part/layout/text it wraps:
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      components(resolveFragment: true) {
+        type
+        path
+        ... on PartComponent {
+          descriptor
+        }
+        ... on LayoutComponent {
+          descriptor
+        }
+      }
+    }
+  }
+}
+----
+
+See <<fragments#querying-via-graphql, Fragments>> for the trade-offs between server-side resolution and manual traversal, <<parts#querying-via-graphql, Parts>> for typed access to a part's form config, and <<indexing#, Component indexing>> for searching across pages by component.

@@ -40,3 +40,7 @@ Content Studio's visual page editor allows editors to work with components by dr
 Seen from Content Studio, a page and its component structure might look like this:
 
 image::page-components.png[Component editor, 1440px]
+
+== Front-end toolkits
+
+Rendering a page's component tree in a front-end framework — resolving parts and layouts into components, hydrating fragments, and keeping the visual editor in sync — is easier with a dedicated integration. Enonic publishes React components and a Next.js integration (Next.xp) that handle this mapping. See the https://developer.enonic.com/templates[Enonic templates and starters] for the currently supported toolkits.

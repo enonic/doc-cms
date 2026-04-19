@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A plain text, multi-line input field.
 
@@ -36,5 +34,16 @@ NOTE: Contents of TextArea support browser based spellcheckers in the same way a
 ----
 {
   "my_textarea": "This is plain text.\nLine breaks are preserved."
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_textarea": [
+    "First paragraph.",
+    "Second paragraph."
+  ]
 }
 ----

@@ -1,8 +1,6 @@
 = Content Types
 :imagesdir: ../images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 Content types is the foundational schema type in Enonic XP. All content items must be based on a content type. Content types are used to define the sturcture and capabilities of a content items.
 
@@ -46,71 +44,155 @@ The localization key must then be declared and localised in the resource bundle.
 NOTE: `allow-child-content-type` will not have effect if `allow-child-content` is set to `false`
 
 
+== Querying via GraphQL
+
+Guillotine generates a dedicated GraphQL type for every content type in the project. Each typed field mirrors the YAML form definition, so a front-end developer gets a schema that matches the content shape without any manual mapping.
+
+=== Type names
+
+Guillotine sanitizes the content type name for GraphQL by replacing the namespace separator and any dashes with underscores:
+
+|===
+| Content type | GraphQL type
+
+| `com.example.myproject:Artist` | `com_example_myproject_Artist`
+| `com.enonic.app.myapp:news-article` | `com_enonic_app_myapp_news_article`
+| `portal:site` | `portal_Site`
+| `media:image` | `media_Image`
+| `base:folder` | `base_Folder`
+|===
+
+=== Untyped access
+
+Every content item implements the `Content` interface, which exposes standard fields available without inline fragments. Use `dataAsJson` to get the form data as raw JSON — useful when the client does not care about the specific content type:
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/artists/django-reinhardt") {
+      _id
+      _path
+      displayName
+      type
+      dataAsJson
+    }
+  }
+}
+----
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "_id": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+        "_path": "/artists/django-reinhardt",
+        "displayName": "Django Reinhardt",
+        "type": "com.example.myproject:artist",
+        "dataAsJson": {
+          "name": "Django Reinhardt",
+          "about": "Belgian-Romani jazz guitarist."
+        }
+      }
+    }
+  }
+}
+----
+
+=== Typed access
+
+To access form fields as typed GraphQL fields, use an inline fragment on the generated type:
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/artists/django-reinhardt") {
+      displayName
+      ... on com_example_myproject_Artist {
+        data {
+          name
+          about
+        }
+      }
+    }
+  }
+}
+----
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Django Reinhardt",
+        "data": {
+          "name": "Django Reinhardt",
+          "about": "Belgian-Romani jazz guitarist."
+        }
+      }
+    }
+  }
+}
+----
+
+=== Querying by content type
+
+Use `queryDsl` with a `term` query on the `type` field to fetch all content of a given type. Combine with an inline fragment to return typed data:
+
+[source,graphql]
+----
+{
+  guillotine {
+    queryDsl(
+      query: { term: { field: "type", value: { string: "com.example.myproject:artist" } } },
+      first: 10,
+      sort: { field: "displayName", direction: ASC }
+    ) {
+      _id
+      displayName
+      ... on com_example_myproject_Artist {
+        data {
+          name
+        }
+      }
+    }
+  }
+}
+----
+
+See the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation] for the full list of queries, arguments, and DSL options.
+
+
 == Icon
 A content type may optionally have its own specific icon which is used to represent the content type in Content Studio. The icon can be assigned to the content type by supplying a PNG or SVG file with the same name as the content type i.e. `my-content-type.svg`.
 
 [[base-types]]
-== Abstract Base types
+== Abstract base type
 
-All content types must extend one of the <<base-types, base content types>>. The base content types are fundamental content types built into Enonic XP, which all other content types build upon. They provide a common behavior and capabilities that all content types inherit.
+Every content type extends `base:structured`, the abstract parent for all schema-driven content. It introduces the `form` mechanism and is the common foundation for custom content types.
 
-TODO: Verify
-Common for all base content types is that they are all subtypes of the root content type `base:content`, which is the most basic content type in Enonic XP. The `base:content` type is abstract and cannot be used directly to create content items, but it provides a common set of properties and capabilities that all content types inherit.
+super-type:: base:content
+is-abstract:: true
+is-final:: false
+allow-child-content:: true
 
 NOTE: You may not specify a custom content type as a supertype, nor may you create circular dependencies between content types.
 
-Enonic XP ships with a set of abstract types that every other content type builds upon. They are all located in the `base` namespace. The base types are:
+Media content has its own abstract parent (`base:media`) with a different set of capabilities — see <<../media/media-types#, Media content types>>.
 
-=== Structured (base:structured)
+== Built-in types
 
-The structured base type supports <<../forms#, form definitions>>, and is as such the common foundation for <<custom#, custom content types>>.
+Enonic XP ships with a set of concrete, ready-to-use content types:
 
-is-abstract:: true
-is-final:: false
-allow-child-content:: true
-
-=== Media (base:media)
-[[base-media]]
-
-Files uploaded to XP are stored as content items based on one of the <<media/media-types#, media types>>.
-
-is-abstract:: true
-is-final:: false
-allow-child-content:: false
-
-
-== Built in Content Types
-
-Enonic XP also ships with a set of concrete types that are ready to be used as they are.
-
-=== Shortcut (base:shortcut)
-Used for referencing or redirecting to another content item in the structure.
-Optional name-value parameters can be set to be added to the redirect URL.
-
-is-abstract:: false
-is-final:: true
-allow-child-content:: true
-
-
-=== Folder (base:folder)
-Folders are simply containers for child content, with no other properties than their name and Display Name. They are helpful in organizing your content.
-
-is-abstract:: false
-is-final:: false
-allow-child-content:: true
-
-
-=== Unstructured (base:unstructured)
-
-The unstructured content type is a special content type that permits the creation of any property or structure without actually defining it first. It can only be used via API.
-
-This is convenient for storing content, when the properties and their types vary from instance to instance - and the item needs to be editorially managed and published. Consider using XP's https://developer.enonic.com/docs/xp/stable/storage[NoSQL storage] instead if your data does not require editorial management and publication.
-
-Since the content data is unstructured (basically schemaless), there is currently no default user interface (i.e. in Content Studio) that facilitates editing of the unstructured content.
-
-is-abstract:: false
-is-final:: true
-allow-child-content:: true
+* <<built-in-types#folder-base-folder, base:folder>>, <<built-in-types#shortcut-base-shortcut, base:shortcut>>, <<built-in-types#unstructured-base-unstructured, base:unstructured>> — generic structural types; see <<built-in-types#, Built-in content types>>.
+* `media:*` — concrete media types created automatically from uploaded files; see <<../media/media-types#, Media content types>>.
+* `portal:site`, `portal:page-template`, `portal:fragment`, `portal:template-folder` — types supporting the pages concept; see <<../pages#, Sites and pages>>.
 
 
 == Extend with mixins

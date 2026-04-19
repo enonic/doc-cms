@@ -77,25 +77,28 @@ The above definition would produce a property format like this:
 .Example with a single item
 [source,JSON]
 ----
-{ 
-  contact_info: {
-    label: "home",
-    phone_number: "+4712345678"  
+{
+  "contact_info": {
+    "label": "home",
+    "phone_number": "+4712345678"
   }
 }
 ----
 
-.Example with multipe items
+.Example with multiple items
 [source,JSON]
 ----
-{ 
-  contact_info: [{
-    label: "home",
-    phone_number: "+4712345678"  
-  },{
-    label: "office",
-     dphone_number: "+123456789"
-  }]
+{
+  "contact_info": [
+    {
+      "label": "home",
+      "phone_number": "+4712345678"
+    },
+    {
+      "label": "office",
+      "phone_number": "+123456789"
+    }
+  ]
 }
 ----
 

@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A field for dates with time, without timezone. An instant represents a specific point in time, independent of any timezone. Use <<datetime#, DateTime>> when you need to preserve timezone information.
 
@@ -11,7 +9,7 @@ A field for dates with time, without timezone. An instant represents a specific 
 
 A pop-up box with a calendar and time selector allows easy editing, similar to <<datetime#, DateTime>> but without timezone selection.
 
-//TODO: add screenshot
+image::Instant-selector.png[Input field with calendar and time selector above it, 500]
 
 == Usage
 
@@ -71,6 +69,17 @@ Examples:
 ----
 {
   "my_instant": "2025-06-15T12:00:00"
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_instant": [
+    "2025-06-15T12:00:00",
+    "2025-07-01T09:30:00"
+  ]
 }
 ----
 

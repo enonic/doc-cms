@@ -17,5 +17,29 @@ image::text-component.png[Text component edited on a page, 1305px]
 
 == Rendering
 
-NOTE: Text components have specific requirements for styling and HTML output. They are optimized for use in combination with the <<../../framework#, Enonic Framework>>. Consider implementing <<parts#, parts>> with an HtmlArea input when using 3rd party frameworks.
+NOTE: Text components have specific requirements for styling and HTML output, and are optimized for use with Enonic's front-end toolkits. When rolling your own integration, consider implementing a <<parts#, part>> with an HtmlArea input instead, which gives you explicit control over both the form and the output.
+
+== Querying via GraphQL
+
+Text components appear in a page's component list as `TextComponent`, with the rich text available as `value`. The same stored-vs-processed distinction applies as for regular <<../schemas/form-items/htmlarea#, HtmlArea>> fields — see <<../richtext#html-processing, HTML processing>> for how `content://` links, image references, and macros are resolved.
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      page {
+        regions {
+          components {
+            ... on TextComponent {
+              path
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
 

@@ -1,0 +1,151 @@
+= Content lifecycle
+:toc: right
+:imagesdir: images
+
+Every content item carries three independent state dimensions — what the public sees, how the draft compares to the published version, and where the item sits in the editorial workflow. Content Studio surfaces each dimension in a different UI surface so everyday use stays uncluttered.
+
+NOTE: The publish and change states were split into two separate indicators in XP {release} / Content Studio 6. Earlier versions combined them into a single status.
+
+== Publish state
+
+The publish state describes whether the item is visible to public consumers — readers of the `master` branch. It is derived from the publish window and the archive flag, not set directly by editors.
+
+[cols="1,3"]
+|===
+| State | Meaning
+
+| `OFFLINE`
+| Never published, or explicitly unpublished. Not present on the `master` branch.
+
+| `SCHEDULED`
+| Published with `publish.from` in the future. Present on `master` but not yet visible to the public.
+
+| `ONLINE`
+| Currently published and within the publish window — visible to the public.
+
+| `EXPIRED`
+| Was published, but `publish.to` is in the past. Still on `master`, no longer visible to the public.
+
+| `ARCHIVED`
+| Moved to the archive. Not returned by standard queries but preserved for restoration.
+|===
+
+The publish state is what appears in Content Studio list views — the indicator the editor sees at a glance.
+
+== Change state
+
+The change state describes how the current draft compares to the published version. It is surfaced during edit and publish dialogs, where the editor needs to understand what will actually change on publish.
+
+[cols="1,3"]
+|===
+| State | Meaning
+
+| `NEW`
+| Exists only in draft. There is no published version yet.
+
+| `MODIFIED`
+| Published, with uncommitted draft edits. Publishing will update the `master` copy.
+
+| `MOVED`
+| Published, but the draft has since been moved to a different path. Publishing will update the path on `master`.
+
+| `UNPUBLISHED`
+| Was published, has since been unpublished. The draft remains and can be published again.
+|===
+
+== Workflow state
+
+The workflow state is a separate, editor-controlled dimension that indicates whether the draft is considered complete.
+
+[cols="1,3"]
+|===
+| State | Meaning
+
+| `IN_PROGRESS`
+| The draft is being worked on.
+
+| `READY`
+| The draft is considered complete and ready for publishing.
+|===
+
+A content item can only be promoted from `IN_PROGRESS` to `READY` when all checks pass. One check currently runs:
+
+* *Validity* — all required fields have values, and every value satisfies the form's validation rules (types, occurrences, regex patterns, and so on).
+
+If the validity check fails, Content Studio highlights the fields that need attention and the promotion is blocked.
+
+== Querying via GraphQL
+
+The publish window and audit timestamps are exposed directly on every content item:
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      _id
+      displayName
+      createdTime
+      modifiedTime
+      publish {
+        from
+        to
+        first
+      }
+    }
+  }
+}
+----
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "_id": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+        "displayName": "Hello world",
+        "createdTime": "2026-01-10T10:00:00Z",
+        "modifiedTime": "2026-01-15T08:00:00Z",
+        "publish": {
+          "from": "2026-01-15T08:00:00Z",
+          "to": null,
+          "first": "2026-01-15T08:00:00Z"
+        }
+      }
+    }
+  }
+}
+----
+
+Find every item scheduled to go online in the future:
+
+[source,graphql]
+----
+{
+  guillotine {
+    queryDsl(
+      query: {
+        range: {
+          field: "publish.from",
+          from: { instant: "now" }
+        }
+      },
+      sort: { field: "publish.from", direction: ASC }
+    ) {
+      _id
+      displayName
+      publish { from }
+    }
+  }
+}
+----
+
+NOTE: Guillotine queries the `master` branch by default. Content in the `OFFLINE`, `SCHEDULED`, or draft-only states lives on `draft`, so accessing them requires a Guillotine request against the draft branch — see the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation] for branch selection and the exact field names that expose the derived publish, change, and workflow states.
+
+== Audit trail
+
+Every content item preserves enough history to reconstruct what changed, when, and by whom — see <<versions#, Versions>> for how to access prior states and compare them.
+
+Full audit properties (`creator`, `createdTime`, `modifier`, `modifiedTime`, `owner`, `_timestamp`) are documented under <<../content#standard-properties, standard content properties>>.

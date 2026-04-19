@@ -28,9 +28,9 @@ A description to show in the Insert macro dialog in Content Studio. Also support
 config::
 The config element is a form where each input element corresponds to a macro parameter. The macro body is represented with an input named "body".
 
-NOTE: The config form does not support nested elements, so <<schemas/item-set#, Item Sets>> are not allowed in the macro config form. Also the <<schemas/input-types/htmlarea#, HtmlArea>> input type is not allowed in the config form, since it may contain macros itself.
+NOTE: The config form does not support nested elements, so <<../schemas/form-items/item-set#, Item Sets>> are not allowed in the macro config form. Also the <<../schemas/form-items/htmlarea#, HtmlArea>> input type is not allowed in the config form, since it may contain macros itself.
 
-IMPORTANT: If you don't have a input with the `name="body"`, the generated macro tag will be self closing `[disable][macro attr="" /][/disable]``
+IMPORTANT: If the config form has no input named `body`, the generated macro tag will be self-closing — for example, `[macro attr="value"/]`.
 
 Its path follows the pattern `src/main/resources/site/macros/<macroName>/<macroName>.yaml`
 
@@ -52,71 +52,20 @@ form:
     label: "Text to show if no user logged in"
 ----
 
-TIP: The macro texts (display-name, description, label and help-text from config input types) can be provided in multiple languages. Visit <<schemas/localization#, Schema localization>> for more details.
+TIP: The macro texts (display-name, description, label and help-text from config input types) can be provided in multiple languages. Visit <<../schemas/i18n#, Schema localization>> for more details.
 
 
-== Controller
+== Macro function
 
-When using the Enonic framework, optionally add a JavaScript controller to render the macro.
+A macro is rendered by a function declared under `src/main/resources/site/macros/<macroName>/<macroName>.js`. The function receives a context with the macro's `name`, `body`, and `params`, and returns the HTML to insert at the macro's position.
 
-NOTE: When using 3rd party front-end frameworks, the controller can also be used to provide a preview of the macro in Content Studio.
+Writing macro functions is an Enonic XP app-development task — see the Enonic XP app-development docs for the full context object, response shape, and page-contribution support.
 
-Its path follows the pattern `src/main/resources/site/macros/<macroName>/<macroName>.js`
+== Output
 
-A macro controller must export a single `macro` function that takes a `context` parameter and returns a response object (see <<../framework/http#http-response, HTTP Response>>).
+During HTML processing, Guillotine invokes each macro's function and replaces the macro instruction with the returned HTML. See <<../richtext#html-processing, HTML processing>> for how to retrieve the rendered output via GraphQL.
 
-The context parameter is a Javascript object with the following properties:
-
-name::
-a string containing the macro name.
-
-body::
-a string containing the body of the macro instruction.
-
-params::
-an object with key-value pairs containing the macro parameters. The values are the strings from the macro instruction attributes.
-
-document::
-a string with the HTML document that contains the current macro. The document contains the raw source HTML, before any macro instructions have been executed, and before image or content URLs have been resolved. The document is only an input parameter to the macro, it cannot be modified.
-
-request::
-the request object.
-
-[source, js]
-----
-// Example usage: [currentUser defaultText="Anonymous"/]
-var authLib = require('/lib/xp/auth');
-var portalLib = require('/lib/xp/portal');
-
-exports.macro = function (context) {
-    var defaultText = context.params.defaultText;
-    var macroBody = context.body;
-
-    var user = authLib.getUser();
-    var body = '<span>' + macroBody || (user ? user.displayName : defaultText) + '</span>';
-
-    var doc = context.document; // HTML document containing the current macro
-    var lineCount = doc.split(/\r\n|\r|\n/).length;
-    if (lineCount <= 1) {
-        return {
-            body: ''
-        }
-    }
-
-    return {
-        body: body,
-        pageContributions: {
-            headEnd: [
-                '<link rel="stylesheet" href="' + portalLib.assetUrl({path: 'css/current-user.css'}) + '"/>'
-            ]
-        }
-    }
-};
-----
-
-Note that only the `body` and `pageContributions` fields of the response are relevant for macro controllers.
-
-TIP: A macro controller can also use libraries, like any other JavaScript controller.
+The HtmlArea GraphQL type also exposes a `macros` field that returns the list of macros used in a rich text value, without executing them — useful when the front-end renders macros itself.
 
 == Built-in macros
 

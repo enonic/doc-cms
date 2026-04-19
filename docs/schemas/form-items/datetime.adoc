@@ -2,8 +2,6 @@
 
 :imagesdir: images
 :toc: right
-:y: icon:check[role="green"]
-:n: icon:times[role="red"]
 
 A field for dates with time and timezone. A pop-up box with a calendar and time selector allows easy editing.
 
@@ -84,5 +82,16 @@ Examples:
 ----
 {
   "my_datetime": "2016-12-31T23:59:00+01:00"
+}
+----
+
+.Multiple occurrences
+[source,JSON]
+----
+{
+  "my_datetime": [
+    "2016-12-31T23:59:00+01:00",
+    "2017-01-15T09:30:00+01:00"
+  ]
 }
 ----

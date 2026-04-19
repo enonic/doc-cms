@@ -59,3 +59,90 @@ regions:
 Here is what an empty layout with three regions might look like in Content Studio's visual page editor:
 
 image::3-region-layout-wrapped.png[Layout selected in the page editor, 1012px]
+
+
+[#querying-via-graphql]
+== Querying via GraphQL
+
+Guillotine generates a GraphQL type for every part and layout config, following the naming convention `<appname>_<partname>_PartConfig` / `<appname>_<layoutname>_LayoutConfig` (with dots and dashes replaced by underscores). Use an inline fragment on that type to access typed config fields, or fall back to `configAsJson` when the front-end does not need typed access.
+
+=== Typed part config
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      page {
+        regions {
+          components {
+            ... on PartComponent {
+              descriptor
+              config {
+                ... on com_enonic_app_superhero_featured_PartConfig {
+                  heading
+                  postCount
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "page": {
+          "regions": [
+            {
+              "components": [
+                {
+                  "descriptor": "com.enonic.app.superhero:featured",
+                  "config": {
+                    "heading": "Featured posts",
+                    "postCount": 5
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+----
+
+=== Untyped part config
+
+Use `configAsJson` when you need to handle arbitrary parts generically — for example, a front-end that renders any registered part without knowing the schema at build time:
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/site/articles/hello") {
+      page {
+        regions {
+          components {
+            ... on PartComponent {
+              descriptor
+              configAsJson
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+Layouts follow the same pattern with `LayoutComponent` and `<appname>_<layoutname>_LayoutConfig`.
