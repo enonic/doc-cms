@@ -566,17 +566,13 @@ regions:
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
   guillotine {
     get(key: "/site/articles/hello") {
-      page {
-        regions {
-          components {
-            ... on PartComponent {
-              descriptor
-              config {
-                ... on com_enonic_app_superhero_featured_PartConfig {
-                  heading
-                  postCount
-                }
-              }
+      components {
+        ... on PartComponent {
+          descriptor
+          config {
+            ... on com_enonic_app_superhero_featured_PartConfig {
+              heading
+              postCount
             }
           }
         }
@@ -593,21 +589,15 @@ regions:
   "data": {
     "guillotine": {
       "get": {
-        "page": {
-          "regions": [
-            {
-              "components": [
-                {
-                  "descriptor": "com.enonic.app.superhero:featured",
-                  "config": {
-                    "heading": "Featured posts",
-                    "postCount": 5
-                  }
-                }
-              ]
+        "components": [
+          {
+            "descriptor": "com.enonic.app.superhero:featured",
+            "config": {
+              "heading": "Featured posts",
+              "postCount": 5
             }
-          ]
-        }
+          }
+        ]
       }
     }
   }
@@ -649,7 +639,7 @@ regions:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-19 18:20:54 UTC
+Last updated 2026-04-22 21:34:08 UTC
 </div>
 </div>
 </body>

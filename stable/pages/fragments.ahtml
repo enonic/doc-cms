@@ -686,7 +686,7 @@ Each <code>fragment { fragment { components { &#8230;&#8203; } } }</code> hop co
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
   guillotine {
-    get(key: "/site/_fragments/featured-promo") {
+    get(key: "/site/fragments/featured-promo") {
       _id
       displayName
       ... on portal_Fragment {
@@ -755,7 +755,7 @@ Customer-facing search should exclude <code>portal:fragment</code> content. Text
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-19 18:20:54 UTC
+Last updated 2026-04-22 21:34:08 UTC
 </div>
 </div>
 </body>
