@@ -73,17 +73,13 @@ Guillotine generates a GraphQL type for every part and layout config, following 
 {
   guillotine {
     get(key: "/site/articles/hello") {
-      page {
-        regions {
-          components {
-            ... on PartComponent {
-              descriptor
-              config {
-                ... on com_enonic_app_superhero_featured_PartConfig {
-                  heading
-                  postCount
-                }
-              }
+      components {
+        ... on PartComponent {
+          descriptor
+          config {
+            ... on com_enonic_app_superhero_featured_PartConfig {
+              heading
+              postCount
             }
           }
         }
@@ -91,6 +87,7 @@ Guillotine generates a GraphQL type for every part and layout config, following 
     }
   }
 }
+
 ----
 
 .Response
@@ -100,21 +97,15 @@ Guillotine generates a GraphQL type for every part and layout config, following 
   "data": {
     "guillotine": {
       "get": {
-        "page": {
-          "regions": [
-            {
-              "components": [
-                {
-                  "descriptor": "com.enonic.app.superhero:featured",
-                  "config": {
-                    "heading": "Featured posts",
-                    "postCount": 5
-                  }
-                }
-              ]
+        "components": [
+          {
+            "descriptor": "com.enonic.app.superhero:featured",
+            "config": {
+              "heading": "Featured posts",
+              "postCount": 5
             }
-          ]
-        }
+          }
+        ]
       }
     }
   }

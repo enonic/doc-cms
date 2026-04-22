@@ -136,7 +136,7 @@ A fragment is a content item of type `portal:fragment`, so it can be fetched lik
 ----
 {
   guillotine {
-    get(key: "/site/_fragments/featured-promo") {
+    get(key: "/site/fragments/featured-promo") {
       _id
       displayName
       ... on portal_Fragment {

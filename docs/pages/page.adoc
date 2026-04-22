@@ -62,20 +62,15 @@ Using the Content API, you may access a JSON representation of the hierarchical 
     "type": "page",
     "path": "/",
     "descriptor": "com.enonic.app.superhero:default",
-    "regions": {
-      "main": {
-        "components": [
-          {
-            "path": "/main/0",
-            "type": "layout",
-            "descriptor": "com.enonic.app.superhero:three-column",
-            "config": {},
-            "regions": {}
-          }
-        ],
-        "name": "main"
-      }
-    }
+      "components": [
+        {
+          "path": "/main/0",
+          "type": "layout",
+          "descriptor": "com.enonic.app.superhero:three-column",
+          "config": {},
+          "regions": {}
+        }
+      ]
   }
 }
 ----
@@ -85,62 +80,29 @@ NOTE: Empty regions are never persisted. Region names are only determined from t
 
 == Querying via GraphQL
 
-Guillotine exposes pages in two shapes — a nested tree rooted at the `page` field, or a flat list under `components` (see <<indexing#, Component indexing>>). Use the tree shape when rendering, and the flat list when searching or filtering.
+Guillotine exposes pages in two shapes — a tree rootet at the `pageAsJson` field, or the strongly typed flat list under `components` (see <<indexing#, Component indexing>>).
 
-=== Page tree
+=== PageAsJson
+
+Performing this query will return the hierarchical page structure as JSON, with all components and regions nested under the `pageAsJson` field. This is useful for viewing the page structure, but does not provide typed access to component config fields. 
 
 [source,graphql]
 ----
 {
   guillotine {
-    get(key: "/site/articles/hello") {
+    get(key: "/path/to/page") {
       displayName
-      page {
-        descriptor
-        regions {
-          name
-          components {
-            type
-            path
-            ... on PartComponent {
-              descriptor
-              configAsJson
-            }
-            ... on LayoutComponent {
-              descriptor
-              configAsJson
-              regions {
-                name
-                components {
-                  type
-                  path
-                  ... on PartComponent {
-                    descriptor
-                    configAsJson
-                  }
-                }
-              }
-            }
-            ... on TextComponent {
-              text: value
-            }
-            ... on FragmentComponent {
-              fragment {
-                _id
-                displayName
-              }
-            }
-          }
-        }
-      }
+      pageAsJson
     }
   }
 }
 ----
 
-=== Flat components list
+=== Component list
 
-The flat list mirrors the indexed structure and is easier to iterate when the nested shape isn't needed. The flat `components` field also supports the `resolveFragment` argument — when set to `true`, fragment references are expanded inline so each `FragmentComponent` is replaced by the part/layout/text it wraps:
+To access the full list of components on a page, regardless of their position in the tree, use the `components` field on the page query. This allows you to perfomm queries based on typed component data, similar to how you would with any other content type. 
+
+This structure also resemples how  <<indexing#, components are stored and indexed>> providing a 1:1 of how how to query based on component content.
 
 [source,graphql]
 ----
@@ -150,11 +112,17 @@ The flat list mirrors the indexed structure and is easier to iterate when the ne
       components(resolveFragment: true) {
         type
         path
-        ... on PartComponent {
+        page {
           descriptor
+          configAsJson
         }
-        ... on LayoutComponent {
+        layout {
           descriptor
+          configAsJson
+        }
+        part {
+          descriptor
+          configAsJson
         }
       }
     }
