@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>CMS Fundamentals - Schemas, Content and Modeling</title>
+<title>XP8 CMS - Schemas, Content and Modeling</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>CMS Fundamentals - Schemas, Content and Modeling</h1>
+<h1>XP8 CMS - Schemas, Content and Modeling</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -460,10 +460,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic&#8217;s CMS is built on top of the Enonic XP platform core. The heart of the CMS is a declarative schema system and a unified API to access all of your content. Content models are automatically reflected in the API, as well as Content Studio, along with full server-side validation, indexing and querying capabilities.</p>
+<p>Enonic&#8217;s CMS is built on top of the Enonic XP platform core. The heart of the CMS is a declarative <a href="schemas.ahtml">Schema system</a>, <a href="projects.ahtml">Projects to store your content</a> and a <a href="api.ahtml">Unified API</a> to access all of your content. Content models are automatically reflected in the API, as well as Content Studio, along with full server-side validation, indexing and <a href="querying.ahtml">querying capabilities</a>.</p>
 </div>
 <div class="paragraph">
-<p>TODO: Quickstart, Developer 101</p>
+<p>This documentation covers the CMS surface only, other relevant reference documentation includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.enonic.com/docs/code">Enonic Development Kit</a> for schema deployment and coding</p>
+</li>
+<li>
+<p><a href="https://developer.enonic.com/docs/xp">XP platform docs</a> for core platform features and architecture</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -471,28 +481,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="the_cms_stack"><a class="link" href="#the_cms_stack">The CMS stack</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The CMS is composed from serveral independent software components, each documented separately. When put together, they make out Enonic&#8217;s CMS stack. This is possible thanks to Enonic XP&#8217;s modular architecture, and allows for unprecedented flexibility and adaptability - including the ability to build your own APIs and editorial interfaces should you need to.</p>
+<p>The CMS is composed from serveral independent software components on top of Enonic XP, each documented and maintained separately. They are all available on <a href="https://market.enonic.com">Enonic Market</a>.</p>
+</div>
+<div class="paragraph">
+<p>Combined they make out Enonic&#8217;s CMS stack. This is possible thanks to Enonic XP&#8217;s modular architecture, and allows for unprecedented flexibility and adaptability.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://developer.enonic.com/docs/ai">AI features</a> - Optional extensions for subscription customers.</p>
+<p><a href="https://market.enonic.com/vendors/enonic/guillotine">Headless API</a></p>
 </li>
 <li>
-<p><a href="https://developer.enonic.com/docs/content-studio">Content Studio+</a> - Optional extensions for subscribing customers.</p>
+<p><a href="https://market.enonic.com/vendors/enonic/content-studio">Content Studio</a></p>
 </li>
 <li>
-<p><a href="https://developer.enonic.com/docs/content-studio">Content Studio</a> - Extensible authoring</p>
+<p><a href="https://market.enonic.com/vendors/enonic/content-studio-plus">Content Studio+</a> - for subscription customers.</p>
 </li>
 <li>
-<p><a href="https://developer.enonic.com/docs/intro">Headless API</a> - Available on Enonic Market
-interface available on Enonic Market</p>
-</li>
-<li>
-<p><a href="schemas.ahtml">Schema system</a> - Define content types and content structures.</p>
-</li>
-<li>
-<p><a href="https://developer.enonic.com/docs/xp">Enonic XP</a> - Core Platform including Storage, IAM and more.</p>
+<p><a href="https://market.enonic.com/vendors/enonic/ai-content-operator">AI Content Operator</a> - for subscription customers.</p>
 </li>
 </ul>
 </div>
@@ -515,7 +521,7 @@ interface available on Enonic Market</p>
 <strong>Customizable:</strong> Augment the platform, APIs and tooling through custom development.</p>
 </div>
 <div class="paragraph">
-<p>Being built on top of Enonic XP, developers may adapt the platform, APIs and tooling extensively via Enonic apps, making it a versatile choice for organizations looking to manage their digital content in a way that is optimized for their needs.</p>
+<p>Developers may adapt the platform, APIs and tooling extensively via Enonic apps, making it a versatile choice for organizations looking to manage their digital content in a way that is optimized for their needs.</p>
 </div>
 </div>
 </div>
@@ -523,14 +529,14 @@ interface available on Enonic Market</p>
 <h2 id="front_end_toolkits"><a class="link" href="#front_end_toolkits">Front-end toolkits</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic publishes React components and a Next.js integration (Next.xp) that take the headless APIs documented here and wire them into a running app — including rich text processing, page component rendering, and responsive images. See the <a href="https://developer.enonic.com/templates">Enonic templates and starters</a> for the currently supported toolkits.</p>
+<p>Enonic CMS can be used with any front-end framework. Enonic manages and publishes <a href="https://www.npmjs.com/package/@enonic/react-components" target="_blank" rel="noopener">Enonic React components</a> and a highly optimized <a href="https://developer.enonic.com/learn/next.xp/stable" target="_blank" rel="noopener">Next.js integration</a>. See the <a href="https://developer.enonic.com/docs/frameworks">frameworks section</a> for more details and examples.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-22 21:34:08 UTC
+Last updated 2026-05-06 06:34:06 UTC
 </div>
 </div>
 </body>
