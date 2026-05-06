@@ -6,53 +6,45 @@ Schemas are the heart of the CMS, enabling you to express your content model as 
 
 == Introduction
 
-Schemas are used to define various editorial elements within the CMS, such as <<content-types#, Content Types>> and <<content/mixins#, Mixins>>. Schemas may contain a <<form#, Form>> which allow you to declare advanced data structures within your content.
+Schemas are used to define various editorial elements within the CMS. Schemas may contain a <<form#, Form>> which allow you to declare custom data structures.
 
-== Installation and usage
-
-Schemas are deployed to Enonic XP via Enonic apps. When an application gets installed, the schemas are registered in the system, and instantly reflected in Content Studio and related APIs. 
-
-Visit the https://developer.enonic.com/docs/dev[Enonic App development docs] for more information on how to create and deploy Enonic apps.
-
-
-== Definition
-
-Schemas are defined using YAML files. A schema definition commonly contains the following elements:
-
-* Namespace and name (i.e. "com.example:article")
-* <<#kinds, Kind>> (i.e. "content-type", "mixin")
-* Configuration (Validated fields for each schema kind)
-* <<form#, Form>> (Optionally defines a form, and hence the data structure of the content)
-* Attributes (User-defined non-validated fields)
-
-TODO: Example descriptor
-
-[[kinds]]
-== Schema kinds
-Enonic currently support the following content schemas kinds. Each kind has a specific role in the CMS, and may have specific configuration options.
-
-=== Reuse
-* <<schemas/form-fragments#, Form Fragments>>
-* <<content/mixins#, Mixins>>
-
-=== Content types
+The available schema kinds are:
 
 * <<content/content-types#, Content Types>>
-* <<media/media-types#, Media Types>>
-
-=== Rich Text
-
+* <<content/mixins#, Mixins>>
+* <<schemas/form-fragments#, Form Fragments>>
+* <<pages#, Pages, Parts and Layouts>>
 * <<richtext/macros#, Macros>>
-* <<richtext/styles#, Styles>>
+* <<richtext/styles#, Styles>> 
 
-=== Page domain
+== Schema deployment
 
-* <<pages#, Pages>>
-* <<pages/parts#, Parts and Layouts>>
+Schemas are managed as code, and deployed to Enonic XP via Enonic apps. When an application gets installed, the schemas are registered in the system, and instantly reflected in Content Studio and related APIs. 
+
+Visit the https://developer.enonic.com/docs/code[Enonic Development Kit] documentation for more information.
+
+
+== Descriptor
+
+Schemas are defined using YAML files, and registered with a unique identifier <namespace>:<name> (i.e. "com.example:article")
+
+.Sample schema definition
+[source,yaml]
+----
+kind: “ContentType”  # <1>
+title: “Person”  # <2>
+displayNameLabel: “Full Name”  # <3>
+form: []  # <4>
+----
+
+<1> <<#kinds, Kind>> - i.e. "ContentType", "Mixin" etc.
+<2> Title - Human readable schema name.
+<3> <<#configuration, Configuration>> - Validated fields for each schema kind
+<4> <<form#, Form>> - Optional form that declares a custom data structure for the schema.
 
 
 == Schema localization
 
-You may provide <<i18n#, translations>> for your schemas in multiple languages for better usability. 
+You may provide <<i18n#, translations>> for your schemas in multiple languages for better usability in Content Studio. 
 
 
