@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="toc: right">
 <title>APIs</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -439,44 +438,148 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article toc2 toc-right">
 <div id="header">
 <h1>APIs</h1>
-<div class="details">
-<span id="author" class="author">toc: right</span><br>
-<span id="revdate">TODO</span>
-</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#intro">Intro</a></li>
-<li><a href="#universal_apis">Universal APIs</a></li>
-<li><a href="#javascript_apis">JavaScript APIs</a></li>
+<li><a href="#which_api_do_i_use">Which API do I use?</a></li>
+<li><a href="#graphql_api">GraphQL API</a></li>
+<li><a href="#image_api">Image API</a></li>
+<li><a href="#attachment_api">Attachment API</a></li>
+<li><a href="#other_built_in_apis">Other built-in APIs</a></li>
+<li><a href="#custom-functions">Custom Functions</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>Enonic CMS exposes content over HTTP under a common <code>/api/</code> prefix. The GraphQL API is the primary interface for headless delivery, while the Image and Attachment APIs serve media directly. Custom <strong>Functions</strong> let you extend this surface with your own endpoints and background jobs.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="universal_apis"><a class="link" href="#universal_apis">Universal APIs</a></h2>
+<h2 id="which_api_do_i_use"><a class="link" href="#which_api_do_i_use">Which API do I use?</a></h2>
 <div class="sectionbody">
-
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">You want to…</th>
+<th class="tableblock halign-left valign-top">Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Query or mutate content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="apis/graphql.ahtml">GraphQL API</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Render or transform images</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="apis/image.ahtml">Image API</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Serve raw file downloads</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="apis/attachment.ahtml">Attachment API</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expose custom HTTP endpoints or run tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#custom-functions">Custom Functions</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
-<h2 id="javascript_apis"><a class="link" href="#javascript_apis">JavaScript APIs</a></h2>
+<h2 id="graphql_api"><a class="link" href="#graphql_api">GraphQL API</a></h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>The GraphQL API is Enonic&#8217;s primary headless interface, provided by <a href="https://market.enonic.com/vendors/enonic/guillotine">Guillotine</a> — a separately versioned app that exposes your content as a typed GraphQL schema. Content types, mixins, references, pages, and media are all reachable from a single endpoint, with per-user authorization enforced by XP&#8217;s IAM.</p>
+</div>
+<div class="paragraph">
+<p>Default endpoint: <code>/api/guillotine:graphql</code></p>
+</div>
+<div class="paragraph">
+<p>See <a href="apis/graphql.ahtml">GraphQL API</a> for endpoint details, authentication, and usage patterns.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="image_api"><a class="link" href="#image_api">Image API</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Image API delivers and transforms bitmap images on the fly — resize, crop, format conversion, and quality adjustments — directly from URL parameters. It is the standard way for front-ends to load responsive image variants without pre-generating them.</p>
+</div>
+<div class="paragraph">
+<p>Default endpoint: <code>/api/media:image/</code></p>
+</div>
+<div class="paragraph">
+<p>See <a href="apis/image.ahtml">Image API</a> for URL structure, parameters, and caching behavior.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="attachment_api"><a class="link" href="#attachment_api">Attachment API</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Attachment API serves the original, unprocessed bytes of any content attachment — documents, archives, video, audio, or any non-image media. Use it when you need the file as it was uploaded.</p>
+</div>
+<div class="paragraph">
+<p>Default endpoint: <code>/api/media:attachment/</code></p>
+</div>
+<div class="paragraph">
+<p>See <a href="apis/attachment.ahtml">Attachment API</a> for URL structure and download semantics.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="other_built_in_apis"><a class="link" href="#other_built_in_apis">Other built-in APIs</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>XP exposes additional HTTP APIs for system-level concerns (IDProvider, webapps, admin tooling, and more). See <a href="apis/other.ahtml">Other APIs</a> for the full inventory.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="custom-functions"><a class="link" href="#custom-functions">Custom Functions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Beyond the built-in APIs, you can deploy custom <strong>Functions</strong> as part of your own Enonic app. Functions run server-side on XP and can:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>extend the GraphQL schema with custom queries, mutations, and resolvers</p>
+</li>
+<li>
+<p>expose custom HTTP endpoints under <code>/api/&lt;app&gt;/</code></p>
+</li>
+<li>
+<p>run scheduled or on-demand background tasks</p>
+</li>
+<li>
+<p>react to content events (publish, modify, delete) via listeners</p>
+</li>
+<li>
+<p>integrate with external systems, perform complex data processing, or implement custom business logic</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Functions are how customer-specific business logic plugs into the CMS.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://developer.enonic.com/docs/code">Enonic Development Kit</a> for how to scaffold, build, and deploy custom functions.</p>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-06 06:34:06 UTC
+Last updated 2026-05-20 06:40:29 UTC
 </div>
 </div>
 </body>

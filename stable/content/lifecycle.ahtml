@@ -611,9 +611,10 @@ The publish and change states were split into two separate indicators in XP {rel
       createdTime
       modifiedTime
       publish {
+        first
+        time
         from
         to
-        first
       }
     }
   }
@@ -632,15 +633,36 @@ The publish and change states were split into two separate indicators in XP {rel
         "createdTime": "2026-01-10T10:00:00Z",
         "modifiedTime": "2026-01-15T08:00:00Z",
         "publish": {
-          "from": "2026-01-15T08:00:00Z",
-          "to": null,
-          "first": "2026-01-15T08:00:00Z"
+          "first": "2026-01-12T09:00:00Z", <i class="conum" data-value="1"></i><b>(1)</b>
+          "time": "2026-01-15T08:00:00Z", <i class="conum" data-value="2"></i><b>(2)</b>
+          "from": "2026-01-15T08:00:00Z", <i class="conum" data-value="3"></i><b>(3)</b>
+          "to": null <i class="conum" data-value="4"></i><b>(4)</b>
         }
       }
     }
   }
 }</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>first</strong> — the first time this content was ever accessible online. Set on the initial publish and never updated, even if the item is later unpublished and republished.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>time</strong> — the time the editor pressed publish for the specific version. Updated on every publish. If the current item in draft branch has never been published, this field is <code>null</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>from</strong> — start of the current publish window. The content is present on <code>master</code> and becomes visible to the public at this time.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>to</strong> — end of the current publish window. Content remains on master, but is no longer visible to the public. <code>null</code> means no expiry date.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Find every item scheduled to go online in the future:</p>
@@ -653,14 +675,95 @@ The publish and change states were split into two separate indicators in XP {rel
       query: {
         range: {
           field: "publish.from",
-          from: { instant: "now" }
+          gte: { string: "now" }
         }
       },
-      sort: { field: "publish.from", direction: ASC }
+      sort: { field: "publish.from", direction: DESC }
     ) {
       _id
       displayName
       publish { from }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "_id": "a1111111-1111-4111-8111-111111111111",
+          "displayName": "Upcoming announcement",
+          "publish": {
+            "from": "2026-06-01T08:00:00.000Z"
+          }
+        },
+        {
+          "_id": "b2222222-2222-4222-8222-222222222222",
+          "displayName": "Spring campaign launch",
+          "publish": {
+            "from": "2026-05-25T09:30:00.000Z"
+          }
+        }
+      ]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Find every draft whose current version is not live on <code>master</code> — items that need (re)publishing. <code>publish.time</code> is set when the current draft version has been published; an unset value covers both never-published content (<code>NEW</code>) and items that have been edited, moved, or unpublished since their last publish (<code>MODIFIED</code>, <code>MOVED</code>, <code>UNPUBLISHED</code>).</p>
+</div>
+<div class="paragraph">
+<p>To restrict the query to content that has never been published at all, filter on <code>publish.first</code> instead — that field is only set on the very first publish and never cleared.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine(branch: "draft") {
+    queryDsl(
+      query: {
+        boolean: {
+          mustNot: [
+            { exists: { field: "publish.time" } }
+          ]
+        }
+      },
+      sort: { field: "modifiedTime", direction: DESC }
+    ) {
+      _id
+      displayName
+      modifiedTime
+      publish { time }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "_id": "c3333333-3333-4333-8333-333333333333",
+          "displayName": "Q2 roadmap update",
+          "modifiedTime": "2026-05-18T12:14:02.000Z",
+          "publish": { "time": null }
+        },
+        {
+          "_id": "d4444444-4444-4444-8444-444444444444",
+          "displayName": "Onboarding revamp",
+          "modifiedTime": "2026-05-17T09:40:11.000Z",
+          "publish": { "time": null }
+        }
+      ]
     }
   }
 }</code></pre>
@@ -673,7 +776,7 @@ The publish and change states were split into two separate indicators in XP {rel
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Guillotine queries the <code>master</code> branch by default. Content in the <code>OFFLINE</code>, <code>SCHEDULED</code>, or draft-only states lives on <code>draft</code>, so accessing them requires a Guillotine request against the draft branch — see the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for branch selection and the exact field names that expose the derived publish, change, and workflow states.
+Guillotine queries the <code>master</code> branch by default, so the query above sets <code>branch: "draft"</code>. The query resolves <code>NEW</code>, <code>MODIFIED</code>, <code>MOVED</code>, and <code>UNPUBLISHED</code> change states. See the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for branch selection details.
 </td>
 </tr>
 </table>
@@ -694,7 +797,7 @@ Guillotine queries the <code>master</code> branch by default. Content in the <co
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-06 06:34:06 UTC
+Last updated 2026-05-20 06:40:29 UTC
 </div>
 </div>
 </body>

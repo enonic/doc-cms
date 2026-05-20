@@ -455,6 +455,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#output_2">Output</a></li>
 </ul>
 </li>
+<li><a href="#querying_via_graphql">Querying via GraphQL</a>
+<ul class="sectlevel2">
+<li><a href="#selecting_an_option_sets_data">Selecting an option-set&#8217;s data</a></li>
+<li><a href="#dispatching_on_selected">Dispatching on <code>_selected</code></a></li>
+<li><a href="#filtering_content_by_selected_option">Filtering content by selected option</a></li>
+<li><a href="#nested_option_sets_and_item_sets">Nested option sets and item sets</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -462,7 +470,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>An option set is a group of options presented either as a multi-select option set (radio button style), or as a single-select option set (dropdown style).</p>
+<p>An option set is a group of options presented either as a multi-select option set (checkbox style), or as a single-select option set (dropdown style).</p>
 </div>
 <div class="paragraph">
 <p>Each option <em>may</em> contain an optional form, which also support nested item-sets and option-sets.</p>
@@ -475,7 +483,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="appearance"><a class="link" href="#appearance">Appearance</a></h3>
 <div class="paragraph">
-<p>In single select mode, an optionset will look similar to an <a href="item-set.ahtml">item set</a>, but you will rather have multiple "items" to select from.</p>
+<p>In single select mode, an option set looks similar to an <a href="item-set.ahtml">item set</a>, except that the user picks one option per instance from a list.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -486,7 +494,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>When inserting a new optionset, the selected option&#8217;s form will automatically be expanded.</p>
 </div>
 <div class="paragraph">
-<p>The example below what it looks like when multiple option set instances are inserted and expanded. Each option set is visualized as a card.</p>
+<p>The example below shows what it looks like when multiple option set instances are inserted and expanded. Each option set is visualized as a card.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -547,7 +555,7 @@ Easily shuffle the order of the option sets by dragging the cards from the grip 
 <div class="title">Sample 1: single-select setup with the options <code>hr</code>, <code>text</code>, <code>gallery</code> and <code>quote</code>.</div>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "OptionSet"
-  name: "block_option_set"
+  name: "blocks"
   label: "Content blocks"
   occurrences:  <i class="conum" data-value="1"></i><b>(1)</b>
     min: 0
@@ -558,7 +566,7 @@ Easily shuffle the order of the option sets by dragging the cards from the grip 
     max: 1
   options:  <i class="conum" data-value="3"></i><b>(3)</b>
     - name: "hr"
-      label: "Horisontal line"
+      label: "Horizontal line"
       help-text: "Adds a separator between blocks"
     - name: "text"
       label: "Text"
@@ -599,7 +607,7 @@ Easily shuffle the order of the option sets by dragging the cards from the grip 
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>occurences</strong> Set value to max=0 for unlimited option-set (block) instances</td>
+<td><strong>occurrences</strong> — set <code>max: 0</code> for unlimited option-set (block) instances.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -621,10 +629,10 @@ Easily shuffle the order of the option sets by dragging the cards from the grip 
 <p>An example output of the above form, where the user has created three instances, using three different options: quote, hr and text.</p>
 </div>
 <div class="listingblock">
-<div class="title">Example output of single-select setup, here with three occurences.</div>
+<div class="title">Example output of single-select setup, here with three occurrences.</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "block_option_set": [
+  "blocks": [
     {
       "quote": {
         "quote": "Hi there",
@@ -709,7 +717,7 @@ For multi-select options sets, it is also possible to pre-select options by defa
 <div class="sect2">
 <h3 id="usage_2"><a class="link" href="#usage_2">Usage</a></h3>
 <div class="paragraph">
-<p>The example below demostrates multi-select mode, with the options <code>Coloring</code>, <code>Wood upgrade</code>, <code>Include curtains</code> and <code>Exclusive wallpaper</code>. Only options 1 and 4 contain form elements. Also, user may maximally select two options.</p>
+<p>The example below demonstrates multi-select mode, with the options <code>Coloring</code>, <code>Wood upgrade</code>, <code>Include curtains</code> and <code>Exclusive wallpaper</code>. Only options 1 and 4 contain form elements. Also, user may maximally select two options.</p>
 </div>
 <div class="listingblock">
 <div class="title">Multi-select option set with the coloring option selected by default.</div>
@@ -802,7 +810,7 @@ For multi-select options sets, it is also possible to pre-select options by defa
 <p>The output from the example above may look like this:</p>
 </div>
 <div class="listingblock">
-<div class="title">Example output from multi-select form, with a single occurence.</div>
+<div class="title">Example output from multi-select form, with a single occurrence.</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
   "styling": {
@@ -834,10 +842,134 @@ The <code>_selected</code> property contains information about which options wer
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="querying_via_graphql"><a class="link" href="#querying_via_graphql">Querying via GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Guillotine generates a typed object for each option set with the same naming pattern as item sets — the parent content type name plus the option-set name, e.g. <code>com_example_myproject_Article_Blocks</code>. The generated type has a <code>_selected</code> field plus one nullable field per declared option; only the selected option(s) carry data, the rest are <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>_selected</code> is a single string in single-select mode and a list of strings in multi-select mode. It is the dispatch key the client reads to know which option&#8217;s data is present.</p>
+</div>
+<div class="sect2">
+<h3 id="selecting_an_option_sets_data"><a class="link" href="#selecting_an_option_sets_data">Selecting an option-set&#8217;s data</a></h3>
+<div class="paragraph">
+<p>Use a typed inline fragment on the parent content type, then select <code>_selected</code> alongside the fields of each option you want to handle:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/articles/hello-world") {
+      displayName
+      ... on com_example_myproject_Article {
+        data {
+          blocks {
+            _selected
+            quote {
+              quote
+              quotee
+            }
+            text {
+              text
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Hello world",
+        "data": {
+          "blocks": [
+            {
+              "_selected": "quote",
+              "quote": { "quote": "Hi there", "quotee": "Mr Enonic" },
+              "text": null
+            },
+            {
+              "_selected": "text",
+              "quote": null,
+              "text": { "text": "A short text" }
+            }
+          ]
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The data shape mirrors the stored property structure above. The option fields you don&#8217;t select in the query simply don&#8217;t appear in the response; unselected options in the data come back as <code>null</code> on the fields you do select.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dispatching_on_selected"><a class="link" href="#dispatching_on_selected">Dispatching on <code>_selected</code></a></h3>
+<div class="paragraph">
+<p>A client typically branches on <code>_selected</code> to render the right block. For single-select mode it&#8217;s a string; for multi-select it&#8217;s an array, and the data fields for each entry in the array are populated:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">for (const block of data.blocks) {
+  switch (block._selected) {
+    case "quote": renderQuote(block.quote); break;
+    case "text":  renderText(block.text);  break;
+    case "hr":    renderHr();              break;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="filtering_content_by_selected_option"><a class="link" href="#filtering_content_by_selected_option">Filtering content by selected option</a></h3>
+<div class="paragraph">
+<p>Because <code>_selected</code> is indexed like any other field, you can find content whose option set contains a given option using a term query against its dotted path:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDsl(
+      query: {
+        term: {
+          field: "data.blocks._selected",
+          value: { string: "quote" }
+        }
+      }
+    ) {
+      _id
+      displayName
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For multi-select option sets the same query works — <code>_selected</code> is a multi-valued field on each instance, and a term match succeeds if any value matches.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nested_option_sets_and_item_sets"><a class="link" href="#nested_option_sets_and_item_sets">Nested option sets and item sets</a></h3>
+<div class="paragraph">
+<p>Option sets may contain item sets or further option sets. The typed-access pattern compounds: each nesting level becomes its own generated type, and field paths for filtering extend with additional dotted segments (e.g. <code>data.blocks.gallery.images._references</code>).</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-06 06:34:06 UTC
+Last updated 2026-05-20 06:40:29 UTC
 </div>
 </div>
 </body>

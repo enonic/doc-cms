@@ -435,29 +435,50 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article toc2 toc-right">
+<body class="article">
 <div id="header">
 <h1>Release Notes</h1>
-<div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#xp8">XP8</a></li>
-</ul>
-</div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="xp8"><a class="link" href="#xp8">XP8</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>The Enonic CMS stack is composed of several independent products, each released and versioned on its own cadence. Every product on <a href="https://market.enonic.com">Enonic Market</a> has a <strong>Releases</strong> section listing its versions and changes — that&#8217;s the canonical source for what&#8217;s new.</p>
 </div>
+<div class="paragraph">
+<p>A few components also publish more detailed release notes in their own documentation:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.enonic.com/docs/xp/stable/release">Enonic XP 8</a> — the platform core that hosts the CMS.</p>
+</li>
+<li>
+<p><a href="https://market.enonic.com/vendors/enonic/content-studio">Content Studio</a> — primary authoring interface.</p>
+</li>
+<li>
+<p><a href="https://market.enonic.com/vendors/enonic/guillotine">Headless API (Guillotine)</a> — GraphQL API for headless delivery.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Subscription components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://market.enonic.com/vendors/enonic/content-studio-plus">Content Studio+</a> — advanced editorial features.</p>
+</li>
+<li>
+<p><a href="https://market.enonic.com/vendors/enonic/ai-content-operator">AI Content Operator</a> — AI-assisted authoring.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Other Enonic-published and third-party apps — SEO tools, analytics, importers, and more — are listed on <a href="https://market.enonic.com">Enonic Market</a>.</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-06 06:34:06 UTC
+Last updated 2026-05-20 06:40:29 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="toc: right">
 <title>References</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -439,16 +438,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article toc2 toc-right">
 <div id="header">
 <h1>References</h1>
-<div class="details">
-<span id="author" class="author">toc: right</span><br>
-</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#intro">Intro</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#inbound_vs_outbound">Inbound vs Outbound</a></li>
-<li><a href="#storage_and_indexing">Storage and indexing</a></li>
+<li><a href="#creating_references">Creating references</a></li>
+<li><a href="#storage_shape">Storage shape</a></li>
+<li><a href="#outbound_references">Outbound references</a></li>
+<li><a href="#inbound_references">Inbound references</a></li>
+<li><a href="#indexing_and_integrity">Indexing and integrity</a></li>
 </ul>
 </div>
 </div>
@@ -456,42 +453,213 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content items may contain references to other content items.</p>
+<p>Content items often link to other content — an article to its author, a product to a gallery of images, a page to a related collection. Enonic models these links as <strong>references</strong>: typed pointers stored on the source content as the content ID (UUID) of the target.</p>
+</div>
+<div class="paragraph">
+<p>References are first-class in XP: they are indexed, queryable in both directions, and resolved automatically as typed fields in the GraphQL API. A front-end developer can follow a reference in the same query that fetches the parent content, without a second round trip.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="intro"><a class="link" href="#intro">Intro</a></h2>
+<h2 id="creating_references"><a class="link" href="#creating_references">Creating references</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>References are stored as part of the content item in the repository, and are indexed together with the content item. References are used to create relationships between content items, and can be used to build complex content structures and hierarchies</p>
+<p>References are produced by any form item that links to other content:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../schemas/form-items/contentselector.ahtml">ContentSelector</a> — generic reference to one or more content items.</p>
+</li>
+<li>
+<p><a href="../schemas/form-items/imageselector.ahtml">ImageSelector</a> — reference to image media.</p>
+</li>
+<li>
+<p><a href="../schemas/form-items/mediaselector.ahtml">MediaSelector</a> — reference to any media (images, documents, video, audio).</p>
+</li>
+<li>
+<p><a href="../schemas/form-items/htmlarea.ahtml">HtmlArea</a> — embedded references inside rich text (links and images).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each of these stores the target&#8217;s content ID rather than a path, so references stay valid when content is moved or renamed.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="storage_shape"><a class="link" href="#storage_shape">Storage shape</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A reference field stores the content ID directly on the source content. Single-occurrence fields store a string; multi-occurrence fields store an array.</p>
+</div>
+<div class="listingblock">
+<div class="title">Single reference</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "author": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Multiple references</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "related_articles": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "b2c3d4e5-f6a7-8901-bcde-f23456789012"
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Internally, XP also aggregates all outbound references to a dedicated <code>_references</code> index entry, which is what makes inbound lookup and reference-integrity checks possible at query time.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="inbound_vs_outbound"><a class="link" href="#inbound_vs_outbound">Inbound vs Outbound</a></h2>
+<h2 id="outbound_references"><a class="link" href="#outbound_references">Outbound references</a></h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p><strong>Outbound references</strong> are the references a content item makes to other content — an article to its author, a product to its images. This is the common case, and Guillotine inspects your content type schemas and turns every reference field into a typed field that resolves to the referenced content. There is no need to issue a second query to fetch the target — drill into the reference field directly.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/articles/hello-world") {
+      displayName
+      ... on com_example_myproject_Article {
+        data {
+          author {
+            displayName
+            ... on com_example_myproject_Person {
+              data {
+                name
+                about
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Hello World",
+        "data": {
+          "author": {
+            "displayName": "Django Reinhardt",
+            "data": {
+              "name": "Django Reinhardt",
+              "about": "Belgian-Romani jazz guitarist."
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For multi-occurrence reference fields, the resolved field is a list of content items rather than a single one.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="storage_and_indexing"><a class="link" href="#storage_and_indexing">Storage and indexing</a></h2>
+<h2 id="inbound_references"><a class="link" href="#inbound_references">Inbound references</a></h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p><strong>Inbound references</strong> are the references that other content items make to a given content item. Inbound resolution answers "what links to this?" — useful for related-content listings, citation lists, or detecting orphaned media.</p>
+</div>
+<div class="paragraph">
+<p>To find inbound references, run a <code>queryDsl</code> search for content whose <code>_references</code> index entry contains the target&#8217;s content ID. Because every outbound reference is indexed into the source&#8217;s <code>_references</code> field, a single term query finds every item pointing at the target regardless of which form field carries the reference:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDsl(
+      query: {
+        term: {
+          field: "_references",
+          value: { string: "183d310b-e9e8-4336-a5a4-4bf1c1c40353" }
+        }
+      }
+    ) {
+      _id
+      displayName
+      type
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "_id": "f7f00e52-b025-4bef-8358-3c4c57604c99",
+          "displayName": "Tutorials",
+          "type": "base:shortcut"
+        },
+        {
+          "_id": "d8190c73-14ad-4654-aee5-bb83410a3687",
+          "displayName": "Quickstart",
+          "type": "com.company:landing-page"
+        }
+      ]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="indexing_and_integrity"><a class="link" href="#indexing_and_integrity">Indexing and integrity</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every outbound reference is indexed under the <code>_references</code> field at the source content. The reverse direction (inbound) is resolved at query time by searching that index for matches pointing at the target ID — there is no second copy on the referenced content.</p>
+</div>
+<div class="paragraph">
+<p>Reference integrity has a few practical consequences:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Moving or renaming</strong> referenced content does not break references — IDs are stable across path changes.</p>
+</li>
+<li>
+<p><strong>Publishing</strong> a content item that references unpublished content will surface as a publish-time dependency. Content Studio prompts the editor to include the dependencies.</p>
+</li>
+<li>
+<p><strong>Deleting</strong> content that is the target of inbound references is blocked by default. The deletion will fail until the inbound references are removed or the operation is forced.</p>
+</li>
+<li>
+<p><strong>Querying</strong> by the <code>_references</code> field works exactly like any other indexed field — you can filter, sort, and aggregate on references in the <a href="../querying.ahtml">Query DSL</a>.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-06 06:34:06 UTC
+Last updated 2026-05-20 06:40:29 UTC
 </div>
 </div>
 </body>

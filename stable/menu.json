@@ -190,7 +190,13 @@
     },
     {
       "title": "Querying",
-      "document": "querying"
+      "document": "querying",
+      "menuItems": [
+        {
+          "title": "Aggregations",
+          "document": "querying/aggregations"
+        }
+      ]
     },
     {
       "title": "Rich text",
@@ -225,6 +231,10 @@
         {
           "title": "Component Filtering",
           "document": "pages/filtering"
+        },
+        {
+          "title": "Component indexing",
+          "document": "pages/indexing"
         },
         {
           "title": "Page templates",

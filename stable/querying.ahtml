@@ -479,6 +479,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>All content in Enonic XP is fully indexed and queryable. This page covers how content data is indexed, and how to query it using Query DSL.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Every query — and every aggregation built on top of one — is automatically filtered by the calling user&#8217;s read permissions. Hits, total counts, and aggregation buckets reflect only the content the caller is allowed to see. The same query run anonymously, as an editor, or with an admin token can produce different results. Plan accordingly: facets for public visitors won&#8217;t leak restricted content, but dashboards that need true totals must call as a sufficiently privileged user.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -509,6 +523,20 @@ The older string-based query language <strong>NoQL</strong> is deprecated. For N
 <div class="sectionbody">
 <div class="paragraph">
 <p>Every property stored in content has a value type that determines how it is indexed and how it can be queried. The value type is determined by the <a href="schemas/form-items.ahtml">form item</a> used in your schema definition — each form item documents its value type in its Output section.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Query DSL value tags (<code>string</code>, <code>long</code>, <code>instant</code>, etc.) select which <strong>typed index</strong> to search against — not the domain type of the field. References, for example, are indexed as strings (the target&#8217;s content ID), so a term query for a reference uses <code>value: { string: "&lt;content-id&gt;" }</code> rather than a <code>reference</code> tag. The same applies to other domain concepts that map onto a primitive index type.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>For full details on value types and their index behavior, see the <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types">XP value type reference</a>.</p>
@@ -929,6 +957,35 @@ For details on index configuration, see the <a href="https://developer.enonic.co
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "displayName": "Headless CMS in practice",
+          "data": {
+            "title": "Headless CMS in practice",
+            "summary": "Patterns for decoupled content delivery.",
+            "publishDate": "2025-06-28"
+          }
+        },
+        {
+          "displayName": "Why we went headless",
+          "data": {
+            "title": "Why we went headless",
+            "summary": "From monolith to API-first content.",
+            "publishDate": "2025-05-12"
+          }
+        }
+      ]
+    }
+  }
+}</code></pre>
+</div>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1041,16 +1098,21 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 <h3 id="recently_modified_content"><a class="link" href="#recently_modified_content">Recently modified content</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "query": {
-    "range": {
-      "field": "modifiedTime",
-      "gt": { "instant": "2025-06-01T00:00:00Z" }
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  queryDsl(
+    query: {
+      range: {
+        field: "publish.time",
+        gt: { instant: "2025-06-01T00:00:00Z" }
+      }
     }
-  },
-  "sort": {
-    "field": "modifiedTime",
-    "direction": "DESC"
+    sort: { field: "publish.time", direction: DESC }
+    first: 10
+  )
+  {
+    _id
+    displayName
+    publish { time }
   }
 }</code></pre>
 </div>
@@ -1092,7 +1154,7 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-06 06:34:06 UTC
+Last updated 2026-05-20 06:40:29 UTC
 </div>
 </div>
 </body>

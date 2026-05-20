@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Field Set</title>
+<title>Aggregations</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Field Set</h1>
+<h1>Aggregations</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#appearance">Appearance</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#output">Output</a></li>
+<li><a href="#anatomy_of_an_aggregation_request">Anatomy of an aggregation request</a></li>
+<li><a href="#bucket_aggregations">Bucket aggregations</a>
+<ul class="sectlevel2">
+<li><a href="#terms">terms</a></li>
+<li><a href="#range">range</a></li>
+<li><a href="#daterange">dateRange</a></li>
+<li><a href="#datehistogram">dateHistogram</a></li>
+<li><a href="#geodistance">geoDistance</a></li>
+</ul>
+</li>
+<li><a href="#metric_aggregations">Metric aggregations</a>
+<ul class="sectlevel2">
+<li><a href="#stats">stats</a></li>
+<li><a href="#min_max_count">min, max, count</a></li>
+</ul>
+</li>
+<li><a href="#sub_aggregations">Sub-aggregations</a></li>
+<li><a href="#reading_the_response">Reading the response</a></li>
+<li><a href="#limitations_and_notes">Limitations and notes</a></li>
 </ul>
 </div>
 </div>
@@ -451,61 +467,407 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A field set may be used to group items visually under a common label and distinguish this group from the rest of the form.</p>
+<p>Aggregations summarize matching content into buckets and metrics — counts grouped by field value, numeric ranges, date histograms, statistics over a numeric field, and so on. They are the foundation for faceted search UIs, filter sidebars with counts, dashboards, and editorial reports.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Field sets seen in Content Studio.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/fieldset-1.png" alt="Example of a fieldset" width="689">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="title">Sample field-set definition containing a single input-type</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "FieldSet"  <i class="conum" data-value="1"></i><b>(1)</b>
-  label:
-    text: "Metadata"
-    i18n: "metadata.label"
-  items:  <i class="conum" data-value="2"></i><b>(2)</b>
-    - type: "Tag"
-      name: "tags"
-      label: "Tags for tag cloud"
-      occurrences:
-        min: 0
-        max: 5</code></pre>
-</div>
-</div>
-<div class="colist arabic">
+<div class="admonitionblock important">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>FieldSet</strong> does not need a name since it is only visual, and does not affect the data model</td>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Aggregations are only supported on Guillotine&#8217;s <strong><code>queryDslConnection</code></strong> field — not the plain <code>queryDsl</code> field. Use <code>queryDslConnection</code> whenever a query needs to return aggregations alongside hits.</p>
+</div>
+</td>
 </tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
 <tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>items</strong> allow placement of form items to be contained within it</td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Aggregations are computed over the result set the calling user can read — see <a href="../querying.ahtml">Querying</a> for the permission-filtering semantics that apply to every query. Anonymous and admin calls will see different bucket counts.
+</td>
 </tr>
 </table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<h2 id="anatomy_of_an_aggregation_request"><a class="link" href="#anatomy_of_an_aggregation_request">Anatomy of an aggregation request</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>None - field sets do not produce any output, and are purely decorative. The form items contained within the field set will produce output as normal, and the field set will not affect the data structure in any way.</p>
+<p>Aggregations are passed as a list of named expressions on the <code>aggregations</code> argument of <code>queryDslConnection</code>. Each expression has a <code>name</code> (which becomes the key in the response) and exactly one aggregation type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">queryDslConnection(
+  query: { ... }
+  first: 0                    <i class="conum" data-value="1"></i><b>(1)</b>
+  aggregations: [
+    { name: "byType", terms: { field: "type", size: 10 } }
+  ]
+) {
+  totalCount
+  edges { node { _id displayName } }
+  aggregationsAsJson           <i class="conum" data-value="2"></i><b>(2)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set <code>first: 0</code> if you only need the aggregations, not the hits. The connection still returns <code>totalCount</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Aggregation results come back as a single opaque JSON blob under <code>aggregationsAsJson</code>. The shape inside mirrors XP&#8217;s native aggregation result.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bucket_aggregations"><a class="link" href="#bucket_aggregations">Bucket aggregations</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bucket aggregations group matching content into buckets and return a doc count per bucket.</p>
+</div>
+<div class="sect2">
+<h3 id="terms"><a class="link" href="#terms">terms</a></h3>
+<div class="paragraph">
+<p>Group content by the distinct values of a field. The most common aggregation, used for facet-style "count by content type", "count by tag", "count by author" queries.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    queryDslConnection(
+      query: { matchAll: {} }
+      first: 0
+      aggregations: [
+        { name: "byType", terms: { field: "type", size: 10, order: "_count desc" } }
+      ]
+    ) {
+      totalCount
+      aggregationsAsJson
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "queryDslConnection": {
+        "totalCount": 142,
+        "aggregationsAsJson": {
+          "byType": {
+            "buckets": [
+              { "key": "media:image",  "docCount": 87 },
+              { "key": "portal:site",  "docCount": 12 },
+              { "key": "base:folder",  "docCount": 9 }
+            ]
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>field</strong> — indexed field to group by.</p>
+</li>
+<li>
+<p><strong>size</strong> — maximum number of buckets to return (largest first).</p>
+</li>
+<li>
+<p><strong>order</strong> — <code>_count desc</code> (default), <code>_count asc</code>, <code>_key asc</code>, or <code>_key desc</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="range"><a class="link" href="#range">range</a></h3>
+<div class="paragraph">
+<p>Bucket numeric values into explicit ranges. Useful for price brackets, rating bands, file-size groupings, etc.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">aggregations: [
+  {
+    name: "priceBands",
+    range: {
+      field: "data.price",
+      ranges: [
+        { to: 50 },
+        { from: 50, to: 100 },
+        { from: 100 }
+      ]
+    }
+  }
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each range is inclusive of <code>from</code> and exclusive of <code>to</code>. Omitting <code>from</code> matches everything below <code>to</code>; omitting <code>to</code> matches everything from <code>from</code> upward.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="daterange"><a class="link" href="#daterange">dateRange</a></h3>
+<div class="paragraph">
+<p>Like <code>range</code>, but for date/time fields. Accepts date math expressions (<code>now</code>, <code>now-10M</code>, <code>now+1d</code>).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">aggregations: [
+  {
+    name: "publishAge",
+    dateRange: {
+      field: "publish.first",
+      format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+      ranges: [
+        { to: "now-1y" },
+        { from: "now-1y", to: "now-1M" },
+        { from: "now-1M" }
+      ]
+    }
+  }
+]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="datehistogram"><a class="link" href="#datehistogram">dateHistogram</a></h3>
+<div class="paragraph">
+<p>Bucket date values into fixed-width intervals — e.g. "publish count per month" for a time-series chart.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">aggregations: [
+  {
+    name: "publishesPerMonth",
+    dateHistogram: {
+      field: "publish.first",
+      interval: "1M",
+      format: "yyyy-MM",
+      minDocCount: 0
+    }
+  }
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>interval</strong> — <code>1M</code>, <code>1w</code>, <code>1d</code>, <code>1h</code>, etc.</p>
+</li>
+<li>
+<p><strong>format</strong> — output format for bucket keys.</p>
+</li>
+<li>
+<p><strong>minDocCount</strong> — set to <code>0</code> to include empty intervals (useful for sparse time series); default omits empty buckets.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="geodistance"><a class="link" href="#geodistance">geoDistance</a></h3>
+<div class="paragraph">
+<p>Bucket content by distance from a reference point. Useful for proximity-driven listings ("within 1 km", "1–5 km", "5–20 km", "beyond 20 km") against a <code>GeoPoint</code> field.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">aggregations: [
+  {
+    name: "byDistance",
+    geoDistance: {
+      field: "data.location",
+      origin: { lat: 59.91, lon: 10.75 },
+      unit: "km",
+      ranges: [
+        { to: 1 },
+        { from: 1, to: 5 },
+        { from: 5, to: 20 },
+        { from: 20 }
+      ]
+    }
+  }
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>field</strong> — a <code>GeoPoint</code>-typed field.</p>
+</li>
+<li>
+<p><strong>origin</strong> — the reference point as <code>{ lat, lon }</code>.</p>
+</li>
+<li>
+<p><strong>unit</strong> — <code>km</code>, <code>m</code>, <code>mi</code>, etc.</p>
+</li>
+<li>
+<p><strong>ranges</strong> — distance brackets, with the same <code>from</code>/<code>to</code> semantics as numeric <code>range</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="metric_aggregations"><a class="link" href="#metric_aggregations">Metric aggregations</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Metric aggregations return a single number rather than a bucket list.</p>
+</div>
+<div class="sect2">
+<h3 id="stats"><a class="link" href="#stats">stats</a></h3>
+<div class="paragraph">
+<p>Returns count, min, max, average, and sum for a numeric field in a single aggregation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">aggregations: [
+  { name: "ratingStats", stats: { field: "data.rating" } }
+]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "ratingStats": {
+    "count": 87,
+    "min": 1,
+    "max": 5,
+    "avg": 3.94,
+    "sum": 343
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="min_max_count"><a class="link" href="#min_max_count">min, max, count</a></h3>
+<div class="paragraph">
+<p>When you only need one of the metrics from <code>stats</code>, the dedicated aggregations are slightly cheaper and produce a smaller response.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">aggregations: [
+  { name: "newest", max:   { field: "modifiedTime" } },
+  { name: "oldest", min:   { field: "createdTime" } },
+  { name: "totalCount", count: { field: "_id" } }
+]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sub_aggregations"><a class="link" href="#sub_aggregations">Sub-aggregations</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bucket aggregations can nest further aggregations inside each bucket — e.g. "for each content type, the most-used author". In Guillotine, nest with the <code>subAggregations</code> field on the parent aggregation entry.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">aggregations: [
+  {
+    name: "byType",
+    terms: { field: "type", size: 10 },
+    subAggregations: [
+      { name: "byAuthor", terms: { field: "data.author", size: 5 } }
+    ]
+  }
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The response nests bucket lists under each parent bucket:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "byType": {
+    "buckets": [
+      {
+        "key": "com.example:article",
+        "docCount": 34,
+        "byAuthor": {
+          "buckets": [
+            { "key": "alice", "docCount": 18 },
+            { "key": "bob",   "docCount": 11 }
+          ]
+        }
+      }
+    ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reading_the_response"><a class="link" href="#reading_the_response">Reading the response</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Because aggregations come back as a single <code>aggregationsAsJson</code> field, the GraphQL response is opaque to typed selection — bucket keys, doc counts, and metric values are <strong>not</strong> introspectable as typed fields. Parse the JSON in your client and address aggregations by their <code>name</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const { aggregationsAsJson } = result.data.guillotine.queryDslConnection;
+const buckets = aggregationsAsJson.byType.buckets;
+buckets.forEach(b =&gt; console.log(b.key, b.docCount));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="limitations_and_notes"><a class="link" href="#limitations_and_notes">Limitations and notes</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Aggregations are not available on the plain <code>queryDsl</code> field — use <code>queryDslConnection</code>.</p>
+</li>
+<li>
+<p>Combine aggregations with filtering by passing a regular <code>query</code> argument; aggregations are computed over the matched set, not the entire repository.</p>
+</li>
+<li>
+<p>Bucket counts reflect only content the calling user can read — public, editor, and admin calls produce different totals. See <a href="../querying.ahtml">Querying</a>.</p>
+</li>
+<li>
+<p>Set <code>first: 0</code> (or a small page size) when you only need aggregations; doc-list rendering is independent of aggregation cost.</p>
+</li>
+<li>
+<p>Aggregate field paths follow the same dotted-path convention as DSL queries (e.g. <code>data.author</code>, <code>publish.first</code>, <code>data.contact_info.label</code>).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://developer.enonic.com/docs/xp/stable/storage/aggregations">XP aggregation reference</a> for the underlying DSL semantics, and the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for the full GraphQL schema.</p>
 </div>
 </div>
 </div>
