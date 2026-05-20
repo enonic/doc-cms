@@ -4,7 +4,7 @@
 
 Item sets provide a special capability that allows you to nest form items.
 
-Item sets are both visually and semantically grouped as the name of the item set is used in the persisted property structure. An item set actually produces a property set.
+Item sets are both visually and semantically grouped — the name of the item set is used in the persisted property structure. An item set actually produces a property set.
 
 A new or a single occurrence of an item set is by default expanded and can be collapsed by a click anywhere inside the item set header.
 
@@ -16,7 +16,7 @@ Below: A single instance of an itemset for "Contact info".
 
 image::itemset-1.png[Single expanded item-set, 673]
 
-Below: The label of an item set will dynamically adapt to reflect  content inside of it.
+Below: The label of an item set will dynamically adapt to reflect content inside of it.
 
 image::itemset-2.png[Two collapsed item sets, where the label reflects the text inside, 663]
 
@@ -35,7 +35,7 @@ image::itemset-5.png[Nested item-sets, 670]
 
 == Usage
 
-The definition below will allow for multiple entries of phone numbers with labels:
+The definition below allows for multiple entries of phone numbers with labels:
 
 .Item Set example with two inputs
 [source,yaml]
@@ -62,17 +62,17 @@ The definition below will allow for multiple entries of phone numbers with label
         min: 0
         max: 1
 ----
-<1> *name* defines the mapping to the property name
-<2> *label* - The displayed identfier of the input.
-<3> *occurences* control the minimum and maximum instances of the ItemSet that may be created
+<1> *name* defines the mapping to the property name.
+<2> *label* — the displayed identifier of the input.
+<3> *occurrences* control the minimum and maximum instances of the ItemSet that may be created. `max: 0` means unlimited.
 
-TIP: It is also possible to nest item sets inside each other
+TIP: Item sets may be nested inside each other to model more complex structures.
 
 == Output
 
-*Value type:* `Set` — child properties are indexed individually by their respective types.
+*Value type:* `Set` — the ItemSet itself is not directly queryable, but every child property is indexed independently under its full dotted path (e.g. `data.contact_info.phone_number`).
 
-The above definition would produce a property format like this:
+The descriptor above produces a property structure like this:
 
 .Example with a single item
 [source,JSON]
@@ -102,4 +102,103 @@ The above definition would produce a property format like this:
 }
 ----
 
-NOTE: Arrays are added based on the actual number of items created, not the schema definition.
+NOTE: Arrays are added based on the actual number of items created, not the schema definition. A single-occurrence ItemSet always stores an object; multi-occurrence stores an object when one item exists, and an array once more than one exists.
+
+== Querying via GraphQL
+
+Guillotine generates a typed object for each ItemSet, nested under the parent content type's `data` field. The generated type name combines the content type's sanitized name with the ItemSet name — for example, an ItemSet `contact_info` on `com.example.myproject:person` becomes `com_example_myproject_Person_ContactInfo`.
+
+Drill into the ItemSet with a typed inline fragment on the parent content type:
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/people/django-reinhardt") {
+      displayName
+      ... on com_example_myproject_Person {
+        data {
+          contact_info {
+            label
+            phone_number
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Django Reinhardt",
+        "data": {
+          "contact_info": [
+            { "label": "home", "phone_number": "+4712345678" },
+            { "label": "office", "phone_number": "+123456789" }
+          ]
+        }
+      }
+    }
+  }
+}
+----
+
+The data shape mirrors the stored property structure above — single-occurrence returns the bare object, multi-occurrence returns a list.
+
+=== Filtering on nested fields
+
+Because every leaf is indexed independently, you can filter content by any field inside an ItemSet using its dotted path:
+
+[source,graphql]
+----
+{
+  guillotine {
+    queryDsl(
+      query: {
+        like: {
+          field: "data.contact_info.phone_number",
+          value: "+47*"
+        }
+      }
+    ) {
+      _id
+      displayName
+    }
+  }
+}
+----
+
+This matches any item whose ItemSet contains at least one `phone_number` starting with `+47`, whether the ItemSet has one occurrence or many.
+
+=== Nested ItemSets
+
+ItemSets nested inside other ItemSets compound the typed access pattern — each level gets its own generated type name. To select fields from a doubly-nested ItemSet, drill through both:
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/people/django-reinhardt") {
+      ... on com_example_myproject_Person {
+        data {
+          contact_info {
+            label
+            address {
+              city
+              postal_code
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+Filtering by a deeply nested leaf works the same way as for single-level ItemSets — extend the dotted path: `data.contact_info.address.postal_code`.

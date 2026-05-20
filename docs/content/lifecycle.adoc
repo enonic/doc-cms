@@ -88,9 +88,10 @@ The publish window and audit timestamps are exposed directly on every content it
       createdTime
       modifiedTime
       publish {
+        first
+        time
         from
         to
-        first
       }
     }
   }
@@ -109,15 +110,20 @@ The publish window and audit timestamps are exposed directly on every content it
         "createdTime": "2026-01-10T10:00:00Z",
         "modifiedTime": "2026-01-15T08:00:00Z",
         "publish": {
-          "from": "2026-01-15T08:00:00Z",
-          "to": null,
-          "first": "2026-01-15T08:00:00Z"
+          "first": "2026-01-12T09:00:00Z", <1>
+          "time": "2026-01-15T08:00:00Z", <2>
+          "from": "2026-01-15T08:00:00Z", <3>
+          "to": null <4>
         }
       }
     }
   }
 }
 ----
+<1> *first* — the first time this content was ever accessible online. Set on the initial publish and never updated, even if the item is later unpublished and republished.
+<2> *time* — the time the editor pressed publish for the specific version. Updated on every publish. If the current item in draft branch has never been published, this field is `null`.
+<3> *from* — start of the current publish window. The content is present on `master` and becomes visible to the public at this time.
+<4> *to* — end of the current publish window. Content remains on master, but is no longer visible to the public. `null` means no expiry date.
 
 Find every item scheduled to go online in the future:
 
@@ -129,10 +135,10 @@ Find every item scheduled to go online in the future:
       query: {
         range: {
           field: "publish.from",
-          from: { instant: "now" }
+          gte: { string: "now" }
         }
       },
-      sort: { field: "publish.from", direction: ASC }
+      sort: { field: "publish.from", direction: DESC }
     ) {
       _id
       displayName
@@ -142,7 +148,86 @@ Find every item scheduled to go online in the future:
 }
 ----
 
-NOTE: Guillotine queries the `master` branch by default. Content in the `OFFLINE`, `SCHEDULED`, or draft-only states lives on `draft`, so accessing them requires a Guillotine request against the draft branch — see the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation] for branch selection and the exact field names that expose the derived publish, change, and workflow states.
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "_id": "a1111111-1111-4111-8111-111111111111",
+          "displayName": "Upcoming announcement",
+          "publish": {
+            "from": "2026-06-01T08:00:00.000Z"
+          }
+        },
+        {
+          "_id": "b2222222-2222-4222-8222-222222222222",
+          "displayName": "Spring campaign launch",
+          "publish": {
+            "from": "2026-05-25T09:30:00.000Z"
+          }
+        }
+      ]
+    }
+  }
+}
+----
+
+Find every draft whose current version is not live on `master` — items that need (re)publishing. `publish.time` is set when the current draft version has been published; an unset value covers both never-published content (`NEW`) and items that have been edited, moved, or unpublished since their last publish (`MODIFIED`, `MOVED`, `UNPUBLISHED`).
+
+To restrict the query to content that has never been published at all, filter on `publish.first` instead — that field is only set on the very first publish and never cleared.
+
+[source,graphql]
+----
+{
+  guillotine(branch: "draft") {
+    queryDsl(
+      query: {
+        boolean: {
+          mustNot: [
+            { exists: { field: "publish.time" } }
+          ]
+        }
+      },
+      sort: { field: "modifiedTime", direction: DESC }
+    ) {
+      _id
+      displayName
+      modifiedTime
+      publish { time }
+    }
+  }
+}
+----
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "_id": "c3333333-3333-4333-8333-333333333333",
+          "displayName": "Q2 roadmap update",
+          "modifiedTime": "2026-05-18T12:14:02.000Z",
+          "publish": { "time": null }
+        },
+        {
+          "_id": "d4444444-4444-4444-8444-444444444444",
+          "displayName": "Onboarding revamp",
+          "modifiedTime": "2026-05-17T09:40:11.000Z",
+          "publish": { "time": null }
+        }
+      ]
+    }
+  }
+}
+----
+
+NOTE: Guillotine queries the `master` branch by default, so the query above sets `branch: "draft"`. The query resolves `NEW`, `MODIFIED`, `MOVED`, and `UNPUBLISHED` change states. See the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation] for branch selection details.
 
 == Audit trail
 

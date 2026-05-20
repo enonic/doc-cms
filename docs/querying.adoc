@@ -4,6 +4,11 @@
 
 All content in Enonic XP is fully indexed and queryable. This page covers how content data is indexed, and how to query it using Query DSL.
 
+[IMPORTANT]
+====
+Every query — and every aggregation built on top of one — is automatically filtered by the calling user's read permissions. Hits, total counts, and aggregation buckets reflect only the content the caller is allowed to see. The same query run anonymously, as an editor, or with an admin token can produce different results. Plan accordingly: facets for public visitors won't leak restricted content, but dashboards that need true totals must call as a sufficiently privileged user.
+====
+
 == How content is indexed
 
 When content is created or updated, every property is automatically indexed. The CMS uses a schema-driven indexing system where each property is indexed according to its <<#value_types, value type>>.
@@ -16,6 +21,11 @@ NOTE: The older string-based query language *NoQL* is deprecated. For NoQL refer
 == Value types
 
 Every property stored in content has a value type that determines how it is indexed and how it can be queried. The value type is determined by the <<schemas/form-items#, form item>> used in your schema definition — each form item documents its value type in its Output section.
+
+[IMPORTANT]
+====
+Query DSL value tags (`string`, `long`, `instant`, etc.) select which *typed index* to search against — not the domain type of the field. References, for example, are indexed as strings (the target's content ID), so a term query for a reference uses `value: { string: "<content-id>" }` rather than a `reference` tag. The same applies to other domain concepts that map onto a primitive index type.
+====
 
 For full details on value types and their index behavior, see the https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types[XP value type reference].
 
@@ -364,6 +374,35 @@ The <<../apis/graphql#, Guillotine>> GraphQL API provides a `queryDsl` argument 
 }
 ----
 
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "displayName": "Headless CMS in practice",
+          "data": {
+            "title": "Headless CMS in practice",
+            "summary": "Patterns for decoupled content delivery.",
+            "publishDate": "2025-06-28"
+          }
+        },
+        {
+          "displayName": "Why we went headless",
+          "data": {
+            "title": "Why we went headless",
+            "summary": "From monolith to API-first content.",
+            "publishDate": "2025-05-12"
+          }
+        }
+      ]
+    }
+  }
+}
+----
+
 NOTE: For complete Guillotine query documentation, see the https://developer.enonic.com/docs/guillotine[Guillotine documentation].
 
 
@@ -453,18 +492,23 @@ NOTE: For complete Guillotine query documentation, see the https://developer.eno
 ----
 
 === Recently modified content
-[source,JSON]
+[source,graphql]
 ----
 {
-  "query": {
-    "range": {
-      "field": "modifiedTime",
-      "gt": { "instant": "2025-06-01T00:00:00Z" }
+  queryDsl(
+    query: {
+      range: {
+        field: "publish.time",
+        gt: { instant: "2025-06-01T00:00:00Z" }
+      }
     }
-  },
-  "sort": {
-    "field": "modifiedTime",
-    "direction": "DESC"
+    sort: { field: "publish.time", direction: DESC }
+    first: 10
+  ) 
+  {
+    _id
+    displayName
+    publish { time }
   }
 }
 ----

@@ -2,7 +2,7 @@
 :toc: right
 :imagesdir: images
 
-An option set is a group of options presented either as a multi-select option set (radio button style), or as a single-select option set (dropdown style).
+An option set is a group of options presented either as a multi-select option set (checkbox style), or as a single-select option set (dropdown style).
 
 Each option _may_ contain an optional form, which also support nested item-sets and option-sets.
 
@@ -10,13 +10,13 @@ Each option _may_ contain an optional form, which also support nested item-sets 
 
 === Appearance
 
-In single select mode, an optionset will look similar to an <<item-set#, item set>>, but you will rather have multiple "items" to select from. 
+In single select mode, an option set looks similar to an <<item-set#, item set>>, except that the user picks one option per instance from a list.
 
 image::optionset-singleselect-add.png[Inserting a new optionset (visualized as a card). Available options are listed in a dropdown, 668]
 
-When inserting a new optionset, the selected option's form will automatically be expanded. 
+When inserting a new optionset, the selected option's form will automatically be expanded.
 
-The example below what it looks like when multiple option set instances are inserted and expanded. Each option set is visualized as a card.
+The example below shows what it looks like when multiple option set instances are inserted and expanded. Each option set is visualized as a card.
 
 NOTE: Notice that the Horizontal line option does not have a form.
 
@@ -38,7 +38,7 @@ The schema below demonstrates how you may create blocks of structured content us
 [source,yaml]
 ----
 - type: "OptionSet"
-  name: "block_option_set"
+  name: "blocks"
   label: "Content blocks"
   occurrences:  # <1>
     min: 0
@@ -49,7 +49,7 @@ The schema below demonstrates how you may create blocks of structured content us
     max: 1
   options:  # <3>
     - name: "hr"
-      label: "Horisontal line"
+      label: "Horizontal line"
       help-text: "Adds a separator between blocks"
     - name: "text"
       label: "Text"
@@ -85,7 +85,7 @@ The schema below demonstrates how you may create blocks of structured content us
             min: 1
             max: 1
 ----
-<1> *occurences* Set value to max=0 for unlimited option-set (block) instances
+<1> *occurrences* — set `max: 0` for unlimited option-set (block) instances.
 <2> *selection/max* Refers to selectable options per instance. A value of 1 => single-select mode.
 <3> *options* (required) Container of options. Each option may be empty or contain items, just like an item set.
 
@@ -95,11 +95,11 @@ The schema below demonstrates how you may create blocks of structured content us
 
 An example output of the above form, where the user has created three instances, using three different options: quote, hr and text.
 
-.Example output of single-select setup, here with three occurences.
+.Example output of single-select setup, here with three occurrences.
 [source,JSON]
 ----
 {
-  "block_option_set": [
+  "blocks": [
     {
       "quote": {
         "quote": "Hi there",
@@ -143,7 +143,7 @@ TIP: For multi-select options sets, it is also possible to pre-select options by
 
 === Usage
 
-The example below demostrates multi-select mode, with the options `Coloring`, `Wood upgrade`, `Include curtains` and `Exclusive wallpaper`. Only options 1 and 4 contain form elements. Also, user may maximally select two options.
+The example below demonstrates multi-select mode, with the options `Coloring`, `Wood upgrade`, `Include curtains` and `Exclusive wallpaper`. Only options 1 and 4 contain form elements. Also, user may maximally select two options.
 
 .Multi-select option set with the coloring option selected by default.
 [source,yaml]
@@ -211,7 +211,7 @@ The example below demostrates multi-select mode, with the options `Coloring`, `W
 
 The output from the example above may look like this:
 
-.Example output from multi-select form, with a single occurence.
+.Example output from multi-select form, with a single occurrence.
 [source,JSON]
 ----
 {
@@ -231,6 +231,111 @@ The output from the example above may look like this:
 
 NOTE: The `_selected` property contains information about which options were selected.
 
+== Querying via GraphQL
 
+Guillotine generates a typed object for each option set with the same naming pattern as item sets — the parent content type name plus the option-set name, e.g. `com_example_myproject_Article_Blocks`. The generated type has a `_selected` field plus one nullable field per declared option; only the selected option(s) carry data, the rest are `null`.
 
+`_selected` is a single string in single-select mode and a list of strings in multi-select mode. It is the dispatch key the client reads to know which option's data is present.
 
+=== Selecting an option-set's data
+
+Use a typed inline fragment on the parent content type, then select `_selected` alongside the fields of each option you want to handle:
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/articles/hello-world") {
+      displayName
+      ... on com_example_myproject_Article {
+        data {
+          blocks {
+            _selected
+            quote {
+              quote
+              quotee
+            }
+            text {
+              text
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Hello world",
+        "data": {
+          "blocks": [
+            {
+              "_selected": "quote",
+              "quote": { "quote": "Hi there", "quotee": "Mr Enonic" },
+              "text": null
+            },
+            {
+              "_selected": "text",
+              "quote": null,
+              "text": { "text": "A short text" }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+----
+
+The data shape mirrors the stored property structure above. The option fields you don't select in the query simply don't appear in the response; unselected options in the data come back as `null` on the fields you do select.
+
+=== Dispatching on `_selected`
+
+A client typically branches on `_selected` to render the right block. For single-select mode it's a string; for multi-select it's an array, and the data fields for each entry in the array are populated:
+
+[source,javascript]
+----
+for (const block of data.blocks) {
+  switch (block._selected) {
+    case "quote": renderQuote(block.quote); break;
+    case "text":  renderText(block.text);  break;
+    case "hr":    renderHr();              break;
+  }
+}
+----
+
+=== Filtering content by selected option
+
+Because `_selected` is indexed like any other field, you can find content whose option set contains a given option using a term query against its dotted path:
+
+[source,graphql]
+----
+{
+  guillotine {
+    queryDsl(
+      query: {
+        term: {
+          field: "data.blocks._selected",
+          value: { string: "quote" }
+        }
+      }
+    ) {
+      _id
+      displayName
+    }
+  }
+}
+----
+
+For multi-select option sets the same query works — `_selected` is a multi-valued field on each instance, and a term match succeeds if any value matches.
+
+=== Nested option sets and item sets
+
+Option sets may contain item sets or further option sets. The typed-access pattern compounds: each nesting level becomes its own generated type, and field paths for filtering extend with additional dotted segments (e.g. `data.blocks.gallery.images._references`).

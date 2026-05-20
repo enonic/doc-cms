@@ -36,7 +36,7 @@ NOTE: A page component may define zero to many regions. Conventionally, a page s
 
 == Regions
 
-Regions are named drop zones where editors can place other page components. Only page and <<parts#layouts, layout>> components support regions. Each region must have a unique name within the component.
+Regions are explicitly named drop zones where editors can place other page components. Only page and <<parts#layouts, layout>> components support regions. Each region must have a unique name within the component.
 
 From Content Studio, this is what regions may look like in the page form:
 
@@ -80,11 +80,11 @@ NOTE: Empty regions are never persisted. Region names are only determined from t
 
 == Querying via GraphQL
 
-Guillotine exposes pages in two shapes — a tree rootet at the `pageAsJson` field, or the strongly typed flat list under `components` (see <<indexing#, Component indexing>>).
+Guillotine exposes pages in two shapes — a tree rooted at the `pageAsJson` field, or the strongly typed flat list under `components` (see <<indexing#, Component indexing>>).
 
 === PageAsJson
 
-Performing this query will return the hierarchical page structure as JSON, with all components and regions nested under the `pageAsJson` field. This is useful for viewing the page structure, but does not provide typed access to component config fields. 
+This query returns the hierarchical page structure as JSON, with all components and regions nested under the `pageAsJson` field. Useful for rendering the page as-is, but does not provide typed access to component config fields.
 
 [source,graphql]
 ----
@@ -98,11 +98,39 @@ Performing this query will return the hierarchical page structure as JSON, with 
 }
 ----
 
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "displayName": "Hello World",
+        "pageAsJson": {
+          "type": "page",
+          "path": "/",
+          "descriptor": "com.enonic.app.superhero:default",
+          "components": [
+            {
+              "path": "/main/0",
+              "type": "layout",
+              "descriptor": "com.enonic.app.superhero:three-column",
+              "config": {},
+              "regions": {}
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+----
+
 === Component list
 
-To access the full list of components on a page, regardless of their position in the tree, use the `components` field on the page query. This allows you to perfomm queries based on typed component data, similar to how you would with any other content type. 
+To access the full list of components on a page, regardless of their position in the tree, use the `components` field on the page query. This allows you to perform queries against typed component data, similar to how you would with any other content type.
 
-This structure also resemples how  <<indexing#, components are stored and indexed>> providing a 1:1 of how how to query based on component content.
+This structure mirrors how <<indexing#, components are stored and indexed>>, giving a 1:1 mapping between query shape and indexed shape.
 
 [source,graphql]
 ----
@@ -124,6 +152,54 @@ This structure also resemples how  <<indexing#, components are stored and indexe
           descriptor
           configAsJson
         }
+      }
+    }
+  }
+}
+----
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "components": [
+          {
+            "type": "page",
+            "path": "/",
+            "page": {
+              "descriptor": "com.enonic.app.superhero:default",
+              "configAsJson": null
+            },
+            "layout": null,
+            "part": null
+          },
+          {
+            "type": "layout",
+            "path": "/main/0",
+            "page": null,
+            "layout": {
+              "descriptor": "com.enonic.app.superhero:two-column",
+              "configAsJson": null
+            },
+            "part": null
+          },
+          {
+            "type": "part",
+            "path": "/main/0/left/0",
+            "page": null,
+            "layout": null,
+            "part": {
+              "descriptor": "com.enonic.app.superhero:featured",
+              "configAsJson": {
+                "headline": "Welcome",
+                "showLogo": true
+              }
+            }
+          }
+        ]
       }
     }
   }

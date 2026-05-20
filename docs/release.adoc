@@ -3,6 +3,17 @@ include::.variables.adoc[]
 :toc: right
 :imagesdir: release/images
 
-== XP8
+The Enonic CMS stack is composed of several independent products, each released and versioned on its own cadence. Every product on https://market.enonic.com[Enonic Market] has a *Releases* section listing its versions and changes — that's the canonical source for what's new.
 
-TODO
+A few components also publish more detailed release notes in their own documentation:
+
+* https://developer.enonic.com/docs/xp/stable/release[Enonic XP {release}] — the platform core that hosts the CMS.
+* https://market.enonic.com/vendors/enonic/content-studio[Content Studio] — primary authoring interface.
+* https://market.enonic.com/vendors/enonic/guillotine[Headless API (Guillotine)] — GraphQL API for headless delivery.
+
+Subscription components:
+
+* https://market.enonic.com/vendors/enonic/content-studio-plus[Content Studio+] — advanced editorial features.
+* https://market.enonic.com/vendors/enonic/ai-content-operator[AI Content Operator] — AI-assisted authoring.
+
+Other Enonic-published and third-party apps — SEO tools, analytics, importers, and more — are listed on https://market.enonic.com[Enonic Market].

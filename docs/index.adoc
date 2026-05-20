@@ -2,38 +2,29 @@
 :imagesdir: images
 :toc: right
 
-This documentation covers the core concepts and features which make up Enonic's core CMS capabilities.
-
 == Introduction
 
-Enonic's CMS is built on top of the Enonic XP platform core. The heart of the CMS is a declarative <<schemas#, Schema system>>, <<projects#, Projects to store your content>> and a <<api#, Unified API>> to access all of your content. Content models are automatically reflected in the API, as well as Content Studio, along with full server-side validation, indexing and <<querying#, querying capabilities>>.
+Enonic's CMS is built on top of the Enonic XP platform core, and combines a set of independent components into a complete stack: <<projects#, Content Storage>> as the foundation, a declarative <<schemas#, Schema system>>, https://market.enonic.com/vendors/enonic/content-studio[Content Studio] for authoring, the https://market.enonic.com/vendors/enonic/guillotine[Headless API] for delivery, and https://market.enonic.com[Enonic Market] for general extensions. Schemas drive everything — content models are automatically reflected in the API and Content Studio, with full server-side validation, indexing and <<querying#, querying capabilities>>.
 
-This documentation covers the CMS surface only, other relevant reference documentation includes:
+image::cms.svg[Iceberg illustration showing the CMS stack — Content Storage, Schema system, Content Studio, Headless API, and Enonic Market under the surface, with customer-specific Functions, Extensions, and Schemas above, caption="Enonic CMS stack", 1440]
 
-* https://developer.enonic.com/docs/code[Enonic Development Kit] for schema deployment and coding
+Deploy custom *Schemas* for your content models, *Extensions* that augment Content Studio, and *Functions* for to augment the API or run custom server-side logic. 
+
+NOTE: https://market.enonic.com[Enonic Market] offers free applications for SEO, analytics and integrations as well as subscription apps like https://market.enonic.com/vendors/enonic/content-studio-plus[Content Studio+] and the https://market.enonic.com/vendors/enonic/ai-content-operator[AI Content Operator].
+
+This documentation covers the CMS surface only. See also:
+
+* https://developer.enonic.com/docs/code[Enonic Development Kit] for schema deployment, functions, extensions and more.
 * https://developer.enonic.com/docs/xp[XP platform docs] for core platform features and architecture
-
-
-== The CMS stack
-
-The CMS is composed from serveral independent software components on top of Enonic XP, each documented and maintained separately. They are all available on https://market.enonic.com[Enonic Market].
-
-Combined they make out Enonic's CMS stack. This is possible thanks to Enonic XP's modular architecture, and allows for unprecedented flexibility and adaptability.
-
-* https://market.enonic.com/vendors/enonic/guillotine[Headless API]
-* https://market.enonic.com/vendors/enonic/content-studio[Content Studio]
-* https://market.enonic.com/vendors/enonic/content-studio-plus[Content Studio+] - for subscription customers.
-* https://market.enonic.com/vendors/enonic/ai-content-operator[AI Content Operator] - for subscription customers.
-
-More applications, such as SEO tools, Google Analytics and more, are available on Enonic Market.
 
 == Main features
 
 *Schema as code:* Flexible content modelling. +
 *Hierarchies:* Organize content in a tree structure. +
-*Media:* Image processing and delivery. +
+*Media:* Store any file as content. +
+*Image:* Real-time processing and delivery. +
 *Versioning:* Version control and branching for content. +
-*Workflows:* Define custom content lifecycles and approval processes. +
+*Workflows:* Define custom content lifecycles and approval. +
 *Layering:* For multi-language and multi-region use-cases. +
 *Scalable:* Scale from small projects to global multi-brand deployments +
 *Customizable:* Augment the platform, APIs and tooling through custom development.
@@ -42,5 +33,5 @@ Developers may adapt the platform, APIs and tooling extensively via Enonic apps,
 
 == Front-end toolkits
 
-Enonic CMS can be used with any front-end framework. Enonic manages and publishes https://www.npmjs.com/package/@enonic/react-components[Enonic React components^] and a highly optimized https://developer.enonic.com/learn/next.xp/stable[Next.js integration^]. See the https://developer.enonic.com/docs/frameworks[frameworks section] for more details and examples.
+Enonic CMS can be used with any front-end framework. Enonic manages and publishes https://www.npmjs.com/package/@enonic/react-components[Enonic React components] and a highly optimized https://developer.enonic.com/learn/next.xp/stable[Next.js integration]. See the https://developer.enonic.com/docs/frameworks[frameworks section] for more details and examples.
 

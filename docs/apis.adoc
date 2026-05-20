@@ -1,12 +1,60 @@
-= APIs 
-toc: right
+= APIs
+include::.variables.adoc[]
+:toc: right
 :imagesdir: images
-TODO
 
-== Intro
-TODO
+Enonic CMS exposes content over HTTP under a common `/api/` prefix. The GraphQL API is the primary interface for headless delivery, while the Image and Attachment APIs serve media directly. Custom *Functions* let you extend this surface with your own endpoints and background jobs.
 
-== Universal APIs
+== Which API do I use?
 
+[cols="1,2", options="header"]
+|===
+| You want to…                              | Use
+| Query or mutate content                   | <<apis/graphql#, GraphQL API>>
+| Render or transform images                | <<apis/image#, Image API>>
+| Serve raw file downloads                  | <<apis/attachment#, Attachment API>>
+| Expose custom HTTP endpoints or run tasks | <<#custom-functions, Custom Functions>>
+|===
 
-== JavaScript APIs
+== GraphQL API
+
+The GraphQL API is Enonic's primary headless interface, provided by https://market.enonic.com/vendors/enonic/guillotine[Guillotine] — a separately versioned app that exposes your content as a typed GraphQL schema. Content types, mixins, references, pages, and media are all reachable from a single endpoint, with per-user authorization enforced by XP's IAM.
+
+Default endpoint: `/api/guillotine:graphql`
+
+See <<apis/graphql#, GraphQL API>> for endpoint details, authentication, and usage patterns.
+
+== Image API
+
+The Image API delivers and transforms bitmap images on the fly — resize, crop, format conversion, and quality adjustments — directly from URL parameters. It is the standard way for front-ends to load responsive image variants without pre-generating them.
+
+Default endpoint: `/api/media:image/`
+
+See <<apis/image#, Image API>> for URL structure, parameters, and caching behavior.
+
+== Attachment API
+
+The Attachment API serves the original, unprocessed bytes of any content attachment — documents, archives, video, audio, or any non-image media. Use it when you need the file as it was uploaded.
+
+Default endpoint: `/api/media:attachment/`
+
+See <<apis/attachment#, Attachment API>> for URL structure and download semantics.
+
+== Other built-in APIs
+
+XP exposes additional HTTP APIs for system-level concerns (IDProvider, webapps, admin tooling, and more). See <<apis/other#, Other APIs>> for the full inventory.
+
+[#custom-functions]
+== Custom Functions
+
+Beyond the built-in APIs, you can deploy custom *Functions* as part of your own Enonic app. Functions run server-side on XP and can:
+
+* extend the GraphQL schema with custom queries, mutations, and resolvers
+* expose custom HTTP endpoints under `/api/<app>/`
+* run scheduled or on-demand background tasks
+* react to content events (publish, modify, delete) via listeners
+* integrate with external systems, perform complex data processing, or implement custom business logic
+
+Functions are how customer-specific business logic plugs into the CMS. 
+
+See the https://developer.enonic.com/docs/code[Enonic Development Kit] for how to scaffold, build, and deploy custom functions.
