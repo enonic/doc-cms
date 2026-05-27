@@ -1,4 +1,4 @@
-= ComboBox input type
+= ComboBox form item
 
 :imagesdir: images
 :toc: right
@@ -7,9 +7,9 @@ A ComboBox lets the user select one or more options from a statically defined li
 
 == Appearance
 
-The example below demonstrates use of combobox with two options, where both may be selected.
+The example below demonstrates use of combobox with multi-select support. Here, two options are selected.
 
-image::Combobox.png[two options, both can be selected via checkboxes, 700]
+image::combobox.png[Two options selected, 546w]
 
 == Usage
 

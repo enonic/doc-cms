@@ -1,4 +1,4 @@
-= CheckBox input type
+= CheckBox form item
 :imagesdir: images
 :toc: right
 
@@ -10,7 +10,7 @@ that makes sense is a minimum of zero and a maximum of one, which is default and
 The below screenshot shows four variants of how a checkbox can be presented, based on use of alignment.
 
 [.thumb]
-image::Checkboxes.png[two checkboxes one is selected the other is not, 200]
+image::checkbox.png[variants of checkboxes, 546w]
 
 == Usage
 

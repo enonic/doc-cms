@@ -1,13 +1,13 @@
-= ContentTypeFilter input type
+= ContentTypeFilter form item
 
 :imagesdir: images
 :toc: right
 
-A field for selecting a content type.
+Select one or more of the available content types.
 
 == Appearance
 
-image::Content-type-default.png[input field with a dropdown of all content, 700]
+image::contenttypefilter.png[input field listing content types, 546w]
 
 
 == Usage

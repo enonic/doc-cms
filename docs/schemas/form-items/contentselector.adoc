@@ -1,13 +1,23 @@
-= ContentSelector input type
+= ContentSelector form item
 
 :imagesdir: images
 :toc: right
 
-References to other content are specified by this input type. Use the toggle icon to switch between the list mode (default) and the tree mode.
+Creates references to other content. Enables filtering on what content types and paths can be selected. 
+
 
 == Appearance
 
-image::Content-selector-default.png[An input box with a dropdown options below it, 700]
+ContentSelector is a specialized version of the combobx, but the dropdown list is populated with content items instead of static options. Here are some examples of what it looks like in Content Studio:
+
+.Standard list mode with content items listed in a dropdown below the input field.
+image::contentselector.png[An input box with a dropdown listing content items below it, 546w]
+
+.Tree mode with content items in a tree structure.
+image::contentselector-tree.png[Drill in tree structure, 546w]
+
+.Two items have been selected.
+image::contentselector-selected.png[Two items selected, 546w]
 
 == Usage
 
