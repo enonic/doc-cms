@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>ComboBox input type</title>
+<title>ComboBox form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>ComboBox input type</h1>
+<h1>ComboBox form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -459,11 +459,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The example below demonstrates use of combobox with two options, where both may be selected.</p>
+<p>The example below demonstrates use of combobox with multi-select support. Here, two options are selected.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Combobox.png" alt="two options" width="both can be selected via checkboxes" height="700">
+<img src="images/combobox.png" alt="Two options selected" width="546w">
 </div>
 </div>
 </div>
@@ -546,7 +546,7 @@ The stored values correspond to the <code>value</code> attributes in the schema,
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-20 06:40:29 UTC
+Last updated 2026-05-27 15:47:25 UTC
 </div>
 </div>
 </body>

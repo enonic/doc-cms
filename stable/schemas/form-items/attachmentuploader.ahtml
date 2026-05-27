@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>AttachmentUploader input type</title>
+<title>AttachmentUploader form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>AttachmentUploader input type</h1>
+<h1>AttachmentUploader form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -451,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Input types enables uploading of one or more files that will be stored as attachments to the current node/content, similar to how you would add attachments to an e-mail.</p>
+<p>Enables uploading of one or more files that will be stored as attachments to the current node/content, similar to how you would add attachments to an e-mail.</p>
 </div>
 <div class="paragraph">
 <p>AttachmentUploader is different from media content where each media is a separate content item which is automatically indexed, can be linked to, published and deleted individually.</p>
@@ -462,11 +462,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AttachmentUplaoder as seen in Content Studio.</p>
+<p>AttachmentUploader as seen in Content Studio.</p>
 </div>
 <div class="imageblock thumb">
 <div class="content">
-<img src="images/Attachment.png" alt="An empty attachment input box" width="700">
+<img src="images/attachmentuploader.png" alt="Two variants of the AttachmentUploader" width="546w">
 </div>
 </div>
 </div>
@@ -487,7 +487,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Value type:</strong> <code>BinaryReference</code> — not included in <code>_alltext</code></p>
+<p><strong>Value type:</strong> <code>String</code> (attachment name reference) + an attachment, see <a href="../../content/attachments.ahtml">Attachments</a> for details.</p>
 </div>
 <div class="paragraph">
 <p>The stored value is the name of an <a href="../../content/attachments.ahtml">attachment</a> on the content item. The file itself is stored as an attachment, not as a separate content. See <a href="../../content/attachments.ahtml">Attachments</a> for details on how attachments are stored and indexed.</p>
@@ -516,7 +516,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-20 06:40:29 UTC
+Last updated 2026-05-27 15:47:25 UTC
 </div>
 </div>
 </body>
