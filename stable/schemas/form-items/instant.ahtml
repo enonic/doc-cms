@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Instant input type</title>
+<title>Instant form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Instant input type</h1>
+<h1>Instant form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -451,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A field for dates with time, without timezone. An instant represents a specific point in time, independent of any timezone. Use <a href="datetime.ahtml">DateTime</a> when you need to preserve timezone information.</p>
+<p>Dates with time and timezone. An instant represents a specific point in time. Use <a href="datetime.ahtml">DateTime</a> for dates with time but without timezone.</p>
 </div>
 </div>
 </div>
@@ -459,11 +459,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A pop-up box with a calendar and time selector allows easy editing, similar to <a href="datetime.ahtml">DateTime</a> but without timezone selection.</p>
+<p>Calendar, time and timezone selector allows easy editing, similar to <a href="datetime.ahtml">DateTime</a></p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Instant-selector.png" alt="Input field with calendar and time selector above it" width="500">
+<img src="images/instant.png" alt="Input field with calendar and time selector above it" width="500">
 </div>
 </div>
 </div>
@@ -492,12 +492,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Date and time in ISO 8601 format without timezone: <code>yyyy-MM-ddThh:mm</code>  (e.g. "2025-06-15T12:00")</p>
+<p>Combined date and time in ISO 8601 format with timezone: <code>yyyy-MM-ddThh:mm±hh:mm</code>  (e.g. "2016-12-31T23:59+01:00")</p>
 </li>
 <li>
 <p>Relative datetime expression (e.g. "+1year -12hours")</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Note that the ISO8601 format consists of concatenating a complete date expression, the letter <code>T</code> as a delimiter, and a valid time expression.</p>
+</div>
+<div class="paragraph">
+<p>The timezone offset is a plus or minus sign, followed by an hour offset, followed by a colon, followed by a minute offset.
+A timezone offset of zero can also be represented as 'Z', meaning UTC or Zulu time. It is equivalent to offset <code>+00:00</code>.</p>
 </div>
 <div class="paragraph">
 <p>A relative date expression is a sequence of one or more datetime offsets.
@@ -550,13 +557,13 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>An offset can also be the string <code>now</code>, which means current date and time.</p>
-</div>
 </div>
 </div>
 <div class="paragraph">
-<p>If <code>default</code> value is set for an input, the picker will display "<strong>Set default</strong>" button for setting the default value with one click.</p>
+<p>An offset can also be the string <code>now</code>, which means current time.</p>
+</div>
+<div class="paragraph">
+<p>If <code>default</code> value is set for an input, the UI Date/Time picker will display btn:[Set default] button for resetting to the default value with one click.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -580,12 +587,13 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Value type:</strong> <code>LocalDateTime</code> — not included in <code>_alltext</code></p>
+<p><strong>Value type:</strong> <code>Instant</code> — not included in <code>_alltext</code></p>
 </div>
 <div class="listingblock">
+<div class="title">Z (UTC time) is same as +00:00</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "my_instant": "2025-06-15T12:00:00"
+  "my_instant": "2025-06-15T12:00:00Z"
 }</code></pre>
 </div>
 </div>
@@ -594,30 +602,18 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
   "my_instant": [
-    "2025-06-15T12:00:00",
-    "2025-07-01T09:30:00"
+    "2025-06-15T12:00:00+01:00",
+    "2025-07-01T09:30:00+01:00"
   ]
 }</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Unlike <a href="datetime.ahtml">DateTime</a> which includes a timezone offset (e.g. <code>+01:00</code>), Instant stores the date and time without timezone information.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-27 15:47:25 UTC
+Last updated 2026-05-28 09:32:11 UTC
 </div>
 </div>
 </body>

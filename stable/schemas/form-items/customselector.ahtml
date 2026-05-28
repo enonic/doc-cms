@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>CustomSelector input type</title>
+<title>CustomSelector form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>CustomSelector input type</h1>
+<h1>CustomSelector form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -455,7 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Selector with customizable data source. Useful for live integrations with external data sources.</p>
+<p>Combobox with customizable data source. Useful for integrations with external data sources or dynamic options.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -464,7 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-selector">Building a custom selector</a> for hands on learning.
+Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-selectors">Building a custom selector</a> for hands on learning.
 </td>
 </tr>
 </table>
@@ -476,7 +476,7 @@ Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-se
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
-<img src="images/Custom-selector.png" alt="Custom selector dropdown with options from an external service" width="700">
+<img src="images/customselector.png" alt="Custom selector dropdown with options and icons controlled via extension" width="546w">
 </div>
 </div>
 </div>
@@ -607,7 +607,7 @@ Tutorial: Check out <a href="https://developer.enonic.com/docs/build-a-custom-se
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-27 15:47:25 UTC
+Last updated 2026-05-28 09:32:11 UTC
 </div>
 </div>
 </body>

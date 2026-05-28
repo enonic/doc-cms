@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>DateTime input type</title>
+<title>DateTime form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>DateTime input type</h1>
+<h1>DateTime form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -451,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A field for dates with time and timezone. A pop-up box with a calendar and time selector allows easy editing.</p>
+<p>For dates with time - without timezone.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -460,7 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-For dates without timezone, use <a href="instant.ahtml">Instant</a> instead.
+For dates with timezone, use the <a href="instant.ahtml">Instant</a> form item.
 </td>
 </tr>
 </table>
@@ -475,7 +475,7 @@ For dates without timezone, use <a href="instant.ahtml">Instant</a> instead.
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Datetime-selector.png" alt="Input field with both a calander and time selection above" width="500">
+<img src="images/datetime.png" alt="Input field with both a calander and time selection above" width="546w">
 </div>
 </div>
 </div>
@@ -504,7 +504,7 @@ For dates without timezone, use <a href="instant.ahtml">Instant</a> instead.
 <div class="ulist">
 <ul>
 <li>
-<p>Combined date and time in ISO 8601 format with timezone: <code>yyyy-MM-ddThh:mm±hh:mm</code>  (e.g. "2016-12-31T23:59+01:00")</p>
+<p>Combined date and time in ISO 8601 format without timezone: <code>yyyy-MM-ddThh:mm</code>  (e.g. "2016-12-31T23:59")</p>
 </li>
 <li>
 <p>Relative datetime expression (e.g. "+1year -12hours")</p>
@@ -513,10 +513,6 @@ For dates without timezone, use <a href="instant.ahtml">Instant</a> instead.
 </div>
 <div class="paragraph">
 <p>Note that the ISO8601 format consists of concatenating a complete date expression, the letter <code>T</code> as a delimiter, and a valid time expression.</p>
-</div>
-<div class="paragraph">
-<p>The timezone offset is a plus or minus sign, followed by an hour offset, followed by a colon, followed by a minute offset.
-A timezone offset of zero can also be represented as 'Z', meaning UTC or Zulu time. It is equivalent to offset <code>+00:00</code>.</p>
 </div>
 <div class="paragraph">
 <p>A relative date expression is a sequence of one or more datetime offsets.
@@ -575,7 +571,7 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 </div>
 <div class="paragraph">
-<p>If <code>default</code> value is set for an input, the Date/Time picker will display "<strong>Set default</strong>" button for setting the default value with one click.</p>
+<p>If <code>default</code> value is set for an input, the UI Date/Time picker will display <b class="button">Set default</b> button for resetting to the default value with one click.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -604,12 +600,12 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Value type:</strong> <code>DateTime</code> — not included in <code>_alltext</code></p>
+<p><strong>Value type:</strong> <code>LocalDateTime</code> — not included in <code>_alltext</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "my_datetime": "2016-12-31T23:59:00+01:00"
+  "my_datetime": "2016-12-31T23:59:00"
 }</code></pre>
 </div>
 </div>
@@ -618,8 +614,8 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
   "my_datetime": [
-    "2016-12-31T23:59:00+01:00",
-    "2017-01-15T09:30:00+01:00"
+    "2016-12-31T23:59:00",
+    "2017-01-15T09:30:00"
   ]
 }</code></pre>
 </div>
@@ -629,7 +625,7 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-27 15:47:25 UTC
+Last updated 2026-05-28 09:32:11 UTC
 </div>
 </div>
 </body>

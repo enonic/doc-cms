@@ -442,9 +442,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#appearance_ui">Appearance (UI)</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#form_items_grouped_by_output">Form items grouped by output</a>
+<li><a href="#output">Output</a>
 <ul class="sectlevel2">
+<li><a href="#form_items_grouped_by_output">Form items grouped by output</a></li>
 <li><a href="#string">String</a></li>
 <li><a href="#reference">Reference</a></li>
 <li><a href="#attachment_reference">Attachment Reference</a></li>
@@ -456,7 +458,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#localtime">LocalTime</a></li>
 <li><a href="#instant">Instant</a></li>
 <li><a href="#datetime">DateTime</a></li>
-<li><a href="#set_propertyset">Set (PropertySet)</a></li>
+<li><a href="#propertyset_object">PropertySet (Object)</a></li>
 <li><a href="#no_output">No output</a></li>
 </ul>
 </li>
@@ -467,7 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Form items are the building blocks of forms. They define structure and content of a form.</p>
+<p>Form items are the building blocks of forms. They define structure of your content.</p>
 </div>
 </div>
 </div>
@@ -475,21 +477,42 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A form item will produce output based on its type and configuration. Each form item has a front-end and back-end component. The front-end represents the visual editing interface used in the XP admin console, where the back-end is solely used for validation purposes.</p>
+<p>A form item optionally produce output based on its type and configuration. Each form item has a UI (front-end) component and server (back-end) component. The UI represents the visual editing interface in Content Studio, where the back-end is solely used for validation purposes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance_ui"><a class="link" href="#appearance_ui">Appearance (UI)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All form items share a common component structure, with a label, help text and the rendition which is specific to every form item.</p>
 </div>
 <div class="paragraph">
-<p>A form item typically produces a property, with a specific <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing">value type</a>, with zero, 1 or multiple occurences. For instance, a <code>TextLine</code> will always produce a <code>String</code> value, while the output of an <code>ItemSet</code> is an object AKA propertySet.</p>
+<p>Below you see examples of what a form item looks like in Content Studio, based on the <a href="form-items/textline.ahtml">TextLine</a> form item.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="form-items/images/formitem-plain.png" alt="Minimal form item with label - help text and input field" width="370w">
+</div>
+<div class="title">Figure 1. Basic with label and help text</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="form-items/images/formitem-error.png" alt="Form item with error message" width="370w">
+</div>
+<div class="title">Figure 2. With error message</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="form-items/images/formitem-disabled.png" alt="Form item in disabled state" width="370w">
+</div>
+<div class="title">Figure 3. Disabled</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="images/default-input.png" alt="An input box with help-text below it" width="650w">
-</div>
-</div>
 <div class="paragraph">
 <p>The following configuration is common for for most form items:</p>
 </div>
@@ -562,10 +585,22 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 </div>
 </div>
 <div class="sect1">
-<h2 id="form_items_grouped_by_output"><a class="link" href="#form_items_grouped_by_output">Form items grouped by output</a></h2>
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Each form item produces a value of a specific <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types">value type</a>. The value type determines how the data is stored and indexed.</p>
+<p>Form items that produce output will generate a property, with a deterministic <a href="https://developer.enonic.com/docs/xp/stable/storage/properties#value-type">value type</a>, with zero, 1 or multiple occurences.</p>
+</div>
+<div class="paragraph">
+<p>For instance, a <code>TextLine</code> will always produce a <code>String</code> value, while the output of an <code>ItemSet</code> is a propertySet (aka object).</p>
+</div>
+<div class="paragraph">
+<p>The value type dictates how the value is stored and indexed, which also controls how you can query the value.</p>
+</div>
+<div class="sect2">
+<h3 id="form_items_grouped_by_output"><a class="link" href="#form_items_grouped_by_output">Form items grouped by output</a></h3>
+<div class="paragraph">
+<p>Each form item produces a value o</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="string"><a class="link" href="#string">String</a></h3>
@@ -705,7 +740,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 </div>
 </div>
 <div class="sect2">
-<h3 id="set_propertyset"><a class="link" href="#set_propertyset">Set (PropertySet)</a></h3>
+<h3 id="propertyset_object"><a class="link" href="#propertyset_object">PropertySet (Object)</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -732,7 +767,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-27 15:47:25 UTC
+Last updated 2026-05-28 09:32:11 UTC
 </div>
 </div>
 </body>
