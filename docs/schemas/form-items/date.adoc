@@ -1,4 +1,4 @@
-= Date input type
+= Date form item
 
 :imagesdir: images
 :toc: right
@@ -7,7 +7,7 @@ A simple field for dates with a calendar pop-up box in the admin console. The de
 
 == Appearance
 
-image::Date-selector.png[Input field with a calander above it and a blue ok button, 500]
+image::date.png[Input field with a calendar icon, 546]
 
 
 == Usage

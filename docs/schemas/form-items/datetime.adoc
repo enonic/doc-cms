@@ -1,17 +1,18 @@
-= DateTime input type
+= DateTime form item
 
 :imagesdir: images
 :toc: right
+:experimental:
 
-A field for dates with time and timezone. A pop-up box with a calendar and time selector allows easy editing.
+For dates with time - without timezone.
 
-TIP: For dates without timezone, use <<instant#, Instant>> instead.
+TIP: For dates with timezone, use the <<instant#, Instant>> form item.
 
 == Appearance
 
 The user format is `yyyy-MM-dd hh:mm` for example, `2015-02-09 09:00`. The timezone is always included.
 
-image::Datetime-selector.png[Input field with both a calander and time selection above, 500]
+image::datetime.png[Input field with both a calander and time selection above, 546w]
 
 
 == Usage
@@ -26,13 +27,10 @@ image::Datetime-selector.png[Input field with both a calander and time selection
 <1> *default* date value to be used. The format for the default date value can be:
 
 ====
-* Combined date and time in ISO 8601 format with timezone: ``yyyy-MM-ddThh:mm±hh:mm``  (e.g. "2016-12-31T23:59+01:00")
+* Combined date and time in ISO 8601 format without timezone: `yyyy-MM-ddThh:mm`  (e.g. "2016-12-31T23:59")
 * Relative datetime expression (e.g. "+1year -12hours")
 
 Note that the ISO8601 format consists of concatenating a complete date expression, the letter ``T`` as a delimiter, and a valid time expression.
-
-The timezone offset is a plus or minus sign, followed by an hour offset, followed by a colon, followed by a minute offset.
-A timezone offset of zero can also be represented as 'Z', meaning UTC or Zulu time. It is equivalent to offset `+00:00`.
 
 A relative date expression is a sequence of one or more datetime offsets.
 An offset consists of: a plus or minus sign, followed by an integer, followed by a date/time unit string (e.g. "+3 days")
@@ -49,10 +47,10 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 | "minute" | "minutes" | "m"
 |===
 
-An offset can also be the string ``now``, which means current date and time.
+An offset can also be the string `now`, which means current date and time.
 ====
 
-If `default` value is set for an input, the Date/Time picker will display "*Set default*" button for setting the default value with one click.
+If `default` value is set for an input, the UI Date/Time picker will display btn:[Set default] button for resetting to the default value with one click.
 
 Examples:
 
@@ -76,12 +74,12 @@ Examples:
 
 == Output
 
-*Value type:* `DateTime` — not included in `_alltext`
+*Value type:* `LocalDateTime` — not included in `_alltext`
 
 [source,JSON]
 ----
 {
-  "my_datetime": "2016-12-31T23:59:00+01:00"
+  "my_datetime": "2016-12-31T23:59:00"
 }
 ----
 
@@ -90,8 +88,8 @@ Examples:
 ----
 {
   "my_datetime": [
-    "2016-12-31T23:59:00+01:00",
-    "2017-01-15T09:30:00+01:00"
+    "2016-12-31T23:59:00",
+    "2017-01-15T09:30:00"
   ]
 }
 ----

@@ -1,15 +1,15 @@
-= Instant input type
+= Instant form item
 
 :imagesdir: images
 :toc: right
 
-A field for dates with time, without timezone. An instant represents a specific point in time, independent of any timezone. Use <<datetime#, DateTime>> when you need to preserve timezone information.
+Dates with time and timezone. An instant represents a specific point in time. Use <<datetime#, DateTime>> for dates with time but without timezone.
 
 == Appearance
 
-A pop-up box with a calendar and time selector allows easy editing, similar to <<datetime#, DateTime>> but without timezone selection.
+Calendar, time and timezone selector allows easy editing, similar to <<datetime#, DateTime>>
 
-image::Instant-selector.png[Input field with calendar and time selector above it, 500]
+image::instant.png[Input field with calendar and time selector above it, 500]
 
 == Usage
 
@@ -23,8 +23,13 @@ image::Instant-selector.png[Input field with calendar and time selector above it
 <1> *default* value to be used. The format for the default value can be:
 
 ====
-* Date and time in ISO 8601 format without timezone: ``yyyy-MM-ddThh:mm``  (e.g. "2025-06-15T12:00")
+* Combined date and time in ISO 8601 format with timezone: ``yyyy-MM-ddThh:mm±hh:mm``  (e.g. "2016-12-31T23:59+01:00")
 * Relative datetime expression (e.g. "+1year -12hours")
+
+Note that the ISO8601 format consists of concatenating a complete date expression, the letter ``T`` as a delimiter, and a valid time expression.
+
+The timezone offset is a plus or minus sign, followed by an hour offset, followed by a colon, followed by a minute offset.
+A timezone offset of zero can also be represented as 'Z', meaning UTC or Zulu time. It is equivalent to offset `+00:00`.
 
 A relative date expression is a sequence of one or more datetime offsets.
 An offset consists of: a plus or minus sign, followed by an integer, followed by a date/time unit string (e.g. "+3 days")
@@ -40,11 +45,13 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 | "hour" | "hours" | "h"
 | "minute" | "minutes" | "m"
 |===
-
-An offset can also be the string ``now``, which means current date and time.
 ====
 
-If `default` value is set for an input, the picker will display "*Set default*" button for setting the default value with one click.
+An offset can also be the string `now`, which means current time.
+
+
+If `default` value is set for an input, the UI Date/Time picker will display btn:[Set default] button for resetting to the default value with one click.
+
 
 Examples:
 
@@ -63,12 +70,13 @@ Examples:
 
 == Output
 
-*Value type:* `LocalDateTime` — not included in `_alltext`
+*Value type:* `Instant` — not included in `_alltext`
 
+.Z (UTC time) is same as +00:00
 [source,JSON]
 ----
 {
-  "my_instant": "2025-06-15T12:00:00"
+  "my_instant": "2025-06-15T12:00:00Z"
 }
 ----
 
@@ -77,10 +85,8 @@ Examples:
 ----
 {
   "my_instant": [
-    "2025-06-15T12:00:00",
-    "2025-07-01T09:30:00"
+    "2025-06-15T12:00:00+01:00",
+    "2025-07-01T09:30:00+01:00"
   ]
 }
 ----
-
-NOTE: Unlike <<datetime#, DateTime>> which includes a timezone offset (e.g. `+01:00`), Instant stores the date and time without timezone information.

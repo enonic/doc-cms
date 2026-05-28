@@ -1,18 +1,33 @@
 = Form Items
 :toc: right
-:imagesdir: images
+:imagesdir: form-items/images
 
-Form items are the building blocks of forms. They define structure and content of a form. 
+Form items are the building blocks of forms. They define structure of your content.
 
 == Introduction
 
-A form item will produce output based on its type and configuration. Each form item has a front-end and back-end component. The front-end represents the visual editing interface used in the XP admin console, where the back-end is solely used for validation purposes.
+A form item optionally produce output based on its type and configuration. Each form item has a UI (front-end) component and server (back-end) component. The UI represents the visual editing interface in Content Studio, where the back-end is solely used for validation purposes.
 
-A form item typically produces a property, with a specific https://developer.enonic.com/docs/xp/stable/storage/indexing[value type], with zero, 1 or multiple occurences. For instance, a `TextLine` will always produce a `String` value, while the output of an `ItemSet` is an object AKA propertySet. 
+
+
+== Appearance (UI)
+
+All form items share a common component structure, with a label, help text and the rendition which is specific to every form item. 
+
+Below you see examples of what a form item looks like in Content Studio, based on the <<form-items/textline#, TextLine>> form item.
+
+.Basic with label and help text
+image::formitem-plain.png[Minimal form item with label - help text and input field, 370w]
+
+.With error message
+image::formitem-error.png[Form item with error message, 370w]
+
+.Disabled
+image::formitem-disabled.png[Form item in disabled state, 370w]
+
+
 
 == Usage
-
-image::default-input.png[An input box with help-text below it, 650w]
 
 The following configuration is common for for most form items:
 
@@ -56,9 +71,17 @@ This element is optional, if omitted the default will be `min: 0` and `max: 1`.
 
 <6> Config properties are specified directly on the form item, rather than in a separate config element.
 
-== Form items grouped by output
+== Output 
 
-Each form item produces a value of a specific https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types[value type]. The value type determines how the data is stored and indexed.
+Form items that produce output will generate a property, with a deterministic https://developer.enonic.com/docs/xp/stable/storage/properties#value-type[value type], with zero, 1 or multiple occurences. 
+
+For instance, a `TextLine` will always produce a `String` value, while the output of an `ItemSet` is a propertySet (aka object).
+
+The value type dictates how the value is stored and indexed, which also controls how you can query the value.
+
+=== Form items grouped by output
+
+Each form item produces a value o
 
 === String
 * <<textline.adoc,TextLine>> — single line plain text
@@ -102,7 +125,7 @@ Each form item produces a value of a specific https://developer.enonic.com/docs/
 === DateTime
 * <<datetime.adoc,DateTime>> — date and time with timezone
 
-=== Set (PropertySet)
+=== PropertySet (Object)
 * <<item-set.adoc,ItemSet>> — nested group of form items
 * <<option-set.adoc,OptionSet>> — selectable groups of form items
 

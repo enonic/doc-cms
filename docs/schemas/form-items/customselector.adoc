@@ -1,17 +1,19 @@
-= CustomSelector input type
+= CustomSelector form item
 
 :imagesdir: images
 :toc: right
 
-Selector with customizable data source. Useful for live integrations with external data sources.
+Combobox with customizable data source. Useful for integrations with external data sources or dynamic options.
 
-TIP: Tutorial: Check out https://developer.enonic.com/docs/build-a-custom-selector[Building a custom selector] for hands on learning.
+TIP: Tutorial: Check out https://developer.enonic.com/learn/building-custom-selectors[Building a custom selector] for hands on learning.
 
 == Appearance
 
-image::Custom-selector.png[Custom selector dropdown with options from an external service, 700]
+image::customselector.png[Custom selector dropdown with options and icons controlled via extension, 546w]
 
 == Usage
+
+//TODO: Check admin extensions support
 
 The `service` attribute points to an HTTP endpoint (a function provided by an Enonic XP app) that returns matching options as JSON. See the Enonic XP app-development docs for how to implement that function.
 

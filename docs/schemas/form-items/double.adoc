@@ -1,13 +1,13 @@
-= Double input type
+= Double form item
 
 :imagesdir: images
 :toc: right
 
-A simple input type for storing decimal numbers.
+Support high precision decimal numbers 
 
 == Appearance
 
-image::Double.png[An inpt field with a lot of decimal numbers, 700]
+image::double.png[Showing two input fields - one with a decimal and one integrer, 546w]
 
 == Usage
 
@@ -45,7 +45,9 @@ image::Double.png[An inpt field with a lot of decimal numbers, 700]
 {
   "my_double": [
     3.89,
-    1.41
+    2
   ]
 }
 ----
+
+NOTE: Double is also capable of storing integer values, which are valid double-precision floating-point numbers.
