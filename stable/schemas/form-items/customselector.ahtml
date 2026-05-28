@@ -442,11 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
-<li><a href="#usage">Usage</a>
-<ul class="sectlevel2">
-<li><a href="#option_json_format">Option JSON format</a></li>
-</ul>
-</li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#extension">Extension</a></li>
 <li><a href="#output">Output</a></li>
 </ul>
 </div>
@@ -485,9 +482,6 @@ Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>service</code> attribute points to an HTTP endpoint (a function provided by an Enonic XP app) that returns matching options as JSON. See the Enonic XP app-development docs for how to implement that function.</p>
-</div>
-<div class="paragraph">
 <p>Below are several sample usages of CustomSelector:</p>
 </div>
 <div class="listingblock">
@@ -499,13 +493,13 @@ Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-
   occurrences:
     min: 0
     max: 0
-  service: "my-custom-selector"  <i class="conum" data-value="1"></i><b>(1)</b>
+  extension: "my-extension" <i class="conum" data-value="1"></i><b>(1)</b>
 
-# Sample with parameters
+# Referencing other application and adding parameters
 - type: "CustomSelector"
   name: "music_track"
   label: "Intro song"
-  service: "spotify-music-selector"
+  extension: "com.enonic.app.extapp:my-extension"
   param:  <i class="conum" data-value="2"></i><b>(2)</b>
     - value: "genre"
       label: "classic"
@@ -516,15 +510,25 @@ Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-
 - type: "CustomSelector"
   name: "album_cover"
   label: "Album cover"
-  service: "spotify-album-cover-selector"
-  galleryMode: true  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+  extension: "album-cover-selector"
+  galleryMode: true  <i class="conum" data-value="3"></i><b>(3)</b>
+
+
+# Legacy service mode
+- type: "CustomSelector"
+  name: "my_custom_selector"
+  label: "My Custom Selector"
+  occurrences:
+    min: 0
+    max: 0
+  service: "my-custom-selector"  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>service</strong> — the name of the service function that supplies options. Can reference a function in another application using the <code>com.myapplication.app:myservice</code> form.</td>
+<td><strong>extension</strong> — references an <a href="#extension">extension</a> that is responsible for providing the options. Can reference extension in other applications by including the application prefix e.g. <code>com.myapplication.app:my-extension</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -534,44 +538,34 @@ Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td><strong>galleryMode</strong> set to <code>true</code> renders options in a gallery style (three big images in a row), similar to <a href="imageselector.ahtml#appearance">ImageSelector</a>. Useful when images should be emphasized.</td>
 </tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>service</strong> — Deprecated! Refer to the service service that provides the options (relative or with application prefix).</td>
+</tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="option_json_format"><a class="link" href="#option_json_format">Option JSON format</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extension"><a class="link" href="#extension">Extension</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The service function returns JSON with <code>total</code>, <code>count</code>, and a <code>hits</code> array. Each hit becomes a selectable option:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "total": 10,
-  "count": 2,
-  "hits": [
-    {
-      "id": "1",
-      "displayName": "Option number 1",
-      "description": "Short description shown under the title",
-      "iconUrl": "/some/path/images/number_1.svg"
-    },
-    {
-      "id": "2",
-      "displayName": "Option number 2",
-      "description": "Inline SVG markup is used as icon",
-      "icon": {
-        "data": "&lt;svg xmlns=\"http://www.w3.org/2000/svg\"/&gt;",
-        "type": "image/svg+xml"
-      }
-    }
-  ]
-}</code></pre>
-</div>
+<p>For the custom selector to work, the referenced extension must be installed and running on the XP instance.</p>
 </div>
 <div class="paragraph">
-<p>Each hit requires <code>id</code> and <code>displayName</code>. <code>description</code>, <code>iconUrl</code>, and inline <code>icon</code> are optional. The <code>id</code> is what gets stored when the option is selected — see <a href="#output">Output</a>.</p>
+<p>This is essentially a function that takes a set of parameters and returns a defined JSON object according to the <code>contentstudio.customselector</code> contract.</p>
 </div>
-<div class="paragraph">
-<p>For how to implement the service function (request parameters, pagination, filtering), see the Enonic XP app-development docs.</p>
-</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Visit the <a href="https://developer.enonic.com/docs/code/stable/web/extensions/customselector">Enonic Development Kit docs</a> for implementation details.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -587,7 +581,7 @@ Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "my_custom_selector": "1"
+  "music_track": "0VjIjW4GlUZAMYd2vXMi3b"
 }</code></pre>
 </div>
 </div>
@@ -595,9 +589,9 @@ Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-
 <div class="title">Multiple selections</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "my_custom_selector": [
-    "1",
-    "2"
+  "music_track": [
+    "0VjIjW4GlUZAMYd2vXMi3b",
+    "7qiZfU4dY1lWl0X7mMnVN7"
   ]
 }</code></pre>
 </div>
@@ -607,7 +601,7 @@ Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 09:32:11 UTC
+Last updated 2026-05-28 12:24:00 UTC
 </div>
 </div>
 </body>
