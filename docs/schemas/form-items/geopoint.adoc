@@ -1,13 +1,13 @@
-= GeoPoint input type
+= GeoPoint form item
 
 :imagesdir: images
 :toc: right
 
-Stores a GPS coordinate as two comma-separated decimal numbers.
+Store Geographical coordinates for places on Earth.
 
 == Appearance
 
-image::Geo-point.png[text input with a longitude and latitude numbers, 700]
+image::geopoint.png[Text input with longitude and latitude numbers separated by comma, 546w]
 
 * The first number must be between -90 and 90, where a negative number indicates a location south of equator and a positive is north of the equator.
 * The second number must be between -180 and 180, where a negative number indicates a location in the western hemisphere and a positive number is a location in the eastern hemisphere.
@@ -33,7 +33,7 @@ image::Geo-point.png[text input with a longitude and latitude numbers, 700]
 [source,JSON]
 ----
 {
-  "my_geopoint": "51.5,-0.1"
+  "my_geopoint": "29.97917,31.13417"
 }
 ----
 

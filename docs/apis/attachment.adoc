@@ -5,32 +5,48 @@
 
 The Attachment API provides direct access to Content Attachments without processing.
 
+== Location
+
+By default, the API is available at:
+
+  8080:/api/media:attachment/
+
+The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example `https://api.example.com/graphql`.
+
+
+== Attachment URL structure
+
+The attachment URL consists of the following components:
+
+. Base +
 `:8080/api/media:attachment/`
-
-TODO: REMOVE?
-The API is unconditionally enabled on the site engine and available on `:8080/site/<repo>/<branch>/<path-to-site>/_/media:<image|attachment>/` endpoint.
-
-An attachment URL consists of the following components:
-
-. Base URL +
- For Site Engine `+:8080/site/<project>/<branch>/<path-to-site>/_/media:attachment/+`
- For API Engine `+:8080/api/media:attachment/+`
-
-. Media Locator with an optional (draft) branch +
-  `<media-project>(:<media-branch>)/<content-id>` +
-  Media branch is specified only if it is not `master` (which means published content). Specifying `master` branch is an error - to avoid cache pollution. Since we only have `master` and `draft` there are only two options: `/<media-project>/` and `/<media-project>:draft/`
-
-. (Optional) attachment fingerprint +
-  `:<attachment-fingerprint>` - the fingerprint of the attachment. Some older versions of XP may not have created an attachment with SHA checksum, in which case it fingerprint not used. +
-  If fingerprint is not supplied the response will not contain "immutable" `Cache-Control` header.
-
+. Media Locator with an optional (branch) +
+`<project>(:<branch>)/<content-id>` +
+`master` is the default branch (referring to published content). Specifying `master` branch is an error - to avoid cache pollution. Since we only have `master` and `draft` there are only two options: `/<project>/` and `/<project>:draft/`
+. (Optional) fingerprint +
+`:<attachment-fingerprint>` - the fingerprint of the attachment. +
+If fingerprint is not supplied the response will not contain "immutable" `Cache-Control` header.
 . Attachment name +
-  `<attachment-name>` is not a Content Name, but the name of the attachment itself, which is usually the file name.
+`<attachment-name>` is not the Content Name, but the name of the attachment stored within the content.
 
 . (Optional) download parameter +
-  `?download` - the response will contain `Content-Disposition` header, if specified.
+`?download` - the response will set the `Content-Disposition` header, if specified.
 
-Example of an attachment URL on the root of a live site behind <<../../deployment/vhosts#virtual-hosts,Virtual Host>>:
+Example of an attachment URL on the root of a live site behind a https://developer.enonic.com/docs/xp/stable/config/vhosts#virtual-hosts[Virtual Host]:
 ----
 /_/media:attachment/media-project/c82262a6-77d6-4276-b0e7-fe82f4eb57b8:ec25d6e4126c7064f82aaab8b34693fc/attachment.png?download
 ----
+
+
+== Media scope
+
+You may limit which projects and branches are accessible by mounting the API in a Virtual Host. 
+
+Use the setting `endpoint.media.scope = <project1:draft>, <project2>` in the https://developer.enonic.com/docs/xp/stable/config/vhosts#virtual-host-context[Virtual Host Context]. +
+
+
+== Response
+
+The attachment API returns the attachment file as a binary stream in the response body, with the corresponding `Content-Type` header.
+
+// TODO describe caching, immutable URLs, streaming headers etc.

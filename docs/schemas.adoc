@@ -6,7 +6,7 @@ Schemas are the heart of the CMS, enabling you to express your content model as 
 
 == Introduction
 
-Schemas are used to define various editorial elements within the CMS. Schemas may contain a <<form#, Form>> which allow you to declare custom data structures.
+Schemas are used to define various editorial elements within the CMS. Schemas may contain a <<schemas/forms#, Form>> which allow you to declare custom data structures.
 
 The available schema kinds are:
 
@@ -40,11 +40,11 @@ form: []  # <4>
 <1> <<#kinds, Kind>> - i.e. "ContentType", "Mixin" etc.
 <2> Title - Human readable schema name.
 <3> <<#configuration, Configuration>> - Validated fields for each schema kind
-<4> <<form#, Form>> - Optional form that declares a custom data structure for the schema.
+<4> <<schemas/forms#, Form>> - Optional form that declares a custom data structure for the schema.
 
 
 == Schema localization
 
-You may provide <<i18n#, translations>> for your schemas in multiple languages for better usability in Content Studio. 
+You may provide <<schemas/i18n#, translations>> for your schemas in multiple languages for better usability in Content Studio. 
 
 

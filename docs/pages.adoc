@@ -6,7 +6,7 @@ Sites and pages allow you to build rich, visually oriented content using buildin
 
 == Sites
 
-Sites represent the root of a website within a content project. Creating a site unlocks the ability to manage <<page#, pages>>, <<page-templates#, page templates>>, and <<fragments#, fragments>>.
+Sites represent the root of a website within a content project. Creating a site unlocks the ability to manage <<pages/page#, pages>>, <<pages/page-templates#, page templates>>, and <<pages/fragments#, fragments>>.
 
 Site (`portal:site`) is a built-in content type. Sites can be created anywhere in your content structure, but are commonly placed at the project root. The site also serves as the root for the URL structure of your website.
 
@@ -16,8 +16,6 @@ Similar to projects, you may add applications to a site. Content types, componen
 
 NOTE: Site and application configuration is handled through app descriptors. Visit the https://developer.enonic.com/docs/code[Enonic App development docs] for details on `site.yaml` and `cms.yaml`.
 
-NOTE: For a hands-on introduction, visit the https://developer.enonic.com/docs/my-first-site[My first site tutorial].
-
 == Pages
 
 Pages are an optional feature available for content created within a site. A page can be added to any content item, and then edited visually by adding and arranging components.
@@ -26,12 +24,12 @@ Pages are an optional feature available for content created within a site. A pag
 
 The page concept is made up of the following building blocks:
 
-* <<page#, Page>>:: The root component, defining the overall structure via <<page#regions, regions>>.
-* <<parts#, Parts>>:: Leaf components, used to add content to a page.
-* <<parts#layouts, Layouts>>:: Components that define regions, used for columnar or grouped presentation of parts.
-* <<text#, Text>>:: A built-in component for inline rich text.
-* <<page-templates#, Page templates>>:: Reusable page setups that can be applied to content items automatically.
-* <<fragments#, Fragments>>:: Reusable component instances shared across pages.
+* <<pages/page#, Page>>:: The root component, defining the overall structure via <<pages/page#regions, regions>>.
+* <<pages/parts#, Parts>>:: Leaf components, used to add content to a page.
+* <<pages/parts#layouts, Layouts>>:: Components that define regions, used for columnar or grouped presentation of parts.
+* <<pages/text#, Text>>:: A built-in component for inline rich text.
+* <<pages/page-templates#, Page templates>>:: Reusable page setups that can be applied to content items automatically.
+* <<pages/fragments#, Fragments>>:: Reusable component instances shared across pages.
 
 === Page editor
 

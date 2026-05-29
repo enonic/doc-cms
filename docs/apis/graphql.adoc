@@ -2,18 +2,15 @@
 :toc: right
 :imagesdir: images
 
-The GraphQL API is Enonic's primary headless API. It is provided by https://developer.enonic.com/docs/guillotine/stable[Guillotine], a separately versioned Enonic app that exposes your CMS content as a typed GraphQL schema.
+The GraphQL API is Enonic's primary headless API. It is provided by https://developer.enonic.com/docs/guillotine[Guillotine], a separately versioned Enonic app that exposes your CMS content as a typed GraphQL schema.
 
-== Endpoint
+== Location
 
 By default, the API is available at:
 
-[source]
-----
-/api/guillotine:graphql
-----
+  8080:/api/guillotine:graphql
 
-The `/api/` prefix is new in XP {release}. The exact public URL can differ per environment via virtual host configuration, which is commonly used to expose the API on a friendlier path — for example `https://api.example.com/graphql`.
+The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example `https://api.example.com/graphql`.
 
 == Authorization
 
@@ -37,7 +34,7 @@ Guillotine generates a GraphQL schema dynamically from the content types, mixins
 
 The schema also includes queries for <<../pages#, pages and components>>, <<../content#, content hierarchies>>, <<../querying#, full-text search>>, and references between items.
 
-For the full schema reference, query syntax, extensions, and configuration options, see the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation].
+For the full schema reference, query syntax, extensions, and configuration options, see the https://developer.enonic.com/docs/guillotine[Guillotine documentation].
 
 == Usage
 

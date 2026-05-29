@@ -4,9 +4,11 @@ Content Studio offers a visual editing mode based on pages and components.
 
 == Introduction
 
-To support visual editing in Content Studio's Page Editor, including drag'n drop, the page DOM must include annotations for regions and components.
+To support visual editing in Content Studio's Page Editor, including drag'n drop, two things are required. 
 
-TIP: When using the <<../../framework/components#, Enonic framework>>, editor annotations are automatically injected into your markup.
+. The page DOM must include annotations for regions and components
+
+. The page must load and initialize the page editor (available as a separate NPM module).
 
 == Region annotations
 
@@ -77,3 +79,8 @@ The page editor uses this structure to identify the components by path.
   </body>
 </html>
 ----
+
+
+== Page editor initialization
+
+//TODO How to add NPM and initialize the page editor in the front-end?

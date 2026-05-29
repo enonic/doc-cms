@@ -1,4 +1,4 @@
-= HtmlArea input type
+= HtmlArea form item
 
 :imagesdir: images
 :toc: right
@@ -7,9 +7,9 @@ A field for entering multi-line text with rich-formatting options.
 
 == Appearance
 
-The rich text editor as seen with the default configuration. The `Add` button indicated that this setup also supports multiple occurrences of the editor.
+Html-based Rich text editor using default configuration.
 
-image::Html-area-editor.png[Input field with a toolbar at the top. Source and fullscreen buttons on the bottom left, 600]
+image::htmlarea.png[Editor with toolbar and several buttons for various formatting options, 546w]
 
 
 == Usage
@@ -26,14 +26,12 @@ image::Html-area-editor.png[Input field with a toolbar at the top. Source and fu
 ----
 
 <1> *default* can contain any valid HTML elements.
-<2> *exclude* optionally removes the standard tools from the editor toolbar
-<3> *include* optionally adds more tools to the editor toolbar.
+<2> *exclude* optionally removes tools from the default configuration. Use "*" to exclude all tools at once.
+<3> *include* optionally adds tools to the editor toolbar.
 <4> *allowHeadings* space-separated list of allowed heading tags (from `<h1>` to `<h6>`); by default all are allowed
 
 
-TIP: HtmlArea values contain Enonic-specific markup (`content://` links, image references, macros) that must be resolved before rendering. The headless API exposes a processed variant — see <<../../richtext#html-processing, HTML processing>>.
-
-TIP: HTML Area is configured with a default set of tools, but the toolbar can be customized. Using the config setting, you can exclude specific tools from being shown (use "*" to exclude all tools at once) and/or include those that you want to have in the toolbar. Separate tools with a space and use "|" character to group tool buttons together. A complete list of supported tools can be found below.
+TIP: Separate tools in the toolbar using the "|" character to group tool buttons together.
 
 Below is the default editor tools configuration:
 
@@ -94,11 +92,9 @@ Below is the complete list of available editor tools:
 
 *Value type:* `String` — included in `_alltext`
 
-The value is stored as HTML. The HTML contains Enonic-specific markup for internal links, images, and macros that need processing before rendering.
+NOTE: Before indexing, the HTML content is stripped of all tags, leavning only the text content.
 
-=== Raw output
-
-When the HTML content is stored, internal links, images, and macros are represented with special markup that needs to be processed before rendering. For example, an internal link will be stored as `<a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9">internal link</a>`, where the `href` attribute contains a reference to the content item.
+The value is stored in a raw markup format
 
 [source,JSON]
 ----
@@ -118,8 +114,14 @@ When the HTML content is stored, internal links, images, and macros are represen
 }
 ----
 
+
+=== Raw format
+
+HtmlArea persists raw markup that is strictly validated. It matches the allowed options of the editor instance. While most elements are generic HTML, internal links, images and macros use a special format that must be processed by your front-end framework. For example, an internal link will be stored as `<a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9">internal link</a>`.
+
+
 === Processed output
 
-Enonic offers HTML processing functions that will convert the stored HTML into a format more suitable for rendering. For example, the `content://` links will be converted to relative URLs that can be used in the front-end.
+The Enonic APIs provide processing functions that will convert the raw HTML into a format more suitable for rendering.
 
 For more details, consult the <<../../richtext#html-processing, HTML processing>> documentation.

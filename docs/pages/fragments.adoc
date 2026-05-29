@@ -6,9 +6,8 @@ Page Fragments enable reuse of components across different pages.
 
 == Introduction
 
-A page fragment is a content item of the content type `portal:fragment`. It represents a reusable page component. A content of this type contains a page component (Part, Layout, Text, Image) that can be re-used in other pages. But it only needs to be maintained in one place.
+A page fragment is a content item of type `portal:fragment`. It represents a reusable page component. A content of this type contains a page component (Part or Layout) that can be re-used in other pages, but it only needs to be maintained in one place.
 
-There is a default page for rendering and edit fragments. The default page does not have any styles defined, but it is possible to render it with the application theme and styles by defining a controller <<../framework/mappings.adoc#,mapping>> with `<match>type:'portal:fragment'</match>`
 
 == Usage
 
@@ -22,10 +21,9 @@ Once a fragments is created, it can be inserted on pages just like any other com
 
 == Preview
 
-Like pages, fragments can be edited via the content form view, or even visually if enabled in your front-end.
+Like pages, fragments can be edited via the content form view, and optionally visually if supported by your front-end.
 
-TODO:
-Developers using the Enonic framewrk may enable visual editing of fragments via a <<../framework/mappings.adoc#,mapping>> with `<match>type:'portal:fragment'</match>`
+TIP: You may also render fragments via Enonic functions and https://developer.enonic.com/docs/code/stable/web/sites/mappings[mapping] using `<match>type:'portal:fragment'</match>`.
 
 == Search
 
@@ -126,9 +124,11 @@ When fragments may be nested — a fragment whose wrapped layout contains anothe
 }
 ----
 
-TIP: Each `fragment { fragment { components { ... } } }` hop covers one nesting level. If your content allows fragments-inside-fragments, either switch to `resolveFragment: true` or recurse as deep as your model permits. Paths on the resolved inner components are fragment-local (e.g. `/0`) — rewrite them to the parent region's path when assembling the final component tree. Enonic's https://developer.enonic.com/templates[front-end toolkits] do this for you.
+TIP: Each `fragment { fragment { components { ... } } }` hop covers one nesting level. If your content allows fragments-inside-fragments, either switch to `resolveFragment: true` or recurse as deep as your model permits. Paths on the resolved inner components are fragment-local (e.g. `/0`) — rewrite them to the parent region's path when assembling the final component tree. 
 
-=== Direct access (preview / editing)
+Enonic's https://developer.enonic.com/docs/frameworks[standard front-end integrations] do this out of the box.
+
+=== Direct access
 
 A fragment is a content item of type `portal:fragment`, so it can be fetched like any other content. Use the `fragment` field on `portal_Fragment` to retrieve the wrapped component — typically from a preview route:
 

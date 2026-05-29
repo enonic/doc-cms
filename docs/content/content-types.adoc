@@ -38,8 +38,8 @@ The localization key must then be declared and localised in the resource bundle.
 <7> *final* (optional; default: false) If true, it is not possible to create new content types that “extend” this.
 <8> *allowChildContent* (optional; default: true) If false, no content will be allowed to be created or moved under content of this content type
 (e.g. prevents child content under media)
-<9> *allowChildContentType* (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <<./schemas/input-types/contentselector#allowContentType, MATCH>>. image:xp-770.svg[XP 7.7.0,opts=inline]
-<10> *form* (required) The custom <<schemas#forms,Form>> definition for your content type.
+<9> *allowChildContentType* (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <<../schemas/form-items/contentselector#allowContentType, MATCH>>. image:xp-770.svg[XP 7.7.0,opts=inline]
+<10> *form* (required) The custom <<../schemas/forms#,Form>> definition for your content type.
 
 NOTE: `allow-child-content-type` will not have effect if `allow-child-content` is set to `false`
 
@@ -166,7 +166,7 @@ Use `queryDsl` with a `term` query on the `type` field to fetch all content of a
 }
 ----
 
-See the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation] for the full list of queries, arguments, and DSL options.
+See the https://developer.enonic.com/docs/guillotine[Guillotine documentation] for the full list of queries, arguments, and DSL options.
 
 
 == Icon

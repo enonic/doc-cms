@@ -68,7 +68,7 @@ It's possible to restrict a mixin for specific content types using regular expre
 Use regular expressions in the `allowContentTypes` attribute to enable or disable it for specific content type(s).
 By default a mixin will be added to content items of all types with no option to remove it, but you can make it optional by setting `optional` to _true_. Optional mixins have to be manually enabled inside Content Wizard to be added to the content data.
 
-If `allowContentTypes` and `optional` are not set, the mixin will automatically be enabled for all content types. See <<schemas/form-items/contentselector#allowContentType, modes>> of content type filtering.
+If `allowContentTypes` and `optional` are not set, the mixin will automatically be enabled for all content types. See <<../schemas/form-items/contentselector#allowContentType, modes>> of content type filtering.
 
 [source,yaml]
 ----

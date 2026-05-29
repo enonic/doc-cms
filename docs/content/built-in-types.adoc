@@ -107,14 +107,16 @@ The `target` field is a content reference and resolves to the full target conten
 
 == Unstructured (base:unstructured)
 
-Unstructured content permits any properties without a declared form. Because it has no schema, Content Studio has no default editor for it — unstructured items are typically created and updated via API.
+Unstructured content permits storing any properties without a declared form. Because it has no schema, Content Studio has no default editor for it — unstructured items are typically created and updated via API.
 
 super-type:: base:structured
 is-abstract:: false
 is-final:: true
 allow-child-content:: true
 
-Use cases are narrow: items whose properties vary per instance but still need editorial management, publishing, permissions, or versioning. For data that does not need editorial workflows, prefer XP's https://developer.enonic.com/docs/xp/stable/storage[node storage] instead.
+Use cases are narrow: items whose properties vary per instance but still need editorial management, publishing, permissions, or versioning. 
+
+TIP: For data that does not need editorial workflows, consider using https://developer.enonic.com/docs/xp/stable/storage[XP's NoSQL storage] instead.
 
 === Output
 

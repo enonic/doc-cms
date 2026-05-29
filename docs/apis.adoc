@@ -3,7 +3,9 @@ include::.variables.adoc[]
 :toc: right
 :imagesdir: images
 
-Enonic CMS exposes content over HTTP under a common `/api/` prefix. The GraphQL API is the primary interface for headless delivery, while the Image and Attachment APIs serve media directly. Custom *Functions* let you extend this surface with your own endpoints and background jobs.
+Enonic exposes content over HTTP under a common `/api/` prefix. The GraphQL API is the primary interface for headless delivery, while the Image and Attachment APIs serve media directly. 
+
+Custom *Functions* let you extend this surface with your own endpoints and background jobs.
 
 == Which API do I use?
 
@@ -13,8 +15,30 @@ Enonic CMS exposes content over HTTP under a common `/api/` prefix. The GraphQL 
 | Query or mutate content                   | <<apis/graphql#, GraphQL API>>
 | Render or transform images                | <<apis/image#, Image API>>
 | Serve raw file downloads                  | <<apis/attachment#, Attachment API>>
-| Expose custom HTTP endpoints or run tasks | <<#custom-functions, Custom Functions>>
+| Expose custom HTTP endpoints or run tasks | <<#custom-functions, Custom API>>
 |===
+
+
+== Authorization
+
+Enonic provides a common authorization mechanism across all APIs, providing granular access control down to individual requests and content items. 
+
+Requests are evaluated in the context of the authenticated principal, and content permissions apply to every query — users only see content they are allowed to read.
+
+By default, APIs are accessible to unauthenticated users with `READ` permission for `role:system.everyone`. To access protected content, authenticate requests by passing a bearer token in the `Authorization` header:
+
+[source,bash]
+----
+curl -X POST https://api.example.com/graphql \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'
+----
+
+Unauthenticated requests run as the anonymous user and can still access content granted `READ` permission for `role:system.everyone`.
+
+Visit the https://developer.enonic.com/docs/xp/stable/security[security documentation] for details on users, roles, and permissions in XP.
+
 
 == GraphQL API
 
@@ -45,16 +69,15 @@ See <<apis/attachment#, Attachment API>> for URL structure and download semantic
 XP exposes additional HTTP APIs for system-level concerns (IDProvider, webapps, admin tooling, and more). See <<apis/other#, Other APIs>> for the full inventory.
 
 [#custom-functions]
-== Custom Functions
+== Custom API
 
-Beyond the built-in APIs, you can deploy custom *Functions* as part of your own Enonic app. Functions run server-side on XP and can:
+Beyond the built-in APIs, you can implement your own custom *APIs* using Typescript functions deployed via Enonic apps.
 
-* extend the GraphQL schema with custom queries, mutations, and resolvers
+You may:
+
 * expose custom HTTP endpoints under `/api/<app>/`
 * run scheduled or on-demand background tasks
 * react to content events (publish, modify, delete) via listeners
 * integrate with external systems, perform complex data processing, or implement custom business logic
 
-Functions are how customer-specific business logic plugs into the CMS. 
-
-See the https://developer.enonic.com/docs/code[Enonic Development Kit] for how to scaffold, build, and deploy custom functions.
+See the https://developer.enonic.com/docs/code[Enonic Development Kit] for how to scaffold, build, and deploy custom APIs.

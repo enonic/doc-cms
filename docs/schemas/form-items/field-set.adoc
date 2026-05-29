@@ -1,14 +1,14 @@
-= Field Set
+= FieldSet form item
 :toc: right
 :imagesdir: images
 
-A field set may be used to group items visually under a common label and distinguish this group from the rest of the form.
+Visually group other form items under a common label
 
 == Appearance
 
-Field sets seen in Content Studio.
+FieldSet as seen in Content Studio.
 
-image::fieldset-1.png[Example of a fieldset, 689]
+image::fieldset.png[Fieldset gorup ImageSelector and TextArea, 546w]
 
 == Usage
 
@@ -28,8 +28,8 @@ image::fieldset-1.png[Example of a fieldset, 689]
         max: 5
 ----
 <1> *FieldSet* does not need a name since it is only visual, and does not affect the data model
-<2> *items* allow placement of form items to be contained within it
+<2> *items* is a container for form items that should be listed within the FieldSet.
 
 == Output
 
-None - field sets do not produce any output, and are purely decorative. The form items contained within the field set will produce output as normal, and the field set will not affect the data structure in any way.
+None - FieldSets do not produce any output, and are purely decorative. Form items contained within the FieldSet will produce output as normal and will not affect the data structure in any way.

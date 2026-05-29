@@ -24,7 +24,7 @@ Multi-site, multi-region, multi-language and more. Supporting management of cont
 
 == A layered solution
 
-Layers are essentially <<projects#, content projects>> with a twist. Like regular projects, each layer has it's own repository, permissions and default language. Layers introduce the additional setting of parent project. Layers will automatically inherit content from their parent layer. Multiple layers can collectively form a tree structure, where the root layer itself is a regular project.
+Layers are essentially <<../projects#, content projects>> with a twist. Like regular projects, each layer has it's own repository, permissions and default language. Layers introduce the additional setting of parent project. Layers will automatically inherit content from their parent layer. Multiple layers can collectively form a tree structure, where the root layer itself is a regular project.
 
 :imagesdir: images
 
@@ -87,4 +87,4 @@ image::layers-inheritance.svg[Content inherited and localised in layers, 720]
 
 == API
 
-To programmatically manage layers, use the <<../api/lib-project#, project API>>.
+You may programmatically manage layers via Enonic functions, using the https://developer.enonic.com/docs/code/stable/libraries/lib-project[project library].

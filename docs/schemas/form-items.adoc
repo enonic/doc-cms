@@ -73,7 +73,7 @@ This element is optional, if omitted the default will be `min: 0` and `max: 1`.
 
 == Output 
 
-Form items that produce output will generate a property, with a deterministic https://developer.enonic.com/docs/xp/stable/storage/properties#value-type[value type], with zero, 1 or multiple occurences. 
+Form items that produce output will generate a property, with a deterministic https://developer.enonic.com/docs/code/stable/storage/properties#value-type[value type], with zero, 1 or multiple occurences. 
 
 For instance, a `TextLine` will always produce a `String` value, while the output of an `ItemSet` is a propertySet (aka object).
 

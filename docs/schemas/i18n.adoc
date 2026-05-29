@@ -8,7 +8,7 @@ Labels and texts in schemas can be displayed in the users preferred language (ba
 
 Any localizable field can be either a simple string, or an object with `text` and `i18n` properties. The `i18n` key must match an entry in your application's `src/main/resources/i18n/phrases.properties` file.
 
-NOTE: Schema localization uses the same properties files format as the rest of XP. Please consult the <<../../framework/i18n#, framework localization docs>> for more details.
+NOTE: Schema localization uses the same properties file format as the rest of XP. Please consult the https://developer.enonic.com/docs/code/stable/fundamentals/i18n[localization docs] for more details.
 
 Localization is optional. When a field is a simple string, no localization is applied. When an `i18n` key is specified but no matching translation is found, the `text` value is used as fallback.
 
@@ -68,7 +68,7 @@ Other elements may also support localization, simply try adding the attribute to
 
 == Translation files
 
-The translated texts for each of the i18n keys should be placed in a corresponding `phrases.properties` in the same namespace as the schema. 
+The translated texts for each of the i18n keys should be placed in a corresponding `phrases.properties` and deployed via your Enonic application.
 
 Steps to add the translations for a schema:
 

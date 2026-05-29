@@ -5,7 +5,7 @@
 Content is the core entity in Enonic CMS. Every content item has a specific content type and life cycle.
 
 == Introduction
-Content is normally managed via Content Studio, but can also be accessed and manipulated programmatically via APIs. Content items have a specific <<content/content-types#, Content Type>>, which defines its data structure and capabilities. Content items are stored in isolated <<content/projects#, Content Projects>>.
+Content is normally managed via Content Studio, but can also be accessed and manipulated programmatically via APIs. Content items have a specific <<content/content-types#, Content Type>>, which defines its data structure and capabilities. Content items are stored in isolated <<projects#, Content Projects>>.
 
 == Standard properties
 

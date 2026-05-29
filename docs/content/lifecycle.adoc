@@ -227,7 +227,7 @@ To restrict the query to content that has never been published at all, filter on
 }
 ----
 
-NOTE: Guillotine queries the `master` branch by default, so the query above sets `branch: "draft"`. The query resolves `NEW`, `MODIFIED`, `MOVED`, and `UNPUBLISHED` change states. See the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation] for branch selection details.
+NOTE: Guillotine queries the `master` branch by default, so the query above sets `branch: "draft"`. The query resolves `NEW`, `MODIFIED`, `MOVED`, and `UNPUBLISHED` change states. See the https://developer.enonic.com/docs/guillotine[Guillotine documentation] for branch selection details.
 
 == Audit trail
 

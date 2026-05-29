@@ -13,9 +13,8 @@ Every query — and every aggregation built on top of one — is automatically f
 
 When content is created or updated, every property is automatically indexed. The CMS uses a schema-driven indexing system where each property is indexed according to its <<#value_types, value type>>.
 
-Content can be queried through the <<../apis/graphql#, GraphQL API>> (Guillotine) or via Content API (Enonic apps) using <<#dsl, Query DSL>> -- a JSON-based query structure.
+Content can be queried through the <<apis/graphql#, GraphQL API>> (Guillotine) or via Content API (Enonic apps) using <<#dsl, Query DSL>> -- a JSON-based query structure.
 
-NOTE: The older string-based query language *NoQL* is deprecated. For NoQL reference, see the https://developer.enonic.com/docs/xp/stable/storage/noql[XP documentation].
 
 [[value_types]]
 == Value types
@@ -27,7 +26,7 @@ Every property stored in content has a value type that determines how it is inde
 Query DSL value tags (`string`, `long`, `instant`, etc.) select which *typed index* to search against — not the domain type of the field. References, for example, are indexed as strings (the target's content ID), so a term query for a reference uses `value: { string: "<content-id>" }` rather than a `reference` tag. The same applies to other domain concepts that map onto a primitive index type.
 ====
 
-For full details on value types and their index behavior, see the https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types[XP value type reference].
+For full details on querying, value types and index behavior, see the https://developer.enonic.com/docs/code/stable/storage[Storage reference documentation].
 
 
 === _alltext
@@ -340,7 +339,7 @@ Geographic distance sort:
 
 == Querying content via GraphQL
 
-The <<../apis/graphql#, Guillotine>> GraphQL API provides a `queryDsl` argument on the content query type, accepting the Query DSL format directly. This is the recommended approach for headless applications.
+The <<apis/graphql#, Guillotine>> GraphQL API provides a `queryDsl` argument on the content query type, accepting the Query DSL format directly.
 
 [source,graphql]
 ----

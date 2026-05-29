@@ -289,4 +289,4 @@ buckets.forEach(b => console.log(b.key, b.docCount));
 * Set `first: 0` (or a small page size) when you only need aggregations; doc-list rendering is independent of aggregation cost.
 * Aggregate field paths follow the same dotted-path convention as DSL queries (e.g. `data.author`, `publish.first`, `data.contact_info.label`).
 
-See the https://developer.enonic.com/docs/xp/stable/storage/aggregations[XP aggregation reference] for the underlying DSL semantics, and the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation] for the full GraphQL schema.
+See the https://developer.enonic.com/docs/code/stable/storage/aggregations[XP aggregation reference] for the underlying DSL semantics, and the https://developer.enonic.com/docs/guillotine[Guillotine documentation] for the full GraphQL schema.
