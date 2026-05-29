@@ -448,7 +448,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#roles">Roles</a></li>
 <li><a href="#layering">Layering</a></li>
 <li><a href="#applications">Features</a></li>
-<li><a href="#site_engine">Site engine</a></li>
 </ul>
 </div>
 </div>
@@ -566,22 +565,14 @@ The following roles are available per project:</p>
 <p>By assigning and configuring Enonic apps for a projects, their Schemas, Extensions and other functionality will be available within the scope of the project. For example, you might have a project for a blog, where you assign a blogging application that provides content types and components for creating blog posts.  It is also worth noting that any configuration of these applications will instantly be reflected, both in Content Studio and via API.</p>
 </div>
 <div class="paragraph">
-<p><a href="layers.ahtml">Layered projects</a> automatically inherit application settings from parent layers, unless they are overridden in the child layer. This means that if you assign an application to a parent layer, it will be available in all child layers, unless you explicitly override it in a child layer.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="site_engine"><a class="link" href="#site_engine">Site engine</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="../runtime/engines/site-engine.ahtml">Site engine</a> provides access to content in a specific branch of a specific project at <code>/site/{projectId}/{branch}</code>, where <code>{projectId}</code> is a unique project identifier. For example, draft items of a project with identifier ´myproject´ can be accessed via internal path <code>/site/myproject/draft</code>.</p>
+<p><a href="content/layering.ahtml">Layered projects</a> automatically inherit application settings from parent layers, unless they are overridden in the child layer. This means that if you assign an application to a parent layer, it will be available in all child layers, unless you explicitly override it in a child layer.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

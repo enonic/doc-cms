@@ -535,11 +535,11 @@ The localization key must then be declared and localised in the resource bundle.
 </tr>
 <tr>
 <td><i class="conum" data-value="9"></i><b>9</b></td>
-<td><strong>allowChildContentType</strong> (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <a href="./schemas/input-types/contentselector.ahtml#allowContentType">MATCH</a>. <span class="image"><span class="alt">XP 7.7.0</span></span></td>
+<td><strong>allowChildContentType</strong> (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <a href="../schemas/form-items/contentselector.ahtml#allowContentType">MATCH</a>. <span class="image"><span class="alt">XP 7.7.0</span></span></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="10"></i><b>10</b></td>
-<td><strong>form</strong> (required) The custom <a href="schemas.ahtml#forms">Form</a> definition for your content type.</td>
+<td><strong>form</strong> (required) The custom <a href="../schemas/forms.ahtml">Form</a> definition for your content type.</td>
 </tr>
 </table>
 </div>
@@ -713,7 +713,7 @@ The localization key must then be declared and localised in the resource bundle.
 </div>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for the full list of queries, arguments, and DSL options.</p>
+<p>See the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a> for the full list of queries, arguments, and DSL options.</p>
 </div>
 </div>
 </div>
@@ -801,7 +801,7 @@ You may not specify a custom content type as a supertype, nor may you create cir
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

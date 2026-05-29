@@ -464,10 +464,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Page template is a built-in content type in Enonic XP, and similar to <a href="pages.ahtml">pages</a>, they are only available in the context of a site.</p>
+<p>Page template is a built-in content type in Enonic XP, and similar to <a href="../pages.ahtml">pages</a>, they are only available in the context of a site.</p>
 </div>
 <div class="paragraph">
-<p>Page templates may act as a base setup when creating new custom pages, but a more powerful application is to let editors control the presentation/page setup of other structured content types like Articles.</p>
+<p>Page templates may act as a starting point when creating new custom pages. Additionally, you may also allow editors to control the presentation of other structured content types like Articles.</p>
 </div>
 </div>
 </div>
@@ -475,13 +475,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Editors work with, edit and publish page templates like any other content. Naturally, the main focus on a page template is setting up a page. Like for any other page, at least one <a href="pages.ahtml">page component</a> must be available in order to actually create a page template.</p>
+<p>Editors work with, edit and publish page templates like any other content. Naturally, the main focus on a page template is setting up a page. Like for any other page, at least one <a href="../pages.ahtml">page component</a> must be available in order to actually create a page template.</p>
 </div>
 <div class="paragraph">
 <p>In addition to creating the page itself, editors may flag which content types the page template applies to. By specifying <code>Article</code> as the supported content type, the page template will be reused for rendering of all articles in the site.</p>
 </div>
 <div class="paragraph">
-<p>The idea is not that editors control the details of how the article itself is presented, but rather the surrounding compoents and layout of the page where the article is presented. Developers should provide specific components for rendering the actual article, and the editors may then place this component centrally within their page template.</p>
+<p>The idea is not that editors may control the details of how the article itself is presented, but rather the surrounding compoents and layout of the page where the article is presented. Developers should provide specific components for rendering the actual article, and the editors may then place this component centrally within their page template.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -501,11 +501,20 @@ A single <code>Article</code> may also be configured with a custom page, or it m
 <h2 id="rendering"><a class="link" href="#rendering">Rendering</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO:
-Page template rendering is built-in functionality when using the <a href="../framework/components.ahtml">Enonic Framework</a>.</p>
+<p>Page templates should be resolved and rendered by your front-end according to the following rules (in order of precedence):</p>
 </div>
-<div class="paragraph">
-<p>If you are using a 3rd party front-end, you will have to ensure the same logic is also applied there.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If a page is customized, render the page itself (ignore any page templates)</p>
+</li>
+<li>
+<p>If a page template is specified explicitly on the content item, use that page template.</p>
+</li>
+<li>
+<p>Else, if a page template exists matching the specified content type, render using that page template.</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -576,7 +585,7 @@ Also, check out our <a href="https://developer.enonic.com/docs/next.xp">Next.js 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

@@ -468,7 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="sites"><a class="link" href="#sites">Sites</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Sites represent the root of a website within a content project. Creating a site unlocks the ability to manage <a href="page.ahtml">pages</a>, <a href="page-templates.ahtml">page templates</a>, and <a href="fragments.ahtml">fragments</a>.</p>
+<p>Sites represent the root of a website within a content project. Creating a site unlocks the ability to manage <a href="pages/page.ahtml">pages</a>, <a href="pages/page-templates.ahtml">page templates</a>, and <a href="pages/fragments.ahtml">fragments</a>.</p>
 </div>
 <div class="paragraph">
 <p>Site (<code>portal:site</code>) is a built-in content type. Sites can be created anywhere in your content structure, but are commonly placed at the project root. The site also serves as the root for the URL structure of your website.</p>
@@ -490,18 +490,6 @@ Site and application configuration is handled through app descriptors. Visit the
 </tr>
 </table>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-For a hands-on introduction, visit the <a href="https://developer.enonic.com/docs/my-first-site">My first site tutorial</a>.
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 </div>
@@ -519,22 +507,22 @@ For a hands-on introduction, visit the <a href="https://developer.enonic.com/doc
 <div class="ulist">
 <ul>
 <li>
-<p><a href="page.ahtml">Page</a>:: The root component, defining the overall structure via <a href="page.ahtml#regions">regions</a>.</p>
+<p><a href="pages/page.ahtml">Page</a>:: The root component, defining the overall structure via <a href="pages/page.ahtml#regions">regions</a>.</p>
 </li>
 <li>
-<p><a href="parts.ahtml">Parts</a>:: Leaf components, used to add content to a page.</p>
+<p><a href="pages/parts.ahtml">Parts</a>:: Leaf components, used to add content to a page.</p>
 </li>
 <li>
-<p><a href="parts.ahtml#layouts">Layouts</a>:: Components that define regions, used for columnar or grouped presentation of parts.</p>
+<p><a href="pages/parts.ahtml#layouts">Layouts</a>:: Components that define regions, used for columnar or grouped presentation of parts.</p>
 </li>
 <li>
-<p><a href="text.ahtml">Text</a>:: A built-in component for inline rich text.</p>
+<p><a href="pages/text.ahtml">Text</a>:: A built-in component for inline rich text.</p>
 </li>
 <li>
-<p><a href="page-templates.ahtml">Page templates</a>:: Reusable page setups that can be applied to content items automatically.</p>
+<p><a href="pages/page-templates.ahtml">Page templates</a>:: Reusable page setups that can be applied to content items automatically.</p>
 </li>
 <li>
-<p><a href="fragments.ahtml">Fragments</a>:: Reusable component instances shared across pages.</p>
+<p><a href="pages/fragments.ahtml">Fragments</a>:: Reusable component instances shared across pages.</p>
 </li>
 </ul>
 </div>
@@ -566,7 +554,7 @@ For a hands-on introduction, visit the <a href="https://developer.enonic.com/doc
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

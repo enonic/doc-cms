@@ -540,7 +540,7 @@ form: []</code></pre>
 By default a mixin will be added to content items of all types with no option to remove it, but you can make it optional by setting <code>optional</code> to <em>true</em>. Optional mixins have to be manually enabled inside Content Wizard to be added to the content data.</p>
 </div>
 <div class="paragraph">
-<p>If <code>allowContentTypes</code> and <code>optional</code> are not set, the mixin will automatically be enabled for all content types. See <a href="schemas/form-items/contentselector.ahtml#allowContentType">modes</a> of content type filtering.</p>
+<p>If <code>allowContentTypes</code> and <code>optional</code> are not set, the mixin will automatically be enabled for all content types. See <a href="../schemas/form-items/contentselector.ahtml#allowContentType">modes</a> of content type filtering.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -653,7 +653,7 @@ Due to GraphQL field naming restrictions (<code>-</code> and <code>.</code> are 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

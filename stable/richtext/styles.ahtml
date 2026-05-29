@@ -443,7 +443,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#descriptor">Descriptor</a></li>
-<li><a href="#client_side_styles">Client side styles</a></li>
 <li><a href="#built_in_styles">Built-in styles</a></li>
 </ul>
 </div>
@@ -493,27 +492,43 @@ At the moment, custom styles are only supported for Images.
 <div class="title">/src/main/resources/site/styles.yaml</div>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Style"
-css: "styles/styles.css"  <i class="conum" data-value="1"></i><b>(1)</b>
 styles:
-  - type: "image"  <i class="conum" data-value="2"></i><b>(2)</b>
+  - type: "image"  <i class="conum" data-value="1"></i><b>(1)</b>
     name: "editor-image-cinema"
-    title: "Cinema"
-    aspect-ratio: "21:9"
+    label: "Cinema"
+    aspectRatio: "21:9"  <i class="conum" data-value="2"></i><b>(2)</b>
   - type: "image"
     name: "editor-image-sepia"
-    title: "Old photo"
-    filter: "sepia(25)"</code></pre>
+    label: "Old photo"
+    filter: "sepia(25)"  <i class="conum" data-value="3"></i><b>(3)</b>
+    editor:  <i class="conum" data-value="4"></i><b>(4)</b>
+        css: |
+            .editor-image-sepia {
+                width: 100px;
+                height: 100px;
+            }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The optional <code>css</code> property references a file in your app&#8217;s <code>/src/main/resources/assets/</code> folder. The CSS declared in this file will be loaded into Content Studio&#8217;s rich text editor to provide client-side styling.</td>
+<td><strong>type</strong> (required) Currently only <code>image</code> styles are supported.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Each image style declares a custom style that can be applied to images inserted in the rich text editor.
+<td><strong>aspectRatio</strong> (optional) Server-side crop ratio applied by the image service when the style is selected.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>filter</strong> (optional) Server-side image filter applied by the image service. See the image service documentation for the full list of available filters.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>editor.css</strong> (optional) Inline CSS injected into Content Studio&#8217;s rich text editor to provide client-side styling of the element while editing. Use the <code>|</code> block scalar to embed the rule set directly in the descriptor.</td>
+</tr>
+</table>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -521,59 +536,10 @@ styles:
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-As of now, <code>aspect-ratio</code> and <code>filter</code> are the only options available for server-side image processing.
+<code>aspectRatio</code> and <code>filter</code> are the only options available for server-side image processing.
 </td>
 </tr>
 </table>
-</div></td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="client_side_styles"><a class="link" href="#client_side_styles">Client side styles</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Below is an example CSS, declared within your application.</p>
-</div>
-<div class="paragraph">
-<p>The file will be loaded into Content Studio and the rich text editor, and provide client-side styling.</p>
-</div>
-<div class="listingblock">
-<div class="title">/src/main/resources/assets/styles/styles.css</div>
-<div class="content">
-<pre class="highlight"><code class="language-css" data-lang="css">.editor-image-sepia {
-    width: 100px;
-    height: 100px;
-    animation: shake 0.5s;
-    /* When the animation is finished, start again */
-    animation-iteration-count: infinite;
-}
-
-.editor-image-sepia img {
-    animation: shake 0.5s;
-    /* When the animation is finished, start again */
-    animation-iteration-count: infinite;
-}
-
-@keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When looking at the two styles defined, only  <code>editor-image-sepia</code> is declared in the css, and thus makes use of both server-side processing and client-side styling in Content Studio.</p>
 </div>
 </div>
 </div>
@@ -591,7 +557,7 @@ As of now, <code>aspect-ratio</code> and <code>filter</code> are the only option
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

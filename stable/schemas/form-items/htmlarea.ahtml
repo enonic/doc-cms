@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>HtmlArea input type</title>
+<title>HtmlArea form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>HtmlArea input type</h1>
+<h1>HtmlArea form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -445,7 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#usage">Usage</a></li>
 <li><a href="#output">Output</a>
 <ul class="sectlevel2">
-<li><a href="#raw_output">Raw output</a></li>
+<li><a href="#raw_format">Raw format</a></li>
 <li><a href="#processed_output">Processed output</a></li>
 </ul>
 </li>
@@ -464,11 +464,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The rich text editor as seen with the default configuration. The <code>Add</code> button indicated that this setup also supports multiple occurrences of the editor.</p>
+<p>Html-based Rich text editor using default configuration.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Html-area-editor.png" alt="Input field with a toolbar at the top. Source and fullscreen buttons on the bottom left" width="600">
+<img src="images/htmlarea.png" alt="Editor with toolbar and several buttons for various formatting options" width="546w">
 </div>
 </div>
 </div>
@@ -495,11 +495,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>exclude</strong> optionally removes the standard tools from the editor toolbar</td>
+<td><strong>exclude</strong> optionally removes tools from the default configuration. Use "*" to exclude all tools at once.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>include</strong> optionally adds more tools to the editor toolbar.</td>
+<td><strong>include</strong> optionally adds tools to the editor toolbar.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -514,19 +514,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-HtmlArea values contain Enonic-specific markup (<code>content://</code> links, image references, macros) that must be resolved before rendering. The headless API exposes a processed variant — see <a href="../../richtext.ahtml#html-processing">HTML processing</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-HTML Area is configured with a default set of tools, but the toolbar can be customized. Using the config setting, you can exclude specific tools from being shown (use "*" to exclude all tools at once) and/or include those that you want to have in the toolbar. Separate tools with a space and use "|" character to group tool buttons together. A complete list of supported tools can be found below.
+Separate tools in the toolbar using the "|" character to group tool buttons together.
 </td>
 </tr>
 </table>
@@ -736,13 +724,20 @@ HTML Area is configured with a default set of tools, but the toolbar can be cust
 <div class="paragraph">
 <p><strong>Value type:</strong> <code>String</code> — included in <code>_alltext</code></p>
 </div>
-<div class="paragraph">
-<p>The value is stored as HTML. The HTML contains Enonic-specific markup for internal links, images, and macros that need processing before rendering.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Before indexing, the HTML content is stripped of all tags, leavning only the text content.
+</td>
+</tr>
+</table>
 </div>
-<div class="sect2">
-<h3 id="raw_output"><a class="link" href="#raw_output">Raw output</a></h3>
 <div class="paragraph">
-<p>When the HTML content is stored, internal links, images, and macros are represented with special markup that needs to be processed before rendering. For example, an internal link will be stored as <code>&lt;a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"&gt;internal link&lt;/a&gt;</code>, where the <code>href</code> attribute contains a reference to the content item.</p>
+<p>The value is stored in a raw markup format</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -762,11 +757,16 @@ HTML Area is configured with a default set of tools, but the toolbar can be cust
 }</code></pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="raw_format"><a class="link" href="#raw_format">Raw format</a></h3>
+<div class="paragraph">
+<p>HtmlArea persists raw markup that is strictly validated. It matches the allowed options of the editor instance. While most elements are generic HTML, internal links, images and macros use a special format that must be processed by your front-end framework. For example, an internal link will be stored as <code>&lt;a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"&gt;internal link&lt;/a&gt;</code>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="processed_output"><a class="link" href="#processed_output">Processed output</a></h3>
 <div class="paragraph">
-<p>Enonic offers HTML processing functions that will convert the stored HTML into a format more suitable for rendering. For example, the <code>content://</code> links will be converted to relative URLs that can be used in the front-end.</p>
+<p>The Enonic APIs provide processing functions that will convert the raw HTML into a format more suitable for rendering.</p>
 </div>
 <div class="paragraph">
 <p>For more details, consult the <a href="../../richtext.ahtml#html-processing">HTML processing</a> documentation.</p>
@@ -777,7 +777,7 @@ HTML Area is configured with a default set of tools, but the toolbar can be cust
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

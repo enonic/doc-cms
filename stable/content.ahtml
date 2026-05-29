@@ -458,7 +458,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content is normally managed via Content Studio, but can also be accessed and manipulated programmatically via APIs. Content items have a specific <a href="content/content-types.ahtml">Content Type</a>, which defines its data structure and capabilities. Content items are stored in isolated <a href="content/projects.ahtml">Content Projects</a>.</p>
+<p>Content is normally managed via Content Studio, but can also be accessed and manipulated programmatically via APIs. Content items have a specific <a href="content/content-types.ahtml">Content Type</a>, which defines its data structure and capabilities. Content items are stored in isolated <a href="projects.ahtml">Content Projects</a>.</p>
 </div>
 </div>
 </div>
@@ -595,7 +595,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

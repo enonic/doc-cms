@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Field Set</title>
+<title>FieldSet form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Field Set</h1>
+<h1>FieldSet form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -451,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A field set may be used to group items visually under a common label and distinguish this group from the rest of the form.</p>
+<p>Visually group other form items under a common label</p>
 </div>
 </div>
 </div>
@@ -459,11 +459,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Field sets seen in Content Studio.</p>
+<p>FieldSet as seen in Content Studio.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/fieldset-1.png" alt="Example of a fieldset" width="689">
+<img src="images/fieldset.png" alt="Fieldset gorup ImageSelector and TextArea" width="546w">
 </div>
 </div>
 </div>
@@ -495,7 +495,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>items</strong> allow placement of form items to be contained within it</td>
+<td><strong>items</strong> is a container for form items that should be listed within the FieldSet.</td>
 </tr>
 </table>
 </div>
@@ -505,14 +505,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>None - field sets do not produce any output, and are purely decorative. The form items contained within the field set will produce output as normal, and the field set will not affect the data structure in any way.</p>
+<p>None - FieldSets do not produce any output, and are purely decorative. Form items contained within the FieldSet will produce output as normal and will not affect the data structure in any way.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

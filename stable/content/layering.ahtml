@@ -515,7 +515,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="a_layered_solution"><a class="link" href="#a_layered_solution">A layered solution</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Layers are essentially <a href="projects.ahtml">content projects</a> with a twist. Like regular projects, each layer has it&#8217;s own repository, permissions and default language. Layers introduce the additional setting of parent project. Layers will automatically inherit content from their parent layer. Multiple layers can collectively form a tree structure, where the root layer itself is a regular project.</p>
+<p>Layers are essentially <a href="../projects.ahtml">content projects</a> with a twist. Like regular projects, each layer has it&#8217;s own repository, permissions and default language. Layers introduce the additional setting of parent project. Layers will automatically inherit content from their parent layer. Multiple layers can collectively form a tree structure, where the root layer itself is a regular project.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -639,14 +639,14 @@ Child layers will inherit all new versions of an item until the item is "marked 
 <h2 id="api"><a class="link" href="#api">API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To programmatically manage layers, use the <a href="../api/lib-project.ahtml">project API</a>.</p>
+<p>You may programmatically manage layers via Enonic functions, using the <a href="https://developer.enonic.com/docs/code/stable/libraries/lib-project">project library</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

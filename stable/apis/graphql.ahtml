@@ -441,7 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#endpoint">Endpoint</a></li>
+<li><a href="#location">Location</a></li>
 <li><a href="#authorization">Authorization</a></li>
 <li><a href="#schema">Schema</a></li>
 <li><a href="#usage">Usage</a></li>
@@ -452,23 +452,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The GraphQL API is Enonic&#8217;s primary headless API. It is provided by <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine</a>, a separately versioned Enonic app that exposes your CMS content as a typed GraphQL schema.</p>
+<p>The GraphQL API is Enonic&#8217;s primary headless API. It is provided by <a href="https://developer.enonic.com/docs/guillotine">Guillotine</a>, a separately versioned Enonic app that exposes your CMS content as a typed GraphQL schema.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="endpoint"><a class="link" href="#endpoint">Endpoint</a></h2>
+<h2 id="location"><a class="link" href="#location">Location</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By default, the API is available at:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>/api/guillotine:graphql</code></pre>
+<pre>8080:/api/guillotine:graphql</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>/api/</code> prefix is new in XP {release}. The exact public URL can differ per environment via virtual host configuration, which is commonly used to expose the API on a friendlier path — for example <code><a href="https://api.example.com/graphql" class="bare">https://api.example.com/graphql</a></code>.</p>
+<p>The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example <code><a href="https://api.example.com/graphql" class="bare">https://api.example.com/graphql</a></code>.</p>
 </div>
 </div>
 </div>
@@ -504,7 +504,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>The schema also includes queries for <a href="../pages.ahtml">pages and components</a>, <a href="../content.ahtml">content hierarchies</a>, <a href="../querying.ahtml">full-text search</a>, and references between items.</p>
 </div>
 <div class="paragraph">
-<p>For the full schema reference, query syntax, extensions, and configuration options, see the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a>.</p>
+<p>For the full schema reference, query syntax, extensions, and configuration options, see the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a>.</p>
 </div>
 </div>
 </div>
@@ -542,7 +542,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

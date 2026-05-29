@@ -441,8 +441,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#stored_format">Stored format</a></li>
-<li><a href="#html-processing">HTML processing</a>
+<li><a href="#raw_format">Raw format</a></li>
+<li><a href="#html-processing">Processed output</a>
 <ul class="sectlevel2">
 <li><a href="#graphql_example">GraphQL example</a></li>
 </ul>
@@ -460,7 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="stored_format"><a class="link" href="#stored_format">Stored format</a></h2>
+<h2 id="raw_format"><a class="link" href="#raw_format">Raw format</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Rich text is stored as HTML with Enonic-specific markup for internal references:</p>
@@ -471,7 +471,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>Internal links</strong> — <code>&lt;a href="content://&lt;contentId&gt;"&gt;&#8230;&#8203;&lt;/a&gt;</code></p>
 </li>
 <li>
-<p><strong>Image references</strong> — <code>&lt;img src="image://&lt;imageId&gt;" /&gt;</code></p>
+<p><strong>Image links</strong> — <code>&lt;img src="image://&lt;imageId&gt;" /&gt;</code></p>
+</li>
+<li>
+<p><strong>Opinionated image component</strong> — <code>&lt;figure&gt;&lt;img src="image://&lt;imageId&gt;" /&gt;&lt;figcaption&gt;Optional caption&lt;/figcaption&gt;&lt;/figure&gt;</code></p>
 </li>
 <li>
 <p><strong>Macros</strong> — plain-text instructions in square brackets, for example <code>[embed] &#8230;&#8203; [/embed]</code></p>
@@ -495,10 +498,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="html-processing"><a class="link" href="#html-processing">HTML processing</a></h2>
+<h2 id="html-processing"><a class="link" href="#html-processing">Processed output</a></h2>
 <div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text">React SPA tutorial</a> for hands-on examples of client-side rendering.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>Guillotine&#8217;s <code>processedHtml</code> resolver converts stored markup into renderable HTML:</p>
+<p>Guillotine&#8217;s <code>processedHtml</code> resolver optimizes the raw HTML, by adding reference attributes which can be used client-side to replace the standard markup with elements optimized for your front-end, for example:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -586,7 +601,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Beyond <code>raw</code> and <code>processedHtml</code>, the HtmlArea GraphQL type also exposes <code>images</code>, <code>links</code>, and <code>macros</code> as typed fields — useful when a front-end needs structured data about references rather than parsing HTML. See the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for the full type definition.</p>
+<p>Beyond <code>raw</code> and <code>processedHtml</code>, the HtmlArea GraphQL type also exposes <code>images</code>, <code>links</code>, and <code>macros</code> as typed fields — useful when a front-end needs structured data about references rather than parsing HTML. See the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a> for the full type definition.</p>
 </div>
 </div>
 </div>
@@ -595,14 +610,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="front_end_toolkits"><a class="link" href="#front_end_toolkits">Front-end toolkits</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Rendering processed rich text in a front-end framework — mapping content URLs to routes, swapping image references for responsive <code>&lt;picture&gt;</code> tags, and rendering macros as components — is non-trivial to do by hand. Enonic publishes React components and a Next.js integration (Next.xp) that handle these steps for you. See the <a href="https://developer.enonic.com/templates">Enonic templates and starters</a> for the currently supported toolkits.</p>
+<p>Rendering processed rich text in a front-end framework — mapping content URLs to routes, swapping image references for responsive <code>&lt;picture&gt;</code> tags, and rendering macros as components — is non-trivial to do by hand. Enonic publishes React components and a Next.js integration (Next.xp) that handle these steps for you. See the <a href="https://developer.enonic.com/docs/frameworks">Frameworks section</a> for more.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

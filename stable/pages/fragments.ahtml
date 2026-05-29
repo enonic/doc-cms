@@ -454,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#inline_resolution_via_a_page">Inline resolution via a page</a></li>
 <li><a href="#manual_traversal">Manual traversal</a></li>
-<li><a href="#direct_access_preview_editing">Direct access (preview / editing)</a></li>
+<li><a href="#direct_access">Direct access</a></li>
 <li><a href="#find_pages_using_a_given_fragment">Find pages using a given fragment</a></li>
 </ul>
 </li>
@@ -473,10 +473,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A page fragment is a content item of the content type <code>portal:fragment</code>. It represents a reusable page component. A content of this type contains a page component (Part, Layout, Text, Image) that can be re-used in other pages. But it only needs to be maintained in one place.</p>
-</div>
-<div class="paragraph">
-<p>There is a default page for rendering and edit fragments. The default page does not have any styles defined, but it is possible to render it with the application theme and styles by defining a controller <a href="../framework/mappings.ahtml">mapping</a> with <code>&lt;match&gt;type:'portal:fragment'&lt;/match&gt;</code></p>
+<p>A page fragment is a content item of type <code>portal:fragment</code>. It represents a reusable page component. A content of this type contains a page component (Part or Layout) that can be re-used in other pages, but it only needs to be maintained in one place.</p>
 </div>
 </div>
 </div>
@@ -503,11 +500,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="preview"><a class="link" href="#preview">Preview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Like pages, fragments can be edited via the content form view, or even visually if enabled in your front-end.</p>
+<p>Like pages, fragments can be edited via the content form view, and optionally visually if supported by your front-end.</p>
 </div>
-<div class="paragraph">
-<p>TODO:
-Developers using the Enonic framewrk may enable visual editing of fragments via a <a href="../framework/mappings.ahtml">mapping</a> with <code>&lt;match&gt;type:'portal:fragment'&lt;/match&gt;</code></p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You may also render fragments via Enonic functions and <a href="https://developer.enonic.com/docs/code/stable/web/sites/mappings">mapping</a> using <code>&lt;match&gt;type:'portal:fragment'&lt;/match&gt;</code>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -671,14 +676,17 @@ Exclude <code>portal:fragment</code> from customer-facing queries to avoid surfa
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Each <code>fragment { fragment { components { &#8230;&#8203; } } }</code> hop covers one nesting level. If your content allows fragments-inside-fragments, either switch to <code>resolveFragment: true</code> or recurse as deep as your model permits. Paths on the resolved inner components are fragment-local (e.g. <code>/0</code>) — rewrite them to the parent region&#8217;s path when assembling the final component tree. Enonic&#8217;s <a href="https://developer.enonic.com/templates">front-end toolkits</a> do this for you.
+Each <code>fragment { fragment { components { &#8230;&#8203; } } }</code> hop covers one nesting level. If your content allows fragments-inside-fragments, either switch to <code>resolveFragment: true</code> or recurse as deep as your model permits. Paths on the resolved inner components are fragment-local (e.g. <code>/0</code>) — rewrite them to the parent region&#8217;s path when assembling the final component tree.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Enonic&#8217;s <a href="https://developer.enonic.com/docs/frameworks">standard front-end integrations</a> do this out of the box.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="direct_access_preview_editing"><a class="link" href="#direct_access_preview_editing">Direct access (preview / editing)</a></h3>
+<h3 id="direct_access"><a class="link" href="#direct_access">Direct access</a></h3>
 <div class="paragraph">
 <p>A fragment is a content item of type <code>portal:fragment</code>, so it can be fetched like any other content. Use the <code>fragment</code> field on <code>portal_Fragment</code> to retrieve the wrapped component — typically from a preview route:</p>
 </div>
@@ -755,7 +763,7 @@ Customer-facing search should exclude <code>portal:fragment</code> content. Text
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

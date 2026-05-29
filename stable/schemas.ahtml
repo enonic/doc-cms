@@ -464,7 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Schemas are used to define various editorial elements within the CMS. Schemas may contain a <a href="form.ahtml">Form</a> which allow you to declare custom data structures.</p>
+<p>Schemas are used to define various editorial elements within the CMS. Schemas may contain a <a href="schemas/forms.ahtml">Form</a> which allow you to declare custom data structures.</p>
 </div>
 <div class="paragraph">
 <p>The available schema kinds are:</p>
@@ -535,7 +535,7 @@ form: []  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><a href="form.ahtml">Form</a> - Optional form that declares a custom data structure for the schema.</td>
+<td><a href="schemas/forms.ahtml">Form</a> - Optional form that declares a custom data structure for the schema.</td>
 </tr>
 </table>
 </div>
@@ -545,14 +545,14 @@ form: []  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 <h2 id="schema_localization"><a class="link" href="#schema_localization">Schema localization</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You may provide <a href="i18n.ahtml">translations</a> for your schemas in multiple languages for better usability in Content Studio.</p>
+<p>You may provide <a href="schemas/i18n.ahtml">translations</a> for your schemas in multiple languages for better usability in Content Studio.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

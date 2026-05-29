@@ -588,7 +588,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Form items that produce output will generate a property, with a deterministic <a href="https://developer.enonic.com/docs/xp/stable/storage/properties#value-type">value type</a>, with zero, 1 or multiple occurences.</p>
+<p>Form items that produce output will generate a property, with a deterministic <a href="https://developer.enonic.com/docs/code/stable/storage/properties#value-type">value type</a>, with zero, 1 or multiple occurences.</p>
 </div>
 <div class="paragraph">
 <p>For instance, a <code>TextLine</code> will always produce a <code>String</code> value, while the output of an <code>ItemSet</code> is a propertySet (aka object).</p>
@@ -767,7 +767,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

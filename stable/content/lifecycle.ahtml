@@ -776,7 +776,7 @@ The publish and change states were split into two separate indicators in XP {rel
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Guillotine queries the <code>master</code> branch by default, so the query above sets <code>branch: "draft"</code>. The query resolves <code>NEW</code>, <code>MODIFIED</code>, <code>MOVED</code>, and <code>UNPUBLISHED</code> change states. See the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for branch selection details.
+Guillotine queries the <code>master</code> branch by default, so the query above sets <code>branch: "draft"</code>. The query resolves <code>NEW</code>, <code>MODIFIED</code>, <code>MOVED</code>, and <code>UNPUBLISHED</code> change states. See the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a> for branch selection details.
 </td>
 </tr>
 </table>
@@ -797,7 +797,7 @@ Guillotine queries the <code>master</code> branch by default, so the query above
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

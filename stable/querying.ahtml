@@ -502,19 +502,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>When content is created or updated, every property is automatically indexed. The CMS uses a schema-driven indexing system where each property is indexed according to its <a href="#value_types">value type</a>.</p>
 </div>
 <div class="paragraph">
-<p>Content can be queried through the <a href="../apis/graphql.ahtml">GraphQL API</a> (Guillotine) or via Content API (Enonic apps) using <a href="#dsl">Query DSL</a>&#8201;&#8212;&#8201;a JSON-based query structure.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The older string-based query language <strong>NoQL</strong> is deprecated. For NoQL reference, see the <a href="https://developer.enonic.com/docs/xp/stable/storage/noql">XP documentation</a>.
-</td>
-</tr>
-</table>
+<p>Content can be queried through the <a href="apis/graphql.ahtml">GraphQL API</a> (Guillotine) or via Content API (Enonic apps) using <a href="#dsl">Query DSL</a>&#8201;&#8212;&#8201;a JSON-based query structure.</p>
 </div>
 </div>
 </div>
@@ -539,7 +527,7 @@ The older string-based query language <strong>NoQL</strong> is deprecated. For N
 </table>
 </div>
 <div class="paragraph">
-<p>For full details on value types and their index behavior, see the <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types">XP value type reference</a>.</p>
+<p>For full details on querying, value types and index behavior, see the <a href="https://developer.enonic.com/docs/code/stable/storage">Storage reference documentation</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="alltext"><a class="link" href="#alltext">_alltext</a></h3>
@@ -923,7 +911,7 @@ For details on index configuration, see the <a href="https://developer.enonic.co
 <h2 id="querying_content_via_graphql"><a class="link" href="#querying_content_via_graphql">Querying content via GraphQL</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="../apis/graphql.ahtml">Guillotine</a> GraphQL API provides a <code>queryDsl</code> argument on the content query type, accepting the Query DSL format directly. This is the recommended approach for headless applications.</p>
+<p>The <a href="apis/graphql.ahtml">Guillotine</a> GraphQL API provides a <code>queryDsl</code> argument on the content query type, accepting the Query DSL format directly.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1154,7 +1142,7 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

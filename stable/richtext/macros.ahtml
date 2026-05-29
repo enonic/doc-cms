@@ -441,7 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#macro_instructions">Macro instructions</a></li>
+<li><a href="#text_format">Text format</a></li>
 <li><a href="#descriptor">Descriptor</a></li>
 <li><a href="#macro_function">Macro function</a></li>
 <li><a href="#output">Output</a></li>
@@ -453,15 +453,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Macros enable editors to add rich functionality or include dynamic content in the rich text editor.</p>
+<p>Macros enable editors to add rich functionality or include dynamic content in the HtmlArea editor.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="macro_instructions"><a class="link" href="#macro_instructions">Macro instructions</a></h2>
+<h2 id="text_format"><a class="link" href="#text_format">Text format</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A macro instruction is written in plain text. They are similar to HTML or XML tags, but uses square brackets instead of angle brackets.</p>
+<p>In the HtmlArea editor, a macro is written in plain text. They are similar to HTML or XML tags, but uses square brackets instead of angle brackets.</p>
 </div>
 <div class="paragraph">
 <p>A macro has a name, a set of attributes, and optionally a body:</p>
@@ -488,68 +488,53 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="descriptor"><a class="link" href="#descriptor">Descriptor</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A macro descriptor is an xml file that allows assigning a user-friendly name, and a description to the macro. It also has a configuration to define the types and names of the macro parameters.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">title</dt>
-<dd>
-<p>A simple human readable display name. Supports <a href="../schemas/i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</p>
-</dd>
-<dt class="hdlist1">description</dt>
-<dd>
-<p>A description to show in the Insert macro dialog in Content Studio. Also supports localization.</p>
-</dd>
-<dt class="hdlist1">config</dt>
-<dd>
-<p>The config element is a form where each input element corresponds to a macro parameter. The macro body is represented with an input named "body".</p>
-</dd>
-</dl>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The config form does not support nested elements, so <a href="../schemas/form-items/item-set.ahtml">Item Sets</a> are not allowed in the macro config form. Also the <a href="../schemas/form-items/htmlarea.ahtml">HtmlArea</a> input type is not allowed in the config form, since it may contain macros itself.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-If the config form has no input named <code>body</code>, the generated macro tag will be self-closing — for example, <code>[macro attr="value"/]</code>.
-</td>
-</tr>
-</table>
+<p>A macro descriptor is a YAML file that assigns a user-friendly name and description to the macro, and defines the types and names of its parameters.</p>
 </div>
 <div class="paragraph">
 <p>Its path follows the pattern <code>src/main/resources/site/macros/&lt;macroName&gt;/&lt;macroName&gt;.yaml</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Macro"
-title:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Macro"  <i class="conum" data-value="1"></i><b>(1)</b>
+title:  <i class="conum" data-value="2"></i><b>(2)</b>
   text: "Current user"
   i18n: "a-macro.display-name"
-description:
+description:  <i class="conum" data-value="3"></i><b>(3)</b>
   text: "Shows currently logged user"
   i18n: "a-macro.description"
-form:
+form:  <i class="conum" data-value="4"></i><b>(4)</b>
   - type: "TextLine"
-    name: "body"
+    name: "body"  <i class="conum" data-value="5"></i><b>(5)</b>
     label: "Macro body"
   - type: "TextLine"
     name: "defaultText"
     label: "Text to show if no user logged in"</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>kind</strong> identifies this as a Macro schema.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>title</strong> (required) A human readable display name shown in the Insert macro dialog.
+Optionally use <a href="../schemas/i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern to map the value to a resource bundle key.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>description</strong> (optional) A description shown in the Insert macro dialog in Content Studio. Also supports localization.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>form</strong> (required) A <a href="../schemas/forms.ahtml">Form</a> where each input element corresponds to a macro parameter. Nested elements are not supported, so <a href="../schemas/form-items/item-set.ahtml">Item Sets</a> are not allowed in the macro form. The <a href="../schemas/form-items/htmlarea.ahtml">HtmlArea</a> input type is also disallowed, since it may contain macros itself.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td><strong>body</strong> (optional) The macro body is represented by an input named <code>body</code>. If the form has no <code>body</code> input, the generated macro tag will be self-closing — for example, <code>[macro attr="value"/]</code>.</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -558,7 +543,7 @@ form:
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The macro texts (display-name, description, label and help-text from config input types) can be provided in multiple languages. Visit <a href="../schemas/i18n.ahtml">Schema localization</a> for more details.
+The macro texts (title, description, label and help-text from form input types) can be provided in multiple languages. Visit <a href="../schemas/i18n.ahtml">Schema localization</a> for more details.
 </td>
 </tr>
 </table>
@@ -628,7 +613,7 @@ The macro texts (display-name, description, label and help-text from config inpu
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A macro may optionally have its own specific icon. The icon can be assigned to the macro by adding a PNG or SVG file with the same name, in the macro folder, e.g. <code>site/macros/myMacro/myMacro.svg</code>
+A macro may optionally have its own specific icon. The icon can be assigned to the macro by adding a SVG file with the same name, in the macro folder, e.g. <code>site/macros/myMacro/myMacro.svg</code>
 </td>
 </tr>
 </table>
@@ -638,7 +623,7 @@ A macro may optionally have its own specific icon. The icon can be assigned to t
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

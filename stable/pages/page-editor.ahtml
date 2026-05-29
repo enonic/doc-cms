@@ -445,6 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#region_annotations">Region annotations</a></li>
 <li><a href="#component_annotations">Component annotations</a></li>
 <li><a href="#hierarchies">Hierarchies</a></li>
+<li><a href="#page_editor_initialization">Page editor initialization</a></li>
 </ul>
 </div>
 </div>
@@ -460,19 +461,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To support visual editing in Content Studio&#8217;s Page Editor, including drag&#8217;n drop, the page DOM must include annotations for regions and components.</p>
+<p>To support visual editing in Content Studio&#8217;s Page Editor, including drag&#8217;n drop, two things are required.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-When using the <a href="../../framework/components.ahtml">Enonic framework</a>, editor annotations are automatically injected into your markup.
-</td>
-</tr>
-</table>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The page DOM must include annotations for regions and components</p>
+</li>
+<li>
+<p>The page must load and initialize the page editor (available as a separate NPM module).</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -568,10 +567,16 @@ For an empty region dropzone to appear in the editor, a target element must be p
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="page_editor_initialization"><a class="link" href="#page_editor_initialization">Page editor initialization</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

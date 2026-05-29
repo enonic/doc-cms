@@ -435,53 +435,77 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-right">
 <div id="header">
 <h1>Attachment API</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#location">Location</a></li>
+<li><a href="#attachment_url_structure">Attachment URL structure</a></li>
+<li><a href="#media_scope">Media scope</a></li>
+<li><a href="#response">Response</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>The Attachment API provides direct access to Content Attachments without processing.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="location"><a class="link" href="#location">Location</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><code>:8080/api/media:attachment/</code></p>
+<p>By default, the API is available at:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>8080:/api/media:attachment/</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>TODO: REMOVE?
-The API is unconditionally enabled on the site engine and available on <code>:8080/site/&lt;repo&gt;/&lt;branch&gt;/&lt;path-to-site&gt;/_/media:&lt;image|attachment&gt;/</code> endpoint.</p>
+<p>The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example <code><a href="https://api.example.com/graphql" class="bare">https://api.example.com/graphql</a></code>.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="attachment_url_structure"><a class="link" href="#attachment_url_structure">Attachment URL structure</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>An attachment URL consists of the following components:</p>
+<p>The attachment URL consists of the following components:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Base URL<br>
-For Site Engine <code>:8080/site/&lt;project&gt;/&lt;branch&gt;/&lt;path-to-site&gt;/_/media:attachment/</code>
-For API Engine <code>:8080/api/media:attachment/</code></p>
+<p>Base<br>
+<code>:8080/api/media:attachment/</code></p>
 </li>
 <li>
-<p>Media Locator with an optional (draft) branch<br>
-<code>&lt;media-project&gt;(:&lt;media-branch&gt;)/&lt;content-id&gt;</code><br>
-Media branch is specified only if it is not <code>master</code> (which means published content). Specifying <code>master</code> branch is an error - to avoid cache pollution. Since we only have <code>master</code> and <code>draft</code> there are only two options: <code>/&lt;media-project&gt;/</code> and <code>/&lt;media-project&gt;:draft/</code></p>
+<p>Media Locator with an optional (branch)<br>
+<code>&lt;project&gt;(:&lt;branch&gt;)/&lt;content-id&gt;</code><br>
+<code>master</code> is the default branch (referring to published content). Specifying <code>master</code> branch is an error - to avoid cache pollution. Since we only have <code>master</code> and <code>draft</code> there are only two options: <code>/&lt;project&gt;/</code> and <code>/&lt;project&gt;:draft/</code></p>
 </li>
 <li>
-<p>(Optional) attachment fingerprint<br>
-<code>:&lt;attachment-fingerprint&gt;</code> - the fingerprint of the attachment. Some older versions of XP may not have created an attachment with SHA checksum, in which case it fingerprint not used.<br>
+<p>(Optional) fingerprint<br>
+<code>:&lt;attachment-fingerprint&gt;</code> - the fingerprint of the attachment.<br>
 If fingerprint is not supplied the response will not contain "immutable" <code>Cache-Control</code> header.</p>
 </li>
 <li>
 <p>Attachment name<br>
-<code>&lt;attachment-name&gt;</code> is not a Content Name, but the name of the attachment itself, which is usually the file name.</p>
+<code>&lt;attachment-name&gt;</code> is not the Content Name, but the name of the attachment stored within the content.</p>
 </li>
 <li>
 <p>(Optional) download parameter<br>
-<code>?download</code> - the response will contain <code>Content-Disposition</code> header, if specified.</p>
+<code>?download</code> - the response will set the <code>Content-Disposition</code> header, if specified.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Example of an attachment URL on the root of a live site behind <a href="../../deployment/vhosts.ahtml#virtual-hosts">Virtual Host</a>:</p>
+<p>Example of an attachment URL on the root of a live site behind a <a href="https://developer.enonic.com/docs/xp/stable/config/vhosts#virtual-hosts">Virtual Host</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -489,9 +513,30 @@ If fingerprint is not supplied the response will not contain "immutable" <code>C
 </div>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="media_scope"><a class="link" href="#media_scope">Media scope</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You may limit which projects and branches are accessible by mounting the API in a Virtual Host.</p>
+</div>
+<div class="paragraph">
+<p>Use the setting <code>endpoint.media.scope = &lt;project1:draft&gt;, &lt;project2&gt;</code> in the <a href="https://developer.enonic.com/docs/xp/stable/config/vhosts#virtual-host-context">Virtual Host Context</a>.<br></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="response"><a class="link" href="#response">Response</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The attachment API returns the attachment file as a binary stream in the response body, with the corresponding <code>Content-Type</code> header.</p>
+</div>
+</div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>

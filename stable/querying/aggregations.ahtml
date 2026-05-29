@@ -867,14 +867,14 @@ buckets.forEach(b =&gt; console.log(b.key, b.docCount));</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://developer.enonic.com/docs/xp/stable/storage/aggregations">XP aggregation reference</a> for the underlying DSL semantics, and the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for the full GraphQL schema.</p>
+<p>See the <a href="https://developer.enonic.com/docs/code/stable/storage/aggregations">XP aggregation reference</a> for the underlying DSL semantics, and the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a> for the full GraphQL schema.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-28 12:24:00 UTC
+Last updated 2026-05-29 18:44:40 UTC
 </div>
 </div>
 </body>
