@@ -442,13 +442,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#hierarchy">Hierarchy</a>
-<ul class="sectlevel2">
-<li><a href="#path_mechanics">Path mechanics</a></li>
-<li><a href="#type_driven_constraints">Type-driven constraints</a></li>
-<li><a href="#querying_the_tree">Querying the tree</a></li>
-</ul>
-</li>
 <li><a href="#standard_properties">Standard properties</a></li>
 </ul>
 </div>
@@ -465,74 +458,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content is normally managed via Content Studio, but can also be accessed and manipulated programmatically via APIs. Content items have a specific <a href="content/content-types.ahtml">Content Type</a>, which defines its data structure and capabilities. Content items are stored in isolated <a href="projects.ahtml">Content Projects</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="hierarchy"><a class="link" href="#hierarchy">Hierarchy</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Every content item within a project lives in a single tree. Each item has exactly one parent — either another content item or the project root — and any number of children. The root of the tree is the project itself.</p>
-</div>
-<div class="paragraph">
-<p>Using the hierarchy is <strong>optional</strong>. You may store every content item directly under the project root in a flat list if that fits your model, or build a deep tree of folders and child items. Common reasons to use the hierarchy:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Internal organization</strong> — group related content (articles by year, products by category, assets by department) for editorial convenience.</p>
-</li>
-<li>
-<p><strong>URL space for sites</strong> — when a <a href="pages.ahtml">site</a> is part of the tree, the content path doubles as the site&#8217;s URL path, so the editorial structure directly shapes how pages are addressed on the public web.</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="path_mechanics"><a class="link" href="#path_mechanics">Path mechanics</a></h3>
-<div class="paragraph">
-<p>Each item has a slash-separated <code>_path</code> representing its ancestry, and a <code>_name</code> that forms the trailing segment:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "_name": "my-article",
-  "_path": "/my-site/articles/my-article",
-  "_parentPath": "/my-site/articles"
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>_name</code> must be unique among siblings — two items with the same parent cannot share a name. The constraint is strict and enforced at create-time and on move/rename.</p>
-</div>
-<div class="paragraph">
-<p><code>_id</code> is a UUID assigned at creation and <strong>never changes</strong>, even when an item is renamed or moved. Move or rename operations recalculate <code>_path</code> for the item <strong>and every descendant</strong>; the IDs stay stable, so references between items survive restructuring.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="type_driven_constraints"><a class="link" href="#type_driven_constraints">Type-driven constraints</a></h3>
-<div class="paragraph">
-<p>Whether an item can have children — and which content types are allowed under it — is controlled by the parent&#8217;s content type via the <code>allowChildContent</code> and <code>allowChildContentType</code> settings. See <a href="content/content-types.ahtml">Content Types</a> for the full rules.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="querying_the_tree"><a class="link" href="#querying_the_tree">Querying the tree</a></h3>
-<div class="paragraph">
-<p>Hierarchy-aware queries use the standard <code>_path</code> and <code>_parentPath</code> fields:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>_parentPath</code> term query → direct children of a given parent.</p>
-</li>
-<li>
-<p><code>pathMatch</code> query → all descendants under a path prefix. See <a href="querying.ahtml">Content Querying</a>.</p>
-</li>
-<li>
-<p>Guillotine exposes typed <code>parent</code>, <code>children</code>, and <code>parents</code> traversal fields on the <code>Content</code> interface — see <a href="apis/graphql.ahtml">GraphQL API</a>.</p>
-</li>
-</ul>
-</div>
+<p>Content is normally managed via Content Studio, but can also be accessed and manipulated programmatically via APIs. Content items have a specific <a href="content/content-types.ahtml">Content Type</a>, which defines its data structure and capabilities. Content items are stored in isolated <a href="projects.ahtml">Content Projects</a>, and can optionally be organized as a <a href="content/hierarchy.ahtml">hierarchy</a> within each project.</p>
 </div>
 </div>
 </div>
@@ -669,7 +595,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-04 07:35:29 UTC
+Last updated 2026-06-04 08:06:57 UTC
 </div>
 </div>
 </body>

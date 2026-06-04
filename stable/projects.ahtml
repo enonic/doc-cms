@@ -444,7 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#branches">Branches</a></li>
 <li><a href="#general_settings">General settings</a></li>
-<li><a href="#access_mode">Access mode</a></li>
+<li><a href="#access-mode">Access mode</a></li>
 <li><a href="#roles">Roles</a></li>
 <li><a href="#layering">Layering</a></li>
 <li><a href="#applications">Features</a></li>
@@ -494,7 +494,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="access_mode"><a class="link" href="#access_mode">Access mode</a></h2>
+<h2 id="access-mode"><a class="link" href="#access-mode">Access mode</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Project access mode defines default read permissions for it&#8217;s content.
@@ -572,7 +572,7 @@ The following roles are available per project:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-04 07:35:29 UTC
+Last updated 2026-06-04 08:06:57 UTC
 </div>
 </div>
 </body>

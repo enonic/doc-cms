@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Built-in content types</title>
+<title>Permissions</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,28 +437,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Built-in content types</h1>
+<h1>Permissions</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#folder_basefolder">Folder (base:folder)</a>
+<li><a href="#permission_types">Permission types</a></li>
+<li><a href="#principals">Principals</a>
 <ul class="sectlevel2">
-<li><a href="#output">Output</a></li>
-<li><a href="#graphql">GraphQL</a></li>
+<li><a href="#built_in_roles_relevant_to_cms">Built-in roles relevant to CMS</a></li>
 </ul>
 </li>
-<li><a href="#shortcut_baseshortcut">Shortcut (base:shortcut)</a>
+<li><a href="#acl_model">ACL model</a></li>
+<li><a href="#inheritance_copy_on_create">Inheritance: copy-on-create</a>
 <ul class="sectlevel2">
-<li><a href="#output_2">Output</a></li>
-<li><a href="#graphql_2">GraphQL</a></li>
+<li><a href="#applying_an_acl_change_to_descendants">Applying an ACL change to descendants</a></li>
 </ul>
 </li>
-<li><a href="#unstructured_baseunstructured">Unstructured (base:unstructured)</a>
-<ul class="sectlevel2">
-<li><a href="#output_3">Output</a></li>
-<li><a href="#graphql_3">GraphQL</a></li>
-</ul>
-</li>
+<li><a href="#query_semantics">Query semantics</a></li>
+<li><a href="#querying_via_graphql">Querying via GraphQL</a></li>
+<li><a href="#where_permissions_come_from">Where permissions come from</a></li>
+<li><a href="#see_also">See also</a></li>
 </ul>
 </div>
 </div>
@@ -466,237 +464,268 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic XP ships with a set of concrete content types that are ready to use as-is. Unlike custom <a href="content-types.ahtml">content types</a>, they are not declared in your app — they are always available and cannot be redefined.</p>
-</div>
-<div class="paragraph">
-<p>This page covers the generic types under the <code>base</code> namespace. Types in the <code>portal</code> namespace (<code>portal:site</code>, <code>portal:page-template</code>, <code>portal:fragment</code>, <code>portal:template-folder</code>) are specific to the <a href="../pages.ahtml">pages and sites</a> concept and documented there.</p>
+<p>Every content item carries an access-control list (ACL) that determines which principals may read, modify, publish, and otherwise act on it.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="folder_basefolder"><a class="link" href="#folder_basefolder">Folder (base:folder)</a></h2>
+<h2 id="permission_types"><a class="link" href="#permission_types">Permission types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Folders are containers for organizing child content. They have no data properties beyond their name and display name.</p>
+<p>A content item grants seven independent permissions, each enabling a specific operation:</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">super-type</dt>
+<dt class="hdlist1"><code>READ</code></dt>
 <dd>
-<p>base:structured</p>
+<p>Retrieve the content item and its properties. Without READ, the item is invisible to the caller — queries skip it, direct fetches return "not found".</p>
 </dd>
-<dt class="hdlist1">is-abstract</dt>
+<dt class="hdlist1"><code>CREATE</code></dt>
 <dd>
-<p>false</p>
+<p>Create child content directly under this item.</p>
 </dd>
-<dt class="hdlist1">is-final</dt>
+<dt class="hdlist1"><code>MODIFY</code></dt>
 <dd>
-<p>false</p>
+<p>Edit the item&#8217;s data, displayName, or any property other than its ACL.</p>
 </dd>
-<dt class="hdlist1">allow-child-content</dt>
+<dt class="hdlist1"><code>DELETE</code></dt>
 <dd>
-<p>true</p>
+<p>Remove the item from the project.</p>
+</dd>
+<dt class="hdlist1"><code>PUBLISH</code></dt>
+<dd>
+<p>Push the item from <code>draft</code> to <code>master</code> (or unpublish in the reverse direction).</p>
+</dd>
+<dt class="hdlist1"><code>READ_PERMISSIONS</code></dt>
+<dd>
+<p>Read the ACL of this item.</p>
+</dd>
+<dt class="hdlist1"><code>WRITE_PERMISSIONS</code></dt>
+<dd>
+<p>Change the ACL of this item.</p>
 </dd>
 </dl>
 </div>
+<div class="paragraph">
+<p>The seven permissions are independent — granting <code>MODIFY</code> does not imply <code>READ</code>, though in practice ACLs are written to grant logical bundles.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="principals"><a class="link" href="#principals">Principals</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Permissions are granted to <strong>principals</strong> — actors known to the IAM system. Three principal types are recognised in ACL entries:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>user:&lt;idprovider&gt;:&lt;username&gt;</code></dt>
+<dd>
+<p>A specific user, e.g. <code>user:default:alice</code>.</p>
+</dd>
+<dt class="hdlist1"><code>group:&lt;idprovider&gt;:&lt;groupname&gt;</code></dt>
+<dd>
+<p>A group of users; granting to a group grants to every member.</p>
+</dd>
+<dt class="hdlist1"><code>role:&lt;rolename&gt;</code></dt>
+<dd>
+<p>A role; granting to a role grants to every user holding it, directly or transitively.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Matching is transitive — when XP evaluates whether a caller may act on a content item, it walks every group the caller belongs to and every role they hold (including via group membership) and unions the granted permissions.</p>
+</div>
 <div class="sect2">
-<h3 id="output"><a class="link" href="#output">Output</a></h3>
+<h3 id="built_in_roles_relevant_to_cms"><a class="link" href="#built_in_roles_relevant_to_cms">Built-in roles relevant to CMS</a></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>role:system.everyone</code></dt>
+<dd>
+<p>Any caller, including unauthenticated/anonymous requests. Granting <code>READ</code> to this role makes a content item publicly readable.</p>
+</dd>
+<dt class="hdlist1"><code>role:system.authenticated</code></dt>
+<dd>
+<p>Any signed-in caller.</p>
+</dd>
+<dt class="hdlist1"><code>role:system.admin</code></dt>
+<dd>
+<p>Platform-level superuser; bypasses content ACLs.</p>
+</dd>
+<dt class="hdlist1"><code>role:cms.admin</code></dt>
+<dd>
+<p>CMS-wide admin; full access across all projects.</p>
+</dd>
+<dt class="hdlist1"><code>role:cms.expert</code></dt>
+<dd>
+<p>CMS developer-level access.</p>
+</dd>
+<dt class="hdlist1"><code>role:cms.user</code></dt>
+<dd>
+<p>Baseline role for any user of Content Studio.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Each <a href="../projects.ahtml#roles">project</a> also defines its own roles (Owner / Editor / Author / Contributor / Viewer), registered under principal IDs of the form <code>role:com.enonic.cms.project.&lt;id&gt;.&lt;roletype&gt;</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="acl_model"><a class="link" href="#acl_model">ACL model</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The ACL is <strong>allow-only</strong> — each entry lists permissions granted to one principal; there are no deny entries. Effective permission for a caller is the union of every entry whose principal matches.</p>
+</div>
+<div class="paragraph">
+<p>The ACL appears on a content item as the <code>_permissions</code> property:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
   "_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-  "_name": "articles",
-  "_path": "/site/articles",
-  "type": "base:folder",
-  "displayName": "Articles",
-  "data": {}
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="graphql"><a class="link" href="#graphql">GraphQL</a></h3>
-<div class="paragraph">
-<p>Most queries treat folders as regular <code>Content</code> — the Content interface covers what folders expose. Use the typed fragment only when you need to make the query type-explicit:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
-    getChildren(key: "/site") {
-      displayName
-      _path
-      type
-      ... on base_Folder {
-        _id
-      }
+  "_path": "/my-site/articles/my-article",
+  "_permissions": [
+    {
+      "principal": "role:system.everyone",
+      "allow": ["READ"]
+    },
+    {
+      "principal": "role:com.enonic.cms.project.myproject.author",
+      "allow": ["READ", "CREATE", "MODIFY", "DELETE"]
+    },
+    {
+      "principal": "role:com.enonic.cms.project.myproject.owner",
+      "allow": ["READ", "CREATE", "MODIFY", "DELETE", "PUBLISH", "READ_PERMISSIONS", "WRITE_PERMISSIONS"]
     }
-  }
+  ]
 }</code></pre>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="shortcut_baseshortcut"><a class="link" href="#shortcut_baseshortcut">Shortcut (base:shortcut)</a></h2>
+<h2 id="inheritance_copy_on_create"><a class="link" href="#inheritance_copy_on_create">Inheritance: copy-on-create</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Shortcuts reference or redirect to another content item. Optional key-value parameters are appended to the redirect URL.</p>
+<p>When a content item is created, it receives a <strong>copy</strong> of its parent&#8217;s ACL as its initial state. From that point on the two ACLs are independent — <strong>changes to the parent&#8217;s ACL do not propagate</strong>.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">super-type</dt>
-<dd>
-<p>base:structured</p>
-</dd>
-<dt class="hdlist1">is-abstract</dt>
-<dd>
-<p>false</p>
-</dd>
-<dt class="hdlist1">is-final</dt>
-<dd>
-<p>true</p>
-</dd>
-<dt class="hdlist1">allow-child-content</dt>
-<dd>
-<p>true</p>
-</dd>
-</dl>
-</div>
-<div class="sect2">
-<h3 id="output_2"><a class="link" href="#output_2">Output</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "_id": "b2c3d4e5-...",
-  "_name": "latest",
-  "_path": "/site/latest",
-  "type": "base:shortcut",
-  "displayName": "Latest post",
-  "data": {
-    "target": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
-    "parameters": [
-      { "name": "utm_source", "value": "internal" }
-    ]
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="graphql_2"><a class="link" href="#graphql_2">GraphQL</a></h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
-    get(key: "/site/latest") {
-      displayName
-      ... on base_Shortcut {
-        data {
-          target {
-            _id
-            _path
-            displayName
-          }
-          parameters {
-            name
-            value
-          }
-        }
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>target</code> field is a content reference and resolves to the full target content when queried.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="unstructured_baseunstructured"><a class="link" href="#unstructured_baseunstructured">Unstructured (base:unstructured)</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Unstructured content permits storing any properties without a declared form. Because it has no schema, Content Studio has no default editor for it — unstructured items are typically created and updated via API.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">super-type</dt>
-<dd>
-<p>base:structured</p>
-</dd>
-<dt class="hdlist1">is-abstract</dt>
-<dd>
-<p>false</p>
-</dd>
-<dt class="hdlist1">is-final</dt>
-<dd>
-<p>true</p>
-</dd>
-<dt class="hdlist1">allow-child-content</dt>
-<dd>
-<p>true</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Use cases are narrow: items whose properties vary per instance but still need editorial management, publishing, permissions, or versioning.</p>
-</div>
-<div class="admonitionblock tip">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-For data that does not need editorial workflows, consider using <a href="https://developer.enonic.com/docs/xp/stable/storage">XP&#8217;s NoSQL storage</a> instead.
+There is no live inheritance and no <code>inheritPermissions</code> flag. The flag from earlier XP versions was removed in XP 8 in favour of explicit recursive updates. To roll an ACL change down a subtree, use the <strong>apply</strong> operation described below.
 </td>
 </tr>
 </table>
 </div>
 <div class="sect2">
-<h3 id="output_3"><a class="link" href="#output_3">Output</a></h3>
+<h3 id="applying_an_acl_change_to_descendants"><a class="link" href="#applying_an_acl_change_to_descendants">Applying an ACL change to descendants</a></h3>
+<div class="paragraph">
+<p>To update an ACL across an existing subtree, callers explicitly invoke the recursive <strong>apply</strong> operation. This walks every descendant under a given path and replaces (or merges) their ACLs in one administrative pass. Editors trigger this via Content Studio&#8217;s permission dialog ("Apply to children"); programmatic callers use the corresponding <code>lib-content</code> function.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://developer.enonic.com/docs/code/stable/storage/permissions">permissions reference in the Enonic Development Kit</a> for the function signatures and merge semantics.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="query_semantics"><a class="link" href="#query_semantics">Query semantics</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every query is <strong>implicitly filtered</strong> by the caller&#8217;s <code>READ</code> permission. Items the caller cannot read are removed before hits, total counts, and aggregation buckets are returned. The same query run anonymously, as an editor, or as a system admin produces different result sets — see <a href="../querying.ahtml">Content Querying</a> for the broader implication.</p>
+</div>
+<div class="paragraph">
+<p>XP also indexes each ACL into per-permission system fields so you can query <strong>about</strong> permissions:</p>
+</div>
+<div class="paragraph">
+<p><code>_permissions_read</code>, <code>_permissions_create</code>, <code>_permissions_modify</code>, <code>_permissions_delete</code>, <code>_permissions_publish</code>, <code>_permissions_readpermissions</code>, <code>_permissions_writepermissions</code></p>
+</div>
+<div class="paragraph">
+<p>Each field contains the list of principals that ultimately hold the corresponding permission on the item. Example: find every item modifiable by a given project&#8217;s editor role:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "_id": "c3d4e5f6-...",
-  "_name": "telemetry-2026-04-19",
-  "_path": "/site/telemetry/telemetry-2026-04-19",
-  "type": "base:unstructured",
-  "displayName": "Telemetry snapshot",
-  "data": {
-    "collectedAt": "2026-04-19T12:00:00Z",
-    "metrics": {
-      "requests": 42301,
-      "errors": 12
-    },
-    "tags": ["nightly", "prod"]
+  "term": {
+    "field": "_permissions_modify",
+    "value": { "string": "role:com.enonic.cms.project.myproject.editor" }
   }
 }</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="graphql_3"><a class="link" href="#graphql_3">GraphQL</a></h3>
 <div class="paragraph">
-<p>Because the schema is not known at build time, Guillotine cannot generate typed fields for unstructured content. Use <code>dataAsJson</code> to retrieve the entire data payload:</p>
+<p>The indexed fields support permission-aware queries; they do not bypass the implicit read filter — the caller still only sees items they themselves have <code>READ</code> on.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="querying_via_graphql"><a class="link" href="#querying_via_graphql">Querying via GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Guillotine exposes the ACL on the <code>Content</code> interface via the <code>_permissions</code> field. Useful for editorial UIs that need to render who-can-do-what without re-fetching from a separate endpoint.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
   guillotine {
-    get(key: "/site/telemetry/telemetry-2026-04-19") {
+    get(key: "/my-site/articles/my-article") {
+      _id
       displayName
-      type
-      dataAsJson
+      _permissions {
+        principal {
+          key
+          displayName
+        }
+        allow
+      }
     }
   }
 }</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Guillotine schema mirrors the underlying ACL — query the field reference in the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for the exact field shape, since it evolves with Guillotine versions.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="where_permissions_come_from"><a class="link" href="#where_permissions_come_from">Where permissions come from</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For a freshly-created content item, the initial ACL is the copy of the parent&#8217;s ACL — and ultimately the project&#8217;s root item, whose ACL is shaped by the <a href="../projects.ahtml#access-mode">project&#8217;s access mode</a> and granted <a href="../projects.ahtml#roles">project roles</a>. See <a href="../projects.ahtml">Content projects</a> for the project-level model.</p>
+</div>
+<div class="paragraph">
+<p>For layered projects, each <a href="../content/layering.ahtml">layer</a> carries its own ACLs — see the layering page for inheritance behaviour between parent and child layers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see_also"><a class="link" href="#see_also">See also</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.enonic.com/docs/xp/stable/storage/permissions">XP platform docs — permissions model</a> for the underlying node-level mechanics shared across all XP storage, not just CMS content.</p>
+</li>
+<li>
+<p><a href="https://developer.enonic.com/docs/code/stable/storage/permissions">Enonic Development Kit — permissions</a> for the <code>lib-content</code> / <code>lib-node</code> function signatures used to read and modify ACLs programmatically.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

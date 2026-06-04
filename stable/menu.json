@@ -17,6 +17,10 @@
           "document": "schemas/cms-descriptor"
         },
         {
+          "title": "Namespaces",
+          "document": "schemas/namespaces"
+        },
+        {
           "title": "Forms",
           "document": "schemas/forms"
         },
@@ -139,6 +143,10 @@
         {
           "title": "Built-in types",
           "document": "content/built-in-types"
+        },
+        {
+          "title": "Hierarchy",
+          "document": "content/hierarchy"
         },
         {
           "title": "Mixins",
