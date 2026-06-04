@@ -14,7 +14,7 @@ Site (`portal:site`) is a built-in content type. Sites can be created anywhere i
 
 Similar to projects, you may add applications to a site. Content types, components, mixins and more from the selected applications will be available within the site scope. Purpose-specific applications like sitemap.xml, SEO Metafields, and similar can introduce additional site-relative features.
 
-NOTE: Site and application configuration is handled through app descriptors. Visit the https://developer.enonic.com/docs/code[Enonic App development docs] for details on `site.yaml` and `cms.yaml`.
+NOTE: Site rendering is configured through the `site.yaml` app descriptor — see the https://developer.enonic.com/docs/code[Enonic Development Kit] docs. For the project/site-level CMS-app descriptor, see <<schemas/cms-descriptor#, CMS descriptor>>.
 
 == Pages
 

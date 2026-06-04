@@ -13,6 +13,10 @@
       "document": "schemas",
       "menuItems": [
         {
+          "title": "CMS descriptor",
+          "document": "schemas/cms-descriptor"
+        },
+        {
           "title": "Forms",
           "document": "schemas/forms"
         },

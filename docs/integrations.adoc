@@ -33,7 +33,7 @@ Beyond programmatic integration, Content Studio is itself extensible through Eno
 * *Widgets and panels* — add bespoke tools, dashboards, or previews to the Studio chrome.
 * *Custom validators* — enforce business rules, integrate approval systems, or trigger external review processes.
 
-See the https://developer.enonic.com/docs/code/stable/extensions[Enonic Development Kit] for examples of extending Content Studio.
+See the https://developer.enonic.com/docs/code/stable/web/extensions[Enonic Development Kit] for examples of extending Content Studio.
 
 == Ready-made apps
 

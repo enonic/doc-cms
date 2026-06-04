@@ -10,18 +10,53 @@ Schemas are used to define various editorial elements within the CMS. Schemas ma
 
 The available schema kinds are:
 
+* <<schemas/cms-descriptor#, CMS descriptor>>
 * <<content/content-types#, Content Types>>
 * <<content/mixins#, Mixins>>
 * <<schemas/form-fragments#, Form Fragments>>
 * <<pages#, Pages, Parts and Layouts>>
 * <<richtext/macros#, Macros>>
-* <<richtext/styles#, Styles>> 
+* <<richtext/styles#, Styles>>
+
+== Namespaces
+
+Every schema is identified as `<namespace>:<name>` (e.g. `com.example.myapp:article`). The namespace scopes a *schema package* — the unit of schemas shipped together — and prevents collisions between independent providers that happen to use the same schema name.
+
+A namespace is a dot-separated identifier — you pick whatever name fits your package (e.g. `com.example.myapp`, `acme.editorial`, `myschemas`). Reverse-DNS (`com.<org>.<app>`) is a common convention but not required.
+
+Each dot-separated segment must start with a letter and may contain letters, digits, and underscores. Lowercase is the convention.
+
+The following namespaces are *reserved* for built-in schemas:
+
+`base`:: <<content/built-in-types#, Structural content types>> (`base:folder`, `base:shortcut`, `base:unstructured`).
+`portal`:: <<pages#, Sites and pages>> types (`portal:site`, `portal:page-template`, `portal:fragment`, `portal:template-folder`).
+`media`:: <<media/media-types#, Media types>> (`media:image`, `media:document`, etc.).
+
+=== Where the namespace comes from
+
+Currently, the namespace of a schema package is the *application name* of the XP app that ships it. An app named `com.example.myapp` produces schemas in the `com.example.myapp` namespace — the developer does not declare it explicitly.
+
+NOTE: Support is being introduced for explicit namespace declaration, decoupling a schema package from the host app. This will allow schemas to be authored and managed independently of XP app installation. The `<namespace>:<name>` identifier rules and reserved-namespace list remain the same.
+
+=== Encoding in stored content and APIs
+
+The literal `<namespace>:<name>` identifier is preserved in some contexts and re-encoded in others, depending on what characters are legal in the surrounding format.
+
+*Values preserved*
+
+* For values, such as in the `type` field on a content item — e.g. `"type": "com.example.myapp:article"`. Use this exact form for content queries against `type` (Query DSL, `queryDsl` in Guillotine). See <<content#, Content>>.
+
+*Re-encoded*
+
+* *Property names* (where namespaces are used in property names): dots become dashes — `com.example` → `com-example`. A `city` field on `com.example:address` is stored at `x.com-example.address.city`. See <<../content/mixins#, Mixins>> for more examples.
+* *Guillotine GraphQL types*: dots and dashes become underscores — `com.example.myapp:news-article` → `com_example_myapp_news_article`. See <<content/content-types#, Content Types>> for the full table.
+
 
 == Schema deployment
 
-Schemas are managed as code, and deployed to Enonic XP via Enonic apps. When an application gets installed, the schemas are registered in the system, and instantly reflected in Content Studio and related APIs. 
+Schemas are managed as code, and deployed to Enonic XP via Enonic apps. When an application gets installed, the schemas are registered in the system, and instantly reflected in Content Studio and related APIs.
 
-Visit the https://developer.enonic.com/docs/code[Enonic Development Kit] documentation for more information.
+See the https://developer.enonic.com/docs/code/stable/schemas[schema packaging and deployment reference] in the Enonic Development Kit docs for project layout, build configuration, and registration details.
 
 
 == Descriptor

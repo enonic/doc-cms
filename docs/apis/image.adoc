@@ -538,6 +538,50 @@ sharpen()
 
 == Response
 
-The image API returns the processed image file as a binary stream in the response body, with the corresponding `Content-Type` header.
+A successful response streams the rendered image in the body. The API accepts `GET`, `HEAD`, and `OPTIONS` — any other method returns `405 Method Not Allowed`.
 
-//TODO: cache headers, streaming etc
+NOTE: Unlike the <<attachment#, Attachment API>>, the Image API does not support range requests. Each scaled+filtered rendition is generated on demand from the source image and meant to be cached as a single immutable resource — there is no `Accept-Ranges` header, and `Range` request headers are ignored.
+
+=== Status codes
+
+`200 OK`::
+The rendered image is returned in the body.
+
+`400 Bad Request`::
+Invalid scaling arguments or query parameters (`filter`, `quality`, `background`).
+
+`404 Not Found`::
+Content does not exist, is not an image, or the underlying `source` attachment cannot be resolved.
+
+`429 Too Many Requests`::
+The image service is throttling — too many concurrent render operations. Clients should retry with backoff.
+
+=== Headers
+
+`Content-Type`::
+Set to the rendered image's MIME type. When the URL specifies a format extension (`.jpg`, `.png`, `.gif`), the image is converted to that format; otherwise the source MIME type is preserved. GIF, AVIF, WebP, and SVG content are streamed as-is without processing.
+
+`Content-Length`::
+Size of the rendered image, in bytes.
+
+`Cache-Control`::
+Set only when the URL includes a fingerprint that matches the current image hash. The value is taken from `media.public.cacheControl` for content publicly readable on the `master` branch, and from `media.private.cacheControl` otherwise. Requests without a fingerprint, or with a stale one, receive no `Cache-Control` header and are therefore treated as non-cacheable by intermediaries.
+
+`Content-Security-Policy`::
+Set when configured via the `media.contentSecurityPolicy` portal config option. SVG responses use the separate `media.contentSecurityPolicy.svg` setting, which lets you tighten policy specifically for the inline-script-capable image format.
+
+`Content-Encoding`::
+Set to `gzip` only for `.svgz` source images — this is a property of the file format (SVGZ is gzipped SVG) and instructs the browser to decompress before rendering.
++
+For all other formats, no `Content-Encoding` is set by default. The platform-wide Jetty gzip filter is disabled out-of-the-box (`gzip.enabled = false`), so images are served uncompressed unless an operator opts in. This default keeps the API edge-cache and CDN friendly — services like Fastly can perform their own conditional compression without conflicting with an upstream `Content-Encoding`.
+
+
+== Configuration
+
+The Image API is driven by two configuration files in your XP installation.
+
+https://developer.enonic.com/docs/xp/stable/config/cms[CMS configuration]::
+Controls media-serving behaviour: `media.public.cacheControl`, `media.private.cacheControl`, `media.contentSecurityPolicy`, `media.contentSecurityPolicy.svg`, and the per-virtual-host `endpoint.media.scope` attribute.
+
+https://developer.enonic.com/docs/xp/stable/config/system[System configuration]::
+Controls platform-wide HTTP behaviour, including the Jetty gzip filter (`gzip.enabled`, `gzip.minSize`) referenced in the headers section above.

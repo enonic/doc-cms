@@ -48,47 +48,9 @@ form:
       max: 1
 ----
 
-== CMS.yaml
+== Activation
 
-To activate a mixin for your project or site, it must be referenced in the application's CMS descriptor. The example below adds the `address` mixin to all content within its scope.
-
-.cms.yaml
-[source,yaml]
-----
-kind: "CMS"
-mixins:
-  - name: "address"
-form: []
-----
-
-=== Options
-
-It's possible to restrict a mixin for specific content types using regular expressions. This is especially convenient when you apply a mixin to all content types via the CMS descriptor but want to exclude some content types.
-
-Use regular expressions in the `allowContentTypes` attribute to enable or disable it for specific content type(s).
-By default a mixin will be added to content items of all types with no option to remove it, but you can make it optional by setting `optional` to _true_. Optional mixins have to be manually enabled inside Content Wizard to be added to the content data.
-
-If `allowContentTypes` and `optional` are not set, the mixin will automatically be enabled for all content types. See <<../schemas/form-items/contentselector#allowContentType, modes>> of content type filtering.
-
-[source,yaml]
-----
-kind: "CMS"
-mixins:
-  - name: "my-mixin-1" # <1>
-  - name: "my-mixin-2" # <2>
-    allowContentTypes: "^(?!base:folder$).*"
-  - name: "my-mixin-3" # <3>
-    allowContentTypes: "portal:site"
-    optional: true
-form: []
-----
-
-<1> `my-mixin-1` will automatically be enabled for all content types, with no option to disable it in the Content Studio.
-
-<2> `my-mixin-2` will be added for all content types with no option to remove it in the Content Studio, except for content type `base:folder` for which it will not be shown at all.
-
-<3> `my-mixin-3` optionally enabled for built-in content type `portal:site`
-
+A mixin schema on its own is dormant — it must be registered in the application's <<../schemas/cms-descriptor#mixin-registration, CMS descriptor>> (`cms.yaml`) before it is applied to content. The descriptor controls whether the mixin is mandatory or editor-toggleable, and whether it is restricted to specific content types via regex.
 
 == Output
 

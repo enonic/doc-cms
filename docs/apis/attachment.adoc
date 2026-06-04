@@ -40,13 +40,71 @@ Example of an attachment URL on the root of a live site behind a https://develop
 
 == Media scope
 
-You may limit which projects and branches are accessible by mounting the API in a Virtual Host. 
+You may limit which projects and branches are accessible by mounting the API in a Virtual Host context. 
 
 Use the setting `endpoint.media.scope = <project1:draft>, <project2>` in the https://developer.enonic.com/docs/xp/stable/config/vhosts#virtual-host-context[Virtual Host Context]. +
 
 
 == Response
 
-The attachment API returns the attachment file as a binary stream in the response body, with the corresponding `Content-Type` header.
+A successful response streams the attachment binary in the body. The API accepts `GET`, `HEAD`, and `OPTIONS` — any other method returns `405 Method Not Allowed`.
 
-// TODO describe caching, immutable URLs, streaming headers etc.
+=== Headers
+
+`Content-Type`::
+Set to the attachment's MIME type. SVG attachments (`.svg`, `.svgz`) are always served as `image/svg+xml`.
+
+`Content-Length`::
+Size of the attarchment, in bytes.
+
+`Accept-Ranges`::
+Always set to `bytes`, signalling that the API supports partial downloads via the `Range` request header (see <<#range-requests, Range requests>>).
+
+`Cache-Control`::
+Set only when the URL includes a fingerprint that matches the current binary hash. The value is taken from `media.public.cacheControl` for content publicly readable on the `master` branch, and from `media.private.cacheControl` otherwise. Requests without a fingerprint, or with a stale one, receive no `Cache-Control` header and are therefore treated as non-cacheable by intermediaries.
+
+`Content-Security-Policy`::
+Set when configured via the `media.contentSecurityPolicy` portal config option. SVG responses use the separate `media.contentSecurityPolicy.svg` setting, which lets you tighten policy specifically for the inline-script-capable image format.
+
+`Content-Disposition`::
+Set to `attachment; filename="<name>"` only when the `?download` query parameter is present, prompting browsers to save the file rather than render it inline.
+
+`Content-Encoding`::
+The platform-wide gzip filter is disabled by default (`gzip.enabled = false`), so attachments are served uncompressed unless an operator opts in. This default keeps the API edge-cache and CDN friendly — so that services like Fastly can perform their own conditional compression and chunking without conflicting with an upstream `Content-Encoding`.
+
+
+[#range-requests]
+=== Range requests
+
+The API honours `Range: bytes=...` request headers, allowing clients to resume interrupted downloads or stream large media progressively.
+
+* Single range → `206 Partial Content` with `Content-Range: bytes <start>-<end>/<total>` and a body containing the requested slice.
+* Multiple ranges → `206 Partial Content` with `Content-Type: multipart/byteranges; boundary=...`; the body is a multipart payload with each range as a separate part.
+* Out-of-bounds range → `416 Requested Range Not Satisfiable` with `Content-Range: bytes */<total>` and an empty body.
+
+.Example: fetch the first 1 MB of an attachment
+[source,http]
+----
+GET /api/media:attachment/myproject/abc123:fp/large-video.mp4 HTTP/1.1
+Range: bytes=0-1048575
+----
+
+[source,http]
+----
+HTTP/1.1 206 Partial Content
+Content-Type: video/mp4
+Content-Length: 1048576
+Content-Range: bytes 0-1048575/52428800
+Accept-Ranges: bytes
+----
+
+
+== Configuration
+
+The Attachment API is driven by two configuration files in your XP installation.
+
+https://developer.enonic.com/docs/xp/stable/config/cms[CMS configuration]::
+Controls media-serving behaviour: `media.public.cacheControl`, `media.private.cacheControl`, `media.contentSecurityPolicy`, `media.contentSecurityPolicy.svg`, and the per-virtual-host `endpoint.media.scope` attribute.
+
+https://developer.enonic.com/docs/xp/stable/config/system[System configuration]::
+Controls platform-wide HTTP behaviour, including the Jetty gzip filter (`gzip.enabled`, `gzip.minSize`) referenced in the headers section above.
