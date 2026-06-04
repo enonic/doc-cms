@@ -19,6 +19,7 @@ Each project has two branches where content may exist. The `draft` branch, where
 * Display name - a human readable name
 * Default language - Specifies the default language for content created in the project
 
+[#access-mode]
 == Access mode
 
 Project access mode defines default read permissions for it's content.
