@@ -485,7 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Site and application configuration is handled through app descriptors. Visit the <a href="https://developer.enonic.com/docs/code">Enonic App development docs</a> for details on <code>site.yaml</code> and <code>cms.yaml</code>.
+Site rendering is configured through the <code>site.yaml</code> app descriptor — see the <a href="https://developer.enonic.com/docs/code">Enonic Development Kit</a> docs. For the project/site-level CMS-app descriptor, see <a href="schemas/cms-descriptor.ahtml">CMS descriptor</a>.
 </td>
 </tr>
 </table>
@@ -554,7 +554,7 @@ Site and application configuration is handled through app descriptors. Visit the
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-29 18:44:40 UTC
+Last updated 2026-06-04 07:35:29 UTC
 </div>
 </div>
 </body>

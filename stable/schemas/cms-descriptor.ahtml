@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>AttachmentUploader form item</title>
+<title>CMS descriptor</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>AttachmentUploader form item</h1>
+<h1>CMS descriptor</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#appearance">Appearance</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#output">Output</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#descriptor">Descriptor</a></li>
+<li><a href="#mixin-registration">Mixin registration</a></li>
+<li><a href="#deployment">Deployment</a></li>
 </ul>
 </div>
 </div>
@@ -451,65 +452,146 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enables uploading of one or more files that will be stored as attachments to the current node/content, similar to how you would add attachments to an e-mail.</p>
-</div>
-<div class="paragraph">
-<p>AttachmentUploader is different from media content where each media is a separate content item which is automatically indexed, can be linked to, published and deleted individually.</p>
+<p>The CMS descriptor (<code>cms.yaml</code>) marks a schema package as a CMS package and exposes its schemas for assignment to content projects and sites.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AttachmentUploader as seen in Content Studio.</p>
+<p><code>cms.yaml</code> is the package-level descriptor for the CMS. Its presence is what makes a schema package <strong>assignable</strong> to a content project or a site — without it, the schemas it ships will not appear in CMS contexts. The descriptor also lets the developer declare:</p>
 </div>
-<div class="imageblock thumb">
-<div class="content">
-<img src="images/attachmentuploader.png" alt="Two variants of the AttachmentUploader" width="546w">
+<div class="ulist">
+<ul>
+<li>
+<p>A <strong>configuration form</strong> shown to administrators when the package is added to a project or site, capturing per-instance settings.</p>
+</li>
+<li>
+<p><strong>Mixins</strong> that should be activated on content within the assigned scope, with optional content-type filtering.</p>
+</li>
+</ul>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Schema packages are currently delivered as Enonic XP applications. The descriptor lives at <code>src/main/resources/cms/cms.yaml</code> inside the app, and the app name serves as the <a href="../schemas.ahtml#namespaces">namespace</a>. See <a href="#deployment">Deployment</a> below for packaging and registration details.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="descriptor"><a class="link" href="#descriptor">Descriptor</a></h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "AttachmentUploader"
-  name: "my_attachment"
-  label: "My AttachmentUploader"</code></pre>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "CMS"  <i class="conum" data-value="1"></i><b>(1)</b>
+form:  <i class="conum" data-value="2"></i><b>(2)</b>
+  - type: "TextLine"
+    name: "apiKey"
+    label: "API key"
+    occurrences:
+      min: 1
+      max: 1
+mixins:  <i class="conum" data-value="3"></i><b>(3)</b>
+  - name: "address"</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>kind</strong> (required) Identifies this as a CMS package descriptor. Without <code>kind: "CMS"</code>, the file is ignored and the package will not appear as installable in Content Studio&#8217;s project or site app-picker.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>form</strong> (optional) A <a href="forms.ahtml">Form</a> definition rendered when an administrator adds the package to a project or site. The submitted values are persisted alongside the assignment and are available at runtime — useful for per-instance settings such as API keys, feature flags, or endpoint URLs.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>mixins</strong> (optional) Registers <a href="../content/mixins.ahtml">mixins</a> to be activated on content within the assigned scope. See <a href="#mixin-registration">Mixin registration</a> below for filtering and optional-mode variants.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<h2 id="mixin-registration"><a class="link" href="#mixin-registration">Mixin registration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Value type:</strong> <code>String</code> (attachment name reference) + an attachment, see <a href="../../content/attachments.ahtml">Attachments</a> for details.</p>
+<p>Mixins declared under <code>mixins:</code> are applied by default to <strong>all</strong> content types within the project or site that hosts the package. Two attributes refine that behaviour:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>allowContentTypes</code></dt>
+<dd>
+<p>A regular expression matched against the qualified content-type name. Only matching content types receive the mixin.</p>
+</dd>
+<dt class="hdlist1"><code>optional</code></dt>
+<dd>
+<p>When <code>true</code>, the mixin is not added automatically — editors must enable it per content item from within the Content Wizard.</p>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "CMS"
+mixins:
+  - name: "my-mixin-1"  <i class="conum" data-value="1"></i><b>(1)</b>
+  - name: "my-mixin-2"  <i class="conum" data-value="2"></i><b>(2)</b>
+    allowContentTypes: "^(?!base:folder$).*"
+  - name: "my-mixin-3"  <i class="conum" data-value="3"></i><b>(3)</b>
+    allowContentTypes: "portal:site"
+    optional: true</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Activated for all content types, no opt-out.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Activated for all content types except <code>base:folder</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Available to <code>portal:site</code> content only, and only when an editor explicitly enables it.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>The stored value is the name of an <a href="../../content/attachments.ahtml">attachment</a> on the content item. The file itself is stored as an attachment, not as a separate content. See <a href="../../content/attachments.ahtml">Attachments</a> for details on how attachments are stored and indexed.</p>
-</div>
-<div class="listingblock">
-<div class="title">Single attachment</div>
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "my_attachment": "document.pdf"
-}</code></pre>
+<p>See <a href="form-items/contentselector.ahtml#allowContentType">content type filtering modes</a> for the full regex syntax accepted by <code>allowContentTypes</code>.</p>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Multiple attachments (if occurrences allows)</div>
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "my_attachment": [
-    "document.pdf",
-    "spreadsheet.xlsx"
-  ]
-}</code></pre>
 </div>
+<div class="sect1">
+<h2 id="deployment"><a class="link" href="#deployment">Deployment</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Schema packages are deployed to Enonic XP via Enonic apps. The CMS descriptor and all schemas it references live in the app&#8217;s <code>src/main/resources/cms/</code> directory, and are registered automatically when the app is installed — instantly reflected in Content Studio and the headless APIs.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://developer.enonic.com/docs/code/stable/schemas">schema packaging and deployment reference</a> in the Enonic Development Kit docs for project layout, build configuration, and registration details.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+An app that also contributes page components ships a separate <code>site.yaml</code> descriptor alongside <code>cms.yaml</code>. <code>site.yaml</code> belongs to Enonic&#8217;s app-rendering paradigm (parts, layouts, controllers, page contributions) and is documented in the <a href="https://developer.enonic.com/docs/code">Enonic Development Kit</a> docs.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

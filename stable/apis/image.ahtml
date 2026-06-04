@@ -479,7 +479,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#sharpen">Sharpen</a></li>
 </ul>
 </li>
-<li><a href="#response">Response</a></li>
+<li><a href="#response">Response</a>
+<ul class="sectlevel2">
+<li><a href="#status_codes">Status codes</a></li>
+<li><a href="#headers">Headers</a></li>
+</ul>
+</li>
+<li><a href="#configuration">Configuration</a></li>
 </ul>
 </div>
 </div>
@@ -1573,14 +1579,99 @@ If the source image has a lot of compression artifacts or has very low resolutio
 <h2 id="response"><a class="link" href="#response">Response</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The image API returns the processed image file as a binary stream in the response body, with the corresponding <code>Content-Type</code> header.</p>
+<p>A successful response streams the rendered image in the body. The API accepts <code>GET</code>, <code>HEAD</code>, and <code>OPTIONS</code> — any other method returns <code>405 Method Not Allowed</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Unlike the <a href="attachment.ahtml">Attachment API</a>, the Image API does not support range requests. Each scaled+filtered rendition is generated on demand from the source image and meant to be cached as a single immutable resource — there is no <code>Accept-Ranges</code> header, and <code>Range</code> request headers are ignored.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="status_codes"><a class="link" href="#status_codes">Status codes</a></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>200 OK</code></dt>
+<dd>
+<p>The rendered image is returned in the body.</p>
+</dd>
+<dt class="hdlist1"><code>400 Bad Request</code></dt>
+<dd>
+<p>Invalid scaling arguments or query parameters (<code>filter</code>, <code>quality</code>, <code>background</code>).</p>
+</dd>
+<dt class="hdlist1"><code>404 Not Found</code></dt>
+<dd>
+<p>Content does not exist, is not an image, or the underlying <code>source</code> attachment cannot be resolved.</p>
+</dd>
+<dt class="hdlist1"><code>429 Too Many Requests</code></dt>
+<dd>
+<p>The image service is throttling — too many concurrent render operations. Clients should retry with backoff.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="headers"><a class="link" href="#headers">Headers</a></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>Content-Type</code></dt>
+<dd>
+<p>Set to the rendered image&#8217;s MIME type. When the URL specifies a format extension (<code>.jpg</code>, <code>.png</code>, <code>.gif</code>), the image is converted to that format; otherwise the source MIME type is preserved. GIF, AVIF, WebP, and SVG content are streamed as-is without processing.</p>
+</dd>
+<dt class="hdlist1"><code>Content-Length</code></dt>
+<dd>
+<p>Size of the rendered image, in bytes.</p>
+</dd>
+<dt class="hdlist1"><code>Cache-Control</code></dt>
+<dd>
+<p>Set only when the URL includes a fingerprint that matches the current image hash. The value is taken from <code>media.public.cacheControl</code> for content publicly readable on the <code>master</code> branch, and from <code>media.private.cacheControl</code> otherwise. Requests without a fingerprint, or with a stale one, receive no <code>Cache-Control</code> header and are therefore treated as non-cacheable by intermediaries.</p>
+</dd>
+<dt class="hdlist1"><code>Content-Security-Policy</code></dt>
+<dd>
+<p>Set when configured via the <code>media.contentSecurityPolicy</code> portal config option. SVG responses use the separate <code>media.contentSecurityPolicy.svg</code> setting, which lets you tighten policy specifically for the inline-script-capable image format.</p>
+</dd>
+<dt class="hdlist1"><code>Content-Encoding</code></dt>
+<dd>
+<p>Set to <code>gzip</code> only for <code>.svgz</code> source images — this is a property of the file format (SVGZ is gzipped SVG) and instructs the browser to decompress before rendering.</p>
+<div class="paragraph">
+<p>For all other formats, no <code>Content-Encoding</code> is set by default. The platform-wide Jetty gzip filter is disabled out-of-the-box (<code>gzip.enabled = false</code>), so images are served uncompressed unless an operator opts in. This default keeps the API edge-cache and CDN friendly — services like Fastly can perform their own conditional compression without conflicting with an upstream <code>Content-Encoding</code>.</p>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Image API is driven by two configuration files in your XP installation.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="https://developer.enonic.com/docs/xp/stable/config/cms">CMS configuration</a></dt>
+<dd>
+<p>Controls media-serving behaviour: <code>media.public.cacheControl</code>, <code>media.private.cacheControl</code>, <code>media.contentSecurityPolicy</code>, <code>media.contentSecurityPolicy.svg</code>, and the per-virtual-host <code>endpoint.media.scope</code> attribute.</p>
+</dd>
+<dt class="hdlist1"><a href="https://developer.enonic.com/docs/xp/stable/config/system">System configuration</a></dt>
+<dd>
+<p>Controls platform-wide HTTP behaviour, including the Jetty gzip filter (<code>gzip.enabled</code>, <code>gzip.minSize</code>) referenced in the headers section above.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-29 18:44:40 UTC
+Last updated 2026-06-04 07:35:29 UTC
 </div>
 </div>
 </body>

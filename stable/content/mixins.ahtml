@@ -443,11 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#cms_yaml">CMS.yaml</a>
-<ul class="sectlevel2">
-<li><a href="#options">Options</a></li>
-</ul>
-</li>
+<li><a href="#activation">Activation</a></li>
 <li><a href="#output">Output</a></li>
 <li><a href="#graphql">GraphQL</a></li>
 </ul>
@@ -516,61 +512,10 @@ form:
 </div>
 </div>
 <div class="sect1">
-<h2 id="cms_yaml"><a class="link" href="#cms_yaml">CMS.yaml</a></h2>
+<h2 id="activation"><a class="link" href="#activation">Activation</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To activate a mixin for your project or site, it must be referenced in the application&#8217;s CMS descriptor. The example below adds the <code>address</code> mixin to all content within its scope.</p>
-</div>
-<div class="listingblock">
-<div class="title">cms.yaml</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "CMS"
-mixins:
-  - name: "address"
-form: []</code></pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="options"><a class="link" href="#options">Options</a></h3>
-<div class="paragraph">
-<p>It&#8217;s possible to restrict a mixin for specific content types using regular expressions. This is especially convenient when you apply a mixin to all content types via the CMS descriptor but want to exclude some content types.</p>
-</div>
-<div class="paragraph">
-<p>Use regular expressions in the <code>allowContentTypes</code> attribute to enable or disable it for specific content type(s).
-By default a mixin will be added to content items of all types with no option to remove it, but you can make it optional by setting <code>optional</code> to <em>true</em>. Optional mixins have to be manually enabled inside Content Wizard to be added to the content data.</p>
-</div>
-<div class="paragraph">
-<p>If <code>allowContentTypes</code> and <code>optional</code> are not set, the mixin will automatically be enabled for all content types. See <a href="../schemas/form-items/contentselector.ahtml#allowContentType">modes</a> of content type filtering.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "CMS"
-mixins:
-  - name: "my-mixin-1" <i class="conum" data-value="1"></i><b>(1)</b>
-  - name: "my-mixin-2" <i class="conum" data-value="2"></i><b>(2)</b>
-    allowContentTypes: "^(?!base:folder$).*"
-  - name: "my-mixin-3" <i class="conum" data-value="3"></i><b>(3)</b>
-    allowContentTypes: "portal:site"
-    optional: true
-form: []</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>my-mixin-1</code> will automatically be enabled for all content types, with no option to disable it in the Content Studio.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>my-mixin-2</code> will be added for all content types with no option to remove it in the Content Studio, except for content type <code>base:folder</code> for which it will not be shown at all.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><code>my-mixin-3</code> optionally enabled for built-in content type <code>portal:site</code></td>
-</tr>
-</table>
-</div>
+<p>A mixin schema on its own is dormant — it must be registered in the application&#8217;s <a href="../schemas/cms-descriptor.ahtml#mixin-registration">CMS descriptor</a> (<code>cms.yaml</code>) before it is applied to content. The descriptor controls whether the mixin is mandatory or editor-toggleable, and whether it is restricted to specific content types via regex.</p>
 </div>
 </div>
 </div>
@@ -653,7 +598,7 @@ Due to GraphQL field naming restrictions (<code>-</code> and <code>.</code> are 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-29 18:44:40 UTC
+Last updated 2026-06-04 07:35:29 UTC
 </div>
 </div>
 </body>

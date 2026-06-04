@@ -446,6 +446,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#namespaces">Namespaces</a>
+<ul class="sectlevel2">
+<li><a href="#where_the_namespace_comes_from">Where the namespace comes from</a></li>
+<li><a href="#encoding_in_stored_content_and_apis">Encoding in stored content and APIs</a></li>
+</ul>
+</li>
 <li><a href="#schema_deployment">Schema deployment</a></li>
 <li><a href="#descriptor">Descriptor</a></li>
 <li><a href="#schema_localization">Schema localization</a></li>
@@ -472,6 +478,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
+<p><a href="schemas/cms-descriptor.ahtml">CMS descriptor</a></p>
+</li>
+<li>
 <p><a href="content/content-types.ahtml">Content Types</a></p>
 </li>
 <li>
@@ -494,13 +503,93 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
+<h2 id="namespaces"><a class="link" href="#namespaces">Namespaces</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every schema is identified as <code>&lt;namespace&gt;:&lt;name&gt;</code> (e.g. <code>com.example.myapp:article</code>). The namespace scopes a <strong>schema package</strong> — the unit of schemas shipped together — and prevents collisions between independent providers that happen to use the same schema name.</p>
+</div>
+<div class="paragraph">
+<p>A namespace is a dot-separated identifier — you pick whatever name fits your package (e.g. <code>com.example.myapp</code>, <code>acme.editorial</code>, <code>myschemas</code>). Reverse-DNS (<code>com.&lt;org&gt;.&lt;app&gt;</code>) is a common convention but not required.</p>
+</div>
+<div class="paragraph">
+<p>Each dot-separated segment must start with a letter and may contain letters, digits, and underscores. Lowercase is the convention.</p>
+</div>
+<div class="paragraph">
+<p>The following namespaces are <strong>reserved</strong> for built-in schemas:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>base</code></dt>
+<dd>
+<p><a href="content/built-in-types.ahtml">Structural content types</a> (<code>base:folder</code>, <code>base:shortcut</code>, <code>base:unstructured</code>).</p>
+</dd>
+<dt class="hdlist1"><code>portal</code></dt>
+<dd>
+<p><a href="pages.ahtml">Sites and pages</a> types (<code>portal:site</code>, <code>portal:page-template</code>, <code>portal:fragment</code>, <code>portal:template-folder</code>).</p>
+</dd>
+<dt class="hdlist1"><code>media</code></dt>
+<dd>
+<p><a href="media/media-types.ahtml">Media types</a> (<code>media:image</code>, <code>media:document</code>, etc.).</p>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="where_the_namespace_comes_from"><a class="link" href="#where_the_namespace_comes_from">Where the namespace comes from</a></h3>
+<div class="paragraph">
+<p>Currently, the namespace of a schema package is the <strong>application name</strong> of the XP app that ships it. An app named <code>com.example.myapp</code> produces schemas in the <code>com.example.myapp</code> namespace — the developer does not declare it explicitly.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Support is being introduced for explicit namespace declaration, decoupling a schema package from the host app. This will allow schemas to be authored and managed independently of XP app installation. The <code>&lt;namespace&gt;:&lt;name&gt;</code> identifier rules and reserved-namespace list remain the same.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="encoding_in_stored_content_and_apis"><a class="link" href="#encoding_in_stored_content_and_apis">Encoding in stored content and APIs</a></h3>
+<div class="paragraph">
+<p>The literal <code>&lt;namespace&gt;:&lt;name&gt;</code> identifier is preserved in some contexts and re-encoded in others, depending on what characters are legal in the surrounding format.</p>
+</div>
+<div class="paragraph">
+<p><strong>Values preserved</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For values, such as in the <code>type</code> field on a content item — e.g. <code>"type": "com.example.myapp:article"</code>. Use this exact form for content queries against <code>type</code> (Query DSL, <code>queryDsl</code> in Guillotine). See <a href="content.ahtml">Content</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Re-encoded</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Property names</strong> (where namespaces are used in property names): dots become dashes — <code>com.example</code> → <code>com-example</code>. A <code>city</code> field on <code>com.example:address</code> is stored at <code>x.com-example.address.city</code>. See <a href="../content/mixins.ahtml">Mixins</a> for more examples.</p>
+</li>
+<li>
+<p><strong>Guillotine GraphQL types</strong>: dots and dashes become underscores — <code>com.example.myapp:news-article</code> → <code>com_example_myapp_news_article</code>. See <a href="content/content-types.ahtml">Content Types</a> for the full table.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="schema_deployment"><a class="link" href="#schema_deployment">Schema deployment</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Schemas are managed as code, and deployed to Enonic XP via Enonic apps. When an application gets installed, the schemas are registered in the system, and instantly reflected in Content Studio and related APIs.</p>
 </div>
 <div class="paragraph">
-<p>Visit the <a href="https://developer.enonic.com/docs/code">Enonic Development Kit</a> documentation for more information.</p>
+<p>See the <a href="https://developer.enonic.com/docs/code/stable/schemas">schema packaging and deployment reference</a> in the Enonic Development Kit docs for project layout, build configuration, and registration details.</p>
 </div>
 </div>
 </div>
@@ -552,7 +641,7 @@ form: []  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-29 18:44:40 UTC
+Last updated 2026-06-04 07:35:29 UTC
 </div>
 </div>
 </body>
