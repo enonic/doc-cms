@@ -32,7 +32,7 @@ If fingerprint is not supplied the response will not contain "immutable" `Cache-
 . (Optional) download parameter +
 `?download` - the response will set the `Content-Disposition` header, if specified.
 
-Example of an attachment URL on the root of a live site behind a https://developer.enonic.com/docs/xp/stable/config/vhosts#virtual-hosts[Virtual Host]:
+Example of an attachment URL on the root of a live site behind a https://developer.enonic.com/docs/platform/stable/config/vhosts#virtual-hosts[Virtual Host]:
 ----
 /_/media:attachment/media-project/c82262a6-77d6-4276-b0e7-fe82f4eb57b8:ec25d6e4126c7064f82aaab8b34693fc/attachment.png?download
 ----
@@ -42,7 +42,7 @@ Example of an attachment URL on the root of a live site behind a https://develop
 
 You may limit which projects and branches are accessible by mounting the API in a Virtual Host context. 
 
-Use the setting `endpoint.media.scope = <project1:draft>, <project2>` in the https://developer.enonic.com/docs/xp/stable/config/vhosts#virtual-host-context[Virtual Host Context]. +
+Use the setting `endpoint.media.scope = <project1:draft>, <project2>` in the https://developer.enonic.com/docs/platform/stable/config/vhosts#virtual-host-context[Virtual Host Context]. +
 
 
 == Response
@@ -103,8 +103,8 @@ Accept-Ranges: bytes
 
 The Attachment API is driven by two configuration files in your XP installation.
 
-https://developer.enonic.com/docs/xp/stable/config/cms[CMS configuration]::
+https://developer.enonic.com/docs/platform/stable/config/cms[CMS configuration]::
 Controls media-serving behaviour: `media.public.cacheControl`, `media.private.cacheControl`, `media.contentSecurityPolicy`, `media.contentSecurityPolicy.svg`, and the per-virtual-host `endpoint.media.scope` attribute.
 
-https://developer.enonic.com/docs/xp/stable/config/system[System configuration]::
+https://developer.enonic.com/docs/platform/stable/config/system[System configuration]::
 Controls platform-wide HTTP behaviour, including the Jetty gzip filter (`gzip.enabled`, `gzip.minSize`) referenced in the headers section above.

@@ -42,7 +42,7 @@ By default, content properties are indexed according to their value type. Conten
 * Whether a property should be included in `_alltext`
 * Custom analyzer settings for specific properties
 
-NOTE: For details on index configuration, see the https://developer.enonic.com/docs/xp/stable/storage/indexing[XP indexing documentation].
+NOTE: For details on index configuration, see the https://developer.enonic.com/docs/platform/stable/storage/indexing[XP indexing documentation].
 
 
 [[dsl]]

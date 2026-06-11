@@ -37,7 +37,7 @@ curl -X POST https://api.example.com/graphql \
 
 Unauthenticated requests run as the anonymous user and can still access content granted `READ` permission for `role:system.everyone`.
 
-Visit the https://developer.enonic.com/docs/xp/stable/security[security documentation] for details on users, roles, and permissions in XP.
+Visit the https://developer.enonic.com/docs/platform/stable/security[security documentation] for details on users, roles, and permissions in XP.
 
 
 == GraphQL API

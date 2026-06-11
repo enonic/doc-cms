@@ -7,7 +7,7 @@ The Enonic CMS stack is composed of several independent products, each released 
 
 A few components also publish more detailed release notes in their own documentation:
 
-* https://developer.enonic.com/docs/xp/stable/release[Enonic XP {release}] — the platform core that hosts the CMS.
+* https://developer.enonic.com/docs/platform/stable/release[Enonic XP {release}] — the platform core that hosts the CMS.
 * https://market.enonic.com/vendors/enonic/content-studio[Content Studio] — primary authoring interface.
 * https://market.enonic.com/vendors/enonic/guillotine[Headless API (Guillotine)] — GraphQL API for headless delivery.
 

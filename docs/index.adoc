@@ -15,7 +15,7 @@ NOTE: https://market.enonic.com[Enonic Market] offers free applications for SEO,
 This documentation covers the CMS surface only. See also:
 
 * https://developer.enonic.com/docs/code[Enonic Development Kit] for schema deployment, functions, extensions and more.
-* https://developer.enonic.com/docs/xp[XP platform docs] for core platform features and architecture
+* https://developer.enonic.com/docs/platform[XP platform docs] for core platform features and architecture
 
 == Main features
 

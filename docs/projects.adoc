@@ -42,10 +42,30 @@ The following roles are available per project:
 * Editor - Same as Author, but with full permissions and access to rich-text editor source mode
 * Owner - Same as Editor, but can also manage the project settings
 
+In addition, a *Viewer* role is auto-created for projects in <<#access-mode, Private or Custom>> access mode, and grants read access to the project's content. It is not a manually-assigned project role.
+
+=== Capability matrix
+
+Project roles are CMS-level conveniences — underneath, they grant combinations of the seven <<content/permissions#permission-types, content permissions>>. The mapping is:
+
+[cols="1,^1,^1,^1,^1,^1,^1,^1", options="header"]
+|===
+| Role        | READ | CREATE | MODIFY | DELETE | PUBLISH | READ_PERMISSIONS | WRITE_PERMISSIONS
+| Viewer      | ✓    |        |        |        |         |                  |
+| Contributor | ✓    |        |        |        |         |                  |
+| Author      | ✓    | ✓      | ✓      | ?      |         | ?                |
+| Editor      | ✓    | ✓      | ✓      | ✓      | ✓       | ✓                |
+| Owner       | ✓    | ✓      | ✓      | ✓      | ✓       | ✓                | ✓
+|===
+
+NOTE: Cells marked `?` are pending verification.
+
+=== Role principal IDs
+
 For each project, dedicated principal roles are created. The roles are named as follows:
 `com.enonic.cms.project.<id>.<roletype>`
 
-An example might be com.enonic.cms.myproject.author.
+An example might be `com.enonic.cms.myproject.author`.
 
 == Layering
 

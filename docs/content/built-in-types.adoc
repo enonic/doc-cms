@@ -116,7 +116,7 @@ allow-child-content:: true
 
 Use cases are narrow: items whose properties vary per instance but still need editorial management, publishing, permissions, or versioning. 
 
-TIP: For data that does not need editorial workflows, consider using https://developer.enonic.com/docs/xp/stable/storage[XP's NoSQL storage] instead.
+TIP: For data that does not need editorial workflows, consider using https://developer.enonic.com/docs/platform/stable/storage[XP's NoSQL storage] instead.
 
 === Output
 

@@ -3,6 +3,7 @@
 
 Every content item carries an access-control list (ACL) that determines which principals may read, modify, publish, and otherwise act on it.
 
+[#permission-types]
 == Permission types
 
 A content item grants seven independent permissions, each enabling a specific operation:
@@ -134,5 +135,5 @@ For layered projects, each <<../content/layering#, layer>> carries its own ACLs 
 
 == See also
 
-* https://developer.enonic.com/docs/xp/stable/storage/permissions[XP platform docs — permissions model] for the underlying node-level mechanics shared across all XP storage, not just CMS content.
+* https://developer.enonic.com/docs/platform/stable/storage/permissions[XP platform docs — permissions model] for the underlying node-level mechanics shared across all XP storage, not just CMS content.
 * https://developer.enonic.com/docs/code/stable/storage/permissions[Enonic Development Kit — permissions] for the `lib-content` / `lib-node` function signatures used to read and modify ACLs programmatically.
