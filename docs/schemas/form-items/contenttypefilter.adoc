@@ -1,4 +1,4 @@
-= ContentTypeFilter form item
+= ContentTypeFilter - form item
 
 :imagesdir: images
 :toc: right

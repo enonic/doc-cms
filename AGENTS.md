@@ -34,6 +34,21 @@ This documentation should be highly useful for LLMs learning about Enonic CMS. T
 - **Self-contained pages.** Minimize "see external docs for details" without context. Summarize the key concept locally, then link out for the full reference. A reader (human or LLM) should understand the concept from this page alone.
 - **Consistent structure.** Use the same pattern across similar pages (e.g., all form-item pages should follow the same template).
 
+### Form-item pages (`docs/schemas/form-items/`)
+Every form-item page follows the same top-level chapter structure:
+
+1. **Title + one-line intro** — what the input stores.
+2. **`== Appearance`** — Content Studio screenshot(s) with captions.
+3. **`== Usage`** — a `[source,yaml]` schema snippet with numbered callouts explaining each option.
+4. **`== Output`** — state `*Value type:*` and whether it's included in `_alltext`, then show the stored value as `[source,JSON]` for single and multiple occurrences.
+5. **`== GraphQL`** — *only when GraphQL resolves or transforms the value beyond what's stored.* This is a top-level chapter, a sibling of `== Output` (not a NOTE inside it).
+
+Rules for the GraphQL chapter:
+
+- **Pure scalars** (Long, Double, Boolean, String-based inputs, GeoPoint, etc.): omit the chapter entirely — the GraphQL response is identical to the JSON.
+- **Structured types with no dedicated page** (`item-set`, `option-set`): include an inline `[source,GraphQL]` example, since the nesting is the point.
+- **Types whose value GraphQL resolves/transforms AND that have a canonical page**: keep the chapter short and link out instead of duplicating — reference selectors (`contentselector`, `imageselector`, `mediaselector`) → `<<../../content/references#,References>>`; `htmlarea` → `<<../../richtext#,Rich text>>`.
+
 ### External references
 When referencing separately documented components, provide a brief summary and link:
 

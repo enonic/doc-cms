@@ -1,4 +1,4 @@
-= ComboBox form item
+= ComboBox - form item
 
 :imagesdir: images
 :toc: right

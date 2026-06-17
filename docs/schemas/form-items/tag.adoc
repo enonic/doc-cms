@@ -1,13 +1,20 @@
-= Tag input type
+= Tag - form item
 
 :imagesdir: images
 :toc: right
 
-A simple input for adding free-text tags. Tags will be autocompleted based on tags in other items with the same property name.
+Add plain text tags to your content.
+
+Tags support autocompletion based on tags defined in other items with the same property path. A tag may consist of spaces and special characters, but leading and trailing whitespace will be trimmed.
 
 == Appearance
 
-image::Tag.png[Tag input with autocompletion, 700]
+Tags are entered in a free-text input field. When a tag is added, it is presented as a separate element within the input field.
+
+.Multiple examples of Tag configurations
+image::tag.png[Three tag inputs showcasing 2 0 and 5 occurences, 546w]
+
+NOTE: Tags handle occurences within a single input field, allowing for a smooth editing experience.
 
 == Usage
 

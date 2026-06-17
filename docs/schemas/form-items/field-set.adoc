@@ -1,4 +1,4 @@
-= FieldSet form item
+= FieldSet - form item
 :toc: right
 :imagesdir: images
 

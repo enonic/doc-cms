@@ -1,4 +1,4 @@
-= ImageSelector input type
+= ImageSelector - input type
 
 :imagesdir: images
 :toc: right
@@ -7,7 +7,7 @@ The ImageSelector is a specialized version of the <<contentselector#, ContentSel
 
 == Appearance
 
-image::Image-selector.png[Input box with a grid of images to select below it, 500]
+image::imageselector.png[Input box with a grid of images to select below it, 546w]
 
 == Usage
 
@@ -25,7 +25,7 @@ image::Image-selector.png[Input box with a grid of images to select below it, 50
   hideToggleIcon: true
 ----
 <1> With the exception of `allowContentType` (which is not supported here) and `allowPath`, ImageSelector supports the same configuration options as <<contentselector#, ContentSelector>>.
-<2> By default, Image Selector displays all images from the root. If you want to limit images to the same site, use `allowPath: ["${site}/*"]`
+<2> By default, Image Selector displays all images from the root. If you want to limit images to the same site, use `allowPath: "${site}/*"`
 
 == Output
 
@@ -50,3 +50,7 @@ The stored value is the content ID of the selected image. Like <<contentselector
   ]
 }
 ----
+
+== GraphQL
+
+In the GraphQL API the reference is resolved to the referenced image content, so you can query its fields (and image URLs) in the same request. See <<../../content/references#,References>> for query examples.

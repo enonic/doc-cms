@@ -71,7 +71,41 @@ This element is optional, if omitted the default will be `min: 0` and `max: 1`.
 
 <6> Config properties are specified directly on the form item, rather than in a separate config element.
 
-== Output 
+[#editor-behaviors]
+== Editor behaviors
+
+Some behaviors come from the Content Studio editor and the browser rather than from individual form-item configuration. The following apply to the text-based inputs — <<form-items/textline#, TextLine>>, <<form-items/textarea#, TextArea>> and <<form-items/htmlarea#, HtmlArea>>.
+
+[#spell-checking]
+=== Spell checking
+
+Spell checking is handled by the browser, subject to these conditions:
+
+* Spell checking must be enabled in the browser.
+* It only works for the languages enabled in the browser. For example, if the content language is Norwegian but Norwegian is not enabled in the browser, spell checking will not work.
+
+[#text-direction]
+=== Text direction (RTL)
+
+Content Studio automatically renders text inputs right-to-left (RTL) when the content's language is set to a language written in an RTL script. This follows the content's language setting — no configuration on the form item is required.
+
+Languages that trigger RTL include, but are not limited to:
+
+* Arabic
+* Hebrew
+* Persian / Farsi
+* Urdu
+* Pashto
+* Sindhi
+* Kurdish (Sorani)
+* Dhivehi / Maldivian
+* Uyghur
+* Yiddish
+* N'Ko
+
+More generally, any language written in an RTL script — such as the Arabic or Hebrew scripts — will be rendered right-to-left.
+
+== Output
 
 Form items that produce output will generate a property, with a deterministic https://developer.enonic.com/docs/code/stable/storage/properties#value-type[value type], with zero, 1 or multiple occurences. 
 

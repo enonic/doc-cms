@@ -1,4 +1,4 @@
-= AttachmentUploader form item
+= AttachmentUploader - form item
 :imagesdir: images
 :toc: right
 

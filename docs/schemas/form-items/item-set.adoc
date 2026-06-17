@@ -1,36 +1,33 @@
-= Item Set
+= ItemSet - form item
 :toc: right
 :imagesdir: images
 
-Item sets provide a special capability that allows you to nest form items.
+Create subtypes within your schema for advanced content structures.
 
-Item sets are both visually and semantically grouped — the name of the item set is used in the persisted property structure. An item set actually produces a property set.
+Group form items in nested structures — An item set produces a an object or an array of objects in the stored content.
 
-A new or a single occurrence of an item set is by default expanded and can be collapsed by a click anywhere inside the item set header.
-
-Multiple occurrences of an item set will be collapsed by default to ensure better readability of a form containing several occurrences of complex item sets.
+TIP: You may also define itemSets within other itemSets to create more complex structures.
 
 == Appearance
 
-Below: A single instance of an itemset for "Contact info".
+Multiple occurrences of an item set will be collapsed by default to ensure better readability of a form containing several occurrences of complex item sets.
 
-image::itemset-1.png[Single expanded item-set, 673]
 
-Below: The label of an item set will dynamically adapt to reflect content inside of it.
+.Single item set
+image::itemset.png[Shows a card with form items listed inside, 546w]
+A single instance of an itemset for "Contact info".
 
-image::itemset-2.png[Two collapsed item sets, where the label reflects the text inside, 663]
+.Expanded view of multiple item sets
+image::itemset-expanded.png[Expanded view gives instant editing across multiple items, 546w]
 
-Below: Collapse item sets to get an overview and easily organize the list of items.
+.Collapsed view of multiple item sets
+image::itemset-collapsed.png[Collapsed view gives control over the structure, 546w]
 
-image::itemset-3.png[Context menu allows to add or remove new items within the list, 665]
+.Error highlighting on collapsed item set
+image::itemset-error.png[Error view gives feedback on validation issues, 546w]
 
-Below: Easily add new items within a list of item sets.
-
-image::itemset-4.png[Item-set with context menu, 690]
-
-Below: Item sets may be nested to support complex content models.
-
-image::itemset-5.png[Nested item-sets, 670]
+.Safe deletion with preview of the content
+image::itemset-delete.png[The itemset card expands and is highlighted for deletion, 546w]
 
 
 == Usage
@@ -70,7 +67,7 @@ TIP: Item sets may be nested inside each other to model more complex structures.
 
 == Output
 
-*Value type:* `Set` — the ItemSet itself is not directly queryable, but every child property is indexed independently under its full dotted path (e.g. `data.contact_info.phone_number`).
+*Value type:* `PropertySet` (object) — the ItemSet itself is not directly queryable, but every child property is indexed independently under its full dotted path (e.g. `data.contact_info.phone_number`).
 
 The descriptor above produces a property structure like this:
 
@@ -104,7 +101,7 @@ The descriptor above produces a property structure like this:
 
 NOTE: Arrays are added based on the actual number of items created, not the schema definition. A single-occurrence ItemSet always stores an object; multi-occurrence stores an object when one item exists, and an array once more than one exists.
 
-== Querying via GraphQL
+== GraphQL
 
 Guillotine generates a typed object for each ItemSet, nested under the parent content type's `data` field. The generated type name combines the content type's sanitized name with the ItemSet name — for example, an ItemSet `contact_info` on `com.example.myproject:person` becomes `com_example_myproject_Person_ContactInfo`.
 

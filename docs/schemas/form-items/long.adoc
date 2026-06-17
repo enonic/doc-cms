@@ -1,4 +1,4 @@
-= Long input type
+= Long - form item
 
 :imagesdir: images
 :toc: right
@@ -7,7 +7,12 @@ A simple input for storing integer numbers.
 
 == Appearance
 
-image::Long.png[Number input showing a large number, 700]
+.Single occurence with validation error
+image::long.png[Number input showing a Long input with a value out of scope and an error saying value cannot be greater than 10, 546w]
+
+.Multiple occurrences
+image::long-multiple.png[Two instances of the Long input, with the numbers 1 and 2 respectively, 546w]
+
 
 == Usage
 

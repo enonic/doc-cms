@@ -1,4 +1,4 @@
-= Double form item
+= Double - form item
 
 :imagesdir: images
 :toc: right

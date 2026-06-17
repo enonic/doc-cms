@@ -1,4 +1,4 @@
-= ContentSelector form item
+= ContentSelector - form item
 
 :imagesdir: images
 :toc: right
@@ -190,3 +190,7 @@ The stored value is the content ID of the referenced item. When multiple selecti
   ]
 }
 ----
+
+== GraphQL
+
+In the GraphQL API the reference is resolved to the referenced content, so you can query its fields in the same request rather than following the ID yourself. See <<../../content/references#,References>> for query examples.
