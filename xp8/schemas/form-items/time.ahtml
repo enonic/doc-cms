@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Time input type</title>
+<title>Time - form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Time input type</h1>
+<h1>Time - form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -451,7 +451,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Specify time in the format hh:mm.  A pop-up box with time selector allows easy editing.</p>
+<p>Stores time in the format hh:mm.</p>
+</div>
+<div class="paragraph">
+<p>A time input field and selector for hours and minutes. The time is stored in 24h format, and timezone is not included.</p>
 </div>
 </div>
 </div>
@@ -460,7 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
-<img src="images/Time-selector.png" alt="input field with a hour and minute selector above it" width="700">
+<img src="images/time.png" alt="Vairations of the time field including default value" width="546w">
 </div>
 </div>
 </div>
@@ -566,7 +569,7 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 12:15:57 UTC
+Last updated 2026-06-17 07:10:57 UTC
 </div>
 </div>
 </body>

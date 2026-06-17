@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Item Set</title>
+<title>ItemSet - form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,14 +437,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Item Set</h1>
+<h1>ItemSet - form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
 <li><a href="#output">Output</a></li>
-<li><a href="#querying_via_graphql">Querying via GraphQL</a>
+<li><a href="#graphql">GraphQL</a>
 <ul class="sectlevel2">
 <li><a href="#filtering_on_nested_fields">Filtering on nested fields</a></li>
 <li><a href="#nested_itemsets">Nested ItemSets</a></li>
@@ -457,16 +457,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Item sets provide a special capability that allows you to nest form items.</p>
+<p>Create subtypes within your schema for advanced content structures.</p>
 </div>
 <div class="paragraph">
-<p>Item sets are both visually and semantically grouped — the name of the item set is used in the persisted property structure. An item set actually produces a property set.</p>
+<p>Group form items in nested structures — An item set produces a an object or an array of objects in the stored content.</p>
 </div>
-<div class="paragraph">
-<p>A new or a single occurrence of an item set is by default expanded and can be collapsed by a click anywhere inside the item set header.</p>
-</div>
-<div class="paragraph">
-<p>Multiple occurrences of an item set will be collapsed by default to ensure better readability of a form containing several occurrences of complex item sets.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You may also define itemSets within other itemSets to create more complex structures.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -474,44 +480,40 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Below: A single instance of an itemset for "Contact info".</p>
+<p>Multiple occurrences of an item set will be collapsed by default to ensure better readability of a form containing several occurrences of complex item sets.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/itemset-1.png" alt="Single expanded item-set" width="673">
+<img src="images/itemset.png" alt="Shows a card with form items listed inside" width="546w">
 </div>
+<div class="title">Figure 1. Single item set</div>
 </div>
 <div class="paragraph">
-<p>Below: The label of an item set will dynamically adapt to reflect content inside of it.</p>
+<p>A single instance of an itemset for "Contact info".</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/itemset-2.png" alt="Two collapsed item sets" width="where the label reflects the text inside" height="663">
+<img src="images/itemset-expanded.png" alt="Expanded view gives instant editing across multiple items" width="546w">
 </div>
-</div>
-<div class="paragraph">
-<p>Below: Collapse item sets to get an overview and easily organize the list of items.</p>
+<div class="title">Figure 2. Expanded view of multiple item sets</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/itemset-3.png" alt="Context menu allows to add or remove new items within the list" width="665">
+<img src="images/itemset-collapsed.png" alt="Collapsed view gives control over the structure" width="546w">
 </div>
-</div>
-<div class="paragraph">
-<p>Below: Easily add new items within a list of item sets.</p>
+<div class="title">Figure 3. Collapsed view of multiple item sets</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/itemset-4.png" alt="Item-set with context menu" width="690">
+<img src="images/itemset-error.png" alt="Error view gives feedback on validation issues" width="546w">
 </div>
-</div>
-<div class="paragraph">
-<p>Below: Item sets may be nested to support complex content models.</p>
+<div class="title">Figure 4. Error highlighting on collapsed item set</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/itemset-5.png" alt="Nested item-sets" width="670">
+<img src="images/itemset-delete.png" alt="The itemset card expands and is highlighted for deletion" width="546w">
 </div>
+<div class="title">Figure 5. Safe deletion with preview of the content</div>
 </div>
 </div>
 </div>
@@ -581,7 +583,7 @@ Item sets may be nested inside each other to model more complex structures.
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Value type:</strong> <code>Set</code> — the ItemSet itself is not directly queryable, but every child property is indexed independently under its full dotted path (e.g. <code>data.contact_info.phone_number</code>).</p>
+<p><strong>Value type:</strong> <code>PropertySet</code> (object) — the ItemSet itself is not directly queryable, but every child property is indexed independently under its full dotted path (e.g. <code>data.contact_info.phone_number</code>).</p>
 </div>
 <div class="paragraph">
 <p>The descriptor above produces a property structure like this:</p>
@@ -629,7 +631,7 @@ Arrays are added based on the actual number of items created, not the schema def
 </div>
 </div>
 <div class="sect1">
-<h2 id="querying_via_graphql"><a class="link" href="#querying_via_graphql">Querying via GraphQL</a></h2>
+<h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Guillotine generates a typed object for each ItemSet, nested under the parent content type&#8217;s <code>data</code> field. The generated type name combines the content type&#8217;s sanitized name with the ItemSet name — for example, an ItemSet <code>contact_info</code> on <code>com.example.myproject:person</code> becomes <code>com_example_myproject_Person_ContactInfo</code>.</p>
@@ -742,7 +744,7 @@ Arrays are added based on the actual number of items created, not the schema def
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 12:15:57 UTC
+Last updated 2026-06-17 07:10:57 UTC
 </div>
 </div>
 </body>

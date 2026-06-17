@@ -444,6 +444,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#appearance_ui">Appearance (UI)</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#editor-behaviors">Editor behaviors</a>
+<ul class="sectlevel2">
+<li><a href="#spell-checking">Spell checking</a></li>
+<li><a href="#text-direction">Text direction (RTL)</a></li>
+</ul>
+</li>
 <li><a href="#output">Output</a>
 <ul class="sectlevel2">
 <li><a href="#form_items_grouped_by_output">Form items grouped by output</a></li>
@@ -581,6 +587,79 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <td>Config properties are specified directly on the form item, rather than in a separate config element.</td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="editor-behaviors"><a class="link" href="#editor-behaviors">Editor behaviors</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some behaviors come from the Content Studio editor and the browser rather than from individual form-item configuration. The following apply to the text-based inputs — <a href="form-items/textline.ahtml">TextLine</a>, <a href="form-items/textarea.ahtml">TextArea</a> and <a href="form-items/htmlarea.ahtml">HtmlArea</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="spell-checking"><a class="link" href="#spell-checking">Spell checking</a></h3>
+<div class="paragraph">
+<p>Spell checking is handled by the browser, subject to these conditions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Spell checking must be enabled in the browser.</p>
+</li>
+<li>
+<p>It only works for the languages enabled in the browser. For example, if the content language is Norwegian but Norwegian is not enabled in the browser, spell checking will not work.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="text-direction"><a class="link" href="#text-direction">Text direction (RTL)</a></h3>
+<div class="paragraph">
+<p>Content Studio automatically renders text inputs right-to-left (RTL) when the content&#8217;s language is set to a language written in an RTL script. This follows the content&#8217;s language setting — no configuration on the form item is required.</p>
+</div>
+<div class="paragraph">
+<p>Languages that trigger RTL include, but are not limited to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Arabic</p>
+</li>
+<li>
+<p>Hebrew</p>
+</li>
+<li>
+<p>Persian / Farsi</p>
+</li>
+<li>
+<p>Urdu</p>
+</li>
+<li>
+<p>Pashto</p>
+</li>
+<li>
+<p>Sindhi</p>
+</li>
+<li>
+<p>Kurdish (Sorani)</p>
+</li>
+<li>
+<p>Dhivehi / Maldivian</p>
+</li>
+<li>
+<p>Uyghur</p>
+</li>
+<li>
+<p>Yiddish</p>
+</li>
+<li>
+<p>N&#8217;Ko</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>More generally, any language written in an RTL script — such as the Arabic or Hebrew scripts — will be rendered right-to-left.</p>
+</div>
 </div>
 </div>
 </div>
@@ -767,7 +846,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 12:15:57 UTC
+Last updated 2026-06-17 07:10:57 UTC
 </div>
 </div>
 </body>

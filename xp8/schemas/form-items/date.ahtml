@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Date form item</title>
+<title>Date - form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Date form item</h1>
+<h1>Date - form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -462,6 +462,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <img src="images/date.png" alt="Input field with a calendar icon" width="546">
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If the formItem has a <code>default</code> value, the Date picker UI will display "<strong>Set default</strong>" button for setting the default value with one click.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -542,14 +554,6 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p>If <code>&lt;default&gt;</code> value is set for an input, the Date picker will display "<strong>Set default</strong>" button for setting the default value with one click.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/Date-selector-default.png" alt="Date selector with default value" width="500">
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -581,7 +585,7 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 12:15:57 UTC
+Last updated 2026-06-17 07:10:57 UTC
 </div>
 </div>
 </body>

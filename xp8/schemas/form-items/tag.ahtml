@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Tag input type</title>
+<title>Tag - form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Tag input type</h1>
+<h1>Tag - form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -451,17 +451,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A simple input for adding free-text tags. Tags will be autocompleted based on tags in other items with the same property name.</p>
+<p>Add plain text tags to your content.</p>
+</div>
+<div class="paragraph">
+<p>Tags support autocompletion based on tags defined in other items with the same property path. A tag may consist of spaces and special characters, but leading and trailing whitespace will be trimmed.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Tags are entered in a free-text input field. When a tag is added, it is presented as a separate element within the input field.</p>
+</div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Tag.png" alt="Tag input with autocompletion" width="700">
+<img src="images/tag.png" alt="Three tag inputs showcasing 2 0 and 5 occurences" width="546w">
 </div>
+<div class="title">Figure 1. Multiple examples of Tag configurations</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Tags handle occurences within a single input field, allowing for a smooth editing experience.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -505,7 +524,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 12:15:57 UTC
+Last updated 2026-06-17 07:10:57 UTC
 </div>
 </div>
 </body>

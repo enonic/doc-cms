@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>ContentSelector form item</title>
+<title>ContentSelector - form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>ContentSelector form item</h1>
+<h1>ContentSelector - form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -449,6 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#output">Output</a></li>
+<li><a href="#graphql">GraphQL</a></li>
 </ul>
 </div>
 </div>
@@ -770,10 +771,18 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the GraphQL API the reference is resolved to the referenced content, so you can query its fields in the same request rather than following the ID yourself. See <a href="../../content/references.ahtml">References</a> for query examples.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 12:15:57 UTC
+Last updated 2026-06-17 07:10:57 UTC
 </div>
 </div>
 </body>

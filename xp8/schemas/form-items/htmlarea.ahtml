@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>HtmlArea form item</title>
+<title>HtmlArea - form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>HtmlArea form item</h1>
+<h1>HtmlArea - form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -446,9 +446,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#output">Output</a>
 <ul class="sectlevel2">
 <li><a href="#raw_format">Raw format</a></li>
-<li><a href="#processed_output">Processed output</a></li>
 </ul>
 </li>
+<li><a href="#graphql">GraphQL</a></li>
 </ul>
 </div>
 </div>
@@ -763,21 +763,23 @@ Before indexing, the HTML content is stripped of all tags, leavning only the tex
 <p>HtmlArea persists raw markup that is strictly validated. It matches the allowed options of the editor instance. While most elements are generic HTML, internal links, images and macros use a special format that must be processed by your front-end framework. For example, an internal link will be stored as <code>&lt;a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"&gt;internal link&lt;/a&gt;</code>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="processed_output"><a class="link" href="#processed_output">Processed output</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The Enonic APIs provide processing functions that will convert the raw HTML into a format more suitable for rendering.</p>
+<p>The GraphQL API exposes both the <code>raw</code> markup and a <code>processedHtml</code> field, where internal links, images and macros are resolved into a format suitable for rendering. The same processing is also available through the Enonic APIs.</p>
 </div>
 <div class="paragraph">
-<p>For more details, consult the <a href="../../richtext.ahtml#html-processing">HTML processing</a> documentation.</p>
-</div>
+<p>For the GraphQL example and full field details, see <a href="../../richtext.ahtml">Rich text</a> and the <a href="../../richtext.ahtml#html-processing">HTML processing</a> documentation.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 12:15:57 UTC
+Last updated 2026-06-17 07:10:57 UTC
 </div>
 </div>
 </body>

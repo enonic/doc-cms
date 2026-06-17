@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>TextLine input type</title>
+<title>TextLine - form item</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>TextLine input type</h1>
+<h1>TextLine - form item</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#spellcheck">Spell checking</a></li>
 <li><a href="#output">Output</a></li>
 </ul>
 </div>
@@ -452,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A plain text, single line input with advanced validation options. Stored as string.</p>
+<p>A plain text, single line input with advanced validation options.</p>
 </div>
 </div>
 </div>
@@ -460,12 +459,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Three different instances of TextLine.</p>
+<p>Textline is visualized as a standard single-line text input field, supports multi-occurence and adavaced regex validation. You may also enable a character counter and set a maximum allowed characters for the input.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/TextLine.png" alt="Text Line with various settings" width="700">
+<img src="images/textline.png" alt="TextLine as single occurence and multi-occurence including browser spellchecking active" width="546w">
 </div>
+<div class="title">Figure 1. Two instances of TextLine, single and multi-occuerence</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/textline-regex.png" alt="TextLine with regex validation and error example" width="546w">
+</div>
+<div class="title">Figure 2. Regex validation examples with error handling</div>
 </div>
 </div>
 </div>
@@ -527,58 +533,6 @@ Regex validation is performed by the browser&#8217;s <a href="https://developer.
 </div>
 </div>
 <div class="sect1">
-<h2 id="spellcheck"><a class="link" href="#spellcheck">Spell checking</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><span class="image"><span class="alt">XP 7.8.0</span></span></p>
-</div>
-<div class="paragraph">
-<p>When displayed in the Content Studio, input value will be checked for spelling errors by built-in browser spell checker
-based on the language set for the content.
-If language for the content is not set, spell checker will use default language set in the browser.</p>
-</div>
-<div class="paragraph">
-<p>In order for the spell checker to work, the following conditions should be met:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>You should have spell checking enabled in your browser</p>
-</li>
-<li>
-<p>Spell checking will be performed only in languages that are enabled in your browser (i.e.
-if you have set Norwegian language in the content but Norwegian language is not enabled in your
-browser, then spell checking will not work)</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/TextLine-spellcheck-1.png" alt="Spell checking in TextLine" width="400">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/TextLine-spellcheck-2.png" alt="Spell checking in TextLine" width="400">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-In the second screenshot above English text in the first input is grammatically correct,
-but language of the content is set to Norsk Bokmål, therefore English text is not recognised
-by the spell checker. Text in the second is in Norsk Bokmål and correctly checked for spelling errors.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -607,7 +561,7 @@ by the spell checker. Text in the second is in Norsk Bokmål and correctly check
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 12:15:57 UTC
+Last updated 2026-06-17 07:10:57 UTC
 </div>
 </div>
 </body>

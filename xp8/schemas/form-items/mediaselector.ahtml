@@ -444,6 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#appearance">Appearance</a></li>
 <li><a href="#usage">Usage</a></li>
 <li><a href="#output">Output</a></li>
+<li><a href="#graphql">GraphQL</a></li>
 </ul>
 </div>
 </div>
@@ -451,7 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The MediaSelector is a specialized version of the <a href="contentselector.ahtml">ContentSelector</a> that is limited to selecting media only (content of type "media:*"), including also uploading new media (any kind of files).</p>
+<p>The MediaSelector is a specialized version of the <a href="contentselector.ahtml">ContentSelector</a> that is limited to selecting media only (content of type "media:*"), including also uploading new media (any kind of file) directly from the MediaSelector interface.</p>
 </div>
 </div>
 </div>
@@ -460,8 +461,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
-<img src="images/Media-selector.png" alt="Media selector with a grid of media items" width="500">
+<img src="images/mediaselector.png" alt="Media selector with a search for pdf showing three selectable items" width="546w">
 </div>
+<div class="title">Figure 1. Mediaselector with a search for "pdf"</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/mediaselector-selected.png" alt="Media selector with two selected items visible below the the input search field" width="546w">
+</div>
+<div class="title">Figure 2. Mediaselector with two selected items</div>
 </div>
 </div>
 </div>
@@ -492,7 +500,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Just like <a href="imageselector.ahtml">ImageSelector</a>, MediaSelector by default displays all media items starting from the content root.</td>
+<td>By default, MediaSelector lists all media items within the project.</td>
 </tr>
 </table>
 </div>
@@ -527,10 +535,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the GraphQL API the reference is resolved to the referenced media content, so you can query its fields in the same request. See <a href="../../content/references.ahtml">References</a> for query examples.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 12:15:57 UTC
+Last updated 2026-06-17 07:10:57 UTC
 </div>
 </div>
 </body>
