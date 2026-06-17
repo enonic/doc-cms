@@ -542,7 +542,7 @@ The following roles are available per project:</p>
 <p>Editor - Same as Author, but with full permissions and access to rich-text editor source mode</p>
 </li>
 <li>
-<p>Owner - Same as Editor, but can also manage the project settings</p>
+<p>Owner - Same as Editor, but can also manage the project settings itself, including assigning other users to roles</p>
 </li>
 </ul>
 </div>
@@ -603,9 +603,9 @@ The following roles are available per project:</p>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -616,7 +616,7 @@ The following roles are available per project:</p>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Owner</p></td>
@@ -677,7 +677,7 @@ Cells marked <code>?</code> are pending verification.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-17 16:14:46 UTC
+Last updated 2026-06-17 16:23:23 UTC
 </div>
 </div>
 </body>
