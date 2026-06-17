@@ -760,7 +760,7 @@ Before indexing, the HTML content is stripped of all tags, leavning only the tex
 <div class="sect2">
 <h3 id="raw_format"><a class="link" href="#raw_format">Raw format</a></h3>
 <div class="paragraph">
-<p>HtmlArea persists raw markup that is strictly validated. It matches the allowed options of the editor instance. While most elements are generic HTML, internal links, images and macros use a special format that must be processed by your front-end framework. For example, an internal link will be stored as <code>&lt;a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"&gt;internal link&lt;/a&gt;</code>.</p>
+<p>HtmlArea persists raw markup that is strictly validated against the editor instance&#8217;s allowed options (<code>include</code>, <code>exclude</code> and <code>allowHeadings</code>). The markup uses Enonic-specific conventions for internal links, images and macros — see <a href="../../richtext.ahtml#raw-format">Rich text</a> for the format details and <a href="../../richtext.ahtml#html-processing">processing</a> for how they are resolved.</p>
 </div>
 </div>
 </div>
@@ -779,7 +779,7 @@ Before indexing, the HTML content is stripped of all tags, leavning only the tex
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-17 07:10:58 UTC
+Last updated 2026-06-17 14:42:21 UTC
 </div>
 </div>
 </body>

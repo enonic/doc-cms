@@ -215,12 +215,20 @@
       "document": "richtext",
       "menuItems": [
         {
-          "title": "Macros",
-          "document": "richtext/macros"
+          "title": "Links",
+          "document": "richtext/links"
+        },
+        {
+          "title": "Images",
+          "document": "richtext/images"
         },
         {
           "title": "Styles",
           "document": "richtext/styles"
+        },
+        {
+          "title": "Macros",
+          "document": "richtext/macros"
         }
       ]
     },

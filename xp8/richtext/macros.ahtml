@@ -532,7 +532,7 @@ Optionally use <a href="../schemas/i18n.ahtml">localization</a> via the <code>te
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td><strong>body</strong> (optional) The macro body is represented by an input named <code>body</code>. If the form has no <code>body</code> input, the generated macro tag will be self-closing — for example, <code>[macro attr="value"/]</code>.</td>
+<td><strong>body</strong> (optional) The macro body is represented by an input named <code>body</code>. If the form has no <code>body</code> input, the generated macro tag will be self-closing — for example, <code>[disable][macro attr="value"/][/disable]</code>.</td>
 </tr>
 </table>
 </div>
@@ -565,10 +565,85 @@ The macro texts (title, description, label and help-text from form input types) 
 <h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>During HTML processing, Guillotine invokes each macro&#8217;s function and replaces the macro instruction with the returned HTML. See <a href="../richtext.ahtml#html-processing">HTML processing</a> for how to retrieve the rendered output via GraphQL.</p>
+<p>During HTML processing, each macro instruction is translated into an <code>&lt;editor-macro&gt;</code> placeholder tag in <code>processedHtml</code>, carrying <code>data-macro-ref</code> and <code>data-macro-name</code> attributes. The HtmlArea GraphQL type also exposes a <code>macros</code> field whose <code>ref</code> matches the <code>data-macro-ref</code> attribute, so a front-end can render each macro from its <code>name</code> and typed <code>config</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Guillotine only processes macros that have a descriptor, plus the built-in <code>disable</code> and <code>embed</code> macros; any other macro instruction is left untouched.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/articles/hello") {
+      ... on com_example_myapp_Article {
+        data {
+          body(processHtml: {type: absolute}) {
+            processedHtml
+            macros {
+              ref  <i class="conum" data-value="1"></i><b>(1)</b>
+              name
+              config {
+                embed {
+                  body
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Matches the <code>data-macro-ref</code> attribute in <code>processedHtml</code>, so a front-end can map each placeholder to its macro element.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "get": {
+        "data": {
+          "body": {
+            "processedHtml": "&lt;editor-macro data-macro-ref=\"9d4e8f12-...\" data-macro-name=\"embed\"&gt;&lt;/editor-macro&gt;",
+            "macros": [
+              {
+                "ref": "9d4e8f12-...",
+                "name": "embed",
+                "config": {
+                  "embed": {
+                    "body": "&lt;iframe src=\"https://www.youtube.com/embed/cFfxuWUgcvI\" allowfullscreen&gt;&lt;/iframe&gt;"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The HtmlArea GraphQL type also exposes a <code>macros</code> field that returns the list of macros used in a rich text value, without executing them — useful when the front-end renders macros itself.</p>
+<p>The <code>macros</code> field returns the macros used in the value without rendering them, so a front-end maps each <code>editor-macro</code> placeholder (by <code>ref</code>) to its own component using the typed <code>config</code>. The <code>config</code> is keyed by macro name, exposing each parameter declared in the macro&#8217;s <a href="#descriptor">descriptor</a>. Guillotine also exposes a <code>descriptor</code> field per macro and a <code>macrosAsJson</code> field returning all macros as JSON in document order.</p>
 </div>
 </div>
 </div>
@@ -603,7 +678,7 @@ The macro texts (title, description, label and help-text from form input types) 
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>[embed]&lt;iframe src="https://www.youtube.com/embed/cFfxuWUgcvI" allowfullscreen&gt;&lt;/iframe&gt;[/embed]</pre>
+<pre>[disable][embed]&lt;iframe src="https://www.youtube.com/embed/cFfxuWUgcvI" allowfullscreen&gt;&lt;/iframe&gt;[/embed][/disable]</pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -623,7 +698,7 @@ A macro may optionally have its own specific icon. The icon can be assigned to t
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-17 07:10:58 UTC
+Last updated 2026-06-17 14:42:21 UTC
 </div>
 </div>
 </body>

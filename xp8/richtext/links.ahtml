@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Custom styles</title>
+<title>Links</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Custom styles</h1>
+<h1>Links</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#descriptor">Descriptor</a></li>
-<li><a href="#built_in_styles">Built-in styles</a></li>
+<li><a href="#internal_links">Internal links</a></li>
+<li><a href="#raw_format">Raw format</a></li>
+<li><a href="#processed_output">Processed output</a></li>
+<li><a href="#rendering">Rendering</a></li>
 </ul>
 </div>
 </div>
@@ -451,106 +452,152 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>XP supports definition of custom styles for use in rich text content.</p>
+<p>Rich text can link to other content in the repository, to media files, and to external URLs.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="internal_links"><a class="link" href="#internal_links">Internal links</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Styles are used to add effects and styling to elements of the
-<a href="https://developer.enonic.com/docs/content-studio/stable/editor/rich-text-editor#custom_image_styles">Rich Text Editor</a>.</p>
-</div>
-<div class="paragraph">
-<p>Custom styles typically map to a CSS class for client-side styling. Image styles additionally support instructions for the image service, enabling image crops and filters to be applied server-side.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-At the moment, custom styles are only supported for Images.
-</td>
-</tr>
-</table>
+<p>Internal links are stored as references rather than fixed URLs, so they keep working when the target is moved or renamed — the actual URL is resolved when the content is rendered.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="descriptor"><a class="link" href="#descriptor">Descriptor</a></h2>
+<h2 id="raw_format"><a class="link" href="#raw_format">Raw format</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>styles.yaml</code> file declares the custom styles for your app.</p>
-</div>
-<div class="paragraph">
-<p>Example style definition:</p>
+<p>Links are stored as standard <code>&lt;a&gt;</code> elements. Internal links reference their target by ID using an Enonic-specific scheme, while external links are stored verbatim:</p>
 </div>
 <div class="listingblock">
-<div class="title">/src/main/resources/site/styles.yaml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Style"
-styles:
-  - type: "image"  <i class="conum" data-value="1"></i><b>(1)</b>
-    name: "editor-image-cinema"
-    label: "Cinema"
-    aspectRatio: "21:9"  <i class="conum" data-value="2"></i><b>(2)</b>
-  - type: "image"
-    name: "editor-image-sepia"
-    label: "Old photo"
-    filter: "sepia(25)"  <i class="conum" data-value="3"></i><b>(3)</b>
-    editor:  <i class="conum" data-value="4"></i><b>(4)</b>
-        css: |
-            .editor-image-sepia {
-                width: 100px;
-                height: 100px;
-            }</code></pre>
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;!-- Internal content link --&gt;
+&lt;a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"&gt;latest post&lt;/a&gt;
+
+&lt;!-- Media / attachment link --&gt;
+&lt;a href="media://download/2b6e1f0c-5a3d-4f9e-9c1a-7d8e2b4a6f10"&gt;download the PDF&lt;/a&gt;
+
+&lt;!-- External link --&gt;
+&lt;a href="https://enonic.com" target="_blank"&gt;Enonic&lt;/a&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>content://&lt;id&gt;</code> — a link to another content item.</p>
+</li>
+<li>
+<p><code>media://download/&lt;id&gt;</code> — a link to a media file, served by the <a href="../apis/image.ahtml">Image API</a> / attachment service.</p>
+</li>
+<li>
+<p>Absolute <code>http(s)://</code> URLs are stored unchanged.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These references must be resolved to real URLs before rendering — see <a href="../richtext.ahtml#html-processing">Processed output</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="processed_output"><a class="link" href="#processed_output">Processed output</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the processed HTML, links to content (page) keep their <code>content://</code> reference — the front-end resolves these to its own routes — while links to media resolve to an <code>/api</code> URL. Either way the <code>&lt;a&gt;</code> is tagged with a <code>data-link-ref</code> attribute. The HtmlArea type also exposes a typed <code>links</code> field whose <code>ref</code> matches that attribute, so a front-end can correlate each link with its resolved target. The <code>processHtml</code> argument is applied on the field, where <code>type</code> selects an <code>absolute</code> or <code>server</code>-relative URL for media links.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/articles/hello") {
+      ... on com_example_myapp_Article {
+        data {
+          body(processHtml: {type: absolute}) {
+            processedHtml
+            links {
+              ref  <i class="conum" data-value="1"></i><b>(1)</b>
+              uri  <i class="conum" data-value="2"></i><b>(2)</b>
+              content {  <i class="conum" data-value="3"></i><b>(3)</b>
+                _path
+                displayName
+              }
+              media {  <i class="conum" data-value="4"></i><b>(4)</b>
+                content { _id }
+                intent  <i class="conum" data-value="5"></i><b>(5)</b>
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>type</strong> (required) Currently only <code>image</code> styles are supported.</td>
+<td>Matches the <code>data-link-ref</code> attribute in <code>processedHtml</code>, so a front-end can map each link to its target.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>aspectRatio</strong> (optional) Server-side crop ratio applied by the image service when the style is selected.</td>
+<td>The original <code>content://</code> or <code>media://</code> reference.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>filter</strong> (optional) Server-side image filter applied by the image service. See the image service documentation for the full list of available filters.</td>
+<td>Populated for links to content; <code>null</code> for media links.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><strong>editor.css</strong> (optional) Inline CSS injected into Content Studio&#8217;s rich text editor to provide client-side styling of the element while editing. Use the <code>|</code> block scalar to embed the rule set directly in the descriptor.</td>
+<td>Populated for links to media; <code>null</code> for content links.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Either <code>download</code> or <code>inline</code>.</td>
 </tr>
 </table>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>aspectRatio</code> and <code>filter</code> are the only options available for server-side image processing.
-</td>
-</tr>
-</table>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "data": {
+    "guillotine": {
+      "get": {
+        "data": {
+          "body": {
+            "processedHtml": "&lt;p&gt;Read our &lt;a href=\"content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9\" data-link-ref=\"e72f48b6-a972-4133-a300-a3ab5d132800\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;",
+            "links": [
+              {
+                "ref": "e72f48b6-a972-4133-a300-a3ab5d132800",
+                "uri": "content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
+                "content": {
+                  "_path": "/articles/latest-post",
+                  "displayName": "Latest post"
+                },
+                "media": null
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Content (page) links keep their <code>content://&lt;id&gt;</code> reference and are only tagged with <code>data-link-ref</code>, leaving the front-end to map them to its own routes; media links resolve to an <code>/api</code> URL. The typed <code>links</code> array carries the same <code>ref</code>, the original <code>uri</code>, and the resolved <code>content</code> (or <code>media</code>) object — so a front-end can route links instead of parsing the HTML.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="built_in_styles"><a class="link" href="#built_in_styles">Built-in styles</a></h2>
+<h2 id="rendering"><a class="link" href="#rendering">Rendering</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default, XP comes with a built-in image style called <code>Original (no image processing)</code>.</p>
-</div>
-<div class="paragraph">
-<p>By applying this style to an image, the original image file will be served, without any processing.</p>
+<p>A front-end consumes <code>processedHtml</code> together with the typed <code>links</code> data, correlating each <code>data-link-ref</code> tag with its <code>ref</code> to route links its own way (for example mapping a referenced content item to an application route). Enonic&#8217;s front-end toolkits handle this mapping for you — see the <a href="../richtext.ahtml#front-end-toolkits">front-end toolkits</a> and the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text">React SPA tutorial</a> for worked examples.</p>
 </div>
 </div>
 </div>

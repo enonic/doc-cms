@@ -458,7 +458,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#graphql">GraphQL</a>
 <ul class="sectlevel2">
 <li><a href="#selecting_an_option_sets_data">Selecting an option-set&#8217;s data</a></li>
-<li><a href="#dispatching_on_selected">Dispatching on <code>_selected</code></a></li>
+<li><a href="#dispatching_on_selected">Dispatching on _selected</a></li>
 <li><a href="#filtering_content_by_selected_option">Filtering content by selected option</a></li>
 <li><a href="#nested_option_sets_and_item_sets">Nested option sets and item sets</a></li>
 </ul>
@@ -573,7 +573,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/optionset-multiselect.png" alt="Card showing four checkboxes" width="where two are selected and one of them contains an imageSelector field" height="546w">
+<img src="images/optionset-multiselect.png" alt="Card showing four checkboxes where two are selected and one of them contains an imageSelector field" width="546w">
 </div>
 <div class="title">Figure 6. Multi-select OptionSet with two of four options selected.</div>
 </div>
@@ -958,7 +958,7 @@ The <code>_selected</code> property contains information about which options wer
 </div>
 </div>
 <div class="sect2">
-<h3 id="dispatching_on_selected"><a class="link" href="#dispatching_on_selected">Dispatching on <code>_selected</code></a></h3>
+<h3 id="dispatching_on_selected"><a class="link" href="#dispatching_on_selected">Dispatching on _selected</a></h3>
 <div class="paragraph">
 <p>The snippets below are illustrative <strong>client-side</strong> code, iterating over the <code>data.blocks</code> array from the GraphQL response above — not part of the query itself.</p>
 </div>
@@ -1027,7 +1027,7 @@ The <code>_selected</code> property contains information about which options wer
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-17 07:10:58 UTC
+Last updated 2026-06-17 14:42:21 UTC
 </div>
 </div>
 </body>

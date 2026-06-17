@@ -441,13 +441,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#raw_format">Raw format</a></li>
-<li><a href="#html-processing">Processed output</a>
-<ul class="sectlevel2">
-<li><a href="#graphql_example">GraphQL example</a></li>
-</ul>
-</li>
-<li><a href="#front_end_toolkits">Front-end toolkits</a></li>
+<li><a href="#editor">Editor</a></li>
+<li><a href="#markup">Markup</a></li>
+<li><a href="#raw-format">Raw format</a></li>
+<li><a href="#html-processing">Processed output</a></li>
+<li><a href="#front-end-toolkits">Front-end toolkits</a></li>
 </ul>
 </div>
 </div>
@@ -455,45 +453,56 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Rich text is structured, author-edited HTML — typically entered via the <a href="schemas/form-items/htmlarea.ahtml">HtmlArea</a> form item. It can include inline images, links to other content items, custom <a href="richtext/styles.ahtml">styles</a>, and <a href="richtext/macros.ahtml">macros</a>.</p>
+<p>Rich text is stored as author-edited HTML</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="raw_format"><a class="link" href="#raw_format">Raw format</a></h2>
+<h2 id="editor"><a class="link" href="#editor">Editor</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Rich text is stored as HTML with Enonic-specific markup for internal references:</p>
+<p>You may configure a rich text field in your schema using the <a href="#schemas/form-items/htmlarea.adoc">HtmlArea form item</a>. This provides a WYSIWYG editor in Content Studio, and stores the content as HTML with Enonic-specific markup for internal references. See the <a href="#schemas/form-items/htmlarea.adoc">HtmlArea</a> documentation for details on configuration and output.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="markup"><a class="link" href="#markup">Markup</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The editor support common HTML elements out-of-the-box, such as &lt;p&gt;, &lt;h1&gt;-&lt;h6&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;pre&gt;, &lt;code&gt;, &lt;table&gt; etc. In addition, it supports special handling of some elements which are stored as HTML but require customization in the front-end. These are:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Internal links</strong> — <code>&lt;a href="content://&lt;contentId&gt;"&gt;&#8230;&#8203;&lt;/a&gt;</code></p>
+<p><a href="richtext/links.ahtml">Links</a></p>
 </li>
 <li>
-<p><strong>Image links</strong> — <code>&lt;img src="image://&lt;imageId&gt;" /&gt;</code></p>
+<p><a href="richtext/images.ahtml">Images</a></p>
 </li>
 <li>
-<p><strong>Opinionated image component</strong> — <code>&lt;figure&gt;&lt;img src="image://&lt;imageId&gt;" /&gt;&lt;figcaption&gt;Optional caption&lt;/figcaption&gt;&lt;/figure&gt;</code></p>
+<p><a href="richtext/macros.ahtml">Custom components (Macros)</a></p>
 </li>
 <li>
-<p><strong>Macros</strong> — plain-text instructions in square brackets, for example <code>[embed] &#8230;&#8203; [/embed]</code></p>
+<p><a href="richtext/styles.ahtml">Styles</a></p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="raw-format"><a class="link" href="#raw-format">Raw format</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Example of raw stored HTML:</p>
+<p>Rich text is stored as HTML with Enonic-specific handling in some cases:
+Example of raw stored HTML:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-html" data-lang="html">&lt;h3&gt;Welcome&lt;/h3&gt;
 &lt;p&gt;Read our &lt;a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"&gt;latest post&lt;/a&gt;.&lt;/p&gt;
 &lt;figure&gt;&lt;img src="image://a1b2c3d4-e5f6-7890-abcd-ef1234567890" /&gt;&lt;/figure&gt;
-[embed]&lt;iframe src="https://www.youtube.com/embed/cFfxuWUgcvI" allowfullscreen&gt;&lt;/iframe&gt;[/embed]</code></pre>
+[disable][embed]&lt;iframe src="https://www.youtube.com/embed/cFfxuWUgcvI" allowfullscreen&gt;&lt;/iframe&gt;[/embed][/disable]</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Internal references and macros must be resolved before rendering. Guillotine exposes both a raw and a processed variant.</p>
 </div>
 </div>
 </div>
@@ -513,50 +522,18 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
 </table>
 </div>
 <div class="paragraph">
-<p>Guillotine&#8217;s <code>processedHtml</code> resolver optimizes the raw HTML, by adding reference attributes which can be used client-side to replace the standard markup with elements optimized for your front-end, for example:</p>
+<p>The HtmlArea field is queried with a <code>processHtml</code> argument, where <code>type</code> selects an <code>absolute</code> or <code>server</code>-relative URL and <code>imageWidths</code> controls the generated <code>srcset</code>. The <code>processedHtml</code> field returns the raw markup with each internal reference resolved and tagged with a <code>data-*-ref</code> attribute:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>content://&lt;id&gt;</code> links → relative or absolute content URLs</p>
-</li>
-<li>
-<p><code>image://&lt;id&gt;</code> references → <code>&lt;img&gt;</code> tags served by the <a href="apis/image.ahtml">Image API</a>, with any custom image <a href="richtext/styles.ahtml">styles</a> applied server-side</p>
-</li>
-<li>
-<p>Macros → rendered HTML produced by each macro&#8217;s function (the built-in <code>embed</code> macro passes its body through unchanged)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Use <code>processedHtml</code> when rendering; use the raw value or <code>dataAsJson</code> when the front-end needs to do its own processing.</p>
-</div>
-<div class="sect2">
-<h3 id="graphql_example"><a class="link" href="#graphql_example">GraphQL example</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
   guillotine {
     get(key: "/articles/hello") {
-      displayName
       ... on com_example_myapp_Article {
         data {
-          body {
+          body(processHtml: {type: absolute, imageWidths: [600, 992]}) {
             raw
-            processedHtml(type: ABSOLUTE)
-            images {
-              _id
-              imageUrl(scale: "width(800)")
-            }
-            links {
-              ... on com_example_myapp_Article {
-                _path
-                displayName
-              }
-            }
-            macros {
-              name
-            }
+            processedHtml
           }
         }
       }
@@ -572,26 +549,10 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
   "data": {
     "guillotine": {
       "get": {
-        "displayName": "Hello world",
         "data": {
           "body": {
             "raw": "&lt;p&gt;Read our &lt;a href=\"content://f3076b5c-...\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;",
-            "processedHtml": "&lt;p&gt;Read our &lt;a href=\"https://example.com/articles/latest-post\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;",
-            "images": [
-              {
-                "_id": "a1b2c3d4-...",
-                "imageUrl": "/api/media:image/my-project/a1b2c3d4-...:&lt;fingerprint&gt;/width-800/photo.jpg"
-              }
-            ],
-            "links": [
-              {
-                "_path": "/articles/latest-post",
-                "displayName": "Latest post"
-              }
-            ],
-            "macros": [
-              { "name": "embed" }
-            ]
+            "processedHtml": "&lt;p&gt;Read our &lt;a href=\"content://f3076b5c-...\" data-link-ref=\"e72f48b6-...\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;"
           }
         }
       }
@@ -601,13 +562,12 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
 </div>
 </div>
 <div class="paragraph">
-<p>Beyond <code>raw</code> and <code>processedHtml</code>, the HtmlArea GraphQL type also exposes <code>images</code>, <code>links</code>, and <code>macros</code> as typed fields — useful when a front-end needs structured data about references rather than parsing HTML. See the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a> for the full type definition.</p>
-</div>
+<p>Beyond <code>raw</code> and <code>processedHtml</code>, the HtmlArea type also exposes the <a href="#markup">special elements</a> as typed fields — <code>images</code>, <code>links</code> and <code>macros</code> — each carrying a <code>ref</code> that matches its <code>data-*-ref</code> attribute in <code>processedHtml</code>, so a front-end can resolve references without parsing the HTML. Each element&#8217;s page documents its typed field shape and response.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="front_end_toolkits"><a class="link" href="#front_end_toolkits">Front-end toolkits</a></h2>
+<h2 id="front-end-toolkits"><a class="link" href="#front-end-toolkits">Front-end toolkits</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Rendering processed rich text in a front-end framework — mapping content URLs to routes, swapping image references for responsive <code>&lt;picture&gt;</code> tags, and rendering macros as components — is non-trivial to do by hand. Enonic publishes React components and a Next.js integration (Next.xp) that handle these steps for you. See the <a href="https://developer.enonic.com/docs/frameworks">Frameworks section</a> for more.</p>
@@ -617,7 +577,7 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-17 07:10:58 UTC
+Last updated 2026-06-17 14:42:21 UTC
 </div>
 </div>
 </body>
