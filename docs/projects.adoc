@@ -40,7 +40,7 @@ The following roles are available per project:
 * Contributor - Access to project and issues (must be given specific permissions to create or manage any content)
 * Author - Same as contributor, but can additionally create and update content anywhere in the structure
 * Editor - Same as Author, but with full permissions and access to rich-text editor source mode
-* Owner - Same as Editor, but can also manage the project settings
+* Owner - Same as Editor, but can also manage the project settings itself, including assigning other users to roles
 
 In addition, a *Viewer* role is auto-created for projects in <<#access-mode, Private or Custom>> access mode, and grants read access to the project's content. It is not a manually-assigned project role.
 
@@ -53,8 +53,8 @@ Project roles are CMS-level conveniences — underneath, they grant combinations
 | Role        | READ | CREATE | MODIFY | DELETE | PUBLISH | READ_PERMISSIONS | WRITE_PERMISSIONS
 | Viewer      | ✓    |        |        |        |         |                  |
 | Contributor | ✓    |        |        |        |         |                  |
-| Author      | ✓    | ✓      | ✓      | ?      |         | ?                |
-| Editor      | ✓    | ✓      | ✓      | ✓      | ✓       | ✓                |
+| Author      | ✓    | ✓      | ✓      | ✓      |         |                  |
+| Editor      | ✓    | ✓      | ✓      | ✓      | ✓       | ✓                | ✓
 | Owner       | ✓    | ✓      | ✓      | ✓      | ✓       | ✓                | ✓
 |===
 
