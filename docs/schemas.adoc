@@ -10,7 +10,7 @@ Schemas are used to define various editorial elements within the CMS. Schemas ma
 
 The available schema kinds are:
 
-* <<schemas/cms-descriptor#, CMS descriptor>>
+* <<schemas/cms-descriptor#, CMS>> (Shared configuration and settings)
 * <<content/content-types#, Content Types>>
 * <<content/mixins#, Mixins>>
 * <<schemas/form-fragments#, Form Fragments>>
