@@ -49,3 +49,6 @@ target/
 node/
 etc/
 node_modules/
+
+# Claude Code agent memory
+memory/

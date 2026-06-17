@@ -1,13 +1,15 @@
-= Time input type
+= Time - form item
 
 :imagesdir: images
 :toc: right
 
-Specify time in the format hh:mm.  A pop-up box with time selector allows easy editing.
+Stores time in the format hh:mm. 
+
+A time input field and selector for hours and minutes. The time is stored in 24h format, and timezone is not included.
 
 == Appearance
 
-image::Time-selector.png[input field with a hour and minute selector above it, 700]
+image::time.png[Vairations of the time field including default value, 546w]
 
 == Usage
 

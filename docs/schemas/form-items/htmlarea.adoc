@@ -1,4 +1,4 @@
-= HtmlArea form item
+= HtmlArea - form item
 
 :imagesdir: images
 :toc: right
@@ -120,8 +120,8 @@ The value is stored in a raw markup format
 HtmlArea persists raw markup that is strictly validated. It matches the allowed options of the editor instance. While most elements are generic HTML, internal links, images and macros use a special format that must be processed by your front-end framework. For example, an internal link will be stored as `<a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9">internal link</a>`.
 
 
-=== Processed output
+== GraphQL
 
-The Enonic APIs provide processing functions that will convert the raw HTML into a format more suitable for rendering.
+The GraphQL API exposes both the `raw` markup and a `processedHtml` field, where internal links, images and macros are resolved into a format suitable for rendering. The same processing is also available through the Enonic APIs.
 
-For more details, consult the <<../../richtext#html-processing, HTML processing>> documentation.
+For the GraphQL example and full field details, see <<../../richtext#,Rich text>> and the <<../../richtext#html-processing, HTML processing>> documentation.

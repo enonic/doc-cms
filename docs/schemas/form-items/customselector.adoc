@@ -1,4 +1,4 @@
-= CustomSelector form item
+= CustomSelector - form item
 
 :imagesdir: images
 :toc: right

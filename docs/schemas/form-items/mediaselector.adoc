@@ -3,11 +3,16 @@
 :imagesdir: images
 :toc: right
 
-The MediaSelector is a specialized version of the <<contentselector#, ContentSelector>> that is limited to selecting media only (content of type "media:*"), including also uploading new media (any kind of files).
+The MediaSelector is a specialized version of the <<contentselector#, ContentSelector>> that is limited to selecting media only (content of type "media:*"), including also uploading new media (any kind of file) directly from the MediaSelector interface.
 
 == Appearance
 
-image::Media-selector.png[Media selector with a grid of media items, 500]
+.Mediaselector with a search for "pdf"
+image::mediaselector.png[Media selector with a search for pdf showing three selectable items, 546w]
+
+.Mediaselector with two selected items
+image::mediaselector-selected.png[Media selector with two selected items visible below the the input search field, 546w]
+
 
 == Usage
 
@@ -27,7 +32,7 @@ image::Media-selector.png[Media selector with a grid of media items, 500]
   hideToggleIcon: true
 ----
 <1> MediaSelector supports the same configuration options as <<contentselector#, ContentSelector>>, but is limited to using `media:*` content types in the `allowContentType` configuration.
-<2> Just like <<imageselector#, ImageSelector>>, MediaSelector by default displays all media items starting from the content root.
+<2> By default, MediaSelector lists all media items within the project.
 
 == Output
 
@@ -52,3 +57,7 @@ The stored value is the content ID of the selected media item. Like <<contentsel
   ]
 }
 ----
+
+== GraphQL
+
+In the GraphQL API the reference is resolved to the referenced media content, so you can query its fields in the same request. See <<../../content/references#,References>> for query examples.

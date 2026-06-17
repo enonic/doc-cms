@@ -1,40 +1,68 @@
-= Option Set
+= Option Set - form item
 :toc: right
 :imagesdir: images
 
-An option set is a group of options presented either as a multi-select option set (checkbox style), or as a single-select option set (dropdown style).
+An OptionSet is a list of options presented either in a multi-select mode (checkbox style), or in single-select mode (radio button / dropdown style).
 
-Each option _may_ contain an optional form, which also support nested item-sets and option-sets.
+Every option _may_ contain form items, similar to an <<item-set#, ItemSet>>. It also support further nesting of Item- and OptionSets. An option may be selected, even if it does not contain a form.
 
-== Single select mode
+== Appearance
 
-=== Appearance
+OptionSets have three different appearances,  depending on your configuration.
 
-In single select mode, an option set looks similar to an <<item-set#, item set>>, except that the user picks one option per instance from a list.
+=== Radio button (single selection, single occurrence)
 
-image::optionset-singleselect-add.png[Inserting a new optionset (visualized as a card). Available options are listed in a dropdown, 668]
+You will get this mode with the following settings on the option set:
 
-When inserting a new optionset, the selected option's form will automatically be expanded.
+* `selection/min AND max = 1` (single option)
+* `occurrences/min AND max = 1` (mandatory, single occurence)
 
-The example below shows what it looks like when multiple option set instances are inserted and expanded. Each option set is visualized as a card.
+.Basic radio button view
+image::optionset-radio.png[Radiobutton view of options to select, 546w]
 
-NOTE: Notice that the Horizontal line option does not have a form.
+.Option containing form items is selected
+image::optionset-radio-selected.png[Radiobutton containig a single form item called name is selected, 546w]
 
-image::optionset-singleselect-expanded.png[Showing three expanded cards, Horizontal line card has no form, 676]
 
-TIP: Delete, reset or move the option panels using the right hand context menu.
+== Dropdown (single selection, multiple occurrences)
 
-The final example demonstrates the same form as above, with all forms collapsed.
+This is the most commonly used mode. It allows you to select an option, which will then be presented as a card, similar to itemSets, but you can choose between different cards (options). 
 
-image::optionset-singleselect-collapsed.png[Showing three cards with titles for the respective options used Quote, Horizontal line and Text, 668]
+By allowing multiple occurrences, you suddenly have the ability to create and manage blocks of content, each with a different structure, as defined by the options.
 
-TIP: Easily shuffle the order of the option sets by dragging the cards from the grip zone on the left hand side.
+Activated by the following settings:
 
-=== Usage
+* `selection/min AND max = 1` (single option)
+* `occurrences` - any other variation than min AND max = 1
 
-The schema below demonstrates how you may create blocks of structured content using the single-select mode.
+.Choose option via dropdown
+image::optionset-selector.png[Dropdown view of options to select, 546w]
 
-.Sample 1: single-select setup with the options `hr`, `text`, `gallery` and `quote`.
+.Multi-occurence setup showing a list of instances
+image::optionset-blocks.png[List of OptionSet instances similar to item sets, 546w]
+
+.Clicking an instance expands the form as a card
+image::optionset-blocks-expanded.png[Edit the options form directly from the expanded card, 546w]
+
+== Checkbox (multiple selection, any occurrences)
+
+The final mode allows you to select multiple options within a single OptionSet instance. This looks similar to the radio buttom mode, but replaces the radio buttons with checkboxes. Depending on your configuration, you may control the minimum and maximum number of options that can be selected.
+
+* `selection' - any other variation than min AND max = 1` (multiple options)
+* Any combination of `occurrences` settings
+
+.Multi-select OptionSet with two of four options selected.
+image::optionset-multiselect.png[Card showing four checkboxes, where two are selected and one of them contains an imageSelector field, 546w]
+
+TIP: Just like the dropdown mode, you may enable multiple occurences of the whole OptionSet, which allows you to create a list of blocks, each with multiple options to select from.
+
+== Usage
+
+Below are examples of various OptionSet configurations.
+
+=== Dropdown example
+
+.Dropdown mode with multiple occurences. The options are `hr`, `text`, `gallery` and `quote`.
 [source,yaml]
 ----
 - type: "OptionSet"
@@ -89,61 +117,9 @@ The schema below demonstrates how you may create blocks of structured content us
 <2> *selection/max* Refers to selectable options per instance. A value of 1 => single-select mode.
 <3> *options* (required) Container of options. Each option may be empty or contain items, just like an item set.
 
-=== Output
+=== Multi-select mode example
 
-*Value type:* `Set` — child properties are indexed individually by their respective types.
-
-An example output of the above form, where the user has created three instances, using three different options: quote, hr and text.
-
-.Example output of single-select setup, here with three occurrences.
-[source,JSON]
-----
-{
-  "blocks": [
-    {
-      "quote": {
-        "quote": "Hi there",
-        "quotee": "Mr Enonic"
-      },
-      "_selected": "quote"
-    },
-    {
-      "hr": {
-      },
-      "_selected": "hr"
-    },
-    {
-      "text": {
-        "text": "A short text"
-      },
-      "_selected": "text"
-    }
-  ]
-}
-----
-
-NOTE: The `_selected` property can be used when searching for selected options for instance.
-
-
-== Multi select mode
-
-=== Appearance
-
-In multi select mode, the user may select zero to many options within a single option set. 
-
-Each option's form (if it exists) will normally only be visible once the option is selected. 
-
-TIP: For convenience, a multi-select option set can be configured to have all options expanded by default. 
-
-Below: A multi-select option set where all options are expanded by default. Option 2 and 3 do not have any additional form items:
-
-image::optionset-multiselect.png[Form showing four options, with the "coloring" and "wood upgrade" options selected, 666]
-
-TIP: For multi-select options sets, it is also possible to pre-select options by default.
-
-=== Usage
-
-The example below demonstrates multi-select mode, with the options `Coloring`, `Wood upgrade`, `Include curtains` and `Exclusive wallpaper`. Only options 1 and 4 contain form elements. Also, user may maximally select two options.
+Demonstrates multi-select mode with the options `Coloring`, `Wood upgrade`, `Include curtains` and `Exclusive wallpaper`. Only options 1 and 4 contain form elements. Also, user may maximally select two options.
 
 .Multi-select option set with the coloring option selected by default.
 [source,yaml]
@@ -205,13 +181,80 @@ The example below demonstrates multi-select mode, with the options `Coloring`, `
 <5> *option name* (required) Must be unique within the option set.
 <6> *selected* Set to `true` to pre-select one of the options.
 
-=== Output
+Check out a <<#sample_output, sample output>> from this configuration
 
-*Value type:* `Set` — child properties are indexed individually by their respective types.
+== Output
 
-The output from the example above may look like this:
+*Value type:* `PropertySet` (object) — child properties are indexed individually by their respective types.
 
-.Example output from multi-select form, with a single occurrence.
+The output always follow the same pattern, regardless of the configuration. 
+
+
+.Single option, single occurence.
+[source,JSON]
+----
+{
+  "my_optionset": {
+    "option_1": {
+      "formitem_1": "Value 1",
+      "formitem_2": "Value 2"
+    },
+    "_selected": "option_1"
+  }
+}
+----
+
+.Multiple options selected, single occurrence.
+[source,JSON]
+----
+{
+  "my_optionset": {
+    "option_1": {
+      "formitem_1": "Value 1",
+      "formitem_2": "Value 2"
+    },
+    "option_2": {
+    },
+    "_selected": [
+      "option_1", 
+      "option_2"
+    ]
+  }
+}
+----
+
+.Single option selected, multiple occurrences.
+[source,JSON]
+----
+{
+  "my_optionset": [
+    {
+      "option_1": {
+        "formitem_1": "Value 1",
+        "formitem_2": "Value 2"
+      },
+      "_selected": "option_1"
+    },
+    {
+      "option_2": {
+      },
+      "_selected": "option_2"
+    },
+    {
+      "option_3": {
+        "formitem_1": "Value 1"
+      },
+      "_selected": "option_3"
+    }
+  ]
+}
+----
+
+NOTE: `_selected` contains the name of all selected options for the occurence. It can be used when searching for content where specific options are selected.
+
+
+[#sample_output]
+.Hands on output from the multi-select example from the usage section above, with two options selected.
 [source,JSON]
 ----
 {
@@ -231,9 +274,11 @@ The output from the example above may look like this:
 
 NOTE: The `_selected` property contains information about which options were selected.
 
-== Querying via GraphQL
+== GraphQL
 
 Guillotine generates a typed object for each option set with the same naming pattern as item sets — the parent content type name plus the option-set name, e.g. `com_example_myproject_Article_Blocks`. The generated type has a `_selected` field plus one nullable field per declared option; only the selected option(s) carry data, the rest are `null`.
+
+You don't reference this generated type directly in queries — it's the type of the `blocks` field, reached through an inline fragment on the parent content type (see below).
 
 `_selected` is a single string in single-select mode and a list of strings in multi-select mode. It is the dispatch key the client reads to know which option's data is present.
 
@@ -294,11 +339,18 @@ Use a typed inline fragment on the parent content type, then select `_selected` 
 }
 ----
 
-The data shape mirrors the stored property structure above. The option fields you don't select in the query simply don't appear in the response; unselected options in the data come back as `null` on the fields you do select.
+The data shape mirrors the stored property structure above. Two rules govern what comes back:
+
+* Option fields you don't ask for in the query never appear in the response.
+* Option fields you do ask for always appear, but are `null` when that option isn't selected for the given instance.
 
 === Dispatching on `_selected`
 
-A client typically branches on `_selected` to render the right block. For single-select mode it's a string; for multi-select it's an array, and the data fields for each entry in the array are populated:
+The snippets below are illustrative *client-side* code, iterating over the `data.blocks` array from the GraphQL response above — not part of the query itself.
+
+You branch on `_selected` rather than checking which option fields are populated, because an option can be selected without containing any form items (e.g. `hr` above). Such options have no data field to inspect, so `_selected` is the only reliable signal of what was chosen.
+
+In single-select mode `_selected` is a string, so you can switch on it directly. The `blocks` option set above is single-select, so each instance carries exactly one selected option:
 
 [source,javascript]
 ----
@@ -309,6 +361,13 @@ for (const block of data.blocks) {
     case "hr":    renderHr();              break;
   }
 }
+----
+
+In multi-select mode `_selected` is an array and several option fields may carry data at once, so test for membership instead of switching:
+
+[source,javascript]
+----
+if (block._selected.includes("coloring")) renderColoring(block.coloring);
 ----
 
 === Filtering content by selected option
@@ -338,4 +397,4 @@ For multi-select option sets the same query works — `_selected` is a multi-val
 
 === Nested option sets and item sets
 
-Option sets may contain item sets or further option sets. The typed-access pattern compounds: each nesting level becomes its own generated type, and field paths for filtering extend with additional dotted segments (e.g. `data.blocks.gallery.images._references`).
+Option sets may contain item sets or further option sets. The typed-access pattern compounds: each nesting level becomes its own generated type, and field paths for filtering extend with additional dotted segments (e.g. `data.blocks.gallery.images`, which holds the image references directly).

@@ -1,4 +1,4 @@
-= DateTime form item
+= DateTime - form item
 
 :imagesdir: images
 :toc: right

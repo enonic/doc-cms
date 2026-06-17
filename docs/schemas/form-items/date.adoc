@@ -1,4 +1,4 @@
-= Date form item
+= Date - form item
 
 :imagesdir: images
 :toc: right
@@ -9,6 +9,7 @@ A simple field for dates with a calendar pop-up box in the admin console. The de
 
 image::date.png[Input field with a calendar icon, 546]
 
+TIP: If the formItem has a `default` value, the Date picker UI will display "*Set default*" button for setting the default value with one click.
 
 == Usage
 
@@ -39,10 +40,6 @@ An offset consists of: a plus or minus sign, followed by an integer, followed by
 
 An offset can also be the string ``now``, which means current date.
 ====
-
-If `<default>` value is set for an input, the Date picker will display "*Set default*" button for setting the default value with one click.
-
-image::Date-selector-default.png[Date selector with default value, 500]
 
 == Output
 

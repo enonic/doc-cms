@@ -1,4 +1,4 @@
-= Instant form item
+= Instant - form item
 
 :imagesdir: images
 :toc: right

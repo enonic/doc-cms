@@ -1,4 +1,4 @@
-= CheckBox form item
+= CheckBox - form item
 :imagesdir: images
 :toc: right
 

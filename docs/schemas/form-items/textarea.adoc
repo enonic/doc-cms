@@ -1,4 +1,4 @@
-= TextArea input type
+= TextArea - form item
 
 :imagesdir: images
 :toc: right
@@ -7,7 +7,15 @@ A plain text, multi-line input field.
 
 == Appearance
 
-image::TextArea.png[Text Area with various settings, 700]
+Visualized as a standard multi-line text input field, which can be configured to show a character counter and limit the maximum allowed characters.
+
+TIP: The form input will automatically grow in height to fit the content.
+
+.Example showing multiple lines of text
+image::textarea.png[TextArea containing several lines of text, 546w]
+
+.Example showing character counter and max length
+image::textarea.png[TextArea containing emojis and showing character counter, 546w]
 
 == Usage
 
@@ -23,8 +31,6 @@ image::TextArea.png[Text Area with various settings, 700]
 <1> *default* specifies the default string for the TextArea
 <2> *max-length* specifies the maximum allowed number of characters (default: unlimited)
 <3> *show-counter* specifies whether text length counter should be shown (default: hidden)
-
-NOTE: Contents of TextArea support browser based spellcheckers in the same way as described for <<textline#spellcheck, TextLine>>.
 
 == Output
 
@@ -42,8 +48,8 @@ NOTE: Contents of TextArea support browser based spellcheckers in the same way a
 ----
 {
   "my_textarea": [
-    "First paragraph.",
-    "Second paragraph."
+    "Sweet home Alabama!\nI'm counting emojis too 😊😊",
+    "Two occurences are more than one."
   ]
 }
 ----

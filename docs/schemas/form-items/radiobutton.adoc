@@ -1,4 +1,4 @@
-= RadioButton input type
+= RadioButton - form item
 
 :imagesdir: images
 :toc: right
@@ -7,7 +7,11 @@ An input type for selecting _one_ of the available options defined in the `confi
 
 
 == Appearance
-image::Radio-buttons.png[two button where one of them is selected, 200]
+
+The interface is a standard radio buttons group, with one button per option. Only one button can be selected at a time.
+
+.Example with three options, where one is selected
+image::Radio-buttons.png[Three button where one of them is selected, 546w]
 
 
 == Usage
@@ -49,5 +53,5 @@ The stored value is the `value` attribute of the selected option. Only one value
 }
 ----
 
-NOTE: The stored value corresponds to the `value` attribute, not the display label.
+NOTE: The stored value corresponds to the `value` attribute, not the `label` which is for display purposes only.
 
