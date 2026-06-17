@@ -17,6 +17,7 @@ Sample macro without the body:
 
 A user can add macro instructions by typing in the macro manually. But more conveniently by clicking the Insert macro button and selecting one of the macros available in Content Studio.
 
+[#descriptor]
 == Descriptor
 
 A macro descriptor is a YAML file that assigns a user-friendly name and description to the macro, and defines the types and names of its parameters.
@@ -46,7 +47,7 @@ form:  # <4>
 Optionally use <<../schemas/i18n#, localization>> via the `text`/`i18n` object pattern to map the value to a resource bundle key.
 <3> *description* (optional) A description shown in the Insert macro dialog in Content Studio. Also supports localization.
 <4> *form* (required) A <<../schemas/forms#, Form>> where each input element corresponds to a macro parameter. Nested elements are not supported, so <<../schemas/form-items/item-set#, Item Sets>> are not allowed in the macro form. The <<../schemas/form-items/htmlarea#, HtmlArea>> input type is also disallowed, since it may contain macros itself.
-<5> *body* (optional) The macro body is represented by an input named `body`. If the form has no `body` input, the generated macro tag will be self-closing — for example, `[macro attr="value"/]`.
+<5> *body* (optional) The macro body is represented by an input named `body`. If the form has no `body` input, the generated macro tag will be self-closing — for example, `[disable][macro attr="value"/][/disable]`.
 
 TIP: The macro texts (title, description, label and help-text from form input types) can be provided in multiple languages. Visit <<../schemas/i18n#, Schema localization>> for more details.
 
@@ -59,9 +60,68 @@ Writing macro functions is an Enonic XP app-development task — see the Enonic 
 
 == Output
 
-During HTML processing, Guillotine invokes each macro's function and replaces the macro instruction with the returned HTML. See <<../richtext#html-processing, HTML processing>> for how to retrieve the rendered output via GraphQL.
+During HTML processing, each macro instruction is translated into an `<editor-macro>` placeholder tag in `processedHtml`, carrying `data-macro-ref` and `data-macro-name` attributes. The HtmlArea GraphQL type also exposes a `macros` field whose `ref` matches the `data-macro-ref` attribute, so a front-end can render each macro from its `name` and typed `config`.
 
-The HtmlArea GraphQL type also exposes a `macros` field that returns the list of macros used in a rich text value, without executing them — useful when the front-end renders macros itself.
+NOTE: Guillotine only processes macros that have a descriptor, plus the built-in `disable` and `embed` macros; any other macro instruction is left untouched.
+
+[source,graphql]
+----
+{
+  guillotine {
+    get(key: "/articles/hello") {
+      ... on com_example_myapp_Article {
+        data {
+          body(processHtml: {type: absolute}) {
+            processedHtml
+            macros {
+              ref  # <1>
+              name
+              config {
+                embed {
+                  body
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+<1> Matches the `data-macro-ref` attribute in `processedHtml`, so a front-end can map each placeholder to its macro element.
+
+.Response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "get": {
+        "data": {
+          "body": {
+            "processedHtml": "<editor-macro data-macro-ref=\"9d4e8f12-...\" data-macro-name=\"embed\"></editor-macro>",
+            "macros": [
+              {
+                "ref": "9d4e8f12-...",
+                "name": "embed",
+                "config": {
+                  "embed": {
+                    "body": "<iframe src=\"https://www.youtube.com/embed/cFfxuWUgcvI\" allowfullscreen></iframe>"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+The `macros` field returns the macros used in the value without rendering them, so a front-end maps each `editor-macro` placeholder (by `ref`) to its own component using the typed `config`. The `config` is keyed by macro name, exposing each parameter declared in the macro's <<#descriptor, descriptor>>. Guillotine also exposes a `descriptor` field per macro and a `macrosAsJson` field returning all macros as JSON in document order.
 
 == Built-in macros
 
@@ -80,6 +140,6 @@ Example using the disable macro:
 
 Example using the embed macro:
 
-  [embed]<iframe src="https://www.youtube.com/embed/cFfxuWUgcvI" allowfullscreen></iframe>[/embed]
+  [disable][embed]<iframe src="https://www.youtube.com/embed/cFfxuWUgcvI" allowfullscreen></iframe>[/embed][/disable]
 
 NOTE: A macro may optionally have its own specific icon. The icon can be assigned to the macro by adding a SVG file with the same name, in the macro folder, e.g. `site/macros/myMacro/myMacro.svg`

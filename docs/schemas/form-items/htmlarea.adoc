@@ -117,7 +117,7 @@ The value is stored in a raw markup format
 
 === Raw format
 
-HtmlArea persists raw markup that is strictly validated. It matches the allowed options of the editor instance. While most elements are generic HTML, internal links, images and macros use a special format that must be processed by your front-end framework. For example, an internal link will be stored as `<a href="content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9">internal link</a>`.
+HtmlArea persists raw markup that is strictly validated against the editor instance's allowed options (`include`, `exclude` and `allowHeadings`). The markup uses Enonic-specific conventions for internal links, images and macros — see <<../../richtext#raw-format, Rich text>> for the format details and <<../../richtext#html-processing, processing>> for how they are resolved.
 
 
 == GraphQL
