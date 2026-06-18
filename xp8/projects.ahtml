@@ -667,7 +667,19 @@ Cells marked <code>?</code> are pending verification.
 <h2 id="applications"><a class="link" href="#applications">Features</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By assigning and configuring Enonic apps for a projects, their Schemas, Extensions and other functionality will be available within the scope of the project. For example, you might have a project for a blog, where you assign a blogging application that provides content types and components for creating blog posts.  It is also worth noting that any configuration of these applications will instantly be reflected, both in Content Studio and via API.</p>
+<p>By assigning and configuring Enonic apps for a projects, their Schemas, Extensions and other functionality will be available within the scope of the project. For example, you might have a project for a blog, where you assign a blogging application that provides content types and components for creating blog posts. Configuration of these applications takes effect immediately, without redeploying the app.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The configuration <strong>values</strong> themselves are not exposed through the GraphQL API by default. Because they may hold secrets (API keys, tokens), they are kept server-side unless an app deliberately exposes selected fields. The same applies to <a href="pages/site.ahtml#_site_configuration">site configuration</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><a href="content/layering.ahtml">Layered projects</a> automatically inherit application settings from parent layers, unless they are overridden in the child layer. This means that if you assign an application to a parent layer, it will be available in all child layers, unless you explicitly override it in a child layer.</p>
@@ -677,7 +689,7 @@ Cells marked <code>?</code> are pending verification.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 08:54:31 UTC
+Last updated 2026-06-18 09:33:40 UTC
 </div>
 </div>
 </body>

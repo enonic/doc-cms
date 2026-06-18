@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Integrations</title>
+<title>Sites</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Integrations</h1>
+<h1>Sites</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#extending-the-cms">Extending the CMS</a></li>
-<li><a href="#extending_content_studio">Extending Content Studio</a></li>
-<li><a href="#ready_made_apps">Ready-made apps</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#site_applications">Site applications</a></li>
+<li><a href="#site_configuration">Site configuration</a></li>
+<li><a href="#definition_portalsite">Definition (portal:site)</a></li>
+<li><a href="#output">Output</a></li>
+<li><a href="#graphql">GraphQL</a></li>
 </ul>
 </div>
 </div>
@@ -451,7 +454,42 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The CMS is designed to be embedded in a larger ecosystem. Front-end clients read content over the built-in <a href="apis.ahtml">Web APIs</a>, while integrations with external systems — analytics, search, CRM, PIM, AI services, import pipelines — plug into the CMS through extension points exposed by the XP platform.</p>
+<p>A site is the root (front-page) of a website within a content project. It is a built-in content type (<code>portal:site</code>) that binds applications to a content sub-tree and unlocks the page-building features.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Creating a site turns an ordinary branch of the content tree into a website. It does three things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Binds applications</strong> to a scope — the schemas, components and extensions of the selected apps become available to content beneath the site.</p>
+</li>
+<li>
+<p><strong>Unlocks the page concept</strong> — once a site exists, the content within it can manage <a href="page.ahtml">pages</a>, <a href="page-templates.ahtml">page templates</a> and <a href="fragments.ahtml">fragments</a>.</p>
+</li>
+<li>
+<p><strong>Defines a URL root</strong> — the site is the root of the URL structure for the website it represents.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A site is a regular content item, so it is versioned, permissioned and published like any other content. Sites can be created anywhere in the hierarchy, but are commonly placed at the project root.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="site_applications"><a class="link" href="#site_applications">Site applications</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Adding an application to a site makes that app&#8217;s content types, components, mixins and other schemas available within the site&#8217;s scope — the same mechanism used at the <a href="../projects.ahtml#applications">project</a> level, but here it is scoped to a single site rather than the whole repository.</p>
+</div>
+<div class="paragraph">
+<p>This is also how purpose-specific apps (a <code>sitemap.xml</code> generator, SEO metafields, redirects, and similar) introduce site-relative features.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -460,8 +498,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
+Apps may also contribute to Enonic&#8217;s built-in rendering as documented in the <a href="https://developer.enonic.com/docs/code">Enonic Development Kit</a> docs.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="site_configuration"><a class="link" href="#site_configuration">Site configuration</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The built-in Web APIs (GraphQL, Image, Attachment) are <strong>read-only</strong>. Programmatic writes — creating or updating content from external systems — are done by exposing your own endpoints through <a href="#extending-the-cms">custom functions</a> that internally use the server-side JavaScript APIs.</p>
+<p>When an app is added to a site, the configuration form declared in its <a href="../schemas/cms-descriptor.ahtml">CMS descriptor</a> is shown to the administrator. The submitted values are persisted on the site content alongside the application binding and are available to the app at runtime. This is the same mechanism as <a href="../projects.ahtml#applications">project configuration</a> — site config applies to a single site, project config to the whole repository — and changes take effect immediately, without redeploying the app.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Configuration values are <strong>not</strong> exposed through the <a href="../apis/graphql.ahtml">GraphQL API</a> by default. Because config commonly holds secrets — API keys, tokens, endpoint credentials — it is kept server-side and is not queryable as content data.</p>
+</div>
+<div class="paragraph">
+<p>If a front-end genuinely needs a configuration value, the app must <strong>deliberately expose</strong> the selected fields, for example through a custom GraphQL field or extension. Nothing in <code>siteConfig</code> becomes queryable automatically.</p>
 </div>
 </td>
 </tr>
@@ -470,73 +531,88 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="extending-the-cms"><a class="link" href="#extending-the-cms">Extending the CMS</a></h2>
+<h2 id="definition_portalsite"><a class="link" href="#definition_portalsite">Definition (portal:site)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Custom integration logic lives in Enonic apps, which are deployed alongside the CMS and have full access to the platform. An app can:</p>
+<p>The Site content type has the following definition:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Expose custom HTTP endpoints</strong> under <code>/api/&lt;app&gt;.&lt;api&gt;</code> for inbound writes, RPC, webhooks, or any protocol the built-in APIs don&#8217;t cover.</p>
-</li>
-<li>
-<p><strong>Extend the GraphQL schema</strong> with custom queries, mutations, and resolvers that appear alongside Guillotine&#8217;s generated types.</p>
-</li>
-<li>
-<p><strong>Listen to content events</strong> — publish, modify, delete — and react by syncing to external systems, invalidating caches, or kicking off workflows.</p>
-</li>
-<li>
-<p><strong>Run scheduled or on-demand tasks</strong> for periodic imports, exports, batch processing, or housekeeping.</p>
-</li>
-<li>
-<p><strong>Access the server-side Content API</strong> (<code>lib-content</code>, <code>lib-scheduler</code>, etc.) to read and write content, manage versions, and traverse the repository from within these functions.</p>
-</li>
-<li>
-<p>Integrate with external systems, perform complex data processing, or implement custom business logic as needed.</p>
-</li>
-<li>
-<p>Access the low level NoSQL storage via the Node API for storing non-editoral data.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These capabilities are part of the standard Enonic XP app surface. See the <a href="https://developer.enonic.com/docs/code">Enonic Development Kit</a> for scaffolding, build, and deployment details.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">super-type</dt>
+<dd>
+<p>base:structured</p>
+</dd>
+<dt class="hdlist1">is-abstract</dt>
+<dd>
+<p>false</p>
+</dd>
+<dt class="hdlist1">is-final</dt>
+<dd>
+<p>true</p>
+</dd>
+<dt class="hdlist1">allow-child-content</dt>
+<dd>
+<p>true</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="extending_content_studio"><a class="link" href="#extending_content_studio">Extending Content Studio</a></h2>
+<h2 id="output"><a class="link" href="#output">Output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Beyond programmatic integration, Content Studio is itself extensible through Enonic apps:</p>
+<p>The stored value of a site carries a <code>siteConfig</code> array — one entry per bound application, each pairing the <code>applicationKey</code> with the values captured by that app&#8217;s configuration form:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Custom selectors</strong> — pull options from external data sources (catalogs, taxonomies, third-party services) into a field; see <a href="schemas/form-items/customselector.ahtml">CustomSelector</a>.</p>
-</li>
-<li>
-<p><strong>Widgets and panels</strong> — add bespoke tools, dashboards, or previews to the Studio chrome.</p>
-</li>
-<li>
-<p><strong>Custom validators</strong> — enforce business rules, integrate approval systems, or trigger external review processes.</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "_id": "d4e5f6a7-...",
+  "_name": "my-site",
+  "_path": "/my-site",
+  "type": "portal:site",
+  "displayName": "My Site",
+  "data": {
+    "siteConfig": [
+      {
+        "applicationKey": "com.example.blog",
+        "config": {
+          "apiKey": "••••••••",
+          "postsPerPage": 10
+        }
+      }
+    ]
+  }
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://developer.enonic.com/docs/code/stable/web/extensions">Enonic Development Kit</a> for examples of extending Content Studio.</p>
+<p>When a single application is bound, <code>siteConfig</code> is a single object rather than an array.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="ready_made_apps"><a class="link" href="#ready_made_apps">Ready-made apps</a></h2>
+<h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic and the community publish ready-to-run integration apps on <a href="https://market.enonic.com">Enonic Market</a>, covering common needs — analytics (Google Analytics, Matomo), SEO tooling, sitemap and feed generation, AI services, and more. Apps install into your XP environment alongside the CMS and typically expose configuration through Content Studio.</p>
+<p>A site is a content item, so it is queried like any other content — by path or id — and exposes the standard content fields:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine {
+    get(key: "/my-site") {
+      _id
+      _path
+      displayName
+      type
+    }
+  }
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>When an off-the-shelf app meets the need, prefer it over building from scratch. When it doesn&#8217;t, build a custom one — or fork an existing app as a starting point.</p>
+<p>The <code>config</code> values inside <code>siteConfig</code> are <strong>not</strong> available in the GraphQL API by default, for the security reasons described under <a href="#_site_configuration">Site configuration</a>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a custom GraphQL field or extension.</p>
 </div>
 </div>
 </div>

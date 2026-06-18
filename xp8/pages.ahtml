@@ -441,17 +441,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#sites">Sites</a>
+<li><a href="#introduction">Introduction</a>
 <ul class="sectlevel2">
-<li><a href="#site_apps">Site apps</a></li>
+<li><a href="#main_concepts">Main concepts</a></li>
 </ul>
 </li>
-<li><a href="#pages">Pages</a>
-<ul class="sectlevel2">
-<li><a href="#page_components">Page components</a></li>
-</ul>
-</li>
-<li><a href="#page_editor">Page editor</a></li>
 <li><a href="#front_end_integration">Front-end integration</a></li>
 </ul>
 </div>
@@ -465,49 +459,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="sites"><a class="link" href="#sites">Sites</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Sites represent the root of a website within a content project. Creating a site unlocks the ability to manage <a href="pages/page.ahtml">pages</a>, <a href="pages/page-templates.ahtml">page templates</a>, and <a href="pages/fragments.ahtml">fragments</a>.</p>
+<p>Enonic XP and Content Studio support an opinionated approach for building web sites and pages. This involves a concept for page components, a visual editor for arranging them, and a GraphQL API that delivers the page structure to the front-end.</p>
 </div>
 <div class="paragraph">
-<p>Site (<code>portal:site</code>) is a built-in content type. Sites can be created anywhere in your content structure, but are commonly placed at the project root. The site also serves as the root for the URL structure of your website.</p>
+<p>Seen from Content Studio, a page and its component structure might look like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/page-editor.png" alt="Page editor" width="1440px">
+</div>
 </div>
 <div class="sect2">
-<h3 id="site_apps"><a class="link" href="#site_apps">Site apps</a></h3>
-<div class="paragraph">
-<p>Similar to projects, you may add applications to a site. Content types, components, mixins and more from the selected applications will be available within the site scope. Purpose-specific applications like sitemap.xml, SEO Metafields, and similar can introduce additional site-relative features.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Site rendering is configured through the <code>site.yaml</code> app descriptor â€” see the <a href="https://developer.enonic.com/docs/code">Enonic Development Kit</a> docs. For the project/site-level CMS-app descriptor, see <a href="schemas/cms-descriptor.ahtml">CMS descriptor</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="pages"><a class="link" href="#pages">Pages</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Pages are an optional feature available for content created within a site. A page can be added to any content item, and then edited visually by adding and arranging components.</p>
-</div>
-<div class="sect2">
-<h3 id="page_components"><a class="link" href="#page_components">Page components</a></h3>
+<h3 id="main_concepts"><a class="link" href="#main_concepts">Main concepts</a></h3>
 <div class="paragraph">
 <p>The page concept is made up of the following building blocks:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong><a href="pages/page.ahtml">Page</a></strong> The root component, defining the overall structure via <a href="pages/page.ahtml#regions">regions</a>.</p>
+<p><strong><a href="pages/site.ahtml">Sites</a></strong> â€” the root of a website, binding applications and unlocking page-building features.</p>
+</li>
+<li>
+<p><strong><a href="pages/page.ahtml">Pages and regions</a></strong> The root component, defining the overall structure via <a href="pages/page.ahtml#regions">regions</a>.</p>
 </li>
 <li>
 <p><strong><a href="pages/parts.ahtml">Parts</a></strong> Leaf components, used to add content to a page.</p>
@@ -524,23 +500,10 @@ Site rendering is configured through the <code>site.yaml</code> app descriptor â
 <li>
 <p><strong><a href="pages/fragments.ahtml">Fragments</a></strong> Reusable component instances shared across pages.</p>
 </li>
+<li>
+<p><strong><a href="pages/page-editor.ahtml">Visual editor</a></strong> â€” a Content Studio interface for building pages by dragging and dropping components, editing their content and configuring their presentation.</p>
+</li>
 </ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="page_editor"><a class="link" href="#page_editor">Page editor</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Content Studio&#8217;s visual page editor allows editors to work with components by dragging and dropping them, and editing them directly on the page.</p>
-</div>
-<div class="paragraph">
-<p>Seen from Content Studio, a page and its component structure might look like this:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/page-editor.png" alt="Page editor" width="1440px">
 </div>
 </div>
 </div>
@@ -556,7 +519,7 @@ Site rendering is configured through the <code>site.yaml</code> app descriptor â
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 08:54:31 UTC
+Last updated 2026-06-18 09:33:40 UTC
 </div>
 </div>
 </body>

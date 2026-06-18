@@ -468,8 +468,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Enonic XP ships with a set of concrete content types that are ready to use as-is. Unlike custom <a href="content-types.ahtml">content types</a>, they are not declared in your app — they are always available and cannot be redefined.</p>
 </div>
-<div class="paragraph">
-<p>This page covers the generic types under the <code>base</code> namespace. Types in the <code>portal</code> namespace (<code>portal:site</code>, <code>portal:page-template</code>, <code>portal:fragment</code>, <code>portal:template-folder</code>) are specific to the <a href="../pages.ahtml">pages and sites</a> concept and documented there.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This page covers the generic types under the <code>base</code> namespace. Types in the <code>portal</code> namespace are documented in the  <a href="../pages.ahtml">pages and sites</a> section.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -703,7 +712,7 @@ For data that does not need editorial workflows, consider using <a href="https:/
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 08:54:31 UTC
+Last updated 2026-06-18 09:33:40 UTC
 </div>
 </div>
 </body>

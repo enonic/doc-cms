@@ -521,7 +521,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>Images</strong> — build Image API URLs with the appropriate scaling and <code>srcset</code>. See <a href="apis/image.ahtml">Image API</a>.</p>
 </li>
 <li>
-<p><strong>Visual editing</strong> — to support the Content Studio page editor, emit the markers it expects. The official toolkits handle this automatically.</p>
+<p><strong>Visual editing</strong> — to support the Content Studio page editor, emit the DOM markers it expects and initialize the <a href="https://www.npmjs.com/package/@enonic/page-editor"><code>@enonic/page-editor</code></a> module. See <a href="pages/page-editor.ahtml">Visual page editor</a>. The official toolkits handle this automatically.</p>
 </li>
 </ul>
 </div>
@@ -542,7 +542,7 @@ The <a href="https://developer.enonic.com/learn/react-spa/stable">React SPA tuto
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 08:54:31 UTC
+Last updated 2026-06-18 09:33:40 UTC
 </div>
 </div>
 </body>
