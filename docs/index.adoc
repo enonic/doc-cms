@@ -31,7 +31,7 @@ This documentation covers the CMS surface only. See also:
 
 Developers may adapt the platform, APIs and tooling extensively via Enonic apps, making it a versatile choice for organizations looking to manage their digital content in a way that is optimized for their needs.
 
-== Front-end toolkits
+== Front-end integration
 
-Enonic CMS can be used with any front-end framework. Enonic manages and publishes https://www.npmjs.com/package/@enonic/react-components[Enonic React components] and a highly optimized https://developer.enonic.com/learn/next.xp/stable[Next.js integration]. See the https://developer.enonic.com/docs/frameworks[frameworks section] for more details and examples.
+Enonic CMS can be used with any front-end framework, and publishes React components and a Next.js integration (Next.xp) to handle rendering. See <<frontend#, Front-end integration>>.
 

@@ -96,4 +96,4 @@ In the processed HTML the `image://` reference is rewritten to an Image API `<im
 
 == Rendering
 
-A front-end consumes `processedHtml` together with the typed `images` data, correlating each `data-image-ref` tag with its `ref` to render images its own way (for example a responsive `<picture>` or a design-system component). Enonic's front-end toolkits handle this mapping for you — see the <<../richtext#front-end-toolkits, front-end toolkits>> and the https://developer.enonic.com/learn/react-spa/stable/rich-text[React SPA tutorial] for worked examples.
+A front-end consumes `processedHtml` together with the typed `images` data, correlating each `data-image-ref` tag with its `ref` to render images its own way (for example a responsive `<picture>` or a design-system component). Enonic's front-end toolkits handle this mapping for you — see <<../frontend#, Front-end integration>> and the https://developer.enonic.com/learn/react-spa/stable/rich-text[React SPA tutorial] for worked examples.

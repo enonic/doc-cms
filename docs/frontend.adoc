@@ -1,0 +1,35 @@
+= Front-end integration
+:toc: right
+
+Enonic is a Headless CMS: it manages and delivers content through APIs and leaves rendering to your front-end. This page explains how the CMS output is consumed in a front-end and the toolkits Enonic provides to make it easier.
+
+== Headless model
+
+Content is queried through the <<apis/graphql#, GraphQL API>> (Guillotine), which returns structured, render-ready data:
+
+* *Content* — content types, fields and references exposed as typed GraphQL fields.
+* *Media* — URLs served by the <<apis/image#, Image API>> and <<apis/attachment#, Attachment API>>.
+* *Rich text* — a `processedHtml` string plus typed `images`, `links` and `macros` fields. See <<richtext#, Rich text>>.
+* *Pages* — the component tree of a page (parts, layouts and fragments). See <<pages#, Sites and Pages>>.
+
+A front-end fetches this data and maps it to its own components, routes and markup.
+
+== Official toolkits
+
+Enonic CMS can be used with any front-end framework. To avoid hand-writing the mapping, Enonic publishes and maintains:
+
+* *Enonic React components* — render rich text, pages and components, with hooks for overriding how links, images and macros are rendered. See the https://www.npmjs.com/package/@enonic/react-components[`@enonic/react-components` package].
+* *Next.xp* — a Next.js integration providing page rendering, routing, preview and visual-editor support out of the box. See the https://developer.enonic.com/learn/next.xp/stable[Next.xp documentation].
+
+For the full list of supported toolkits, starters and examples, see the https://developer.enonic.com/docs/frameworks[Frameworks section] and https://developer.enonic.com/templates[Enonic templates and starters].
+
+== Rolling your own
+
+If you integrate a framework the official toolkits don't cover, your renderer has to handle the Enonic-specific output:
+
+* *Rich-text references* — resolve `content://` links to your routes, replace image references with responsive `<img>`/`<picture>` tags served by the Image API, and render `editor-macro` placeholders. Each is keyed by a `ref` that matches a `data-*-ref` attribute in `processedHtml`. See <<richtext/links#, Links>>, <<richtext/images#, Images>> and <<richtext/macros#, Macros>>.
+* *Pages* — walk the page component tree and map each part, layout and fragment descriptor to a component. See <<pages#, Sites and Pages>>.
+* *Images* — build Image API URLs with the appropriate scaling and `srcset`. See <<apis/image#, Image API>>.
+* *Visual editing* — to support the Content Studio page editor, emit the markers it expects. The official toolkits handle this automatically.
+
+TIP: The https://developer.enonic.com/learn/react-spa/stable[React SPA tutorial] is a hands-on walkthrough of consuming the APIs in a React front-end.

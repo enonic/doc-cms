@@ -101,4 +101,4 @@ Content (page) links keep their `content://<id>` reference and are only tagged w
 
 == Rendering
 
-A front-end consumes `processedHtml` together with the typed `links` data, correlating each `data-link-ref` tag with its `ref` to route links its own way (for example mapping a referenced content item to an application route). Enonic's front-end toolkits handle this mapping for you — see the <<../richtext#front-end-toolkits, front-end toolkits>> and the https://developer.enonic.com/learn/react-spa/stable/rich-text[React SPA tutorial] for worked examples.
+A front-end consumes `processedHtml` together with the typed `links` data, correlating each `data-link-ref` tag with its `ref` to route links its own way (for example mapping a referenced content item to an application route). Enonic's front-end toolkits handle this mapping for you — see <<../frontend#, Front-end integration>> and the https://developer.enonic.com/learn/react-spa/stable/rich-text[React SPA tutorial] for worked examples.

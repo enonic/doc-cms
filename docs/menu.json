@@ -233,7 +233,7 @@
       ]
     },
     {
-      "title": "Sites and Pages",
+      "title": "Pages and Sites",
       "document": "pages",
       "menuItems": [
         {
@@ -291,6 +291,10 @@
           "document": "apis/other"
         }
       ]
+    },
+    {
+      "title": "Front-end integration",
+      "document": "frontend"
     },
     {
       "title": "Integrations",

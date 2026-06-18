@@ -9,17 +9,17 @@ XP supports definition of custom styles for use in rich text content.
 Styles are used to add effects and styling to elements of the
 https://developer.enonic.com/docs/content-studio/stable/editor/rich-text-editor#custom_image_styles[Rich Text Editor].
 
-Custom styles typically map to a CSS class for client-side styling. Image styles additionally support instructions for the image service, enabling image crops and filters to be applied server-side.
+Each style is intended to be mapped to a corresponding front-end style (i.e. css class). Image styles additionally support instructions for the image service, enabling image crops and filters to be applied server-side.
 
 NOTE: At the moment, custom styles are only supported for Images.
 
 == Descriptor
 
-The `styles.yaml` file declares the custom styles for your app.
+The `style.yaml` file declares the custom styles for your app.
 
 Example style definition:
 
-./src/main/resources/site/styles.yaml
+./src/main/resources/cms/style/style.yaml
 [source,yaml]
 ----
 kind: "Style"
@@ -43,7 +43,7 @@ styles:
 <1> *type* (required) Currently only `image` styles are supported.
 <2> *aspectRatio* (optional) Server-side crop ratio applied by the image service when the style is selected.
 <3> *filter* (optional) Server-side image filter applied by the image service. See the image service documentation for the full list of available filters.
-<4> *editor.css* (optional) Inline CSS injected into Content Studio's rich text editor to provide client-side styling of the element while editing. Use the `|` block scalar to embed the rule set directly in the descriptor.
+<4> *editor.css* (optional) This CSS will be injected into Content Studio's rich text editor for an improved editor experience. Use the `|` block scalar to embed the rule set directly in the descriptor.
 
 NOTE: `aspectRatio` and `filter` are the only options available for server-side image processing.
 
@@ -56,5 +56,4 @@ NOTE: `aspectRatio` and `filter` are the only options available for server-side 
 == Built-in styles
 
 By default, XP comes with a built-in image style called `Original (no image processing)`.
-
 By applying this style to an image, the original image file will be served, without any processing.
