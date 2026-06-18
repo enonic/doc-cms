@@ -30,6 +30,6 @@ If you integrate a framework the official toolkits don't cover, your renderer ha
 * *Rich-text references* — resolve `content://` links to your routes, replace image references with responsive `<img>`/`<picture>` tags served by the Image API, and render `editor-macro` placeholders. Each is keyed by a `ref` that matches a `data-*-ref` attribute in `processedHtml`. See <<richtext/links#, Links>>, <<richtext/images#, Images>> and <<richtext/macros#, Macros>>.
 * *Pages* — walk the page component tree and map each part, layout and fragment descriptor to a component. See <<pages#, Sites and Pages>>.
 * *Images* — build Image API URLs with the appropriate scaling and `srcset`. See <<apis/image#, Image API>>.
-* *Visual editing* — to support the Content Studio page editor, emit the markers it expects. The official toolkits handle this automatically.
+* *Visual editing* — to support the Content Studio page editor, emit the DOM markers it expects and initialize the https://www.npmjs.com/package/@enonic/page-editor[`@enonic/page-editor`] module. See <<pages/page-editor#, Visual page editor>>. The official toolkits handle this automatically.
 
 TIP: The https://developer.enonic.com/learn/react-spa/stable[React SPA tutorial] is a hands-on walkthrough of consuming the APIs in a React front-end.
