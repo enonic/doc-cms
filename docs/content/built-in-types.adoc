@@ -4,7 +4,8 @@
 
 Enonic XP ships with a set of concrete content types that are ready to use as-is. Unlike custom <<content-types#, content types>>, they are not declared in your app — they are always available and cannot be redefined.
 
-This page covers the generic types under the `base` namespace. Types in the `portal` namespace (`portal:site`, `portal:page-template`, `portal:fragment`, `portal:template-folder`) are specific to the <<../pages#, pages and sites>> concept and documented there.
+
+TIP: This page covers the generic types under the `base` namespace. Types in the `portal` namespace are documented in the  <<../pages#, pages and sites>> section.
 
 == Folder (base:folder)
 

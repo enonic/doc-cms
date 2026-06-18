@@ -75,6 +75,8 @@ An example might be `com.enonic.cms.myproject.author`.
 [#applications]
 == Features
 
-By assigning and configuring Enonic apps for a projects, their Schemas, Extensions and other functionality will be available within the scope of the project. For example, you might have a project for a blog, where you assign a blogging application that provides content types and components for creating blog posts.  It is also worth noting that any configuration of these applications will instantly be reflected, both in Content Studio and via API.
+By assigning and configuring Enonic apps for a projects, their Schemas, Extensions and other functionality will be available within the scope of the project. For example, you might have a project for a blog, where you assign a blogging application that provides content types and components for creating blog posts. Configuration of these applications takes effect immediately, without redeploying the app.
+
+NOTE: The configuration *values* themselves are not exposed through the GraphQL API by default. Because they may hold secrets (API keys, tokens), they are kept server-side unless an app deliberately exposes selected fields. The same applies to <<pages/site#_site_configuration, site configuration>>.
 
 <<content/layering#, Layered projects>> automatically inherit application settings from parent layers, unless they are overridden in the child layer. This means that if you assign an application to a parent layer, it will be available in all child layers, unless you explicitly override it in a child layer.
