@@ -80,7 +80,6 @@ The HtmlArea field is queried with a `processHtml` argument, where `type` select
 
 Beyond `raw` and `processedHtml`, the HtmlArea type also exposes the <<#markup, special elements>> as typed fields — `images`, `links` and `macros` — each carrying a `ref` that matches its `data-*-ref` attribute in `processedHtml`, so a front-end can resolve references without parsing the HTML. Each element's page documents its typed field shape and response.
 
-[#front-end-toolkits]
-== Front-end toolkits
+== Front-end integration
 
-Rendering processed rich text in a front-end framework — mapping content URLs to routes, swapping image references for responsive `<picture>` tags, and rendering macros as components — is non-trivial to do by hand. Enonic publishes React components and a Next.js integration (Next.xp) that handle these steps for you. See the https://developer.enonic.com/docs/frameworks[Frameworks section] for more.
+Rendering processed rich text in a front-end framework — mapping content URLs to routes, swapping image references for responsive `<picture>` tags, and rendering macros as components — is non-trivial to do by hand. See <<frontend#, Front-end integration>> for the toolkits Enonic provides.
