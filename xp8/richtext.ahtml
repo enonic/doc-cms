@@ -445,7 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#markup">Markup</a></li>
 <li><a href="#raw-format">Raw format</a></li>
 <li><a href="#html-processing">Processed output</a></li>
-<li><a href="#front-end-toolkits">Front-end toolkits</a></li>
+<li><a href="#front_end_integration">Front-end integration</a></li>
 </ul>
 </div>
 </div>
@@ -567,17 +567,17 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
 </div>
 </div>
 <div class="sect1">
-<h2 id="front-end-toolkits"><a class="link" href="#front-end-toolkits">Front-end toolkits</a></h2>
+<h2 id="front_end_integration"><a class="link" href="#front_end_integration">Front-end integration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Rendering processed rich text in a front-end framework — mapping content URLs to routes, swapping image references for responsive <code>&lt;picture&gt;</code> tags, and rendering macros as components — is non-trivial to do by hand. Enonic publishes React components and a Next.js integration (Next.xp) that handle these steps for you. See the <a href="https://developer.enonic.com/docs/frameworks">Frameworks section</a> for more.</p>
+<p>Rendering processed rich text in a front-end framework — mapping content URLs to routes, swapping image references for responsive <code>&lt;picture&gt;</code> tags, and rendering macros as components — is non-trivial to do by hand. See <a href="frontend.ahtml">Front-end integration</a> for the toolkits Enonic provides.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-17 16:23:23 UTC
+Last updated 2026-06-18 08:54:31 UTC
 </div>
 </div>
 </body>

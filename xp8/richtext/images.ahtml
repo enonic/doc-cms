@@ -580,14 +580,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="rendering"><a class="link" href="#rendering">Rendering</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A front-end consumes <code>processedHtml</code> together with the typed <code>images</code> data, correlating each <code>data-image-ref</code> tag with its <code>ref</code> to render images its own way (for example a responsive <code>&lt;picture&gt;</code> or a design-system component). Enonic&#8217;s front-end toolkits handle this mapping for you — see the <a href="../richtext.ahtml#front-end-toolkits">front-end toolkits</a> and the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text">React SPA tutorial</a> for worked examples.</p>
+<p>A front-end consumes <code>processedHtml</code> together with the typed <code>images</code> data, correlating each <code>data-image-ref</code> tag with its <code>ref</code> to render images its own way (for example a responsive <code>&lt;picture&gt;</code> or a design-system component). Enonic&#8217;s front-end toolkits handle this mapping for you — see <a href="../frontend.ahtml">Front-end integration</a> and the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text">React SPA tutorial</a> for worked examples.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-17 16:23:23 UTC
+Last updated 2026-06-18 08:54:31 UTC
 </div>
 </div>
 </body>

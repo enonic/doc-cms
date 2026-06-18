@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>ImageSelector - input type</title>
+<title>Front-end integration</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,14 +437,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>ImageSelector - input type</h1>
+<h1>Front-end integration</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#appearance">Appearance</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#output">Output</a></li>
-<li><a href="#graphql">GraphQL</a></li>
+<li><a href="#headless_model">Headless model</a></li>
+<li><a href="#official_toolkits">Official toolkits</a></li>
+<li><a href="#rolling_your_own">Rolling your own</a></li>
 </ul>
 </div>
 </div>
@@ -452,85 +451,91 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The ImageSelector is a specialized version of the <a href="contentselector.ahtml">ContentSelector</a> that is limited to selecting images (content of type "media:image"), but also upload new images.</p>
+<p>Enonic is a Headless CMS: it manages and delivers content through APIs and leaves rendering to your front-end. This page explains how the CMS output is consumed in a front-end and the toolkits Enonic provides to make it easier.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<h2 id="headless_model"><a class="link" href="#headless_model">Headless model</a></h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="images/imageselector.png" alt="Input box with a grid of images to select below it" width="546w">
+<div class="paragraph">
+<p>Content is queried through the <a href="apis/graphql.ahtml">GraphQL API</a> (Guillotine), which returns structured, render-ready data:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Content</strong> — content types, fields and references exposed as typed GraphQL fields.</p>
+</li>
+<li>
+<p><strong>Media</strong> — URLs served by the <a href="apis/image.ahtml">Image API</a> and <a href="apis/attachment.ahtml">Attachment API</a>.</p>
+</li>
+<li>
+<p><strong>Rich text</strong> — a <code>processedHtml</code> string plus typed <code>images</code>, <code>links</code> and <code>macros</code> fields. See <a href="richtext.ahtml">Rich text</a>.</p>
+</li>
+<li>
+<p><strong>Pages</strong> — the component tree of a page (parts, layouts and fragments). See <a href="pages.ahtml">Sites and Pages</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A front-end fetches this data and maps it to its own components, routes and markup.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="official_toolkits"><a class="link" href="#official_toolkits">Official toolkits</a></h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "ImageSelector"
-  name: "my_image"
-  label: "My Image"
-  occurrences:
-    min: 0
-    max: 1
-  allowPath:  <i class="conum" data-value="1"></i><b>(1)</b>
-    - "${site}/*"  <i class="conum" data-value="2"></i><b>(2)</b>
-  treeMode: true
-  hideToggleIcon: true</code></pre>
+<div class="paragraph">
+<p>Enonic CMS can be used with any front-end framework. To avoid hand-writing the mapping, Enonic publishes and maintains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Enonic React components</strong> — render rich text, pages and components, with hooks for overriding how links, images and macros are rendered. See the <a href="https://www.npmjs.com/package/@enonic/react-components"><code>@enonic/react-components</code> package</a>.</p>
+</li>
+<li>
+<p><strong>Next.xp</strong> — a Next.js integration providing page rendering, routing, preview and visual-editor support out of the box. See the <a href="https://developer.enonic.com/learn/next.xp/stable">Next.xp documentation</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the full list of supported toolkits, starters and examples, see the <a href="https://developer.enonic.com/docs/frameworks">Frameworks section</a> and <a href="https://developer.enonic.com/templates">Enonic templates and starters</a>.</p>
 </div>
 </div>
-<div class="colist arabic">
+</div>
+<div class="sect1">
+<h2 id="rolling_your_own"><a class="link" href="#rolling_your_own">Rolling your own</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you integrate a framework the official toolkits don&#8217;t cover, your renderer has to handle the Enonic-specific output:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Rich-text references</strong> — resolve <code>content://</code> links to your routes, replace image references with responsive <code>&lt;img&gt;</code>/<code>&lt;picture&gt;</code> tags served by the Image API, and render <code>editor-macro</code> placeholders. Each is keyed by a <code>ref</code> that matches a <code>data-*-ref</code> attribute in <code>processedHtml</code>. See <a href="richtext/links.ahtml">Links</a>, <a href="richtext/images.ahtml">Images</a> and <a href="richtext/macros.ahtml">Macros</a>.</p>
+</li>
+<li>
+<p><strong>Pages</strong> — walk the page component tree and map each part, layout and fragment descriptor to a component. See <a href="pages.ahtml">Sites and Pages</a>.</p>
+</li>
+<li>
+<p><strong>Images</strong> — build Image API URLs with the appropriate scaling and <code>srcset</code>. See <a href="apis/image.ahtml">Image API</a>.</p>
+</li>
+<li>
+<p><strong>Visual editing</strong> — to support the Content Studio page editor, emit the markers it expects. The official toolkits handle this automatically.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>With the exception of <code>allowContentType</code> (which is not supported here) and <code>allowPath</code>, ImageSelector supports the same configuration options as <a href="contentselector.ahtml">ContentSelector</a>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>By default, Image Selector displays all images from the root. If you want to limit images to the same site, use <code>allowPath: "${site}/*"</code></td>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <a href="https://developer.enonic.com/learn/react-spa/stable">React SPA tutorial</a> is a hands-on walkthrough of consuming the APIs in a React front-end.
+</td>
 </tr>
 </table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Value type:</strong> <code>Reference</code> — not included in <code>_alltext</code></p>
-</div>
-<div class="paragraph">
-<p>The stored value is the content ID of the selected image. Like <a href="contentselector.ahtml">ContentSelector</a>, the value is a reference to the image content item.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "my_image": "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9"
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Multiple occurrences</div>
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "my_image": [
-    "f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9",
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-  ]
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the GraphQL API the reference is resolved to the referenced image content, so you can query its fields (and image URLs) in the same request. See <a href="../../content/references.ahtml">References</a> for query examples.</p>
 </div>
 </div>
 </div>

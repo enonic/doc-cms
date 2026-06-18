@@ -443,7 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#main_features">Main features</a></li>
-<li><a href="#front_end_toolkits">Front-end toolkits</a></li>
+<li><a href="#front_end_integration">Front-end integration</a></li>
 </ul>
 </div>
 </div>
@@ -509,17 +509,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="front_end_toolkits"><a class="link" href="#front_end_toolkits">Front-end toolkits</a></h2>
+<h2 id="front_end_integration"><a class="link" href="#front_end_integration">Front-end integration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic CMS can be used with any front-end framework. Enonic manages and publishes <a href="https://www.npmjs.com/package/@enonic/react-components">Enonic React components</a> and a highly optimized <a href="https://developer.enonic.com/learn/next.xp/stable">Next.js integration</a>. See the <a href="https://developer.enonic.com/docs/frameworks">frameworks section</a> for more details and examples.</p>
+<p>Enonic CMS can be used with any front-end framework, and publishes React components and a Next.js integration (Next.xp) to handle rendering. See <a href="frontend.ahtml">Front-end integration</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-17 16:23:23 UTC
+Last updated 2026-06-18 08:54:31 UTC
 </div>
 </div>
 </body>
