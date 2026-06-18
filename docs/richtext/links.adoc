@@ -1,12 +1,20 @@
 = Links
 :toc: right
-:imagesdir: images
+:imagesdir: img
 
 Rich text can link to other content in the repository, to media files, and to external URLs. 
 
 == Internal links
 
 Internal links are stored as references rather than fixed URLs, so they keep working when the target is moved or renamed — the actual URL is resolved when the content is rendered.
+
+== Appearance
+
+In Content Studio, the HtmlArea editor provides a link dialog that allows editors to insert links to content, media and external URLs. The editor also supports editing existing links, including changing the link type and target.
+
+.The link dialog is available from the editor toolbar
+image::link-dialog.png[Link dialog with all available options, 830w]
+
 
 == Raw format
 

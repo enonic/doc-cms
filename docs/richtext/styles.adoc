@@ -48,11 +48,6 @@ styles:
 NOTE: `aspectRatio` and `filter` are the only options available for server-side image processing.
 
 
-//== Output
-
-//TODO
-
-
 == Built-in styles
 
 By default, XP comes with a built-in image style called `Original (no image processing)`.

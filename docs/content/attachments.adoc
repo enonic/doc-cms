@@ -5,9 +5,7 @@ toc: right
 Content items may optionally contain attachments - files that are uploaded and stored together with the content item. 
 
 == Intro
-Attachments allow you to add files to content items, similar to how files are attached to an e-mail. Attachments can be added to content items via the AttachmentUploader input type, and are stored as part of the content item in the repository. 
-
-TODO: Verify if Attachments are indexed and can be searched for, and the text content of attachments (e.g. PDF files) is also extracted and indexed for search.
+Attachments allow you to add files to content items, similar to how files are attached to an e-mail. Attachments can be added to content items via the AttachmentUploader input type, and are stored as part of the content item in the repository.
 
 == Attachment vs Media
 

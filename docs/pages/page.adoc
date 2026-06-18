@@ -1,4 +1,4 @@
-= Page components
+= Pages and regions
 :toc: right
 :imagesdir: images
 
@@ -6,9 +6,9 @@ At least one page component must be available in your project to be able to crea
 
 == Introduction
 
-At the root of every page, you will find the page component. Most sites only need a single page component, as this can be reused across all pages.
+At the root of every page, you will find the page component. In most cases you will only need a single page component, as this can be reused across all pages.
 
-To create a page component, place a descriptor file in your project: `src/main/resources/site/pages/<page-name>/<page-name>.yaml`.
+To create a page component, place a descriptor file in your project: `src/main/resources/cms/pages/<page-name>/<page-name>.yaml`.
 
 NOTE: The name you choose for a component will be used in the underlying data of the stored page. So choose your name wisely.
 
@@ -34,20 +34,23 @@ regions:  # <4>
 
 NOTE: A page component may define zero to many regions. Conventionally, a page should at least define a single region called `main`.
 
+
+== Appearance
+
+In content Studio, a page component is represented by a tree structure, where the page itself is the root and the regions are branches. The components placed within the regions are the leaves of the tree.
+
+.An expanded page form with regions and components
+image::component-tree.png[Page component tree structure, the regions are listed with capitalized names and do not have icons, 546w]
+
+
 == Regions
 
 Regions are explicitly named drop zones where editors can place other page components. Only page and <<parts#layouts, layout>> components support regions. Each region must have a unique name within the component.
 
-From Content Studio, this is what regions may look like in the page form:
+In content Studio, regions have both a form-based view and a visual representation (if enabled). Empty regions will be visualized as drop zones.
 
-image::component-input-type.png[Component editor, 527px]
-
-And here is what the same structure might look like in the visual page editor.
-
-NOTE: The dropzones are empty regions.
-
-//TODO replace
-image::3-region-layout.png[Layout with three empty regions, 1012px]
+.A page with layouts and regions
+image::regions.png[a default page, with a single main region and two layouts with their respective regions listed - some regions are empty and the visual editor shows the empty dropzones for these, 1440w]
 
 
 == Output

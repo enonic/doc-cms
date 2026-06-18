@@ -1,6 +1,6 @@
 = Image component
 :toc: right
-:imagesdir: images
+:imagesdir: img
 
 Advanced component for inserting and managing images in rich text. 
 
@@ -8,9 +8,17 @@ Advanced component for inserting and managing images in rich text.
 
 The HtmlArea's built-in image function embeds a managed image in rich text. Unlike a plain `<img>`, it references an image content item by ID, may include a caption, and can apply a custom <<styles#, image style>> — cropping and filters are handled server-side, and the URL is resolved at render time.
 
+== Appearance
+
+In Content Studio, the HtmlArea editor provides a standard image dialog that allows editors to insert images and control the basic styling.
+
+.The image dialog is available from the editor toolbar
+image::image-dialog.png[Image dialog with all available options where the style dropdown is opened, 919w]
+
+
 == Raw format
 
-An inserted image is stored as a `<figure>` wrapping an `<img>` that references the image by ID, optionally with a `<figcaption>` caption and a style class:
+The inserted image is stored as a `<figure>` element wrapping an `<img>` that references the image by ID, optionally with a `<figcaption>` caption and a style class:
 
 [source,html]
 ----

@@ -1,9 +1,10 @@
 = Macros
+:imagesdir: img
 :toc: right
 
 Macros enable editors to add rich functionality or include dynamic content in the HtmlArea editor.
 
-== Text format
+== Usage
 
 In the HtmlArea editor, a macro is written in plain text. They are similar to HTML or XML tags, but uses square brackets instead of angle brackets.
 
@@ -17,12 +18,23 @@ Sample macro without the body:
 
 A user can add macro instructions by typing in the macro manually. But more conveniently by clicking the Insert macro button and selecting one of the macros available in Content Studio.
 
+== Appearance
+
+In Content Studio, the Insert macro dialog lists the available macros with their title and description. The user can search for a macro by name, and insert it by clicking on it.
+
+.The macro dialog is available from the editor toolbar
+image::macro-dialog.png[Showing the macro dialog with the built-in iframe macro pre-selected, 910w]
+
+.The inserted macro appears as plain text in the editor
+image::macro-inserted.png[Showing the macro reference as text within the editor, 976w]
+
+
 [#descriptor]
 == Descriptor
 
 A macro descriptor is a YAML file that assigns a user-friendly name and description to the macro, and defines the types and names of its parameters.
 
-Its path follows the pattern `src/main/resources/site/macros/<macroName>/<macroName>.yaml`
+Its path follows the pattern `src/main/resources/cms/macros/<macroName>/<macroName>.yaml`
 
 [source, yaml]
 ----
@@ -54,7 +66,7 @@ TIP: The macro texts (title, description, label and help-text from form input ty
 
 == Macro function
 
-A macro is rendered by a function declared under `src/main/resources/site/macros/<macroName>/<macroName>.js`. The function receives a context with the macro's `name`, `body`, and `params`, and returns the HTML to insert at the macro's position.
+A macro is rendered by a function declared under `src/main/resources/cms/macros/<macroName>/<macroName>.js`. The function receives a context with the macro's `name`, `body`, and `params`, and returns the HTML to insert at the macro's position.
 
 Writing macro functions is an Enonic XP app-development task — see the Enonic XP app-development docs for the full context object, response shape, and page-contribution support.
 

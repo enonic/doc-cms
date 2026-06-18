@@ -15,15 +15,17 @@ To create a Fragment in Content Studio: Edit an existing page, select a componen
 
 Changes applied to a fragment will immediately be available in the pages that reference the fragment.
 
-image::fragment-component.png[Converting a layout to a component, 1440px]
+image::save-as-fragment.png[Converting a component to a fragment, 1440px]
 
-Once a fragments is created, it can be inserted on pages just like any other component. Using Content Studio, simply insert a fragment component, an choose the fragment content item from the list.
+Once a fragments is created, it can be inserted on pages just like any other component. Using Content Studio, simply insert a fragment placeholder, and choose the fragment content item from the list.
 
 == Preview
 
-Like pages, fragments can be edited via the content form view, and optionally visually if supported by your front-end.
+Fragments can be edited and managed from the content form panel, without any visual editing or preview enabled. 
 
-TIP: You may also render fragments via Enonic functions and https://developer.enonic.com/docs/code/stable/web/sites/mappings[mapping] using `<match>type:'portal:fragment'</match>`.
+If your front-end has implemented a preview route for fragments, you can also preview the rendered fragment in isolation. To do this, fetch the fragment content item via GraphQL and render the wrapped component as you would for a page. See <<querying-via-graphql#, Direct access>> for the query.
+
+TIP: Enonic's built-in rendering supports fragment preview via https://developer.enonic.com/docs/code/stable/web/sites/mappings[mapping] using `<match>type:'portal:fragment'</match>`.
 
 == Search
 
