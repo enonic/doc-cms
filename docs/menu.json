@@ -237,6 +237,10 @@
       "document": "pages",
       "menuItems": [
         {
+          "title": "Sites",
+          "document": "pages/site"
+        },
+        {
           "title": "Pages and Regions",
           "document": "pages/page"
         },
