@@ -2,7 +2,26 @@
 :toc: right
 :imagesdir: images
 
-Parts and layouts are the building blocks editors place inside <<page#regions, regions>> to compose pages.
+Parts and layouts are the building blocks the editors place inside <<page#regions, regions>> to compose pages.
+
+== Insert 
+
+From Content Studio, editors may insert parts and layouts into regions by right-clicking the page form, or by dragging and dropping them into the visual editor. 
+
+The available parts and layouts are determined by the components registered in your project.
+
+.Inserting a part into a region
+image::component-insert.png[Context menu with insert part highlighted - Insert layout is disabled as nested layouts is not allowed, 793w]
+
+
+== Configuration
+
+Once added to the page, a part or layout can be configured. The form fields are defined in the component descritor, similar to a content type.
+
+.Each component may declare a form
+image::component-configure.png[Page form supports validation handling and visualization, 1440w]
+
+
 
 == Parts
 
@@ -10,7 +29,7 @@ Parts are leaf components in the page structure — they do not contain regions.
 
 === Usage
 
-Place a descriptor in your project: `src/main/resources/site/parts/<part-name>/<part-name>.yaml`.
+Place a descriptor in your project: `src/main/resources/cms/parts/<part-name>/<part-name>.yaml`.
 
 Each part may declare a form using the schema system. The form data will be stored together with each component instance.
 
@@ -28,19 +47,13 @@ Parts support custom icons that replace the standard part icon in Content Studio
 
 For example, if the part is called _mypart_, the icon file should be called either _mypart.svg_ or _mypart.png_.
 
-Below are examples of what custom icons may look like in Content Studio.
-
-image::part-selector.png[Custom icon as seen in the part selector, 289]
-image::component-tree.png[Custom icons in the page components tree, 422]
-
-
 == Layouts
 
 Layouts are essentially parts that support regions <<page#regions, regions>>. This allows editors to create nested structures of components within the page. Layouts are commonly used to style groups of components in a specific way, or for columnar presentation of parts.
 
 === Usage
 
-Place a descriptor in your project: `src/main/resources/site/layouts/<layout-name>/<layout-name>.yaml`.
+Place a descriptor in your project: `src/main/resources/cms/layouts/<layout-name>/<layout-name>.yaml`.
 
 Similar to page descriptors, layouts support both schema forms and regions.
 
@@ -55,10 +68,6 @@ regions:
   - name: "main"
   - name: "right"
 ----
-
-Here is what an empty layout with three regions might look like in Content Studio's visual page editor:
-
-image::3-region-layout-wrapped.png[Layout selected in the page editor, 1012px]
 
 
 [#querying-via-graphql]

@@ -58,8 +58,6 @@ Project roles are CMS-level conveniences — underneath, they grant combinations
 | Owner       | ✓    | ✓      | ✓      | ✓      | ✓       | ✓                | ✓
 |===
 
-NOTE: Cells marked `?` are pending verification.
-
 === Role principal IDs
 
 For each project, dedicated principal roles are created. The roles are named as follows:
