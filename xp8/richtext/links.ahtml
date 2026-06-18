@@ -442,6 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#internal_links">Internal links</a></li>
+<li><a href="#appearance">Appearance</a></li>
 <li><a href="#raw_format">Raw format</a></li>
 <li><a href="#processed_output">Processed output</a></li>
 <li><a href="#rendering">Rendering</a></li>
@@ -461,6 +462,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>Internal links are stored as references rather than fixed URLs, so they keep working when the target is moved or renamed — the actual URL is resolved when the content is rendered.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Content Studio, the HtmlArea editor provides a link dialog that allows editors to insert links to content, media and external URLs. The editor also supports editing existing links, including changing the link type and target.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/link-dialog.png" alt="Link dialog with all available options" width="830w">
+</div>
+<div class="title">Figure 1. The link dialog is available from the editor toolbar</div>
 </div>
 </div>
 </div>
@@ -604,7 +619,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 09:33:40 UTC
+Last updated 2026-06-18 11:52:59 UTC
 </div>
 </div>
 </body>

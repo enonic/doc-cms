@@ -488,11 +488,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/fragment-component.png" alt="Converting a layout to a component" width="1440px">
+<img src="images/save-as-fragment.png" alt="Converting a component to a fragment" width="1440px">
 </div>
 </div>
 <div class="paragraph">
-<p>Once a fragments is created, it can be inserted on pages just like any other component. Using Content Studio, simply insert a fragment component, an choose the fragment content item from the list.</p>
+<p>Once a fragments is created, it can be inserted on pages just like any other component. Using Content Studio, simply insert a fragment placeholder, and choose the fragment content item from the list.</p>
 </div>
 </div>
 </div>
@@ -500,7 +500,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="preview"><a class="link" href="#preview">Preview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Like pages, fragments can be edited via the content form view, and optionally visually if supported by your front-end.</p>
+<p>Fragments can be edited and managed from the content form panel, without any visual editing or preview enabled.</p>
+</div>
+<div class="paragraph">
+<p>If your front-end has implemented a preview route for fragments, you can also preview the rendered fragment in isolation. To do this, fetch the fragment content item via GraphQL and render the wrapped component as you would for a page. See <a href="querying-via-graphql.ahtml">Direct access</a> for the query.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -509,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You may also render fragments via Enonic functions and <a href="https://developer.enonic.com/docs/code/stable/web/sites/mappings">mapping</a> using <code>&lt;match&gt;type:'portal:fragment'&lt;/match&gt;</code>.
+Enonic&#8217;s built-in rendering supports fragment preview via <a href="https://developer.enonic.com/docs/code/stable/web/sites/mappings">mapping</a> using <code>&lt;match&gt;type:'portal:fragment'&lt;/match&gt;</code>.
 </td>
 </tr>
 </table>
@@ -763,7 +766,7 @@ Customer-facing search should exclude <code>portal:fragment</code> content. Text
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 09:33:40 UTC
+Last updated 2026-06-18 11:52:59 UTC
 </div>
 </div>
 </body>

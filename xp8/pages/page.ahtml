@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Page components</title>
+<title>Pages and regions</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,12 +437,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Page components</h1>
+<h1>Pages and regions</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#appearance">Appearance</a></li>
 <li><a href="#regions">Regions</a></li>
 <li><a href="#output">Output</a></li>
 <li><a href="#querying_via_graphql">Querying via GraphQL</a>
@@ -466,10 +467,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>At the root of every page, you will find the page component. Most sites only need a single page component, as this can be reused across all pages.</p>
+<p>At the root of every page, you will find the page component. In most cases you will only need a single page component, as this can be reused across all pages.</p>
 </div>
 <div class="paragraph">
-<p>To create a page component, place a descriptor file in your project: <code>src/main/resources/site/pages/&lt;page-name&gt;/&lt;page-name&gt;.yaml</code>.</p>
+<p>To create a page component, place a descriptor file in your project: <code>src/main/resources/cms/pages/&lt;page-name&gt;/&lt;page-name&gt;.yaml</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -536,38 +537,33 @@ A page component may define zero to many regions. Conventionally, a page should 
 </div>
 </div>
 <div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In content Studio, a page component is represented by a tree structure, where the page itself is the root and the regions are branches. The components placed within the regions are the leaves of the tree.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/component-tree.png" alt="Page component tree structure" width="the regions are listed with capitalized names and do not have icons" height="546w">
+</div>
+<div class="title">Figure 1. An expanded page form with regions and components</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="regions"><a class="link" href="#regions">Regions</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Regions are explicitly named drop zones where editors can place other page components. Only page and <a href="parts.ahtml#layouts">layout</a> components support regions. Each region must have a unique name within the component.</p>
 </div>
 <div class="paragraph">
-<p>From Content Studio, this is what regions may look like in the page form:</p>
+<p>In content Studio, regions have both a form-based view and a visual representation (if enabled). Empty regions will be visualized as drop zones.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/component-input-type.png" alt="Component editor" width="527px">
+<img src="images/regions.png" alt="a default page" width="with a single main region and two layouts with their respective regions listed - some regions are empty and the visual editor shows the empty dropzones for these" height="1440w">
 </div>
-</div>
-<div class="paragraph">
-<p>And here is what the same structure might look like in the visual page editor.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The dropzones are empty regions.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/3-region-layout.png" alt="Layout with three empty regions" width="1012px">
-</div>
+<div class="title">Figure 2. A page with layouts and regions</div>
 </div>
 </div>
 </div>
@@ -755,7 +751,7 @@ Empty regions are never persisted. Region names are only determined from the com
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 09:33:40 UTC
+Last updated 2026-06-18 11:52:59 UTC
 </div>
 </div>
 </body>

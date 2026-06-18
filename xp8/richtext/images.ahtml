@@ -442,6 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#appearance">Appearance</a></li>
 <li><a href="#raw_format">Raw format</a></li>
 <li><a href="#processed_format">Processed Format</a></li>
 <li><a href="#rendering">Rendering</a></li>
@@ -465,10 +466,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Content Studio, the HtmlArea editor provides a standard image dialog that allows editors to insert images and control the basic styling.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/image-dialog.png" alt="Image dialog with all available options where the style dropdown is opened" width="919w">
+</div>
+<div class="title">Figure 1. The image dialog is available from the editor toolbar</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="raw_format"><a class="link" href="#raw_format">Raw format</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>An inserted image is stored as a <code>&lt;figure&gt;</code> wrapping an <code>&lt;img&gt;</code> that references the image by ID, optionally with a <code>&lt;figcaption&gt;</code> caption and a style class:</p>
+<p>The inserted image is stored as a <code>&lt;figure&gt;</code> element wrapping an <code>&lt;img&gt;</code> that references the image by ID, optionally with a <code>&lt;figcaption&gt;</code> caption and a style class:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -587,7 +602,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 09:33:40 UTC
+Last updated 2026-06-18 11:52:59 UTC
 </div>
 </div>
 </body>

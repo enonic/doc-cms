@@ -441,7 +441,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#text_format">Text format</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#appearance">Appearance</a></li>
 <li><a href="#descriptor">Descriptor</a></li>
 <li><a href="#macro_function">Macro function</a></li>
 <li><a href="#output">Output</a></li>
@@ -458,7 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="text_format"><a class="link" href="#text_format">Text format</a></h2>
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In the HtmlArea editor, a macro is written in plain text. They are similar to HTML or XML tags, but uses square brackets instead of angle brackets.</p>
@@ -485,13 +486,33 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
+<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Content Studio, the Insert macro dialog lists the available macros with their title and description. The user can search for a macro by name, and insert it by clicking on it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/macro-dialog.png" alt="Showing the macro dialog with the built-in iframe macro pre-selected" width="910w">
+</div>
+<div class="title">Figure 1. The macro dialog is available from the editor toolbar</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="img/macro-inserted.png" alt="Showing the macro reference as text within the editor" width="976w">
+</div>
+<div class="title">Figure 2. The inserted macro appears as plain text in the editor</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="descriptor"><a class="link" href="#descriptor">Descriptor</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A macro descriptor is a YAML file that assigns a user-friendly name and description to the macro, and defines the types and names of its parameters.</p>
 </div>
 <div class="paragraph">
-<p>Its path follows the pattern <code>src/main/resources/site/macros/&lt;macroName&gt;/&lt;macroName&gt;.yaml</code></p>
+<p>Its path follows the pattern <code>src/main/resources/cms/macros/&lt;macroName&gt;/&lt;macroName&gt;.yaml</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -554,7 +575,7 @@ The macro texts (title, description, label and help-text from form input types) 
 <h2 id="macro_function"><a class="link" href="#macro_function">Macro function</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A macro is rendered by a function declared under <code>src/main/resources/site/macros/&lt;macroName&gt;/&lt;macroName&gt;.js</code>. The function receives a context with the macro&#8217;s <code>name</code>, <code>body</code>, and <code>params</code>, and returns the HTML to insert at the macro&#8217;s position.</p>
+<p>A macro is rendered by a function declared under <code>src/main/resources/cms/macros/&lt;macroName&gt;/&lt;macroName&gt;.js</code>. The function receives a context with the macro&#8217;s <code>name</code>, <code>body</code>, and <code>params</code>, and returns the HTML to insert at the macro&#8217;s position.</p>
 </div>
 <div class="paragraph">
 <p>Writing macro functions is an Enonic XP app-development task — see the Enonic XP app-development docs for the full context object, response shape, and page-contribution support.</p>
@@ -698,7 +719,7 @@ A macro may optionally have its own specific icon. The icon can be assigned to t
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 09:33:40 UTC
+Last updated 2026-06-18 11:52:59 UTC
 </div>
 </div>
 </body>
