@@ -40,7 +40,7 @@ image::contentselector-selected.png[Two items selected, 546w]
   hideToggleIcon: true  # <4>
 ----
 <1> *allowContentType* is used to limit the content types that may be selected using the <<allowContentType>>
-<2> *allowPath* is used to limit the path of the content that may be selected using the <<allowPath Samples>>. By default, Content Selector
+<2> *allowPath* is used to limit the path of the content that may be selected using the <<allowPath, allowPath patterns>>. By default, Content Selector
 only displays content from the same site.
 <3> *treeMode* toggles between tree and flat modes. Default value is `false` (flat mode). +
 image:Content-selector-tree.png[Input box with a dropdown with a tree structure, 350]
@@ -119,6 +119,7 @@ All content types except 'base:folder' +
     - "^(?!base:folder$)*"
 ====
 
+[#allowPath]
 === allowPath Samples
 
 ====

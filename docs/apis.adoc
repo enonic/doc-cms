@@ -64,9 +64,11 @@ Default endpoint: `/api/media:attachment/`
 
 See <<apis/attachment#, Attachment API>> for URL structure and download semantics.
 
-== Other built-in APIs
+== Management API
 
-XP exposes additional HTTP APIs for system-level concerns (IDProvider, webapps, admin tooling, and more). See <<apis/other#, Other APIs>> for the full inventory.
+XP also exposes a web API for management. It is not part of the customer-facing content delivery and is not used by front-end clients. It requires administrator privileges to access.https://developer.enonic.com/docs/cli[Enonic CLI] is the default client that communicates with it.
+
+* https://developer.enonic.com/docs/platform/stable/endpoints/management[Management API] — deploy applications, and run dumps, exports, and snapshots (port `4848`, administrator only).
 
 [#custom-functions]
 == Custom API
@@ -75,7 +77,7 @@ Beyond the built-in APIs, you can implement your own custom *APIs* using Typescr
 
 You may:
 
-* expose custom HTTP endpoints under `/api/<app>/`
+* expose custom HTTP endpoints under `/api/<app>:<myapi>/`
 * run scheduled or on-demand background tasks
 * react to content events (publish, modify, delete) via listeners
 * integrate with external systems, perform complex data processing, or implement custom business logic

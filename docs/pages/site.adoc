@@ -30,7 +30,7 @@ When an app is added to a site, the configuration form declared in its <<../sche
 ====
 Configuration values are *not* exposed through the <<../apis/graphql#, GraphQL API>> by default. Because config commonly holds secrets — API keys, tokens, endpoint credentials — it is kept server-side and is not queryable as content data.
 
-If a front-end genuinely needs a configuration value, the app must *deliberately expose* the selected fields, for example through a custom GraphQL field or extension. Nothing in `siteConfig` becomes queryable automatically.
+If a front-end genuinely needs a configuration value, the app must *deliberately expose* the selected fields, for example through a <<../apis/graphql#extending-the-schema, Guillotine extension>>. Nothing in `siteConfig` becomes queryable automatically.
 ====
 
 == Definition (portal:site)
@@ -88,4 +88,4 @@ A site is a content item, so it is queried like any other content — by path or
 }
 ----
 
-The `config` values inside `siteConfig` are *not* available in the GraphQL API by default, for the security reasons described under <<#_site_configuration, Site configuration>>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a custom GraphQL field or extension.
+The `config` values inside `siteConfig` are *not* available in the GraphQL API by default, for the security reasons described under <<#_site_configuration, Site configuration>>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a <<../apis/graphql#extending-the-schema, Guillotine extension>>.
