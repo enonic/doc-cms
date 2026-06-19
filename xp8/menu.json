@@ -289,10 +289,6 @@
         {
           "title": "Attachment API",
           "document": "apis/attachment"
-        },
-        {
-          "title": "Other APIs",
-          "document": "apis/other"
         }
       ]
     },

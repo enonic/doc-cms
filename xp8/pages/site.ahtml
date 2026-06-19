@@ -522,7 +522,7 @@ Apps may also contribute to Enonic&#8217;s built-in rendering as documented in t
 <p>Configuration values are <strong>not</strong> exposed through the <a href="../apis/graphql.ahtml">GraphQL API</a> by default. Because config commonly holds secrets — API keys, tokens, endpoint credentials — it is kept server-side and is not queryable as content data.</p>
 </div>
 <div class="paragraph">
-<p>If a front-end genuinely needs a configuration value, the app must <strong>deliberately expose</strong> the selected fields, for example through a custom GraphQL field or extension. Nothing in <code>siteConfig</code> becomes queryable automatically.</p>
+<p>If a front-end genuinely needs a configuration value, the app must <strong>deliberately expose</strong> the selected fields, for example through a <a href="../apis/graphql.ahtml#extending-the-schema">Guillotine extension</a>. Nothing in <code>siteConfig</code> becomes queryable automatically.</p>
 </div>
 </td>
 </tr>
@@ -612,14 +612,14 @@ Apps may also contribute to Enonic&#8217;s built-in rendering as documented in t
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>config</code> values inside <code>siteConfig</code> are <strong>not</strong> available in the GraphQL API by default, for the security reasons described under <a href="#_site_configuration">Site configuration</a>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a custom GraphQL field or extension.</p>
+<p>The <code>config</code> values inside <code>siteConfig</code> are <strong>not</strong> available in the GraphQL API by default, for the security reasons described under <a href="#_site_configuration">Site configuration</a>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a <a href="../apis/graphql.ahtml#extending-the-schema">Guillotine extension</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 11:52:59 UTC
+Last updated 2026-06-19 12:44:52 UTC
 </div>
 </div>
 </body>

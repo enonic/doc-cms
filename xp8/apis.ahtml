@@ -446,7 +446,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#graphql_api">GraphQL API</a></li>
 <li><a href="#image_api">Image API</a></li>
 <li><a href="#attachment_api">Attachment API</a></li>
-<li><a href="#other_built_in_apis">Other built-in APIs</a></li>
+<li><a href="#management_api">Management API</a></li>
 <li><a href="#custom-functions">Custom API</a></li>
 </ul>
 </div>
@@ -568,10 +568,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="other_built_in_apis"><a class="link" href="#other_built_in_apis">Other built-in APIs</a></h2>
+<h2 id="management_api"><a class="link" href="#management_api">Management API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>XP exposes additional HTTP APIs for system-level concerns (IDProvider, webapps, admin tooling, and more). See <a href="apis/other.ahtml">Other APIs</a> for the full inventory.</p>
+<p>XP also exposes a web API for management. It is not part of the customer-facing content delivery and is not used by front-end clients. It requires administrator privileges to access.https://developer.enonic.com/docs/cli[Enonic CLI] is the default client that communicates with it.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.enonic.com/docs/platform/stable/endpoints/management">Management API</a> — deploy applications, and run dumps, exports, and snapshots (port <code>4848</code>, administrator only).</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -587,7 +594,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>expose custom HTTP endpoints under <code>/api/&lt;app&gt;/</code></p>
+<p>expose custom HTTP endpoints under <code>/api/&lt;app&gt;:&lt;myapi&gt;/</code></p>
 </li>
 <li>
 <p>run scheduled or on-demand background tasks</p>
@@ -608,7 +615,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 11:52:59 UTC
+Last updated 2026-06-19 12:44:52 UTC
 </div>
 </div>
 </body>

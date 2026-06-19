@@ -503,7 +503,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Fragments can be edited and managed from the content form panel, without any visual editing or preview enabled.</p>
 </div>
 <div class="paragraph">
-<p>If your front-end has implemented a preview route for fragments, you can also preview the rendered fragment in isolation. To do this, fetch the fragment content item via GraphQL and render the wrapped component as you would for a page. See <a href="querying-via-graphql.ahtml">Direct access</a> for the query.</p>
+<p>If your front-end has implemented a preview route for fragments, you can also preview the rendered fragment in isolation. To do this, fetch the fragment content item via GraphQL and render the wrapped component as you would for a page. See <a href="#querying-via-graphql">Direct access</a> for the query.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -766,7 +766,7 @@ Customer-facing search should exclude <code>portal:fragment</code> content. Text
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 11:52:59 UTC
+Last updated 2026-06-19 12:44:52 UTC
 </div>
 </div>
 </body>

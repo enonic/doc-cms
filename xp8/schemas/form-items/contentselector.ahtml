@@ -445,7 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#usage">Usage</a>
 <ul class="sectlevel2">
 <li><a href="#allowContentType">Allow content type pattern</a></li>
-<li><a href="#allowpath_samples">allowPath Samples</a></li>
+<li><a href="#allowPath">allowPath Samples</a></li>
 </ul>
 </li>
 <li><a href="#output">Output</a></li>
@@ -517,7 +517,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>allowPath</strong> is used to limit the path of the content that may be selected using the <a href="#allowpath_samples">allowPath Samples</a>. By default, Content Selector
+<td><strong>allowPath</strong> is used to limit the path of the content that may be selected using the <a href="#allowPath">allowPath patterns</a>. By default, Content Selector
 only displays content from the same site.</td>
 </tr>
 <tr>
@@ -670,7 +670,7 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 </div>
 <div class="sect2">
-<h3 id="allowpath_samples"><a class="link" href="#allowpath_samples">allowPath Samples</a></h3>
+<h3 id="allowPath"><a class="link" href="#allowPath">allowPath Samples</a></h3>
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
@@ -782,7 +782,7 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 11:52:59 UTC
+Last updated 2026-06-19 12:44:52 UTC
 </div>
 </div>
 </body>

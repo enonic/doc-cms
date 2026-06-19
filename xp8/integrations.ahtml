@@ -481,7 +481,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>Expose custom HTTP endpoints</strong> under <code>/api/&lt;app&gt;.&lt;api&gt;</code> for inbound writes, RPC, webhooks, or any protocol the built-in APIs don&#8217;t cover.</p>
 </li>
 <li>
-<p><strong>Extend the GraphQL schema</strong> with custom queries, mutations, and resolvers that appear alongside Guillotine&#8217;s generated types.</p>
+<p><strong>Extend the GraphQL schema</strong> — register a <a href="apis/graphql.ahtml#extending-the-schema">Guillotine extension</a> that adds custom queries, mutations, types, and resolvers alongside Guillotine&#8217;s generated types.</p>
 </li>
 <li>
 <p><strong>Listen to content events</strong> — publish, modify, delete — and react by syncing to external systems, invalidating caches, or kicking off workflows.</p>
@@ -543,7 +543,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 11:52:59 UTC
+Last updated 2026-06-19 12:44:52 UTC
 </div>
 </div>
 </body>

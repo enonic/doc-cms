@@ -444,6 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#location">Location</a></li>
 <li><a href="#authorization">Authorization</a></li>
 <li><a href="#schema">Schema</a></li>
+<li><a href="#extending-the-schema">Extending the schema</a></li>
 <li><a href="#usage">Usage</a></li>
 </ul>
 </div>
@@ -504,7 +505,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>The schema also includes queries for <a href="../pages.ahtml">pages and components</a>, <a href="../content.ahtml">content hierarchies</a>, <a href="../querying.ahtml">full-text search</a>, and references between items.</p>
 </div>
 <div class="paragraph">
-<p>For the full schema reference, query syntax, extensions, and configuration options, see the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a>.</p>
+<p>For the full schema reference, query syntax, and configuration options, see the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extending-the-schema"><a class="link" href="#extending-the-schema">Extending the schema</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Beyond the generated schema, an application can register a <strong>Guillotine extension</strong> to add custom queries, mutations, types, and resolvers that appear alongside Guillotine&#8217;s generated types — for example, to surface data from an external system or to expose a value that isn&#8217;t part of the content model.</p>
+</div>
+<div class="paragraph">
+<p>An extension is declared in <code>src/main/resources/guillotine/guillotine.js</code>, which exports an <code>extensions</code> function describing the additional types and the resolvers that fetch their data. Once the app is deployed, the additions are served from the same endpoint and queryable like any other field.</p>
+</div>
+<div class="paragraph">
+<p>For the descriptor format and resolver API, see the <a href="https://developer.enonic.com/docs/guillotine/stable/extending">Guillotine extension documentation</a>.</p>
 </div>
 </div>
 </div>
@@ -542,7 +557,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 11:52:59 UTC
+Last updated 2026-06-19 12:44:52 UTC
 </div>
 </div>
 </body>

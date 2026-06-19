@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Tag - form item</title>
+<title>Versions</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Tag - form item</h1>
+<h1>Versions</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#appearance">Appearance</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#output">Output</a></li>
+<li><a href="#how_versions_are_created">How versions are created</a></li>
+<li><a href="#versions_and_branches">Versions and branches</a></li>
+<li><a href="#comparing_and_restoring">Comparing and restoring</a></li>
+<li><a href="#accessing_versions">Accessing versions</a></li>
 </ul>
 </div>
 </div>
@@ -451,24 +452,107 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Add plain text tags to your content.</p>
-</div>
-<div class="paragraph">
-<p>Tags support autocompletion based on tags defined in other items with the same property path. A tag may consist of spaces and special characters, but leading and trailing whitespace will be trimmed.</p>
+<p>Every content item keeps a complete, immutable version history. Each edit produces a new, read-only snapshot of the item, so you can reconstruct exactly what the content looked like at any point in time, see who changed it, and roll back to an earlier state. Versions are created automatically — there is nothing to configure.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appearance"><a class="link" href="#appearance">Appearance</a></h2>
+<h2 id="how_versions_are_created"><a class="link" href="#how_versions_are_created">How versions are created</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Tags are entered in a free-text input field. When a tag is added, it is presented as a separate element within the input field.</p>
+<p>A new version is committed whenever the stored state of an item changes. The most common triggers are:</p>
 </div>
-<div class="imageblock">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Action</th>
+<th class="tableblock halign-left valign-top">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Create</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The initial version of a newly created item.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Edit</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any change to the item&#8217;s data, metadata, or form values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Move / rename</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Changing the item&#8217;s <code>_path</code> or <code>_name</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sort</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Changing the manual ordering of child items.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Publish</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Copies the current draft version onto the <code>master</code> branch (see below).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Unpublish</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removes the item from <code>master</code>; the draft version is retained.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mark as ready</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Promoting the workflow state to <code>READY</code> (see <a href="lifecycle.ahtml">Content lifecycle</a>).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Each version records the audit metadata of the change — the timestamp and the user responsible — so the history doubles as an audit trail.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="versions_and_branches"><a class="link" href="#versions_and_branches">Versions and branches</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Content lives on two branches: <code>draft</code> (the editor&#8217;s working copy) and <code>master</code> (the published copy the public sees). Both branches are simply pointers into the same version history:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Editing an item adds a version and moves the <code>draft</code> pointer to it.</p>
+</li>
+<li>
+<p>Publishing <strong>commits</strong> the current <code>draft</code> version and moves the <code>master</code> pointer to that same version.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Because both branches reference the version history, the published item on <code>master</code> and the work-in-progress on <code>draft</code> may point to different versions of the same content. This divergence is what the change state (<code>MODIFIED</code>, <code>MOVED</code>, and so on) describes in <a href="lifecycle.ahtml#change-state">Content lifecycle</a>.</p>
+</div>
+<div class="paragraph">
+<p>The current version of an item on a given branch is identified by its <code>_versionKey</code>, one of the <a href="../content.ahtml#standard-properties">standard content properties</a>:</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<img src="images/tag.png" alt="Three tag inputs showcasing 2 0 and 5 occurences" width="546w">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "_versionKey": "f1e2d3c4-b5a6-7890-abcd-ef1234567890", <i class="conum" data-value="1"></i><b>(1)</b>
+  "_timestamp": "2026-06-15T12:00:00Z", <i class="conum" data-value="2"></i><b>(2)</b>
+  "modifier": "user:system:editor",
+  "modifiedTime": "2026-06-15T12:00:00Z"
+}</code></pre>
 </div>
-<div class="title">Figure 1. Multiple examples of Tag configurations</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>_versionKey</strong> — identifier of the version this branch currently points to. Comparing the <code>_versionKey</code> of an item on <code>draft</code> versus <code>master</code> tells you whether the published copy is behind the draft.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>_timestamp</strong> — the time this particular version was committed.</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -477,7 +561,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Tags handle occurences within a single input field, allowing for a smooth editing experience.
+In a <a href="layering.ahtml#versions">layered project</a>, only versions created within a given layer are visible in that layer. Versions are not "polluted" by changes inherited from surrounding layers.
 </td>
 </tr>
 </table>
@@ -485,39 +569,62 @@ Tags handle occurences within a single input field, allowing for a smooth editin
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="comparing_and_restoring"><a class="link" href="#comparing_and_restoring">Comparing and restoring</a></h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- type: "Tag"
-  name: "my_tag"
-  label: "My Tag"
-  occurrences:
-    min: 0
-    max: 0</code></pre>
+<div class="paragraph">
+<p>In Content Studio, the <strong>Version history</strong> panel lists every version of the selected item as a timeline of events (created, edited, published, unpublished, sorted, marked as ready), each stamped with the time and the responsible user. From there an editor can:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Compare</strong> any two versions to see a field-by-field diff of what changed.</p>
+</li>
+<li>
+<p><strong>Revert</strong> to an earlier version, which copies that snapshot into a new <code>draft</code> version. Reverting never deletes history — it simply adds a new version on top.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="output"><a class="link" href="#output">Output</a></h2>
+<h2 id="accessing_versions"><a class="link" href="#accessing_versions">Accessing versions</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Value type:</strong> <code>String</code> — not included in <code>_alltext</code></p>
+<p>For headless consumers, the relevant choice is almost always <strong>which branch</strong> to read, not which historical version. Selecting a branch resolves to that branch&#8217;s current version:</p>
 </div>
-<div class="paragraph">
-<p>With multiple occurrences, the values are returned as an array.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Query <code>master</code> (the default) for the published content the public should see.</p>
+</li>
+<li>
+<p>Query <code>draft</code> for unpublished, in-progress content — for example, to drive a preview.</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "my_tag": [
-    "first-tag",
-    "second tag",
-    "The third tag"
-  ]
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine(branch: "draft") { <i class="conum" data-value="1"></i><b>(1)</b>
+    get(key: "/site/articles/hello") {
+      _id
+      displayName
+      modifiedTime
+    }
+  }
 }</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Without <code>branch</code>, Guillotine reads <code>master</code>. See the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a> for branch selection.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Reading arbitrary points in the version history — listing all versions of an item — is not exposed in the headless query API by default. You may access this functionality through the Content API, and optionally expose it through a <a href="../apis/graphql.ahtml#extending-the-schema">Guillotine extension</a> or a custom API. Visit the <a href="https://developer.enonic.com/docs/code">Enonic Development Kit</a> documentation for details.</p>
 </div>
 </div>
 </div>

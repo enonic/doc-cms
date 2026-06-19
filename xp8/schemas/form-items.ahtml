@@ -686,28 +686,28 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#textline.adoc">TextLine</a> — single line plain text</p>
+<p><a href="form-items/textline.ahtml">TextLine</a> — single line plain text</p>
 </li>
 <li>
-<p><a href="#textarea.adoc">TextArea</a> — multi-line plain text</p>
+<p><a href="form-items/textarea.ahtml">TextArea</a> — multi-line plain text</p>
 </li>
 <li>
-<p><a href="#htmlarea.adoc">HtmlArea</a> — multi-line rich text (HTML)</p>
+<p><a href="form-items/htmlarea.ahtml">HtmlArea</a> — multi-line rich text (HTML)</p>
 </li>
 <li>
-<p><a href="#combobox.adoc">ComboBox</a> — select from predefined options</p>
+<p><a href="form-items/combobox.ahtml">ComboBox</a> — select from predefined options</p>
 </li>
 <li>
-<p><a href="#radiobutton.adoc">RadioButton</a> — single select from predefined options</p>
+<p><a href="form-items/radiobutton.ahtml">RadioButton</a> — single select from predefined options</p>
 </li>
 <li>
-<p><a href="#tag.adoc">Tag</a> — free-text tags</p>
+<p><a href="form-items/tag.ahtml">Tag</a> — free-text tags</p>
 </li>
 <li>
-<p><a href="#customselector.adoc">CustomSelector</a> — custom data source selection</p>
+<p><a href="form-items/customselector.ahtml">CustomSelector</a> — custom data source selection</p>
 </li>
 <li>
-<p><a href="#contenttypefilter.adoc">ContentTypeFilter</a> — content type name</p>
+<p><a href="form-items/contenttypefilter.ahtml">ContentTypeFilter</a> — content type name</p>
 </li>
 </ul>
 </div>
@@ -717,13 +717,13 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#contentselector.adoc">ContentSelector</a> — reference to other content</p>
+<p><a href="form-items/contentselector.ahtml">ContentSelector</a> — reference to other content</p>
 </li>
 <li>
-<p><a href="#imageselector.adoc">ImageSelector</a> — reference to image content</p>
+<p><a href="form-items/imageselector.ahtml">ImageSelector</a> — reference to image content</p>
 </li>
 <li>
-<p><a href="#mediaselector.adoc">MediaSelector</a> — reference to media content</p>
+<p><a href="form-items/mediaselector.ahtml">MediaSelector</a> — reference to media content</p>
 </li>
 </ul>
 </div>
@@ -733,7 +733,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#attachmentuploader.adoc">AttachmentUploader</a> — file attachment</p>
+<p><a href="form-items/attachmentuploader.ahtml">AttachmentUploader</a> — file attachment</p>
 </li>
 </ul>
 </div>
@@ -743,7 +743,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#long.adoc">Long</a> — 64-bit integer number</p>
+<p><a href="form-items/long.ahtml">Long</a> — 64-bit integer number</p>
 </li>
 </ul>
 </div>
@@ -753,7 +753,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#double.adoc">Double</a> — 64-bit floating-point number</p>
+<p><a href="form-items/double.ahtml">Double</a> — 64-bit floating-point number</p>
 </li>
 </ul>
 </div>
@@ -763,7 +763,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#checkbox.adoc">CheckBox</a> — true/false value</p>
+<p><a href="form-items/checkbox.ahtml">CheckBox</a> — true/false value</p>
 </li>
 </ul>
 </div>
@@ -773,7 +773,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#geopoint.adoc">GeoPoint</a> — latitude/longitude coordinate</p>
+<p><a href="form-items/geopoint.ahtml">GeoPoint</a> — latitude/longitude coordinate</p>
 </li>
 </ul>
 </div>
@@ -783,7 +783,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#date.adoc">Date</a> — date without time</p>
+<p><a href="form-items/date.ahtml">Date</a> — date without time</p>
 </li>
 </ul>
 </div>
@@ -793,7 +793,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#time.adoc">Time</a> — time without date</p>
+<p><a href="form-items/time.ahtml">Time</a> — time without date</p>
 </li>
 </ul>
 </div>
@@ -803,7 +803,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#instant.adoc">Instant</a> — date and time without timezone</p>
+<p><a href="form-items/instant.ahtml">Instant</a> — date and time without timezone</p>
 </li>
 </ul>
 </div>
@@ -813,7 +813,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#datetime.adoc">DateTime</a> — date and time with timezone</p>
+<p><a href="form-items/datetime.ahtml">DateTime</a> — date and time with timezone</p>
 </li>
 </ul>
 </div>
@@ -823,10 +823,10 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#item-set.adoc">ItemSet</a> — nested group of form items</p>
+<p><a href="form-items/item-set.ahtml">ItemSet</a> — nested group of form items</p>
 </li>
 <li>
-<p><a href="#option-set.adoc">OptionSet</a> — selectable groups of form items</p>
+<p><a href="form-items/option-set.ahtml">OptionSet</a> — selectable groups of form items</p>
 </li>
 </ul>
 </div>
@@ -836,7 +836,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#field-set.adoc">FieldSet</a> — visual grouping only</p>
+<p><a href="form-items/field-set.ahtml">FieldSet</a> — visual grouping only</p>
 </li>
 </ul>
 </div>
@@ -846,7 +846,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 11:52:59 UTC
+Last updated 2026-06-19 12:44:52 UTC
 </div>
 </div>
 </body>
