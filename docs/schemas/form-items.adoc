@@ -118,50 +118,50 @@ The value type dictates how the value is stored and indexed, which also controls
 Each form item produces a value o
 
 === String
-* <<textline.adoc,TextLine>> — single line plain text
-* <<textarea.adoc,TextArea>> — multi-line plain text
-* <<htmlarea.adoc,HtmlArea>> — multi-line rich text (HTML)
-* <<combobox.adoc,ComboBox>> — select from predefined options
-* <<radiobutton.adoc,RadioButton>> — single select from predefined options
-* <<tag.adoc,Tag>> — free-text tags
-* <<customselector.adoc,CustomSelector>> — custom data source selection
-* <<contenttypefilter.adoc,ContentTypeFilter>> — content type name
+* <<form-items/textline#,TextLine>> — single line plain text
+* <<form-items/textarea#,TextArea>> — multi-line plain text
+* <<form-items/htmlarea#,HtmlArea>> — multi-line rich text (HTML)
+* <<form-items/combobox#,ComboBox>> — select from predefined options
+* <<form-items/radiobutton#,RadioButton>> — single select from predefined options
+* <<form-items/tag#,Tag>> — free-text tags
+* <<form-items/customselector#,CustomSelector>> — custom data source selection
+* <<form-items/contenttypefilter#,ContentTypeFilter>> — content type name
 
 === Reference
-* <<contentselector.adoc,ContentSelector>> — reference to other content
-* <<imageselector.adoc,ImageSelector>> — reference to image content
-* <<mediaselector.adoc,MediaSelector>> — reference to media content
+* <<form-items/contentselector#,ContentSelector>> — reference to other content
+* <<form-items/imageselector#,ImageSelector>> — reference to image content
+* <<form-items/mediaselector#,MediaSelector>> — reference to media content
 
 === Attachment Reference
-* <<attachmentuploader.adoc,AttachmentUploader>> — file attachment
+* <<form-items/attachmentuploader#,AttachmentUploader>> — file attachment
 
 === Long
-* <<long.adoc,Long>> — 64-bit integer number
+* <<form-items/long#,Long>> — 64-bit integer number
 
 === Double
-* <<double.adoc,Double>> — 64-bit floating-point number
+* <<form-items/double#,Double>> — 64-bit floating-point number
 
 === Boolean
-* <<checkbox.adoc,CheckBox>> — true/false value
+* <<form-items/checkbox#,CheckBox>> — true/false value
 
 === GeoPoint
-* <<geopoint.adoc,GeoPoint>> — latitude/longitude coordinate
+* <<form-items/geopoint#,GeoPoint>> — latitude/longitude coordinate
 
 === LocalDate
-* <<date.adoc,Date>> — date without time
+* <<form-items/date#,Date>> — date without time
 
 === LocalTime
-* <<time.adoc,Time>> — time without date
+* <<form-items/time#,Time>> — time without date
 
 === Instant
-* <<instant.adoc,Instant>> — date and time without timezone
+* <<form-items/instant#,Instant>> — date and time without timezone
 
 === DateTime
-* <<datetime.adoc,DateTime>> — date and time with timezone
+* <<form-items/datetime#,DateTime>> — date and time with timezone
 
 === PropertySet (Object)
-* <<item-set.adoc,ItemSet>> — nested group of form items
-* <<option-set.adoc,OptionSet>> — selectable groups of form items
+* <<form-items/item-set#,ItemSet>> — nested group of form items
+* <<form-items/option-set#,OptionSet>> — selectable groups of form items
 
 === No output
-* <<field-set.adoc,FieldSet>> — visual grouping only
+* <<form-items/field-set#,FieldSet>> — visual grouping only

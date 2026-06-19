@@ -34,7 +34,16 @@ Guillotine generates a GraphQL schema dynamically from the content types, mixins
 
 The schema also includes queries for <<../pages#, pages and components>>, <<../content#, content hierarchies>>, <<../querying#, full-text search>>, and references between items.
 
-For the full schema reference, query syntax, extensions, and configuration options, see the https://developer.enonic.com/docs/guillotine[Guillotine documentation].
+For the full schema reference, query syntax, and configuration options, see the https://developer.enonic.com/docs/guillotine[Guillotine documentation].
+
+[#extending-the-schema]
+== Extending the schema
+
+Beyond the generated schema, an application can register a *Guillotine extension* to add custom queries, mutations, types, and resolvers that appear alongside Guillotine's generated types — for example, to surface data from an external system or to expose a value that isn't part of the content model.
+
+An extension is declared in `src/main/resources/guillotine/guillotine.js`, which exports an `extensions` function describing the additional types and the resolvers that fetch their data. Once the app is deployed, the additions are served from the same endpoint and queryable like any other field.
+
+For the descriptor format and resolver API, see the https://developer.enonic.com/docs/guillotine/stable/extending[Guillotine extension documentation].
 
 == Usage
 

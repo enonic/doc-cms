@@ -23,7 +23,7 @@ Once a fragments is created, it can be inserted on pages just like any other com
 
 Fragments can be edited and managed from the content form panel, without any visual editing or preview enabled. 
 
-If your front-end has implemented a preview route for fragments, you can also preview the rendered fragment in isolation. To do this, fetch the fragment content item via GraphQL and render the wrapped component as you would for a page. See <<querying-via-graphql#, Direct access>> for the query.
+If your front-end has implemented a preview route for fragments, you can also preview the rendered fragment in isolation. To do this, fetch the fragment content item via GraphQL and render the wrapped component as you would for a page. See <<querying-via-graphql, Direct access>> for the query.
 
 TIP: Enonic's built-in rendering supports fragment preview via https://developer.enonic.com/docs/code/stable/web/sites/mappings[mapping] using `<match>type:'portal:fragment'</match>`.
 

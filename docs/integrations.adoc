@@ -16,7 +16,7 @@ The built-in Web APIs (GraphQL, Image, Attachment) are *read-only*. Programmatic
 Custom integration logic lives in Enonic apps, which are deployed alongside the CMS and have full access to the platform. An app can:
 
 * *Expose custom HTTP endpoints* under `/api/<app>.<api>` for inbound writes, RPC, webhooks, or any protocol the built-in APIs don't cover.
-* *Extend the GraphQL schema* with custom queries, mutations, and resolvers that appear alongside Guillotine's generated types.
+* *Extend the GraphQL schema* — register a <<apis/graphql#extending-the-schema, Guillotine extension>> that adds custom queries, mutations, types, and resolvers alongside Guillotine's generated types.
 * *Listen to content events* — publish, modify, delete — and react by syncing to external systems, invalidating caches, or kicking off workflows.
 * *Run scheduled or on-demand tasks* for periodic imports, exports, batch processing, or housekeeping.
 * *Access the server-side Content API* (`lib-content`, `lib-scheduler`, etc.) to read and write content, manage versions, and traverse the repository from within these functions.
