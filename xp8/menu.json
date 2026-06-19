@@ -293,12 +293,12 @@
       ]
     },
     {
-      "title": "Front-end integration",
-      "document": "frontend"
-    },
-    {
       "title": "Integrations",
       "document": "integrations"
+    },
+    {
+      "title": "Front-end",
+      "document": "frontend"
     },
     {
       "title": "Release notes",
