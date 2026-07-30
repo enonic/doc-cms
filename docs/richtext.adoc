@@ -7,7 +7,7 @@ Rich text is stored as author-edited HTML
 
 == Editor
 
-You may configure a rich text field in your schema using the <<schemas/form-items/htmlarea.adoc, HtmlArea form item>>. This provides a WYSIWYG editor in Content Studio, and stores the content as HTML with Enonic-specific markup for internal references. See the <<schemas/form-items/htmlarea.adoc, HtmlArea>> documentation for details on configuration and output.
+You may configure a rich text field in your schema using the <<schemas/form-items/htmlarea#, HtmlArea form item>>. This provides a WYSIWYG editor in Content Studio, and stores the content as HTML with Enonic-specific markup for internal references. See the <<schemas/form-items/htmlarea#, HtmlArea>> documentation for details on configuration and output.
 
 [#markup]
 == Markup

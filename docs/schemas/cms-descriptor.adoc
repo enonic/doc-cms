@@ -10,7 +10,7 @@ The CMS descriptor (`cms.yaml`) marks a schema package as a CMS package and expo
 * A *configuration form* shown to administrators when the package is added to a project or site, capturing per-instance settings.
 * *Mixins* that should be activated on content within the assigned scope, with optional content-type filtering.
 
-NOTE: Schema packages are currently delivered as Enonic XP applications. The descriptor lives at `src/main/resources/cms/cms.yaml` inside the app, and the app name serves as the <<../schemas#namespaces, namespace>>. See <<#deployment, Deployment>> below for packaging and registration details.
+NOTE: Schema packages are currently delivered as Enonic XP applications. The descriptor lives at `src/main/resources/cms/cms.yaml` inside the app, and the app name serves as the <<namespaces#, namespace>>. See <<#deployment, Deployment>> below for packaging and registration details.
 
 == Descriptor
 
