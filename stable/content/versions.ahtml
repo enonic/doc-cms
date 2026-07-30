@@ -526,10 +526,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
-<p>Because both branches reference the version history, the published item on <code>master</code> and the work-in-progress on <code>draft</code> may point to different versions of the same content. This divergence is what the change state (<code>MODIFIED</code>, <code>MOVED</code>, and so on) describes in <a href="lifecycle.ahtml#change-state">Content lifecycle</a>.</p>
+<p>Because both branches reference the version history, the published item on <code>master</code> and the work-in-progress on <code>draft</code> may point to different versions of the same content. This divergence is what the change state (<code>MODIFIED</code>, <code>MOVED</code>, and so on) describes in <a href="lifecycle.ahtml#change_state">Content lifecycle</a>.</p>
 </div>
 <div class="paragraph">
-<p>The current version of an item on a given branch is identified by its <code>_versionKey</code>, one of the <a href="../content.ahtml#standard-properties">standard content properties</a>:</p>
+<p>The current version of an item on a given branch is identified by its <code>_versionKey</code>, one of the <a href="../content.ahtml#standard_properties">standard content properties</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -631,7 +631,7 @@ In a <a href="layering.ahtml#versions">layered project</a>, only versions create
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

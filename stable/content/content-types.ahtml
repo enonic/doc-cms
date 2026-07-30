@@ -462,7 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content types is the foundational schema type in Enonic XP. All content items must be based on a content type. Content types are used to define the sturcture and capabilities of a content items.</p>
+<p>The content type is the foundational schema type in Enonic XP. All content items must be based on a content type, which defines the structure and capabilities of the content.</p>
 </div>
 </div>
 </div>
@@ -482,18 +482,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: “ContentType”  <i class="conum" data-value="1"></i><b>(1)</b>
-title: “Person”  <i class="conum" data-value="2"></i><b>(2)</b>
-displayNameLabel: “Full Name”  <i class="conum" data-value="3"></i><b>(3)</b>
-description: “Create a new person”  <i class="conum" data-value="4"></i><b>(4)</b>
-superType: “base:structured”  <i class="conum" data-value="5"></i><b>(5)</b>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"  <i class="conum" data-value="1"></i><b>(1)</b>
+title: "Person"  <i class="conum" data-value="2"></i><b>(2)</b>
+displayNamePlaceholder: "Full Name"  <i class="conum" data-value="3"></i><b>(3)</b>
+description: "Create a new person"  <i class="conum" data-value="4"></i><b>(4)</b>
+superType: "base:structured"  <i class="conum" data-value="5"></i><b>(5)</b>
 abstract: false  <i class="conum" data-value="6"></i><b>(6)</b>
 final: true  <i class="conum" data-value="7"></i><b>(7)</b>
 allowChildContent: true  <i class="conum" data-value="8"></i><b>(8)</b>
 allowChildContentType:  <i class="conum" data-value="9"></i><b>(9)</b>
-  - “base:folder”
-  - “${app}:article-*”
-form: []  <i class="conum" data-value="10"></i><b>(10)</b></code></pre>
+  - "base:folder"
+  - "${app}:article-*"
+form:  <i class="conum" data-value="10"></i><b>(10)</b>
+  - type: "TextLine"
+    name: "fullName"
+    label: "Full name"
+    occurrences:
+      min: 1
+      max: 1
+  - type: "ContentSelector"
+    name: "spouse"
+    label: "Spouse"
+    occurrences:
+      min: 0
+      max: 1
+    allowContentType:  <i class="conum" data-value="11"></i><b>(11)</b>
+      - "${app}:person"</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -510,7 +524,7 @@ The localization key must then be declared and localised in the resource bundle.
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><strong>displayNameLabel</strong> (optional) Enables you to override the default &lt;Display Name&gt; placeholder used in the content form.</td>
+<td><strong>displayNamePlaceholder</strong> (optional) Enables you to override the default &lt;Display Name&gt; placeholder used in the content form.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -526,7 +540,7 @@ The localization key must then be declared and localised in the resource bundle.
 </tr>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
-<td><strong>final</strong> (optional; default: false) If true, it is not possible to create new content types that “extend” this.</td>
+<td><strong>final</strong> (optional; default: false) If true, it is not possible to create new content types that "extend" this.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="8"></i><b>8</b></td>
@@ -535,11 +549,15 @@ The localization key must then be declared and localised in the resource bundle.
 </tr>
 <tr>
 <td><i class="conum" data-value="9"></i><b>9</b></td>
-<td><strong>allowChildContentType</strong> (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <a href="../schemas/form-items/contentselector.ahtml#allowContentType">MATCH</a>. <span class="image"><span class="alt">XP 7.7.0</span></span></td>
+<td><strong>allowChildContentType</strong> (optional) If specified, only content of content types matching specified criteria will be allowed to be created or moved under content of this content type. The pattern matching used is the same as the one described in <a href="../schemas/form-items/contentselector.ahtml#allowContentType">MATCH</a>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="10"></i><b>10</b></td>
-<td><strong>form</strong> (required) The custom <a href="../schemas/forms.ahtml">Form</a> definition for your content type.</td>
+<td><strong>form</strong> (optional) The <a href="../schemas/forms.ahtml">Form</a> definition for your content type — a list of form items.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>Input-specific settings, like <code>allowContentType</code> here, are placed directly on the input — there is no <code>config:</code> wrapper in YAML. See each <a href="../schemas/form-items.ahtml">form item</a> for its available settings.</td>
 </tr>
 </table>
 </div>
@@ -550,7 +568,7 @@ The localization key must then be declared and localised in the resource bundle.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>allow-child-content-type</code> will not have effect if <code>allow-child-content</code> is set to <code>false</code>
+<code>allowChildContentType</code> has no effect if <code>allowChildContent</code> is set to <code>false</code>
 </td>
 </tr>
 </table>
@@ -734,19 +752,19 @@ The localization key must then be declared and localised in the resource bundle.
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">super-type</dt>
+<dt class="hdlist1">superType</dt>
 <dd>
 <p>base:content</p>
 </dd>
-<dt class="hdlist1">is-abstract</dt>
+<dt class="hdlist1">abstract</dt>
 <dd>
 <p>true</p>
 </dd>
-<dt class="hdlist1">is-final</dt>
+<dt class="hdlist1">final</dt>
 <dd>
 <p>false</p>
 </dd>
-<dt class="hdlist1">allow-child-content</dt>
+<dt class="hdlist1">allowChildContent</dt>
 <dd>
 <p>true</p>
 </dd>
@@ -801,7 +819,7 @@ You may not specify a custom content type as a supertype, nor may you create cir
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

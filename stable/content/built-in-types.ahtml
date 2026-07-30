@@ -441,19 +441,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#folder_basefolder">Folder (base:folder)</a>
+<li><a href="#folder-base-folder">Folder (base:folder)</a>
 <ul class="sectlevel2">
 <li><a href="#output">Output</a></li>
 <li><a href="#graphql">GraphQL</a></li>
 </ul>
 </li>
-<li><a href="#shortcut_baseshortcut">Shortcut (base:shortcut)</a>
+<li><a href="#shortcut-base-shortcut">Shortcut (base:shortcut)</a>
 <ul class="sectlevel2">
 <li><a href="#output_2">Output</a></li>
 <li><a href="#graphql_2">GraphQL</a></li>
 </ul>
 </li>
-<li><a href="#unstructured_baseunstructured">Unstructured (base:unstructured)</a>
+<li><a href="#unstructured-base-unstructured">Unstructured (base:unstructured)</a>
 <ul class="sectlevel2">
 <li><a href="#output_3">Output</a></li>
 <li><a href="#graphql_3">GraphQL</a></li>
@@ -483,7 +483,7 @@ This page covers the generic types under the <code>base</code> namespace. Types 
 </div>
 </div>
 <div class="sect1">
-<h2 id="folder_basefolder"><a class="link" href="#folder_basefolder">Folder (base:folder)</a></h2>
+<h2 id="folder-base-folder"><a class="link" href="#folder-base-folder">Folder (base:folder)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Folders are containers for organizing child content. They have no data properties beyond their name and display name.</p>
@@ -548,7 +548,7 @@ This page covers the generic types under the <code>base</code> namespace. Types 
 </div>
 </div>
 <div class="sect1">
-<h2 id="shortcut_baseshortcut"><a class="link" href="#shortcut_baseshortcut">Shortcut (base:shortcut)</a></h2>
+<h2 id="shortcut-base-shortcut"><a class="link" href="#shortcut-base-shortcut">Shortcut (base:shortcut)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Shortcuts reference or redirect to another content item. Optional key-value parameters are appended to the redirect URL.</p>
@@ -626,7 +626,7 @@ This page covers the generic types under the <code>base</code> namespace. Types 
 </div>
 </div>
 <div class="sect1">
-<h2 id="unstructured_baseunstructured"><a class="link" href="#unstructured_baseunstructured">Unstructured (base:unstructured)</a></h2>
+<h2 id="unstructured-base-unstructured"><a class="link" href="#unstructured-base-unstructured">Unstructured (base:unstructured)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Unstructured content permits storing any properties without a declared form. Because it has no schema, Content Studio has no default editor for it — unstructured items are typically created and updated via API.</p>
@@ -712,7 +712,7 @@ For data that does not need editorial workflows, consider using <a href="https:/
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

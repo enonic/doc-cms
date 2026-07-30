@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>Standard fields</strong> — mime type, file size, and original file name are stored in the attachment fields and searchable for every media type.</p>
 </li>
 <li>
-<p><strong>Additional fields</strong> — <code>media:image</code> content has several standard fields, as well as mixins under <code>x.media.*</code> (EXIF, IPTC, and XMP mapped to <code>imageInfo</code>, <code>cameraInfo</code>, <code>gpsInfo</code>), making camera settings, GPS coordinates, and dimensions directly queryable. See <a href="image.ahtml#automatic-metadata-extraction">Image content type</a> for the full field catalogue.</p>
+<p><strong>Additional fields</strong> — <code>media:image</code> content has several standard fields, as well as mixins under <code>x.media.*</code> (EXIF, IPTC, and XMP mapped to <code>imageInfo</code>, <code>cameraInfo</code>, <code>gpsInfo</code>), making camera settings, GPS coordinates, and dimensions directly queryable. See <a href="image.ahtml#automatic_metadata_extraction">Image content type</a> for the full field catalogue.</p>
 </li>
 </ul>
 </div>
@@ -561,7 +561,7 @@ Apart from images, built-in media types do not produce structured metadata. Tika
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

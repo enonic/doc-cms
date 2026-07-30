@@ -479,7 +479,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Schema packages are currently delivered as Enonic XP applications. The descriptor lives at <code>src/main/resources/cms/cms.yaml</code> inside the app, and the app name serves as the <a href="../schemas.ahtml#namespaces">namespace</a>. See <a href="#deployment">Deployment</a> below for packaging and registration details.
+Schema packages are currently delivered as Enonic XP applications. The descriptor lives at <code>src/main/resources/cms/cms.yaml</code> inside the app, and the app name serves as the <a href="namespaces.ahtml">namespace</a>. See <a href="#deployment">Deployment</a> below for packaging and registration details.
 </td>
 </tr>
 </table>
@@ -598,7 +598,7 @@ An app that also contributes page components ships a separate <code>site.yaml</c
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

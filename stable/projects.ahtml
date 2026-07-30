@@ -664,7 +664,7 @@ The following roles are available per project:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The configuration <strong>values</strong> themselves are not exposed through the GraphQL API by default. Because they may hold secrets (API keys, tokens), they are kept server-side unless an app deliberately exposes selected fields. The same applies to <a href="pages/site.ahtml#_site_configuration">site configuration</a>.
+The configuration <strong>values</strong> themselves are not exposed through the GraphQL API by default. Because they may hold secrets (API keys, tokens), they are kept server-side unless an app deliberately exposes selected fields. The same applies to <a href="pages/site.ahtml#site_configuration">site configuration</a>.
 </td>
 </tr>
 </table>
@@ -677,7 +677,7 @@ The configuration <strong>values</strong> themselves are not exposed through the
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

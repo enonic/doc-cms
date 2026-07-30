@@ -461,7 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="editor"><a class="link" href="#editor">Editor</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You may configure a rich text field in your schema using the <a href="#schemas/form-items/htmlarea.adoc">HtmlArea form item</a>. This provides a WYSIWYG editor in Content Studio, and stores the content as HTML with Enonic-specific markup for internal references. See the <a href="#schemas/form-items/htmlarea.adoc">HtmlArea</a> documentation for details on configuration and output.</p>
+<p>You may configure a rich text field in your schema using the <a href="schemas/form-items/htmlarea.ahtml">HtmlArea form item</a>. This provides a WYSIWYG editor in Content Studio, and stores the content as HTML with Enonic-specific markup for internal references. See the <a href="schemas/form-items/htmlarea.ahtml">HtmlArea</a> documentation for details on configuration and output.</p>
 </div>
 </div>
 </div>
@@ -577,7 +577,7 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

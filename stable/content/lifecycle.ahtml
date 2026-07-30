@@ -790,14 +790,14 @@ Guillotine queries the <code>master</code> branch by default, so the query above
 <p>Every content item preserves enough history to reconstruct what changed, when, and by whom — see <a href="versions.ahtml">Versions</a> for how to access prior states and compare them.</p>
 </div>
 <div class="paragraph">
-<p>Full audit properties (<code>creator</code>, <code>createdTime</code>, <code>modifier</code>, <code>modifiedTime</code>, <code>owner</code>, <code>_timestamp</code>) are documented under <a href="../content.ahtml#standard-properties">standard content properties</a>.</p>
+<p>Full audit properties (<code>creator</code>, <code>createdTime</code>, <code>modifier</code>, <code>modifiedTime</code>, <code>owner</code>, <code>_timestamp</code>) are documented under <a href="../content.ahtml#standard_properties">standard content properties</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

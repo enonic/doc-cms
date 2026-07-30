@@ -612,14 +612,14 @@ Apps may also contribute to Enonic&#8217;s built-in rendering as documented in t
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>config</code> values inside <code>siteConfig</code> are <strong>not</strong> available in the GraphQL API by default, for the security reasons described under <a href="#_site_configuration">Site configuration</a>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a <a href="../apis/graphql.ahtml#extending-the-schema">Guillotine extension</a>.</p>
+<p>The <code>config</code> values inside <code>siteConfig</code> are <strong>not</strong> available in the GraphQL API by default, for the security reasons described under <a href="#site_configuration">Site configuration</a>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a <a href="../apis/graphql.ahtml#extending-the-schema">Guillotine extension</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

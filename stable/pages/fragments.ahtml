@@ -481,7 +481,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To create a Fragment in Content Studio: Edit an existing page, select a component and click “Create Fragment”. Once created, the fragment content can be referenced in other pages by inserting a Fragment component in the page.</p>
+<p>To create a Fragment in Content Studio: Edit an existing page, select a component and click "Create Fragment". Once created, the fragment content can be referenced in other pages by inserting a Fragment component in the page.</p>
 </div>
 <div class="paragraph">
 <p>Changes applied to a fragment will immediately be available in the pages that reference the fragment.</p>
@@ -766,7 +766,7 @@ Customer-facing search should exclude <code>portal:fragment</code> content. Text
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

@@ -477,7 +477,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>The content item itself</strong> — standard <a href="content.ahtml#standard-properties">content properties</a>, plus editorial fields specific to the media type (for images: <code>caption</code>, <code>altText</code>, <code>artist</code>, <code>copyright</code>, <code>tags</code>).</p>
+<p><strong>The content item itself</strong> — standard <a href="content.ahtml#standard_properties">content properties</a>, plus editorial fields specific to the media type (for images: <code>caption</code>, <code>altText</code>, <code>artist</code>, <code>copyright</code>, <code>tags</code>).</p>
 </li>
 <li>
 <p><strong>One or more attachments</strong> — the actual binary files, stored on the content item under the top-level <code>attachments</code> array.</p>
@@ -520,7 +520,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>data.media.attachment</strong> — name of the primary attachment, always present. Concrete media types may add editorial fields alongside — for example, <code>media:image</code> adds <code>caption</code>, <code>altText</code>, <code>artist</code>, <code>copyright</code>, and <code>tags</code>. See <a href="media/image.ahtml#standard-fields">Image</a> for the image-specific fields.</td>
+<td><strong>data.media.attachment</strong> — name of the primary attachment, always present. Concrete media types may add editorial fields alongside — for example, <code>media:image</code> adds <code>caption</code>, <code>altText</code>, <code>artist</code>, <code>copyright</code>, and <code>tags</code>. See <a href="media/image.ahtml#standard_fields">Image</a> for the image-specific fields.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -618,7 +618,7 @@ Editorial fields and indexing behavior vary per type. See <a href="media/media-t
 </ul>
 </div>
 <div class="paragraph">
-<p>Editorial fields, mixin metadata, and delivery URLs are all available through the headless GraphQL API — see <a href="media/image.ahtml#querying-via-graphql">Image</a> and <a href="media/media-types.ahtml#querying-via-graphql">Media types</a> for worked examples.</p>
+<p>Editorial fields, mixin metadata, and delivery URLs are all available through the headless GraphQL API — see <a href="media/image.ahtml#querying_via_graphql">Image</a> and <a href="media/media-types.ahtml#querying_via_graphql">Media types</a> for worked examples.</p>
 </div>
 </div>
 </div>
@@ -643,7 +643,7 @@ Editorial fields and indexing behavior vary per type. See <a href="media/media-t
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>

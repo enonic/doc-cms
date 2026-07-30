@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Schemas are used to define various editorial elements within the CMS. Schemas may contain a <a href="schemas/forms.ahtml">Form</a> which allow you to declare custom data structures. Every schema lives in a <a href="schemas/namespaces.ahtml">namespace</a> that scopes its package and prevents collisions between independent providers.</p>
 </div>
-<div class="paragraph">
+<div id="kinds" class="paragraph">
 <p>The available schema kinds are:</p>
 </div>
 <div class="ulist">
@@ -516,9 +516,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Sample schema definition</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: “ContentType”  <i class="conum" data-value="1"></i><b>(1)</b>
-title: “Person”  <i class="conum" data-value="2"></i><b>(2)</b>
-displayNameLabel: “Full Name”  <i class="conum" data-value="3"></i><b>(3)</b>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"  <i class="conum" data-value="1"></i><b>(1)</b>
+title: "Person"  <i class="conum" data-value="2"></i><b>(2)</b>
+displayNamePlaceholder: "Full Name"  <i class="conum" data-value="3"></i><b>(3)</b>
 form: []  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
@@ -534,7 +534,7 @@ form: []  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><a href="#configuration">Configuration</a> - Validated fields for each schema kind</td>
+<td>Configuration - Additional validated fields, specific to each <a href="#kinds">schema kind</a></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -555,7 +555,7 @@ form: []  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-24 08:16:49 UTC
+Last updated 2026-07-30 20:26:07 UTC
 </div>
 </div>
 </body>
