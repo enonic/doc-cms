@@ -11,7 +11,7 @@ A page fragment is a content item of type `portal:fragment`. It represents a reu
 
 == Usage
 
-To create a Fragment in Content Studio: Edit an existing page, select a component and click “Create Fragment”. Once created, the fragment content can be referenced in other pages by inserting a Fragment component in the page.
+To create a Fragment in Content Studio: Edit an existing page, select a component and click "Create Fragment". Once created, the fragment content can be referenced in other pages by inserting a Fragment component in the page.
 
 Changes applied to a fragment will immediately be available in the pages that reference the fragment.
 
