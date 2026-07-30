@@ -26,7 +26,7 @@ allowChildContentType:  # <9>
   - "${app}:article-*"
 form:  # <10>
   - type: "TextLine"
-    name: "fullName"
+    name: "full_name"
     label: "Full name"
     occurrences:
       min: 1
