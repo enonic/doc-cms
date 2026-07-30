@@ -495,7 +495,7 @@ allowChildContentType:  <i class="conum" data-value="9"></i><b>(9)</b>
   - "${app}:article-*"
 form:  <i class="conum" data-value="10"></i><b>(10)</b>
   - type: "TextLine"
-    name: "fullName"
+    name: "full_name"
     label: "Full name"
     occurrences:
       min: 1
@@ -819,7 +819,7 @@ You may not specify a custom content type as a supertype, nor may you create cir
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-30 20:26:07 UTC
+Last updated 2026-07-30 20:31:15 UTC
 </div>
 </div>
 </body>

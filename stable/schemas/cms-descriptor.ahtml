@@ -494,7 +494,7 @@ Schema packages are currently delivered as Enonic XP applications. The descripto
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "CMS"  <i class="conum" data-value="1"></i><b>(1)</b>
 form:  <i class="conum" data-value="2"></i><b>(2)</b>
   - type: "TextLine"
-    name: "apiKey"
+    name: "api_key"
     label: "API key"
     occurrences:
       min: 1
@@ -598,7 +598,7 @@ An app that also contributes page components ships a separate <code>site.yaml</c
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-30 20:26:07 UTC
+Last updated 2026-07-30 20:31:16 UTC
 </div>
 </div>
 </body>

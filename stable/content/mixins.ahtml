@@ -484,7 +484,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 title: "Full address"
 form:
   - type: "TextLine"
-    name: "addressLine"
+    name: "address_line"
     label: "Street address"
     occurrences:
       min: 0
@@ -496,7 +496,7 @@ form:
       min: 1
       max: 1
   - type: "TextLine"
-    name: "zipCode"
+    name: "zip_code"
     label: "Zip code"
     occurrences:
       min: 1
@@ -598,7 +598,7 @@ Due to GraphQL field naming restrictions (<code>-</code> and <code>.</code> are 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-30 20:26:07 UTC
+Last updated 2026-07-30 20:31:16 UTC
 </div>
 </div>
 </body>
