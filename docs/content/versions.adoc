@@ -43,9 +43,9 @@ Content lives on two branches: `draft` (the editor's working copy) and `master` 
 * Editing an item adds a version and moves the `draft` pointer to it.
 * Publishing *commits* the current `draft` version and moves the `master` pointer to that same version.
 
-Because both branches reference the version history, the published item on `master` and the work-in-progress on `draft` may point to different versions of the same content. This divergence is what the change state (`MODIFIED`, `MOVED`, and so on) describes in <<lifecycle#change-state, Content lifecycle>>.
+Because both branches reference the version history, the published item on `master` and the work-in-progress on `draft` may point to different versions of the same content. This divergence is what the change state (`MODIFIED`, `MOVED`, and so on) describes in <<lifecycle#change_state, Content lifecycle>>.
 
-The current version of an item on a given branch is identified by its `_versionKey`, one of the <<../content#standard-properties, standard content properties>>:
+The current version of an item on a given branch is identified by its `_versionKey`, one of the <<../content#standard_properties, standard content properties>>:
 
 [source,JSON]
 ----

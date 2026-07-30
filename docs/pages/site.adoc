@@ -88,4 +88,4 @@ A site is a content item, so it is queried like any other content — by path or
 }
 ----
 
-The `config` values inside `siteConfig` are *not* available in the GraphQL API by default, for the security reasons described under <<#_site_configuration, Site configuration>>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a <<../apis/graphql#extending-the-schema, Guillotine extension>>.
+The `config` values inside `siteConfig` are *not* available in the GraphQL API by default, for the security reasons described under <<#site_configuration, Site configuration>>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a <<../apis/graphql#extending-the-schema, Guillotine extension>>.

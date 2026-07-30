@@ -33,7 +33,7 @@ The `media:image` content type defines a small set of editorial fields:
 | Free-text tags, searchable alongside other content tags.
 |===
 
-The `_name` (used in the URL path) and `displayName` (shown in listings) are inherited from the `Content` interface — see <<../content#standard-properties, standard content properties>>.
+The `_name` (used in the URL path) and `displayName` (shown in listings) are inherited from the `Content` interface — see <<../content#standard_properties, standard content properties>>.
 
 == Extensibility
 

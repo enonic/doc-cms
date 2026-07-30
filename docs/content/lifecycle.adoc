@@ -233,4 +233,4 @@ NOTE: Guillotine queries the `master` branch by default, so the query above sets
 
 Every content item preserves enough history to reconstruct what changed, when, and by whom — see <<versions#, Versions>> for how to access prior states and compare them.
 
-Full audit properties (`creator`, `createdTime`, `modifier`, `modifiedTime`, `owner`, `_timestamp`) are documented under <<../content#standard-properties, standard content properties>>.
+Full audit properties (`creator`, `createdTime`, `modifier`, `modifiedTime`, `owner`, `_timestamp`) are documented under <<../content#standard_properties, standard content properties>>.

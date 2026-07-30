@@ -14,7 +14,7 @@ What makes them different is the presence of an attached file. On upload, Enonic
 
 A media item bundles two things in a single content record:
 
-. *The content item itself* — standard <<content#standard-properties, content properties>>, plus editorial fields specific to the media type (for images: `caption`, `altText`, `artist`, `copyright`, `tags`).
+. *The content item itself* — standard <<content#standard_properties, content properties>>, plus editorial fields specific to the media type (for images: `caption`, `altText`, `artist`, `copyright`, `tags`).
 . *One or more attachments* — the actual binary files, stored on the content item under the top-level `attachments` array.
 
 *Every media has at least one attachment* — the original uploaded file. The content's `data.media.attachment` field points to it by name, and the attachment itself is always tagged with `label: "source"`. This labelling keeps the original upload identifiable even when additional attachments are added later by editors or other apps.
@@ -47,7 +47,7 @@ A media item bundles two things in a single content record:
   ]
 }
 ----
-<1> *data.media.attachment* — name of the primary attachment, always present. Concrete media types may add editorial fields alongside — for example, `media:image` adds `caption`, `altText`, `artist`, `copyright`, and `tags`. See <<media/image#standard-fields, Image>> for the image-specific fields.
+<1> *data.media.attachment* — name of the primary attachment, always present. Concrete media types may add editorial fields alongside — for example, `media:image` adds `caption`, `altText`, `artist`, `copyright`, and `tags`. See <<media/image#standard_fields, Image>> for the image-specific fields.
 <2> *attachments* — the actual binary files. For text-bearing formats (PDF, Word, etc.) the extracted `text` is stored here and contributes to full-text search.
 <3> *label: "source"* — always set on the attachment created from the original upload, so the primary file stays distinguishable from any additional attachments.
 
@@ -93,7 +93,7 @@ Media binaries and data are delivered through dedicated APIs:
 * <<apis/image#, Image API>> — URL-based delivery with on-the-fly scaling, cropping, and format conversion for `media:image`.
 * <<apis/attachment#, Attachment API>> — raw file delivery for any attachment, including the primary attachment on non-image media types.
 
-Editorial fields, mixin metadata, and delivery URLs are all available through the headless GraphQL API — see <<media/image#querying-via-graphql, Image>> and <<media/media-types#querying-via-graphql, Media types>> for worked examples.
+Editorial fields, mixin metadata, and delivery URLs are all available through the headless GraphQL API — see <<media/image#querying_via_graphql, Image>> and <<media/media-types#querying_via_graphql, Media types>> for worked examples.
 
 == Further reading
 
