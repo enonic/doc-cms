@@ -19,7 +19,7 @@ NOTE: Schema packages are currently delivered as Enonic XP applications. The des
 kind: "CMS"  # <1>
 form:  # <2>
   - type: "TextLine"
-    name: "apiKey"
+    name: "api_key"
     label: "API key"
     occurrences:
       min: 1

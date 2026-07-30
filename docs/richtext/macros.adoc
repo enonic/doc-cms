@@ -50,7 +50,7 @@ form:  # <4>
     name: "body"  # <5>
     label: "Macro body"
   - type: "TextLine"
-    name: "defaultText"
+    name: "default_text"
     label: "Text to show if no user logged in"
 ----
 
