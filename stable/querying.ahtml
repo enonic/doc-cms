@@ -560,7 +560,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-For details on index configuration, see the <a href="https://developer.enonic.com/docs/platform/stable/storage/indexing">XP indexing documentation</a>.
+For details on index configuration, see the <a href="https://developer.enonic.com/docs/code/stable/storage/indexing">XP indexing documentation</a>.
 </td>
 </tr>
 </table>
@@ -1142,7 +1142,7 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-12 14:03:57 UTC
+Last updated 2026-08-14 05:54:01 UTC
 </div>
 </div>
 </body>

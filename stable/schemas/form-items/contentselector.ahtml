@@ -523,7 +523,7 @@ only displays content from the same site.</td>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td><strong>treeMode</strong> toggles between tree and flat modes. Default value is <code>false</code> (flat mode).<br>
-<span class="image"><img src="images/Content-selector-tree.png" alt="Input box with a dropdown with a tree structure" width="350"></span></td>
+<span class="image"><img src="images/contentselector-tree.png" alt="Input box with a dropdown with a tree structure" width="350"></span></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -782,7 +782,7 @@ The pattern will be prefixed by the current application name if it does <em>not<
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-12 14:03:57 UTC
+Last updated 2026-08-14 05:54:01 UTC
 </div>
 </div>
 </body>
