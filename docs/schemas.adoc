@@ -12,12 +12,12 @@ Schemas are used to define various editorial elements within the CMS. Schemas ma
 The available schema kinds are:
 
 * <<schemas/cms-descriptor#, CMS>> (Shared configuration and settings)
-* <<content/content-types#, Content Types>>
-* <<content/mixins#, Mixins>>
-* <<schemas/form-fragments#, Form Fragments>>
-* <<pages#, Pages, Parts and Layouts>>
-* <<richtext/macros#, Macros>>
-* <<richtext/styles#, Styles>>
+* <<content/content-types#, Content Types>> (Base schema for all content in the CMS)
+* <<content/mixins#, Mixins>> (Dynamically extend any content types)
+* <<schemas/form-fragments#, Form Fragments>> (Reuse definitions across other schemas)
+* <<pages#, Pages, Parts and Layouts>> (Page components)
+* <<richtext/macros#, Macros>> (Custom components in the rich text editor)
+* <<richtext/styles#, Styles>> (Custom styles in the rich text editor)
 
 
 == Schema deployment

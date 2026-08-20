@@ -59,6 +59,54 @@ The localization key must then be declared and localised in the resource bundle.
 NOTE: `allowChildContentType` has no effect if `allowChildContent` is set to `false`
 
 
+== Display name expressions
+
+Every content item has a standard editorially managed display name field, stored in the `displayName` property. Two optional top-level settings instruct Content Studio (or any other client) to generate display names instead of relying on the basic `displayName` field. The two settings work differently: `displayNameExpression` composes and persists the actual `displayName` value while the content is being edited, whereas `displayNameListExpression` only changes how items are presented in Content Studio's list views.
+
+=== displayNameExpression
+
+Composes the display name automatically while the content is being edited, instead of the editor typing it manually:
+
+[source,yaml]
+----
+kind: "ContentType"
+title: "Person"
+superType: "base:structured"
+displayNameExpression: "${first_name} ${last_name}"
+form:
+  - type: "TextLine"
+    name: "first_name"
+    label: "First name"
+  - type: "TextLine"
+    name: "last_name"
+    label: "Last name"
+----
+
+Placeholders on the form `${field_name}` reference form inputs by name — use dotted paths for inputs nested inside sets, e.g. `${address.city}`. Empty fields resolve to nothing (surplus whitespace is collapsed), HTML tags are stripped from values, and `HtmlArea` inputs are ignored.
+
+The composed value is saved as the content's `displayName`, so it is returned by the APIs like any other display name. With the definition above, a person with first name `Django` and last name `Reinhardt` gets the display name `Django Reinhardt`.
+
+=== displayNameListExpression
+
+Overrides how items of this type are labelled in Content Studio list views, such as the content navigator and selector dropdowns — typically by combining the `displayName` with other form values:
+
+[source,yaml]
+----
+kind: "ContentType"
+title: "Person"
+superType: "base:structured"
+displayNameListExpression: "${displayName} (${data.email})"
+form:
+  - type: "TextLine"
+    name: "email"
+    label: "Email"
+----
+
+Placeholders may reference `${displayName}` and any stored form value via `${data.field_name}`. Missing or empty properties resolve to an empty string.
+
+This setting only affects presentation in the Content Studio UI — the stored `displayName` is not modified, and API responses are unaffected. With the definition above, a person named `Django Reinhardt` with email `django@example.com` is listed in Content Studio as `Django Reinhardt (django@example.com)`.
+
+
 == Querying via GraphQL
 
 Guillotine generates a dedicated GraphQL type for every content type in the project. Each typed field mirrors the YAML form definition, so a front-end developer gets a schema that matches the content shape without any manual mapping.
