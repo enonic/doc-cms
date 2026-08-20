@@ -475,22 +475,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><a href="schemas/cms-descriptor.ahtml">CMS</a> (Shared configuration and settings)</p>
 </li>
 <li>
-<p><a href="content/content-types.ahtml">Content Types</a></p>
+<p><a href="content/content-types.ahtml">Content Types</a> (Base schema for all content in the CMS)</p>
 </li>
 <li>
-<p><a href="content/mixins.ahtml">Mixins</a></p>
+<p><a href="content/mixins.ahtml">Mixins</a> (Dynamically extend any content types)</p>
 </li>
 <li>
-<p><a href="schemas/form-fragments.ahtml">Form Fragments</a></p>
+<p><a href="schemas/form-fragments.ahtml">Form Fragments</a> (Reuse definitions across other schemas)</p>
 </li>
 <li>
-<p><a href="pages.ahtml">Pages, Parts and Layouts</a></p>
+<p><a href="pages.ahtml">Pages, Parts and Layouts</a> (Page components)</p>
 </li>
 <li>
-<p><a href="richtext/macros.ahtml">Macros</a></p>
+<p><a href="richtext/macros.ahtml">Macros</a> (Custom components in the rich text editor)</p>
 </li>
 <li>
-<p><a href="richtext/styles.ahtml">Styles</a></p>
+<p><a href="richtext/styles.ahtml">Styles</a> (Custom styles in the rich text editor)</p>
 </li>
 </ul>
 </div>
@@ -555,7 +555,7 @@ form: []  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-14 05:54:01 UTC
+Last updated 2026-08-20 07:38:33 UTC
 </div>
 </div>
 </body>

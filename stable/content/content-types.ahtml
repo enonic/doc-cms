@@ -443,6 +443,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#name">Name</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#display_name_expressions">Display name expressions</a>
+<ul class="sectlevel2">
+<li><a href="#displaynameexpression">displayNameExpression</a></li>
+<li><a href="#displaynamelistexpression">displayNameListExpression</a></li>
+</ul>
+</li>
 <li><a href="#querying_via_graphql">Querying via GraphQL</a>
 <ul class="sectlevel2">
 <li><a href="#type_names">Type names</a></li>
@@ -572,6 +578,65 @@ The localization key must then be declared and localised in the resource bundle.
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="display_name_expressions"><a class="link" href="#display_name_expressions">Display name expressions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every content item has a standard editorially managed display name field, stored in the <code>displayName</code> property. Two optional top-level settings instruct Content Studio (or any other client) to generate display names instead of relying on the basic <code>displayName</code> field. The two settings work differently: <code>displayNameExpression</code> composes and persists the actual <code>displayName</code> value while the content is being edited, whereas <code>displayNameListExpression</code> only changes how items are presented in Content Studio&#8217;s list views.</p>
+</div>
+<div class="sect2">
+<h3 id="displaynameexpression"><a class="link" href="#displaynameexpression">displayNameExpression</a></h3>
+<div class="paragraph">
+<p>Composes the display name automatically while the content is being edited, instead of the editor typing it manually:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"
+title: "Person"
+superType: "base:structured"
+displayNameExpression: "${first_name} ${last_name}"
+form:
+  - type: "TextLine"
+    name: "first_name"
+    label: "First name"
+  - type: "TextLine"
+    name: "last_name"
+    label: "Last name"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Placeholders on the form <code>${field_name}</code> reference form inputs by name — use dotted paths for inputs nested inside sets, e.g. <code>${address.city}</code>. Empty fields resolve to nothing (surplus whitespace is collapsed), HTML tags are stripped from values, and <code>HtmlArea</code> inputs are ignored.</p>
+</div>
+<div class="paragraph">
+<p>The composed value is saved as the content&#8217;s <code>displayName</code>, so it is returned by the APIs like any other display name. With the definition above, a person with first name <code>Django</code> and last name <code>Reinhardt</code> gets the display name <code>Django Reinhardt</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="displaynamelistexpression"><a class="link" href="#displaynamelistexpression">displayNameListExpression</a></h3>
+<div class="paragraph">
+<p>Overrides how items of this type are labelled in Content Studio list views, such as the content navigator and selector dropdowns — typically by combining the <code>displayName</code> with other form values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"
+title: "Person"
+superType: "base:structured"
+displayNameListExpression: "${displayName} (${data.email})"
+form:
+  - type: "TextLine"
+    name: "email"
+    label: "Email"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Placeholders may reference <code>${displayName}</code> and any stored form value via <code>${data.field_name}</code>. Missing or empty properties resolve to an empty string.</p>
+</div>
+<div class="paragraph">
+<p>This setting only affects presentation in the Content Studio UI — the stored <code>displayName</code> is not modified, and API responses are unaffected. With the definition above, a person named <code>Django Reinhardt</code> with email <code>django@example.com</code> is listed in Content Studio as <code>Django Reinhardt (<a href="mailto:django@example.com">django@example.com</a>)</code>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -819,7 +884,7 @@ You may not specify a custom content type as a supertype, nor may you create cir
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-14 05:54:01 UTC
+Last updated 2026-08-20 07:38:33 UTC
 </div>
 </div>
 </body>
