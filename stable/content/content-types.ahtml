@@ -442,9 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#identifier">Identifier</a></li>
-<li><a href="#display-name">Display name</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#display-name-expressions">Display name expressions</a>
+<li><a href="#display_name_expressions">Display name</a>
 <ul class="sectlevel2">
 <li><a href="#displaynameexpression">displayNameExpression</a></li>
 <li><a href="#displaynamelistexpression">displayNameListExpression</a></li>
@@ -478,75 +477,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>Every content type has a unique identifier in the following format <code>&lt;namespace&gt;:&lt;name&gt;</code>. Content types are either built-in, or custom defined by developers. As an example, a content type identifier might be <code>myapp:article</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="display-name"><a class="link" href="#display-name">Display name</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Every content item has a built-in display name field, stored in the top-level <code>displayName</code> property. It is the item&#8217;s human-readable title. The display name is shown in Content Studio lists and content selectors, and returned as <code>displayName</code> by the APIs for every content type.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/displayname.png" alt="Display name field as seen in the Content Studio at the top of the content editor form - in the example the content type is a folder" width="546px">
-</div>
-<div class="title">Figure 1. Screenshot of the display name field in Content Studio</div>
-</div>
-<div class="paragraph">
-<p>Because it is built in, it is never declared in the <code>form:</code>. Adding a <code>title</code>, <code>heading</code> or <code>name</code> input of your own stores the same information twice — editors get two fields to fill in, and front-end code gets two places to look.</p>
-</div>
-<div class="listingblock">
-<div class="title">Don&#8217;t — the title duplicated as a form item</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"
-title: "Article"
-superType: "base:structured"
-form:
-  - type: "TextLine"
-    name: "title"
-    label: "Title"</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Do — the built-in display name, relabelled for this type</div>
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"
-title: "Article"
-superType: "base:structured"
-displayNamePlaceholder: "Article heading"
-form: []</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Two optional settings adapt the display name to a content type, and neither one adds a form item:</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>displayNamePlaceholder</code></dt>
-<dd>
-<p>Sets a different label for the display name field in the content form — editors see <code>&lt;Article heading&gt;</code> instead of the generic <code>&lt;Display Name&gt;</code>. Supports <a href="../schemas/i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</p>
-</dd>
-<dt class="hdlist1"><code>displayNameExpression</code></dt>
-<dd>
-<p>Composes the value from other form fields, for items whose name is derived rather than typed — see <a href="#display-name-expressions">Display name expressions</a>.</p>
-</dd>
-</dl>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Composing the display name is the client&#8217;s job, not the platform&#8217;s — XP stores whatever value it is given. Content Studio is responsible for calculating the <code>displayNameExpression</code>, and for deriving the content item&#8217;s URL name (<code>_name</code>) from the display name as the editor types. Content created through the APIs or by import must supply its own <code>displayName</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Model a separate field only when it carries genuinely different information from the item&#8217;s name — a short listing teaser alongside a longer full title, for example.</p>
 </div>
 </div>
 </div>
@@ -646,10 +576,75 @@ The localization key must then be declared and localised in the resource bundle.
 </div>
 </div>
 <div class="sect1">
-<h2 id="display-name-expressions"><a class="link" href="#display-name-expressions">Display name expressions</a></h2>
+<h2 id="display_name_expressions"><a class="link" href="#display_name_expressions">Display name</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Every content item has a standard editorially managed display name field, stored in the <code>displayName</code> property. Two optional top-level settings instruct Content Studio (or any other client) to generate display names instead of relying on the basic <code>displayName</code> field. The two settings work differently: <code>displayNameExpression</code> composes and persists the actual <code>displayName</code> value while the content is being edited, whereas <code>displayNameListExpression</code> only changes how items are presented in Content Studio&#8217;s list views.</p>
+<p>Every content type has a built-in display name field, the value isstored in the top-level <code>displayName</code> property. It is the item&#8217;s human-readable title. The display name is shown in Content Studio lists and content selectors, and returned as <code>displayName</code> by the APIs for every content type.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/displayname.png" alt="Display name field as seen in the Content Studio at the top of the content editor form" width="546px">
+</div>
+<div class="title">Figure 1. Screenshot of the display name input field as seen in Content Studio</div>
+</div>
+<div class="paragraph">
+<p>Because it is built in, it is never declared in the <code>form:</code>. Adding a <code>title</code>, <code>heading</code> or <code>name</code> input of your own stores the same information twice — editors get two fields to fill in, and front-end code gets two places to look.</p>
+</div>
+<div class="listingblock">
+<div class="title">Don&#8217;t — the title duplicated as a form item</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"
+title: "Article"
+superType: "base:structured"
+form:
+  - type: "TextLine"
+    name: "title"
+    label: "Title"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Do — the built-in display name, relabelled for this type</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"
+title: "Article"
+superType: "base:structured"
+displayNamePlaceholder: "Article heading"
+form: []</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Model a separate field only when it carries genuinely different information from the item&#8217;s name — a short listing teaser alongside a longer full title, for example.</p>
+</div>
+<div class="paragraph">
+<p>Three optional top-level settings adapt the display name to a content type, and none of them adds a form item:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>displayNamePlaceholder</code></dt>
+<dd>
+<p>Sets a different label for the display name field in the content form — editors see <code>&lt;Article heading&gt;</code> instead of the generic <code>&lt;Display Name&gt;</code>. Supports <a href="../schemas/i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</p>
+</dd>
+<dt class="hdlist1"><code>displayNameExpression</code></dt>
+<dd>
+<p>Composes and persists the <code>displayName</code> value from other form fields, for items whose name is derived rather than typed.</p>
+</dd>
+<dt class="hdlist1"><code>displayNameListExpression</code></dt>
+<dd>
+<p>Changes only how items are labelled in Content Studio&#8217;s list views, leaving the stored value untouched.</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Composing the display name is the client&#8217;s job, not the platform&#8217;s — XP stores whatever value it is given. Content Studio is responsible for calculating the <code>displayNameExpression</code>, and for deriving the content item&#8217;s URL name (<code>_name</code>) from the display name as the editor types. Content created through the APIs or by import must supply its own <code>displayName</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
 <h3 id="displaynameexpression"><a class="link" href="#displaynameexpression">displayNameExpression</a></h3>
@@ -948,7 +943,7 @@ You may not specify a custom content type as a supertype, nor may you create cir
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-09 16:31:56 UTC
+Last updated 2026-09-09 16:50:27 UTC
 </div>
 </div>
 </body>
