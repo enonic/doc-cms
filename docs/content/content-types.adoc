@@ -44,7 +44,7 @@ Two optional settings adapt the display name to a content type, and neither one 
 `displayNamePlaceholder`:: Sets a different label for the display name field in the content form — editors see `<Article heading>` instead of the generic `<Display Name>`. Supports <<../schemas/i18n#, localization>> via the `text`/`i18n` object pattern.
 `displayNameExpression`:: Composes the value from other form fields, for items whose name is derived rather than typed — see <<#display-name-expressions, Display name expressions>>.
 
-NOTE: Composing the display name is the client's job, not the platform's — XP stores whatever value it is given. Content Studio is responsible for calculating the `displayNameExpression`, and what derives the content item's URL name (`_name`) from the display name as the editor types. Content created through the APIs or by import must supply its own `displayName`.
+NOTE: Composing the display name is the client's job, not the platform's — XP stores whatever value it is given. Content Studio is responsible for calculating the `displayNameExpression`, and for deriving the content item's URL name (`_name`) from the display name as the editor types. Content created through the APIs or by import must supply its own `displayName`.
 
 Model a separate field only when it carries genuinely different information from the item's name — a short listing teaser alongside a longer full title, for example.
 
