@@ -42,7 +42,8 @@ The definition below allows for multiple entries of phone numbers with labels:
   label:  # <2>
     text: "Contact Info"
     i18n: "contact_info.label"
-  occurrences:  # <3>
+  helpText: "Add one entry per phone number"  # <3>
+  occurrences:  # <4>
     min: 0
     max: 0
   items:
@@ -61,7 +62,8 @@ The definition below allows for multiple entries of phone numbers with labels:
 ----
 <1> *name* defines the mapping to the property name.
 <2> *label* — the displayed identifier of the input.
-<3> *occurrences* control the minimum and maximum instances of the ItemSet that may be created. `max: 0` means unlimited.
+<3> *helpText* (optional) — explanatory text shown below the set's label. Like `label`, supports <<../i18n#, localization>> via the `text`/`i18n` object pattern.
+<4> *occurrences* control the minimum and maximum instances of the ItemSet that may be created. `max: 0` means unlimited.
 
 TIP: Item sets may be nested inside each other to model more complex structures.
 
