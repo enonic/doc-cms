@@ -515,7 +515,7 @@ form:
     label:
       text: "Photo"
       i18n: "person.photo.label"
-    help-text:
+    helpText:
       text: "Passport photo"
       i18n: "person.photo.help-text"
     occurrences:
@@ -540,10 +540,13 @@ form:
 <p>label</p>
 </li>
 <li>
-<p>help-text</p>
+<p>helpText</p>
 </li>
 <li>
 <p>description</p>
+</li>
+<li>
+<p>displayNamePlaceholder (<a href="../content/content-types.ahtml#display-name">content types</a> only)</p>
 </li>
 </ul>
 </div>
@@ -616,7 +619,7 @@ person.photo.help-text=Passbilde</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-20 07:38:33 UTC
+Last updated 2026-09-09 16:29:43 UTC
 </div>
 </div>
 </body>

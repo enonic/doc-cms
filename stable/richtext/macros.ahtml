@@ -564,7 +564,7 @@ Optionally use <a href="../schemas/i18n.ahtml">localization</a> via the <code>te
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The macro texts (title, description, label and help-text from form input types) can be provided in multiple languages. Visit <a href="../schemas/i18n.ahtml">Schema localization</a> for more details.
+The macro texts (title, description, label and helpText from form input types) can be provided in multiple languages. Visit <a href="../schemas/i18n.ahtml">Schema localization</a> for more details.
 </td>
 </tr>
 </table>
@@ -719,7 +719,7 @@ A macro may optionally have its own specific icon. The icon can be assigned to t
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-20 07:38:33 UTC
+Last updated 2026-09-09 16:29:43 UTC
 </div>
 </div>
 </body>

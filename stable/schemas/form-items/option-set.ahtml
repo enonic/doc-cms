@@ -608,14 +608,14 @@ Just like the dropdown mode, you may enable multiple occurences of the whole Opt
   occurrences:  <i class="conum" data-value="1"></i><b>(1)</b>
     min: 0
     max: 0
-  help-text: "Create content with optional blocks"
+  helpText: "Create content with optional blocks"
   selection:  <i class="conum" data-value="2"></i><b>(2)</b>
     min: 1
     max: 1
   options:  <i class="conum" data-value="3"></i><b>(3)</b>
     - name: "hr"
       label: "Horizontal line"
-      help-text: "Adds a separator between blocks"
+      helpText: "Adds a separator between blocks"
     - name: "text"
       label: "Text"
       items:
@@ -683,14 +683,14 @@ Just like the dropdown mode, you may enable multiple occurences of the whole Opt
   occurrences:  <i class="conum" data-value="2"></i><b>(2)</b>
     min: 1
     max: 1
-  help-text: "Select up to 2 options"
+  helpText: "Select up to 2 options"
   selection:  <i class="conum" data-value="3"></i><b>(3)</b> <i class="conum" data-value="4"></i><b>(4)</b>
     min: 1
     max: 2
   options:
     - name: "coloring"  <i class="conum" data-value="5"></i><b>(5)</b>
       label: "Coloring"
-      help-text: "Select a color palette for the room"
+      helpText: "Select a color palette for the room"
       selected: true  <i class="conum" data-value="6"></i><b>(6)</b>
       items:
         - type: "ComboBox"
@@ -711,10 +711,10 @@ Just like the dropdown mode, you may enable multiple occurences of the whole Opt
           default: "spring"
     - name: "wood"
       label: "Wood upgrade"
-      help-text: "Wooden floor and doors"
+      helpText: "Wooden floor and doors"
     - name: "curtains"
       label: "Include curtains"
-      help-text: "Adds curtains to all windows"
+      helpText: "Adds curtains to all windows"
     - name: "wallpaper"
       label: "Exclusive wallpaper"
       items:
@@ -1027,7 +1027,7 @@ The <code>_selected</code> property contains information about which options wer
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-20 07:38:33 UTC
+Last updated 2026-09-09 16:29:43 UTC
 </div>
 </div>
 </body>

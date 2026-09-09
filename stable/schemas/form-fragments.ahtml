@@ -462,7 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>If you find yourself in need of repeating the exact same form pattern across different schemas, form fragments may be what you&#8217;re looking for.</p>
 </div>
 <div class="paragraph">
-<p>This is a special kind of schema, containging only a single &lt;form#, form&gt;. By referencing a form fragment from another schema, you pull the fragment form definition into the referencing schema&#8217;s form.</p>
+<p>This is a special kind of schema, containging only a single <a href="forms.ahtml">form</a>. You may then include the form fragment into other schemas.</p>
 </div>
 </div>
 </div>
@@ -472,53 +472,47 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Like other schemas, Form fragments are defined in YAML.</p>
 </div>
+<div class="paragraph">
+<p>The file with the form fragment schema must be placed in the folder <code>cms/form-fragments/&lt;name&gt;</code> and called <code>&lt;name&gt;.yaml</code>. For example, <em>cms/form-fragments/link/link.yaml</em>.</p>
+</div>
 <div class="listingblock">
-<div class="title">Sample form fragment</div>
+<div class="title">link.yaml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "Mixin"
-title: "Full address"
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "FormFragment"
+title: "Call to action"
 form:
   - type: "TextLine"
-    name: "address_line"
-    label: "Street address"
-    occurrences:
-      min: 0
-      max: 2
-  - type: "TextLine"
-    name: "city"
-    label: "City"
+    name: "url"
+    label: "Link target"
     occurrences:
       min: 1
       max: 1
   - type: "TextLine"
-    name: "zip_code"
-    label: "Zip code"
+    name: "label"
+    label: "Link text"
     occurrences:
       min: 1
       max: 1
-  - type: "TextLine"
-    name: "country"
-    label: "Country"
-    occurrences:
-      min: 1
-      max: 1</code></pre>
+  - type: "CheckBox"
+    name: "new_window"
+    label: "Open in new window"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Below is an example of a simple content type that references the address mixin above.</p>
+<p>Below is an example of a simple content type that references the call to action form fragment above.</p>
 </div>
 <div class="paragraph">
-<p>The mixin form fields will simply be included into the final content type schema.</p>
+<p>The form fragment fields will simply be included into the final content type schema.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: "ContentType"
-title: "Using mixins"
+title: "Using form fragments"
 form:
   - type: "TextLine"
-    name: "first_name"
-    label: "First Name"
-  - include: "address"</code></pre>
+    name: "heading"
+    label: "Heading"
+  - include: "link"</code></pre>
 </div>
 </div>
 </div>
@@ -534,7 +528,7 @@ form:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-20 07:38:33 UTC
+Last updated 2026-09-09 16:29:43 UTC
 </div>
 </div>
 </body>

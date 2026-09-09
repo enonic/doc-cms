@@ -528,7 +528,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   name: "my_name"
   label:  "My label" <i class="conum" data-value="2"></i><b>(2)</b>
   default: ""  <i class="conum" data-value="3"></i><b>(3)</b>
-  help-text: "Help text here" <i class="conum" data-value="4"></i><b>(4)</b>
+  helpText: "Help text here" <i class="conum" data-value="4"></i><b>(4)</b>
   occurrences:  <i class="conum" data-value="5"></i><b>(5)</b>
     min: 0
     max: 1
@@ -572,7 +572,7 @@ name: "myfieldname"      # Avoid - hard to read</code></pre>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><strong>help-text</strong> is an optional field that lets you specify a text label shown below the input field. Used for explanation of the field&#8217;s purpose.<br>
+<td><strong>helpText</strong> is an optional field that lets you specify a text label shown below the input field. Used for explanation of the field&#8217;s purpose.<br>
 Like <code>label</code>, supports <a href="i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</td>
 </tr>
 <tr>
@@ -846,7 +846,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-20 07:38:33 UTC
+Last updated 2026-09-09 16:29:43 UTC
 </div>
 </div>
 </body>

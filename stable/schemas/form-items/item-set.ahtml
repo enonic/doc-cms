@@ -531,7 +531,8 @@ You may also define itemSets within other itemSets to create more complex struct
   label:  <i class="conum" data-value="2"></i><b>(2)</b>
     text: "Contact Info"
     i18n: "contact_info.label"
-  occurrences:  <i class="conum" data-value="3"></i><b>(3)</b>
+  helpText: "Add one entry per phone number"  <i class="conum" data-value="3"></i><b>(3)</b>
+  occurrences:  <i class="conum" data-value="4"></i><b>(4)</b>
     min: 0
     max: 0
   items:
@@ -561,6 +562,10 @@ You may also define itemSets within other itemSets to create more complex struct
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>helpText</strong> (optional) — explanatory text shown below the set&#8217;s label. Like <code>label</code>, supports <a href="../i18n.ahtml">localization</a> via the <code>text</code>/<code>i18n</code> object pattern.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
 <td><strong>occurrences</strong> control the minimum and maximum instances of the ItemSet that may be created. <code>max: 0</code> means unlimited.</td>
 </tr>
 </table>
@@ -744,7 +749,7 @@ Arrays are added based on the actual number of items created, not the schema def
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-20 07:38:33 UTC
+Last updated 2026-09-09 16:29:43 UTC
 </div>
 </div>
 </body>
