@@ -63,6 +63,7 @@ In general, the following schema elements support localization via the `text`/`i
 * label
 * helpText
 * description
+* displayNamePlaceholder (<<../content/content-types#display-name, content types>> only)
 
 Other elements may also support localization, simply try adding the attribute to see if it works.
 
