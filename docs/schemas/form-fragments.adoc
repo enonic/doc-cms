@@ -7,7 +7,7 @@ Reuseable form definitions
 == Introduction
 If you find yourself in need of repeating the exact same form pattern across different schemas, form fragments may be what you're looking for. 
 
-This is a special kind of schema, containging only a single <forms#, form>. You may then include the form fragment into other schemas.
+This is a special kind of schema, containging only a single <<forms#, form>>. You may then include the form fragment into other schemas.
 
 == Usage
 

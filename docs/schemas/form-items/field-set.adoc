@@ -30,6 +30,8 @@ image::fieldset.png[Fieldset gorup ImageSelector and TextArea, 546w]
 <1> *FieldSet* does not need a name since it is only visual, and does not affect the data model
 <2> *items* is a container for form items that should be listed within the FieldSet.
 
+NOTE: A FieldSet accepts only `label` and `items`. Unlike inputs, <<item-set#, ItemSets>> and <<option-set#, OptionSets>>, it supports neither `helpText` nor `occurrences` — the label alone describes the group.
+
 == Output
 
 None - FieldSets do not produce any output, and are purely decorative. Form items contained within the FieldSet will produce output as normal and will not affect the data structure in any way.

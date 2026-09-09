@@ -46,7 +46,7 @@ form:
     label:
       text: "Photo"
       i18n: "person.photo.label"
-    help-text:
+    helpText:
       text: "Passport photo"
       i18n: "person.photo.help-text"
     occurrences:
@@ -61,7 +61,7 @@ In general, the following schema elements support localization via the `text`/`i
 
 * title
 * label
-* help-text
+* helpText
 * description
 
 Other elements may also support localization, simply try adding the attribute to see if it works.

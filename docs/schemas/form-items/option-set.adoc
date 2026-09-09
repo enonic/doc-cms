@@ -71,14 +71,14 @@ Below are examples of various OptionSet configurations.
   occurrences:  # <1>
     min: 0
     max: 0
-  help-text: "Create content with optional blocks"
+  helpText: "Create content with optional blocks"
   selection:  # <2>
     min: 1
     max: 1
   options:  # <3>
     - name: "hr"
       label: "Horizontal line"
-      help-text: "Adds a separator between blocks"
+      helpText: "Adds a separator between blocks"
     - name: "text"
       label: "Text"
       items:
@@ -131,14 +131,14 @@ Demonstrates multi-select mode with the options `Coloring`, `Wood upgrade`, `Inc
   occurrences:  # <2>
     min: 1
     max: 1
-  help-text: "Select up to 2 options"
+  helpText: "Select up to 2 options"
   selection:  # <3> <4>
     min: 1
     max: 2
   options:
     - name: "coloring"  # <5>
       label: "Coloring"
-      help-text: "Select a color palette for the room"
+      helpText: "Select a color palette for the room"
       selected: true  # <6>
       items:
         - type: "ComboBox"
@@ -159,10 +159,10 @@ Demonstrates multi-select mode with the options `Coloring`, `Wood upgrade`, `Inc
           default: "spring"
     - name: "wood"
       label: "Wood upgrade"
-      help-text: "Wooden floor and doors"
+      helpText: "Wooden floor and doors"
     - name: "curtains"
       label: "Include curtains"
-      help-text: "Adds curtains to all windows"
+      helpText: "Adds curtains to all windows"
     - name: "wallpaper"
       label: "Exclusive wallpaper"
       items:

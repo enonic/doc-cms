@@ -61,7 +61,7 @@ Optionally use <<../schemas/i18n#, localization>> via the `text`/`i18n` object p
 <4> *form* (required) A <<../schemas/forms#, Form>> where each input element corresponds to a macro parameter. Nested elements are not supported, so <<../schemas/form-items/item-set#, Item Sets>> are not allowed in the macro form. The <<../schemas/form-items/htmlarea#, HtmlArea>> input type is also disallowed, since it may contain macros itself.
 <5> *body* (optional) The macro body is represented by an input named `body`. If the form has no `body` input, the generated macro tag will be self-closing — for example, `[disable][macro attr="value"/][/disable]`.
 
-TIP: The macro texts (title, description, label and help-text from form input types) can be provided in multiple languages. Visit <<../schemas/i18n#, Schema localization>> for more details.
+TIP: The macro texts (title, description, label and helpText from form input types) can be provided in multiple languages. Visit <<../schemas/i18n#, Schema localization>> for more details.
 
 
 == Macro function
