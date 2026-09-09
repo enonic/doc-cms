@@ -7,48 +7,6 @@ The content type is the foundational schema type in Enonic XP. All content items
 == Identifier
 Every content type has a unique identifier in the following format `<namespace>:<name>`. Content types are either built-in, or custom defined by developers. As an example, a content type identifier might be `myapp:article`.
 
-[[display-name]]
-== Display name
-
-Every content item has a built-in display name field, stored in the top-level `displayName` property. It is the item's human-readable title. The display name is shown in Content Studio lists and content selectors, and returned as `displayName` by the APIs for every content type.
-
-.Screenshot of the display name field in Content Studio
-image::displayname.png["Display name field as seen in the Content Studio at the top of the content editor form - in the example the content type is a folder", 546px]
-
-Because it is built in, it is never declared in the `form:`. Adding a `title`, `heading` or `name` input of your own stores the same information twice — editors get two fields to fill in, and front-end code gets two places to look.
-
-.Don't — the title duplicated as a form item
-[source,yaml]
-----
-kind: "ContentType"
-title: "Article"
-superType: "base:structured"
-form:
-  - type: "TextLine"
-    name: "title"
-    label: "Title"
-----
-
-.Do — the built-in display name, relabelled for this type
-[source,yaml]
-----
-kind: "ContentType"
-title: "Article"
-superType: "base:structured"
-displayNamePlaceholder: "Article heading"
-form: []
-----
-
-Two optional settings adapt the display name to a content type, and neither one adds a form item:
-
-`displayNamePlaceholder`:: Sets a different label for the display name field in the content form — editors see `<Article heading>` instead of the generic `<Display Name>`. Supports <<../schemas/i18n#, localization>> via the `text`/`i18n` object pattern.
-`displayNameExpression`:: Composes the value from other form fields, for items whose name is derived rather than typed — see <<#display-name-expressions, Display name expressions>>.
-
-NOTE: Composing the display name is the client's job, not the platform's — XP stores whatever value it is given. Content Studio is responsible for calculating the `displayNameExpression`, and for deriving the content item's URL name (`_name`) from the display name as the editor types. Content created through the APIs or by import must supply its own `displayName`.
-
-Model a separate field only when it carries genuinely different information from the item's name — a short listing teaser alongside a longer full title, for example.
-
-
 == Usage
 
 Content types schemas are defined via YAML definitions. Below is an example content type definition:
@@ -95,10 +53,48 @@ The localization key must then be declared and localised in the resource bundle.
 NOTE: `allowChildContentType` has no effect if `allowChildContent` is set to `false`
 
 
-[[display-name-expressions]]
-== Display name expressions
+[[display-name]]
+[[display_name_expressions]]
+== Display name
 
-Every content item has a standard editorially managed display name field, stored in the `displayName` property. Two optional top-level settings instruct Content Studio (or any other client) to generate display names instead of relying on the basic `displayName` field. The two settings work differently: `displayNameExpression` composes and persists the actual `displayName` value while the content is being edited, whereas `displayNameListExpression` only changes how items are presented in Content Studio's list views.
+Every content type has a built-in display name field, the value isstored in the top-level `displayName` property. It is the item's human-readable title. The display name is shown in Content Studio lists and content selectors, and returned as `displayName` by the APIs for every content type.
+
+.Screenshot of the display name input field as seen in Content Studio
+image::displayname.png["Display name field as seen in the Content Studio at the top of the content editor form", 546px]
+
+Because it is built in, it is never declared in the `form:`. Adding a `title`, `heading` or `name` input of your own stores the same information twice — editors get two fields to fill in, and front-end code gets two places to look.
+
+.Don't — the title duplicated as a form item
+[source,yaml]
+----
+kind: "ContentType"
+title: "Article"
+superType: "base:structured"
+form:
+  - type: "TextLine"
+    name: "title"
+    label: "Title"
+----
+
+.Do — the built-in display name, relabelled for this type
+[source,yaml]
+----
+kind: "ContentType"
+title: "Article"
+superType: "base:structured"
+displayNamePlaceholder: "Article heading"
+form: []
+----
+
+Model a separate field only when it carries genuinely different information from the item's name — a short listing teaser alongside a longer full title, for example.
+
+Three optional top-level settings adapt the display name to a content type, and none of them adds a form item:
+
+`displayNamePlaceholder`:: Sets a different label for the display name field in the content form — editors see `<Article heading>` instead of the generic `<Display Name>`. Supports <<../schemas/i18n#, localization>> via the `text`/`i18n` object pattern.
+`displayNameExpression`:: Composes and persists the `displayName` value from other form fields, for items whose name is derived rather than typed.
+`displayNameListExpression`:: Changes only how items are labelled in Content Studio's list views, leaving the stored value untouched.
+
+NOTE: Composing the display name is the client's job, not the platform's — XP stores whatever value it is given. Content Studio is responsible for calculating the `displayNameExpression`, and for deriving the content item's URL name (`_name`) from the display name as the editor types. Content created through the APIs or by import must supply its own `displayName`.
 
 === displayNameExpression
 
