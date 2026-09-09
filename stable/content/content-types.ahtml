@@ -540,7 +540,7 @@ form: []</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Composing the display name is the client&#8217;s job, not the platform&#8217;s — XP stores whatever value it is given. Content Studio is responsible for calculating the <code>displayNameExpression</code>, and what derives the content item&#8217;s URL name (<code>_name</code>) from the display name as the editor types. Content created through the APIs or by import must supply its own <code>displayName</code>.
+Composing the display name is the client&#8217;s job, not the platform&#8217;s — XP stores whatever value it is given. Content Studio is responsible for calculating the <code>displayNameExpression</code>, and for deriving the content item&#8217;s URL name (<code>_name</code>) from the display name as the editor types. Content created through the APIs or by import must supply its own <code>displayName</code>.
 </td>
 </tr>
 </table>
@@ -948,7 +948,7 @@ You may not specify a custom content type as a supertype, nor may you create cir
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-09 16:29:43 UTC
+Last updated 2026-09-09 16:31:56 UTC
 </div>
 </div>
 </body>
