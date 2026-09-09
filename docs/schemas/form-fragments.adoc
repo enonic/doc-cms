@@ -7,57 +7,50 @@ Reuseable form definitions
 == Introduction
 If you find yourself in need of repeating the exact same form pattern across different schemas, form fragments may be what you're looking for. 
 
-This is a special kind of schema, containging only a single <form#, form>. By referencing a form fragment from another schema, you pull the fragment form definition into the referencing schema's form.
+This is a special kind of schema, containging only a single <forms#, form>. You may then include the form fragment into other schemas.
 
 == Usage
 
 Like other schemas, Form fragments are defined in YAML.
 
-.Sample form fragment
+The file with the form fragment schema must be placed in the folder `cms/form-fragments/<name>` and called `<name>.yaml`. For example, _cms/form-fragments/link/link.yaml_.
+
+.link.yaml
 [source,yaml]
 ----
-kind: "Mixin"
-title: "Full address"
+kind: "FormFragment"
+title: "Call to action"
 form:
   - type: "TextLine"
-    name: "address_line"
-    label: "Street address"
-    occurrences:
-      min: 0
-      max: 2
-  - type: "TextLine"
-    name: "city"
-    label: "City"
+    name: "url"
+    label: "Link target"
     occurrences:
       min: 1
       max: 1
   - type: "TextLine"
-    name: "zip_code"
-    label: "Zip code"
+    name: "label"
+    label: "Link text"
     occurrences:
       min: 1
       max: 1
-  - type: "TextLine"
-    name: "country"
-    label: "Country"
-    occurrences:
-      min: 1
-      max: 1
+  - type: "CheckBox"
+    name: "new_window"
+    label: "Open in new window"
 ----
 
-Below is an example of a simple content type that references the address mixin above.
+Below is an example of a simple content type that references the call to action form fragment above.
 
-The mixin form fields will simply be included into the final content type schema. 
+The form fragment fields will simply be included into the final content type schema. 
 
 [source,yaml]
 ----
 kind: "ContentType"
-title: "Using mixins"
+title: "Using form fragments"
 form:
   - type: "TextLine"
-    name: "first_name"
-    label: "First Name"
-  - include: "address"
+    name: "heading"
+    label: "Heading"
+  - include: "link"
 ----
 
 == Limitations
