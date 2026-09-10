@@ -1,29 +1,26 @@
 = Namespaces
 :toc: right
 
-Namespaces scope schemas to their package and prevent collisions between independent providers.
+An application defines the namespace its schemas live in, preventing collisions between independent providers.
 
 == Identifier
 
-Every schema is identified as `<namespace>:<name>` (e.g. `com.example.myapp:article`). The namespace scopes a *schema package* — the unit of schemas shipped together — and prevents collisions between independent providers that happen to use the same schema name.
+Every schema is identified as `<namespace>:<name>` (e.g. `com.example.myapp:article`). The namespace groups the schemas that are shipped together, and prevents collisions between independent providers that happen to use the same schema name.
 
-A namespace is a dot-separated identifier — you pick whatever name fits your package (e.g. `com.example.myapp`, `acme.editorial`, `myschemas`). Reverse-DNS (`com.<org>.<app>`) is a common convention but not required.
+A namespace is a dot-separated identifier, and it is the *application name*: an application named `com.example.myapp` defines the `com.example.myapp` namespace, and the schemas it ships live there. The developer does not declare the namespace explicitly. Reverse-DNS (`com.<org>.<app>`) is a common convention but not required — `acme.editorial` or `myschemas` work just as well.
 
-Each dot-separated segment must start with a letter and may contain letters, digits, and underscores. Lowercase is the convention.
+Each dot-separated segment may contain letters, digits, and underscores. Dashes are *not* allowed, since dots are converted to dashes when a namespace is used in a property name. The identifier is limited to 63 characters in total. Lowercase is the convention.
 
 == Reserved namespaces
 
-The following namespaces are *reserved* for built-in schemas:
+Namespaces are not limited to schemas — the same identifier names the application in every other context as well. Four namespaces are *reserved* by the platform for built-in functionality, and cannot be used as an application name:
 
 `base`:: <<../content/built-in-types#, Structural content types>> (`base:folder`, `base:shortcut`, `base:unstructured`).
 `portal`:: <<../pages#, Sites and pages>> types (`portal:site`, `portal:page-template`, `portal:fragment`, `portal:template-folder`).
 `media`:: <<../media/media-types#, Media types>> (`media:image`, `media:document`, etc.).
+`system`:: Platform built-ins that are not schemas, such as the <<../richtext/macros#, built-in macros>> (`system:disable`, `system:embed`) and validation error codes.
 
-== Where the namespace comes from
-
-Currently, the namespace of a schema package is the *application name* of the XP app that ships it. An app named `com.example.myapp` produces schemas in the `com.example.myapp` namespace — the developer does not declare it explicitly.
-
-NOTE: Support is being introduced for explicit namespace declaration, decoupling a schema package from the host app. This will allow schemas to be authored and managed independently of XP app installation. The `<namespace>:<name>` identifier rules and reserved-namespace list remain the same.
+Beyond the four reserved names, built-in platform APIs occupy namespaces of their own — `server` for the management APIs (e.g. `server:app`) and `admin` for the admin APIs (e.g. `admin:status`, `admin:event`). These are not rejected as application names, but an application using them would collide with the built-in APIs.
 
 == Encoding in stored content and APIs
 
