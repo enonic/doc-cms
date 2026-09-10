@@ -1,16 +1,16 @@
 = CMS descriptor
 :toc: right
 
-The CMS descriptor (`cms.yaml`) marks a schema package as a CMS package and exposes its schemas for assignment to content projects and sites.
+The CMS descriptor (`cms.yaml`) marks an application as a CMS contributor and exposes its schemas for assignment to content projects and sites.
 
 == Introduction
 
-`cms.yaml` is the package-level descriptor for the CMS. Its presence is what makes a schema package *assignable* to a content project or a site — without it, the schemas it ships will not appear in CMS contexts. The descriptor also lets the developer declare:
+`cms.yaml` is the application-level descriptor for the CMS. Its presence is what makes an application *assignable* to a content project or a site — without it, the schemas it ships will not appear in CMS contexts. The descriptor also lets the developer declare:
 
-* A *configuration form* shown to administrators when the package is added to a project or site, capturing per-instance settings.
+* A *configuration form* shown to administrators when the application is added to a project or site, capturing per-instance settings.
 * *Mixins* that should be activated on content within the assigned scope, with optional content-type filtering.
 
-NOTE: Schema packages are currently delivered as Enonic XP applications. The descriptor lives at `src/main/resources/cms/cms.yaml` inside the app, and the app name serves as the <<namespaces#, namespace>>. See <<#deployment, Deployment>> below for packaging and registration details.
+NOTE: The descriptor normally resides at `src/main/resources/cms/cms.yaml` inside the app, and the application name is the <<namespaces#, namespace>> of its schemas. See <<#deployment, Deployment>> below for packaging and registration details.
 
 == Descriptor
 
@@ -28,15 +28,15 @@ mixins:  # <3>
   - name: "address"
 ----
 
-<1> *kind* (required) Identifies this as a CMS package descriptor. Without `kind: "CMS"`, the file is ignored and the package will not appear as installable in Content Studio's project or site app-picker.
-<2> *form* (optional) A <<forms#, Form>> definition rendered when an administrator adds the package to a project or site. The submitted values are persisted alongside the assignment and are available at runtime — useful for per-instance settings such as API keys, feature flags, or endpoint URLs.
+<1> *kind* (required) Identifies this as a CMS descriptor. Without `kind: "CMS"`, the file is ignored and the application will not appear as installable in Content Studio's project or site app-picker.
+<2> *form* (optional) A <<forms#, Form>> definition rendered when an administrator adds the application to a project or site. The submitted values are persisted alongside the assignment and are available at runtime — useful for per-instance settings such as API keys, feature flags, or endpoint URLs.
 <3> *mixins* (optional) Registers <<../content/mixins#, mixins>> to be activated on content within the assigned scope. See <<#mixin-registration, Mixin registration>> below for filtering and optional-mode variants.
 
 
 [#mixin-registration]
 == Mixin registration
 
-Mixins declared under `mixins:` are applied by default to *all* content types within the project or site that hosts the package. Two attributes refine that behaviour:
+Mixins declared under `mixins:` are applied by default to *all* content types within the project or site that hosts the application. Two attributes refine that behaviour:
 
 `allowContentTypes`:: A regular expression matched against the qualified content-type name. Only matching content types receive the mixin.
 `optional`:: When `true`, the mixin is not added automatically — editors must enable it per content item from within the Content Wizard.
@@ -63,7 +63,7 @@ See <<form-items/contentselector#allowContentType, content type filtering modes>
 [#deployment]
 == Deployment
 
-Schema packages are deployed to Enonic XP via Enonic apps. The CMS descriptor and all schemas it references live in the app's `src/main/resources/cms/` directory, and are registered automatically when the app is installed — instantly reflected in Content Studio and the headless APIs.
+Schemas are deployed to Enonic XP as part of an application. The CMS descriptor and all schemas it references live in the application's `src/main/resources/cms/` directory, and are registered automatically when the application is installed — instantly reflected in Content Studio and the headless APIs.
 
 See the https://developer.enonic.com/docs/code/stable/schemas[schema packaging and deployment reference] in the Enonic Development Kit docs for project layout, build configuration, and registration details.
 
