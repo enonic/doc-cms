@@ -464,7 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Schemas are used to define various editorial elements within the CMS. Schemas may contain a <a href="schemas/forms.ahtml">Form</a> which allow you to declare custom data structures. Every schema lives in a <a href="schemas/namespaces.ahtml">namespace</a> that scopes its package and prevents collisions between independent providers.</p>
+<p>Schemas are used to define various editorial elements within the CMS. Schemas may contain a <a href="schemas/forms.ahtml">Form</a> which allow you to declare custom data structures. Every schema lives in a <a href="schemas/namespaces.ahtml">namespace</a>, defined by the application that ships it, which prevents collisions between independent providers.</p>
 </div>
 <div id="kinds" class="paragraph">
 <p>The available schema kinds are:</p>
@@ -555,7 +555,7 @@ form: []  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-09 16:50:27 UTC
+Last updated 2026-09-10 06:30:33 UTC
 </div>
 </div>
 </body>

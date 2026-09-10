@@ -452,7 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The CMS descriptor (<code>cms.yaml</code>) marks a schema package as a CMS package and exposes its schemas for assignment to content projects and sites.</p>
+<p>The CMS descriptor (<code>cms.yaml</code>) marks an application as a CMS contributor and exposes its schemas for assignment to content projects and sites.</p>
 </div>
 </div>
 </div>
@@ -460,12 +460,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>cms.yaml</code> is the package-level descriptor for the CMS. Its presence is what makes a schema package <strong>assignable</strong> to a content project or a site — without it, the schemas it ships will not appear in CMS contexts. The descriptor also lets the developer declare:</p>
+<p><code>cms.yaml</code> is the application-level descriptor for the CMS. Its presence is what makes an application <strong>assignable</strong> to a content project or a site — without it, the schemas it ships will not appear in CMS contexts. The descriptor also lets the developer declare:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>A <strong>configuration form</strong> shown to administrators when the package is added to a project or site, capturing per-instance settings.</p>
+<p>A <strong>configuration form</strong> shown to administrators when the application is added to a project or site, capturing per-instance settings.</p>
 </li>
 <li>
 <p><strong>Mixins</strong> that should be activated on content within the assigned scope, with optional content-type filtering.</p>
@@ -479,7 +479,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Schema packages are currently delivered as Enonic XP applications. The descriptor lives at <code>src/main/resources/cms/cms.yaml</code> inside the app, and the app name serves as the <a href="namespaces.ahtml">namespace</a>. See <a href="#deployment">Deployment</a> below for packaging and registration details.
+The descriptor normally resides at <code>src/main/resources/cms/cms.yaml</code> inside the app, and the application name is the <a href="namespaces.ahtml">namespace</a> of its schemas. See <a href="#deployment">Deployment</a> below for packaging and registration details.
 </td>
 </tr>
 </table>
@@ -507,11 +507,11 @@ mixins:  <i class="conum" data-value="3"></i><b>(3)</b>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><strong>kind</strong> (required) Identifies this as a CMS package descriptor. Without <code>kind: "CMS"</code>, the file is ignored and the package will not appear as installable in Content Studio&#8217;s project or site app-picker.</td>
+<td><strong>kind</strong> (required) Identifies this as a CMS descriptor. Without <code>kind: "CMS"</code>, the file is ignored and the application will not appear as installable in Content Studio&#8217;s project or site app-picker.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>form</strong> (optional) A <a href="forms.ahtml">Form</a> definition rendered when an administrator adds the package to a project or site. The submitted values are persisted alongside the assignment and are available at runtime — useful for per-instance settings such as API keys, feature flags, or endpoint URLs.</td>
+<td><strong>form</strong> (optional) A <a href="forms.ahtml">Form</a> definition rendered when an administrator adds the application to a project or site. The submitted values are persisted alongside the assignment and are available at runtime — useful for per-instance settings such as API keys, feature flags, or endpoint URLs.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -525,7 +525,7 @@ mixins:  <i class="conum" data-value="3"></i><b>(3)</b>
 <h2 id="mixin-registration"><a class="link" href="#mixin-registration">Mixin registration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Mixins declared under <code>mixins:</code> are applied by default to <strong>all</strong> content types within the project or site that hosts the package. Two attributes refine that behaviour:</p>
+<p>Mixins declared under <code>mixins:</code> are applied by default to <strong>all</strong> content types within the project or site that hosts the application. Two attributes refine that behaviour:</p>
 </div>
 <div class="dlist">
 <dl>
@@ -576,7 +576,7 @@ mixins:
 <h2 id="deployment"><a class="link" href="#deployment">Deployment</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Schema packages are deployed to Enonic XP via Enonic apps. The CMS descriptor and all schemas it references live in the app&#8217;s <code>src/main/resources/cms/</code> directory, and are registered automatically when the app is installed — instantly reflected in Content Studio and the headless APIs.</p>
+<p>Schemas are deployed to Enonic XP as part of an application. The CMS descriptor and all schemas it references live in the application&#8217;s <code>src/main/resources/cms/</code> directory, and are registered automatically when the application is installed — instantly reflected in Content Studio and the headless APIs.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="https://developer.enonic.com/docs/code/stable/schemas">schema packaging and deployment reference</a> in the Enonic Development Kit docs for project layout, build configuration, and registration details.</p>
@@ -598,7 +598,7 @@ An app that also contributes page components ships a separate <code>site.yaml</c
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-09 16:50:27 UTC
+Last updated 2026-09-10 06:30:33 UTC
 </div>
 </div>
 </body>
