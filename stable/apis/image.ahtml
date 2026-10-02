@@ -600,7 +600,7 @@ Supported format extensions are <code>.jpg</code>, <code>.png</code> and <code>.
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Content with MIME type <code>image/gif</code> and <code>image/svg+xml</code> are returned as-is without any processing.
+Content with MIME type <code>image/gif</code>, <code>image/avif</code>, <code>image/webp</code> and <code>image/svg+xml</code> is returned as-is without any processing.
 </td>
 </tr>
 </table>
@@ -1671,7 +1671,7 @@ Unlike the <a href="attachment.ahtml">Attachment API</a>, the Image API does not
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-11 11:09:56 UTC
+Last updated 2026-10-02 07:46:16 UTC
 </div>
 </div>
 </body>
