@@ -31,11 +31,9 @@ Below are several sample usages of CustomSelector:
   name: "music_track"
   label: "Intro song"
   extension: "com.enonic.app.extapp:my-extension"
-  param:  # <2>
-    - value: "genre"
-      label: "classic"
-    - value: "sortBy"
-      label: "length"
+  params:  # <2>
+    genre: "classic"
+    sortBy: "length"
 
 # Gallery mode
 - type: "CustomSelector"
@@ -56,7 +54,7 @@ Below are several sample usages of CustomSelector:
 
 ----
 <1> *extension* — references an <<#extension, extension>> that is responsible for providing the options. Can reference extension in other applications by including the application prefix e.g. `com.myapplication.app:my-extension`.
-<2> *param* lets you pass parameters to the service so the same function can be reused across fields. Parameters are sent as query-string name/value pairs.
+<2> *params* lets you pass parameters to the service so the same function can be reused across fields. Parameters are sent as query-string name/value pairs.
 <3> *galleryMode* set to `true` renders options in a gallery style (three big images in a row), similar to <<imageselector#appearance,ImageSelector>>. Useful when images should be emphasized.
 <4> *service* — Deprecated! Refer to the service service that provides the options (relative or with application prefix).
 
