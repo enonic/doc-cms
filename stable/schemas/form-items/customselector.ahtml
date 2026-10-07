@@ -500,11 +500,9 @@ Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-
   name: "music_track"
   label: "Intro song"
   extension: "com.enonic.app.extapp:my-extension"
-  param:  <i class="conum" data-value="2"></i><b>(2)</b>
-    - value: "genre"
-      label: "classic"
-    - value: "sortBy"
-      label: "length"
+  params:  <i class="conum" data-value="2"></i><b>(2)</b>
+    genre: "classic"
+    sortBy: "length"
 
 # Gallery mode
 - type: "CustomSelector"
@@ -532,7 +530,7 @@ Tutorial: Check out <a href="https://developer.enonic.com/learn/building-custom-
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><strong>param</strong> lets you pass parameters to the service so the same function can be reused across fields. Parameters are sent as query-string name/value pairs.</td>
+<td><strong>params</strong> lets you pass parameters to the service so the same function can be reused across fields. Parameters are sent as query-string name/value pairs.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -601,7 +599,7 @@ Visit the <a href="https://developer.enonic.com/docs/code/stable/web/extensions/
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-02 07:46:16 UTC
+Last updated 2026-10-07 10:20:21 UTC
 </div>
 </div>
 </body>
