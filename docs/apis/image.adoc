@@ -45,7 +45,7 @@ NOTE: If format extension is specified, content gets converted to a correspondin
 
 NOTE: Supported format extensions are `.jpg`, `.png` and `.gif`. Other extensions may still work but are not supported.
 
-WARNING: Content with MIME type `image/gif` and `image/svg+xml` are returned as-is without any processing.
+WARNING: Content with MIME type `image/gif`, `image/avif`, `image/webp` and `image/svg+xml` is returned as-is without any processing.
 
 Example of an image URL on the root of a live site behind a https://developer.enonic.com/docs/platform/stable/config/vhosts#virtual-hosts[Virtual Host]:
 ----
