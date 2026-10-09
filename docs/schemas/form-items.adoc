@@ -48,12 +48,12 @@ The following configuration is common for for most form items:
 _name_ is used when storing the data in a property, and must be unique on each level. +
 _type_ refers to one of the many input types which are listed below.
 +
-NOTE: Use `snake_case` (lowercase with underscores) for all names. Capital letters are flattened during indexing which can cause unexpected query behavior. The `snake_case` convention also ensures clean field names in the <<../apis/graphql#, GraphQL API>>.
+NOTE: Use `camelCase` for names, such as `myFieldName`. Names are used as they are for field names in the <<../apis/graphql#, GraphQL API>>, where camelCase is the convention and matches built-in fields such as `displayName`. Property paths are lowercased in the index, so never give two form items on the same level names that differ only by case, such as `myField` and `myfield`: they collide when indexed and queried.
 +
 [source,yaml]
 ----
-name: "my_field_name"    # Recommended
-name: "myFieldName"      # Avoid - capitals are flattened in the index
+name: "myFieldName"      # Recommended
+name: "my_field_name"    # Works, but looks foreign next to built-in fields in the GraphQL API
 name: "myfieldname"      # Avoid - hard to read
 ----
 
