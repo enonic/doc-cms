@@ -549,15 +549,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Use <code>snake_case</code> (lowercase with underscores) for all names. Capital letters are flattened during indexing which can cause unexpected query behavior. The <code>snake_case</code> convention also ensures clean field names in the <a href="../apis/graphql.ahtml">GraphQL API</a>.
+Use <code>camelCase</code> for names, such as <code>myFieldName</code>. Names are used as they are for field names in the <a href="../apis/graphql.ahtml">GraphQL API</a>, where camelCase is the convention and matches built-in fields such as <code>displayName</code>. Property paths are lowercased in the index, so never give two form items on the same level names that differ only by case, such as <code>myField</code> and <code>myfield</code>: they collide when indexed and queried.
 </td>
 </tr>
 </table>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">name: "my_field_name"    # Recommended
-name: "myFieldName"      # Avoid - capitals are flattened in the index
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">name: "myFieldName"      # Recommended
+name: "my_field_name"    # Works, but looks foreign next to built-in fields in the GraphQL API
 name: "myfieldname"      # Avoid - hard to read</code></pre>
 </div>
 </div></td>
@@ -846,7 +846,7 @@ This element is optional, if omitted the default will be <code>min: 0</code> and
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-07 10:20:21 UTC
+Last updated 2026-10-09 13:45:16 UTC
 </div>
 </div>
 </body>
