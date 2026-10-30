@@ -7,7 +7,7 @@ The CMS is designed to be embedded in a larger ecosystem. Front-end clients read
 
 [NOTE]
 ====
-The built-in Web APIs (GraphQL, Image, Attachment) are *read-only*. Programmatic writes — creating or updating content from external systems — are done by exposing your own endpoints through <<#extending-the-cms, custom functions>> that internally use the server-side JavaScript APIs.
+The generated Guillotine GraphQL API and the built-in Image and Attachment APIs are *read-only*. Programmatic writes — creating or updating content from external systems — are done by exposing your own endpoints through <<#extending-the-cms, custom functions>> that internally use the server-side JavaScript APIs.
 ====
 
 [#extending-the-cms]

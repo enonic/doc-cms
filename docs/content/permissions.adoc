@@ -41,9 +41,9 @@ Each <<../projects#roles, project>> also defines its own roles (Owner / Editor /
 
 == ACL model
 
-The ACL is **allow-only** — each entry lists permissions granted to one principal; there are no deny entries. Effective permission for a caller is the union of every entry whose principal matches.
+Each ACL entry lists permissions granted to one principal. A caller has a permission when at least one matching entry grants it.
 
-The ACL appears on a content item as the `_permissions` property:
+At the Node API level, the content item's underlying node exposes its ACL as `_permissions`. The following excerpt shows granted permissions in that representation. It is not the physical storage format or a GraphQL response; Guillotine exposes the <<#querying_via_graphql, `permissions` field>> instead.
 
 [source,JSON]
 ----
@@ -66,6 +66,8 @@ The ACL appears on a content item as the `_permissions` property:
   ]
 }
 ----
+
+The ACL is system metadata associated with the node, separate from the editorial fields in `data`. For the underlying storage model, see the https://developer.enonic.com/docs/platform/stable/storage/permissions[XP permissions reference].
 
 == Inheritance: copy-on-create
 
@@ -103,28 +105,27 @@ The indexed fields support permission-aware queries; they do not bypass the impl
 
 == Querying via GraphQL
 
-Guillotine exposes the ACL on the `Content` interface via the `_permissions` field. Useful for editorial UIs that need to render who-can-do-what without re-fetching from a separate endpoint.
+Guillotine exposes the ACL on the `Content` interface via `permissions`, without a leading underscore. There is no `_permissions` GraphQL field. The example below retrieves ACL entries for an editorial UI that needs to show the permissions granted to each principal.
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/my-site/articles/my-article") {
       _id
       displayName
-      _permissions {
-        principal {
-          key
-          displayName
+      permissions {
+        permissions {
+          principal { value }
+          allow
         }
-        allow
       }
     }
   }
 }
 ----
 
-NOTE: The Guillotine schema mirrors the underlying ACL — query the field reference in the https://developer.enonic.com/docs/guillotine/stable[Guillotine documentation] for the exact field shape, since it evolves with Guillotine versions.
+The outer `permissions` object contains the ACL entries in its `permissions` list. Each entry identifies a principal; `allow` is the API field containing the permissions granted to that principal. See the https://developer.enonic.com/docs/guillotine/stable/api#permissions[Guillotine permissions reference] for the full field definitions.
 
 == Where permissions come from
 

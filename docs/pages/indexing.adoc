@@ -102,7 +102,7 @@ Thanks to this persistence model, it is possible to predictably query for the pr
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         term: {
@@ -125,7 +125,7 @@ Thanks to this persistence model, it is possible to predictably query for the pr
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         term: {
@@ -149,7 +149,7 @@ Component configs are addressable by the same flat path, with dots replaced for 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         term: {

@@ -23,29 +23,29 @@ The inserted image is stored as a `<figure>` element wrapping an `<img>` that re
 [source,html]
 ----
 <figure class="editor-style editor-image-cinema">
-  <img alt="Mountain at dawn" src="image://a1b2c3d4-e5f6-7890-abcd-ef1234567890"/>
+  <img alt="Mountain at dawn" src="image://a1b2c3d4-e5f6-7890-abcd-ef1234567890?style=editor-image-cinema"/>
   <figcaption>Sunrise over the summit</figcaption>
 </figure>
 ----
 
 * `image://<id>` references an image content item — not a file URL — and must be resolved before rendering.
 * The optional `<figcaption>` holds the caption.
-* The class (e.g. `editor-image-cinema`) identifies a custom <<styles#, image style>> that controls server-side crop/filters and editor CSS.
+* The `style` parameter selects the <<styles#, image style>> for server-side cropping and filters. The corresponding class supports editor and front-end styling.
 
 == Processed Format
 
-By using Guillotine's `processedHtml`, image elements will automatically be tagged with reference attributes.  Additionally, the HtmlArea type also exposes a typed `images` field returning detailed data about the referenced image content, so a front-end can build its own markup instead of parsing the processed HTML:
+Guillotine tags each image with `data-image-ref` in `processedHtml`. The structured `images` field provides the matching `ref`, image content, applied style, and URL components for `src` and `srcset`. The HTML attributes contain placeholders that the front-end must rewrite.
 
-The `processHtml` argument is applied on the field itself. `type` controls the URL form (`absolute` or `server`-relative), and `imageWidths` lists the widths used to generate the `srcset`.
+The `processHtml` argument on the HtmlArea field controls the image sizes: `imageSrcWidth` sets the main image width and `imageWidths` requests responsive variants. Styles come from applications configured on the project, or on the site selected by `scopeKey`.
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello") {
       ... on com_example_myapp_Article {
         data {
-          body(processHtml: {type: absolute, imageWidths: [600, 992]}) {
+          body(processHtml: {imageSrcWidth: 992, imageWidths: [600, 992]}) {
             processedHtml
             images {
               ref  # <1>
@@ -53,7 +53,13 @@ The `processHtml` argument is applied on the field itself. `type` controls the U
                 _id
                 displayName
               }
+              src { path queryString }
+              srcset {
+                width
+                imageUrl { path queryString }
+              }
               style {
+                application
                 name
                 aspectRatio
                 filter
@@ -68,40 +74,50 @@ The `processHtml` argument is applied on the field itself. `type` controls the U
 ----
 <1> Matches the `data-image-ref` attribute in `processedHtml`, so a front-end can map each image tag to its data.
 
-.Response
+.One entry in `data.guillotine.get.data.body.images` (IDs and fingerprints abbreviated)
 [source,JSON]
 ----
 {
-  "data": {
-    "guillotine": {
-      "get": {
-        "data": {
-          "body": {
-            "processedHtml": "<figure class=\"editor-style editor-image-cinema\"><img src=\"https://example.com/api/media:image/my-project/a1b2c3d4-...:<fingerprint>/width-768/photo.jpg\" data-image-ref=\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\" srcset=\"https://example.com/api/media:image/my-project/a1b2c3d4-...:<fingerprint>/width-600/photo.jpg 600w, https://example.com/api/media:image/my-project/a1b2c3d4-...:<fingerprint>/width-992/photo.jpg 992w\"/><figcaption>Sunrise over the summit</figcaption></figure>",
-            "images": [
-              {
-                "ref": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-                "image": {
-                  "_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-                  "displayName": "Mountain at dawn"
-                },
-                "style": {
-                  "name": "editor-image-cinema",
-                  "aspectRatio": "21:9",
-                  "filter": null
-                }
-              }
-            ]
-          }
-        }
+  "ref": "image-ref",
+  "image": {
+    "_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "displayName": "Mountain at dawn"
+  },
+  "src": {
+    "path": "/media:image/myproject/content-id:fingerprint/block-992-425/photo.jpg",
+    "queryString": ""
+  },
+  "srcset": [
+    {
+      "width": 600,
+      "imageUrl": {
+        "path": "/media:image/myproject/content-id:fingerprint/block-600-257/photo.jpg",
+        "queryString": ""
+      }
+    },
+    {
+      "width": 992,
+      "imageUrl": {
+        "path": "/media:image/myproject/content-id:fingerprint/block-992-425/photo.jpg",
+        "queryString": ""
       }
     }
+  ],
+  "style": {
+    "application": "com.example.myapp",
+    "name": "editor-image-cinema",
+    "aspectRatio": "21:9",
+    "filter": null
   }
 }
 ----
 
-In the processed HTML the `image://` reference is rewritten to an Image API `<img>` tagged with a `data-image-ref` attribute and a `srcset` generated from `imageWidths`; the `<figure>`, `<figcaption>` and style class are preserved. The typed `images` array carries the same `ref` (so a front-end can correlate each tag with its data), plus the resolved `image` content and the applied `style`.
+This example assumes the configured application defines the `editor-image-cinema` image style with a `21:9` aspect ratio. The corresponding image element in `processedHtml` carries `data-image-ref="image-ref"`. The `<figure>`, caption and style class are retained.
 
 == Rendering
 
-A front-end consumes `processedHtml` together with the typed `images` data, correlating each `data-image-ref` tag with its `ref` to render images its own way (for example a responsive `<picture>` or a design-system component). Enonic's front-end toolkits handle this mapping for you — see <<../frontend#, Front-end integration>> and the https://developer.enonic.com/learn/react-spa/stable/rich-text[React SPA tutorial] for worked examples.
+Match each `data-image-ref` to its entry in `images`. Build `src` by concatenating your public API or media base URL, `src.path` and `src.queryString`. Build each `srcset` entry from its `imageUrl` in the same way, followed by its width descriptor, such as `600w`.
+
+Use the returned paths and query strings unchanged: styles and transformations affect the generated URLs and fingerprints. Request every size through `processHtml` rather than editing a path. An unresolved image has `src: null` and an empty `srcset`; handle that case in the renderer.
+
+See https://developer.enonic.com/docs/guillotine/stable/usage/rich-text#images[Guillotine rich-text images] for complete field definitions and rendering examples, and <<../frontend#, Front-end integration>> for framework integrations.

@@ -1,6 +1,6 @@
 = Sites
 :toc: right
-:imagesdir: images
+:imagesdir: ../images
 
 A site is the root (front-page) of a website within a content project. It is a built-in content type (`portal:site`) that binds applications to a content sub-tree and unlocks the page-building features.
 
@@ -77,7 +77,7 @@ A site is a content item, so it is queried like any other content — by path or
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/my-site") {
       _id
       _path
@@ -89,3 +89,43 @@ A site is a content item, so it is queried like any other content — by path or
 ----
 
 The `config` values inside `siteConfig` are *not* available in the GraphQL API by default, for the security reasons described under <<#site_configuration, Site configuration>>. To read a configuration value from a headless front-end, the owning application must expose it explicitly through a <<../apis/graphql#extending-the-schema, Guillotine extension>>.
+
+[#url_scope]
+== URL scope
+
+image:guillotine-900.svg[Guillotine 9.0.0,opts=inline] `scopeKey` selects the site or other content that page URLs are relative to. It is separate from selecting the project and branch.
+
+NOTE: Guillotine 9 renames the `siteKey` argument to `scopeKey` and removes support for the `X-Guillotine-SiteKey` request header. Pass `scopeKey` in the GraphQL query instead. See the https://developer.enonic.com/docs/guillotine/stable/upgrade#site-context-migration[Guillotine upgrade notes] for the related changes to site context and relative paths.
+
+[source,graphql]
+----
+{
+  guillotine(project: "myproject", branch: "master", scopeKey: "/my-site") {
+    getSite { displayName }
+    get(key: "/my-site/articles/hello") {
+      _path
+      pageUrl { baseUrl path queryString }
+    }
+  }
+}
+----
+
+.The `data.guillotine` object when the site has no Base URL configured
+[source,JSON]
+----
+{
+  "getSite": { "displayName": "My Site" },
+  "get": {
+    "_path": "/my-site/articles/hello",
+    "pageUrl": {
+      "baseUrl": null,
+      "path": "/articles/hello",
+      "queryString": ""
+    }
+  }
+}
+----
+
+`_path` remains the full content path within the project. The front-end maps `pageUrl.path` to its routes, using the site's configured `baseUrl` or its own host. Without `scopeKey`, page URLs use the project context and `getSite` returns `null`.
+
+Selecting a scope does not restrict queries to the site's descendants; add explicit path constraints when searching a subtree. See https://developer.enonic.com/docs/guillotine/stable/usage/site-context[Guillotine scope and site] for the full behavior.

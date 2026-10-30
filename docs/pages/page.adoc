@@ -64,21 +64,26 @@ Using the Content API, you may access a JSON representation of the hierarchical 
   "page": {
     "type": "page",
     "path": "/",
+    "template": null,
     "descriptor": "com.enonic.app.superhero:default",
-      "components": [
-        {
-          "path": "/main/0",
-          "type": "layout",
-          "descriptor": "com.enonic.app.superhero:three-column",
-          "config": {},
-          "regions": {}
-        }
-      ]
+    "regions": {
+      "main": {
+        "components": [
+          {
+            "path": "/main/0",
+            "type": "layout",
+            "descriptor": "com.enonic.app.superhero:three-column",
+            "config": {}
+          }
+        ],
+        "name": "main"
+      }
+    }
   }
 }
 ----
 
-NOTE: Empty regions are never persisted. Region names are only determined from the component path.
+The Content API and `pageAsJson` expose a region tree. The typed GraphQL `components` list below is flat: each component's `path` identifies its region and position.
 
 
 == Querying via GraphQL
@@ -92,7 +97,7 @@ This query returns the hierarchical page structure as JSON, with all components 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/path/to/page") {
       displayName
       pageAsJson
@@ -112,16 +117,21 @@ This query returns the hierarchical page structure as JSON, with all components 
         "pageAsJson": {
           "type": "page",
           "path": "/",
+          "template": null,
           "descriptor": "com.enonic.app.superhero:default",
-          "components": [
-            {
-              "path": "/main/0",
-              "type": "layout",
-              "descriptor": "com.enonic.app.superhero:three-column",
-              "config": {},
-              "regions": {}
+          "regions": {
+            "main": {
+              "components": [
+                {
+                  "path": "/main/0",
+                  "type": "layout",
+                  "descriptor": "com.enonic.app.superhero:three-column",
+                  "config": {}
+                }
+              ],
+              "name": "main"
             }
-          ]
+          }
         }
       }
     }
@@ -133,12 +143,12 @@ This query returns the hierarchical page structure as JSON, with all components 
 
 To access the full list of components on a page, regardless of their position in the tree, use the `components` field on the page query. This allows you to perform queries against typed component data, similar to how you would with any other content type.
 
-This structure mirrors how <<indexing#, components are stored and indexed>>, giving a 1:1 mapping between query shape and indexed shape.
+This list follows the <<indexing#, stored component paths>>. GraphQL resolves references and exposes configuration under typed fields or `configAsJson`.
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
       components(resolveFragment: true) {
         type
@@ -197,8 +207,12 @@ This structure mirrors how <<indexing#, components are stored and indexed>>, giv
             "part": {
               "descriptor": "com.enonic.app.superhero:featured",
               "configAsJson": {
-                "headline": "Welcome",
-                "showLogo": true
+                "com-enonic-app-superhero": {
+                  "featured": {
+                    "headline": "Welcome",
+                    "showLogo": true
+                  }
+                }
               }
             }
           }

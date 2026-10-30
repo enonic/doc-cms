@@ -9,17 +9,19 @@ The Attachment API provides direct access to Content Attachments without process
 
 By default, the API is available at:
 
-  8080:/api/media:attachment/
+  http://localhost:8080/api/media:attachment/
 
-The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example `https://api.example.com/graphql`.
+The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example `https://media.example.com/media:attachment/`.
 
+
+Headless clients obtain URL components through Guillotine: use `mediaUrl { path queryString }` for a media item's original file, or `attachments { attachmentUrl { path queryString } }` for individual attachments. Prefix the returned `path` with your public API or media base URL, then append `queryString` unchanged. See <<../content/attachments#graphql, Attachments>> for an example and https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls[Guillotine's URL documentation] for client handling.
 
 == Attachment URL structure
 
 The attachment URL consists of the following components:
 
 . Base +
-`:8080/api/media:attachment/`
+`http://localhost:8080/api/media:attachment/`
 . Media Locator with an optional (branch) +
 `<project>(:<branch>)/<content-id>` +
 `master` is the default branch (referring to published content). Specifying `master` branch is an error - to avoid cache pollution. Since we only have `master` and `draft` there are only two options: `/<project>/` and `/<project>:draft/`

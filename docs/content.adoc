@@ -9,7 +9,7 @@ Content is normally managed via Content Studio, but can also be accessed and man
 
 == Standard properties
 
-Content items are stored in JSON format, within an XP repo. Every content item has a set of standard properties that are automatically generated and maintained via the Content API. Below is an overview of the JSON structure of a content item:
+Content items are backed by nodes in an XP repository. The overview below combines editorial data and system metadata to explain their roles. It is a conceptual overview, not a physical storage layout or a response from one API: the Content API, Node API, search index and Guillotine expose different representations. For GraphQL response examples, see <<content/content-types#querying_via_graphql, Content types>>.
 
 [source,JSON]
 ----
@@ -48,7 +48,7 @@ Content items are stored in JSON format, within an XP repo. Every content item h
   "_references": [ ... ],  # <16>
   "_alltext": "My Article ...",  # <17>
   "_score": 1.23,  # <18>
-  "_permissions": { ... }  # <19>
+  "_permissions": [ ... ]  # <19>
 
 }
 ----
@@ -71,4 +71,4 @@ Content items are stored in JSON format, within an XP repo. Every content item h
 <16> *_references* — aggregation of all outbound <<content/references#, references>> to other content items in the project.
 <17> *_alltext* — all fulltext-analyzed fields (TextLine, TextArea, HtmlArea) gathered in one property, used for search.
 <18> *_score* — calculated relevance score, only present in search results.
-<19> *_permissions* — <<content/permissions#, access control>> settings for the content item.
+<19> *_permissions* — the Node API's representation of the underlying node's <<content/permissions#, access control>> settings. Guillotine exposes these through `permissions`, without the underscore.

@@ -49,7 +49,7 @@ Internally, XP also aggregates all outbound references to a dedicated `_referenc
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello-world") {
       displayName
       ... on com_example_myproject_Article {
@@ -104,7 +104,7 @@ To find inbound references, run a `queryDsl` search for content whose `_referenc
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         term: {

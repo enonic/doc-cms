@@ -4,7 +4,7 @@
 
 == Introduction
 
-Enonic's CMS is built on top of the Enonic XP platform core, and combines a set of independent components into a complete stack: <<projects#, Content Storage>> as the foundation, a declarative <<schemas#, Schema system>>, https://market.enonic.com/vendors/enonic/content-studio[Content Studio] for authoring, the https://market.enonic.com/vendors/enonic/guillotine[Headless API] for delivery, and https://market.enonic.com[Enonic Market] for general extensions. Schemas drive everything — content models are automatically reflected in the API and Content Studio, with full server-side validation, indexing and <<querying#, querying capabilities>>.
+Enonic's CMS stack combines the Enonic XP platform, https://market.enonic.com/vendors/enonic/content-studio[Content Studio] for authoring, and https://market.enonic.com/vendors/enonic/guillotine[Guillotine] for headless delivery. XP provides <<projects#, content storage>> and the declarative <<schemas#, schema system>>. Schemas define the content models exposed through the API and Content Studio, with server-side validation, indexing and <<querying#, querying capabilities>>. Additional apps are available through https://market.enonic.com[Enonic Market].
 
 image::cms.svg[Iceberg illustration showing the CMS stack — Content Storage, Schema system, Content Studio, Headless API, and Enonic Market under the surface, with customer-specific Functions, Extensions, and Schemas above, caption="Enonic CMS stack", 1440]
 
@@ -16,6 +16,28 @@ This documentation covers the CMS surface only. See also:
 
 * https://developer.enonic.com/docs/code[Enonic Development Kit] for schema deployment, functions, extensions and more.
 * https://developer.enonic.com/docs/platform[XP platform docs] for core platform features and architecture
+
+== CMS stack and versions
+
+The products in the CMS stack are released and versioned independently. The *8.x* version of this documentation refers to *Enonic XP*. Content Studio and Guillotine have their own version numbers and compatibility requirements.
+
+[%header,cols="1,2,2"]
+|===
+|Product |Role |Version context
+|Enonic XP
+|Content storage, schemas, indexing, and the Image and Attachment APIs.
+|This reference covers XP 8. The Guillotine 9 examples require XP 8.1.0 or later.
+|Content Studio
+|The editorial interface for managing and publishing content.
+|A separately installed app. The companion Developer 101 tutorial uses Content Studio 6.1.
+|Guillotine
+|The GraphQL API for headless content delivery.
+|The GraphQL examples in this reference use Guillotine 9, a separately installed app.
+|===
+
+The https://developer.enonic.com/learn/developer-101/stable/setup[Developer 101 setup] lists the exact stack tested for that tutorial. Those tested versions are distinct from each product's minimum compatibility requirements.
+
+See <<apis/graphql#, GraphQL API>> for endpoint and request details, and <<release#, Release notes>> for links to each product's releases and upgrade information.
 
 == Main features
 

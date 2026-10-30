@@ -344,7 +344,7 @@ The <<apis/graphql#, Guillotine>> GraphQL API provides a `queryDsl` argument on 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         boolean: {

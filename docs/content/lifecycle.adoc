@@ -81,7 +81,7 @@ The publish window and audit timestamps are exposed directly on every content it
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
       _id
       displayName
@@ -130,7 +130,7 @@ Find every item scheduled to go online in the future:
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         range: {
@@ -182,7 +182,7 @@ To restrict the query to content that has never been published at all, filter on
 [source,graphql]
 ----
 {
-  guillotine(branch: "draft") {
+  guillotine(project: "myproject", branch: "draft") {
     queryDsl(
       query: {
         boolean: {
@@ -227,7 +227,7 @@ To restrict the query to content that has never been published at all, filter on
 }
 ----
 
-NOTE: Guillotine queries the `master` branch by default, so the query above sets `branch: "draft"`. The query resolves `NEW`, `MODIFIED`, `MOVED`, and `UNPUBLISHED` change states. See the https://developer.enonic.com/docs/guillotine[Guillotine documentation] for branch selection details.
+NOTE: The query explicitly selects `myproject` and `branch: "draft"` to inspect work in progress. The caller must have permission to read this content. The query resolves `NEW`, `MODIFIED`, `MOVED`, and `UNPUBLISHED` change states. See the https://developer.enonic.com/docs/guillotine[Guillotine documentation] for branch selection details.
 
 == Audit trail
 

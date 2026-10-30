@@ -73,22 +73,28 @@ regions:
 [#querying-via-graphql]
 == Querying via GraphQL
 
-Guillotine generates a GraphQL type for every part and layout config, following the naming convention `<appname>_<partname>_PartConfig` / `<appname>_<layoutname>_LayoutConfig` (with dots and dashes replaced by underscores). Use an inline fragment on that type to access typed config fields, or fall back to `configAsJson` when the front-end does not need typed access.
+Guillotine exposes a flat `components` list. Each entry has a `type`, a `path`, and fields such as `part` or `layout` containing the corresponding component data. Typed configuration is nested by application and descriptor name; use `configAsJson` for untyped access.
 
 === Typed part config
 
+For a part named `featured` in `com.enonic.app.superhero`, with form fields `heading` and `postCount`:
+
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
       components {
-        ... on PartComponent {
+        type
+        path
+        part {
           descriptor
           config {
-            ... on com_enonic_app_superhero_featured_PartConfig {
-              heading
-              postCount
+            com_enonic_app_superhero {
+              featured {
+                heading
+                postCount
+              }
             }
           }
         }
@@ -96,48 +102,21 @@ Guillotine generates a GraphQL type for every part and layout config, following 
     }
   }
 }
-
 ----
 
-.Response
+.One part entry from `data.guillotine.get.components`
 [source,JSON]
 ----
 {
-  "data": {
-    "guillotine": {
-      "get": {
-        "components": [
-          {
-            "descriptor": "com.enonic.app.superhero:featured",
-            "config": {
-              "heading": "Featured posts",
-              "postCount": 5
-            }
-          }
-        ]
-      }
-    }
-  }
-}
-----
-
-=== Untyped part config
-
-Use `configAsJson` when you need to handle arbitrary parts generically — for example, a front-end that renders any registered part without knowing the schema at build time:
-
-[source,graphql]
-----
-{
-  guillotine {
-    get(key: "/site/articles/hello") {
-      page {
-        regions {
-          components {
-            ... on PartComponent {
-              descriptor
-              configAsJson
-            }
-          }
+  "type": "part",
+  "path": "/main/0",
+  "part": {
+    "descriptor": "com.enonic.app.superhero:featured",
+    "config": {
+      "com_enonic_app_superhero": {
+        "featured": {
+          "heading": "Featured posts",
+          "postCount": 5
         }
       }
     }
@@ -145,4 +124,26 @@ Use `configAsJson` when you need to handle arbitrary parts generically — for e
 }
 ----
 
-Layouts follow the same pattern with `LayoutComponent` and `<appname>_<layoutname>_LayoutConfig`.
+The `part` field is `null` on entries of other component types. GraphQL field names replace dots and dashes with underscores; inspect Query Playground for the configuration fields generated from your descriptors.
+
+=== Untyped config
+
+Use `configAsJson` when the renderer handles arbitrary component descriptors:
+
+[source,graphql]
+----
+{
+  guillotine(project: "myproject", branch: "master") {
+    get(key: "/site/articles/hello") {
+      components {
+        type
+        path
+        part { descriptor configAsJson }
+        layout { descriptor configAsJson }
+      }
+    }
+  }
+}
+----
+
+Layouts expose typed fields under `layout.config` with the same application-and-descriptor nesting. Their regions are represented by component paths in the flat list. See <<page#component_list, Component list>> and the https://developer.enonic.com/docs/guillotine/stable/api#component[Guillotine component reference].

@@ -5,13 +5,13 @@ include::.variables.adoc[]
 
 The Enonic CMS stack is composed of several independent products, each released and versioned on its own cadence. Every product on https://market.enonic.com[Enonic Market] has a *Releases* section listing its versions and changes — that's the canonical source for what's new.
 
-A few components also publish more detailed release notes in their own documentation:
+A few products also publish more detailed release notes in their own documentation:
 
 * https://developer.enonic.com/docs/platform/stable/release[Enonic XP {release}] — the platform core that hosts the CMS.
 * https://market.enonic.com/vendors/enonic/content-studio[Content Studio] — primary authoring interface.
-* https://market.enonic.com/vendors/enonic/guillotine[Headless API (Guillotine)] — GraphQL API for headless delivery.
+* https://developer.enonic.com/docs/guillotine/stable/release[Guillotine 9] — GraphQL API for headless delivery. Requires XP 8.1.0 or later; see the https://developer.enonic.com/docs/guillotine/stable/upgrade[Guillotine upgrade notes] when migrating clients.
 
-Subscription components:
+Subscription products:
 
 * https://market.enonic.com/vendors/enonic/content-studio-plus[Content Studio+] — advanced editorial features.
 * https://market.enonic.com/vendors/enonic/ai-content-operator[AI Content Operator] — AI-assisted authoring.

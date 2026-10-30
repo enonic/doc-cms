@@ -1,59 +1,52 @@
 = GraphQL API
 :toc: right
-:imagesdir: images
+:imagesdir: ../images
 
-The GraphQL API is Enonic's primary headless API. It is provided by https://developer.enonic.com/docs/guillotine[Guillotine], a separately versioned Enonic app that exposes your CMS content as a typed GraphQL schema.
+The GraphQL API is Enonic's primary headless API. It is provided by https://developer.enonic.com/docs/guillotine[Guillotine], a separately installed and versioned Enonic app that exposes CMS content through a typed GraphQL schema.
+
+The examples in this CMS reference use *Guillotine 9*, which requires *Enonic XP 8.1.0 or later*. For changes from earlier Guillotine versions, see the https://developer.enonic.com/docs/guillotine/stable/upgrade[upgrade notes].
 
 == Location
 
-By default, the API is available at:
+On a local sandbox with Guillotine installed, send HTTP POST requests to:
 
-  8080:/api/guillotine:graphql
+[source,text]
+----
+http://localhost:8080/api/com.enonic.app.guillotine:graphql
+----
 
-The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example `https://api.example.com/graphql`.
+Guillotine is a Universal API. A deployment can expose `/api` as a shared API base URL, with GraphQL at `<apiBaseUrl>/com.enonic.app.guillotine:graphql` and the <<image#, Image>> and <<attachment#, Attachment>> APIs under the same base. Public routes depend on your deployment; see https://developer.enonic.com/docs/guillotine/stable/setup[Guillotine setup] for routing and site mounting.
+
+The endpoint does not serve a query editor. Use Content Studio's https://developer.enonic.com/docs/guillotine/stable/playground[Query Playground] or a https://developer.enonic.com/docs/guillotine/stable/usage#third-party-clients[third-party GraphQL client] to explore the schema.
+
+[#project_and_branch]
+== Project and branch
+
+image:guillotine-900.svg[Guillotine 9.0.0,opts=inline] At the Web endpoint, select the project and branch on the `guillotine` field. Use `master` for published content and `draft` for work in progress. Examples in this reference use `myproject`; replace it, the content paths and the example content types with your own.
+
+Query Playground supplies the project and branch selected in Content Studio. At a site-mounted endpoint, the request determines them and query arguments cannot override them. See https://developer.enonic.com/docs/guillotine/stable/usage#content-context[Guillotine's content context] for details.
 
 == Authorization
 
-Guillotine uses XP's IAM system for per-user authorization. Requests are evaluated in the context of the authenticated principal, and content permissions apply to every query — users only see content they are allowed to read.
+Guillotine applies the caller's <<../content/permissions#, content permissions>>. Anonymous requests can read content granted `READ` permission for `role:system.everyone`. Published content must also be readable to be returned; publishing alone does not grant access.
 
-Authenticate requests by passing a bearer token in the `Authorization` header:
-
-[source,bash]
-----
-curl -X POST https://api.example.com/graphql \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'
-----
-
-Unauthenticated requests run as the anonymous user and can still access content granted `READ` permission for `role:system.everyone`.
+For protected content, authenticate using the session or authorization mechanism configured by your deployment's identity provider or gateway. Installing Guillotine does not create a separate API credential. Query Playground uses your signed-in Content Studio user, while external clients need their own authentication. See https://developer.enonic.com/docs/guillotine/stable/usage#troubleshooting[Guillotine troubleshooting] for authentication and https://developer.enonic.com/docs/guillotine/stable/configuration#config_file[configuration] for browser CORS settings.
 
 == Schema
 
-Guillotine generates a GraphQL schema dynamically from the content types, mixins, and x-data registered in the current project. Each <<../schemas/forms#, form>> field maps to a typed GraphQL field (for example, `TextLine` → `String`, `ImageSelector` → `MediaImage`, `ItemSet` → a nested object type), so a front-end developer gets an accurate schema to query against without any manual mapping.
+Guillotine generates its GraphQL schema from the content types and other schemas in the Enonic installation. Each <<../schemas/forms#, form>> field maps to a GraphQL field: `TextLine` becomes a string, `ImageSelector` resolves to image content, and `ItemSet` becomes a nested object. CMS <<../content/mixins#, mixin>> data is available under `x`.
 
-The schema also includes queries for <<../pages#, pages and components>>, <<../content#, content hierarchies>>, <<../querying#, full-text search>>, and references between items.
-
-For the full schema reference, query syntax, and configuration options, see the https://developer.enonic.com/docs/guillotine[Guillotine documentation].
-
-[#extending-the-schema]
-== Extending the schema
-
-Beyond the generated schema, an application can register a *Guillotine extension* to add custom queries, mutations, types, and resolvers that appear alongside Guillotine's generated types — for example, to surface data from an external system or to expose a value that isn't part of the content model.
-
-An extension is declared in `src/main/resources/guillotine/guillotine.js`, which exports an `extensions` function describing the additional types and the resolvers that fetch their data. Once the app is deployed, the additions are served from the same endpoint and queryable like any other field.
-
-For the descriptor format and resolver API, see the https://developer.enonic.com/docs/guillotine/stable/extending[Guillotine extension documentation].
+The schema exposes <<../pages#, pages and components>>, <<../content#, content hierarchies>>, <<../querying#, search>>, and <<../content/references#, references>>. Search uses `queryDsl` or `queryDslConnection`. For field definitions, pagination and aggregations, use the https://developer.enonic.com/docs/guillotine/stable/api[Guillotine API reference].
 
 == Usage
 
-Requests are standard GraphQL `POST` requests with a JSON body containing `query` and optional `variables`:
+Requests use HTTP POST with a JSON body containing `query` and optional `variables`. This example reads a published article that is accessible to anonymous callers:
 
 [source,bash]
 ----
-curl -X POST https://api.example.com/graphql \
-  -H "Content-Type: application/json" \
-  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'
+curl -X POST 'http://localhost:8080/api/com.enonic.app.guillotine:graphql' \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"{ guillotine(project: \"myproject\", branch: \"master\") { get(key: \"/articles/hello\") { displayName } } }"}'
 ----
 
 [source,JSON]
@@ -69,4 +62,17 @@ curl -X POST https://api.example.com/graphql \
 }
 ----
 
-For hands-on examples querying content, pages, images, and more, see the https://developer.enonic.com/learn/developer-101/stable[Developer 101] guide.
+Check the response for GraphQL `errors` as well as the HTTP status; errors can accompany partial `data`. See https://developer.enonic.com/docs/guillotine/stable/usage[Guillotine usage] for request variables and complete client examples, or https://developer.enonic.com/learn/developer-101/stable[Developer 101] for hands-on content modeling and querying.
+
+== URLs and rich text
+
+Guillotine 9 returns URL objects. Select `path` and `queryString` from `imageUrl`, `mediaUrl` or `attachmentUrl`, then concatenate your public API or media base URL with both values. Keep the returned path and query string intact. See <<../media/image#querying_via_graphql, Image content>> for an example.
+
+For page links, adapt `pageUrl.path` to your front-end routes. The optional `scopeKey` selects the content that paths are relative to, usually a site; it does not restrict searches to that subtree. Without it, page URLs use the project context. See <<../pages/site#url_scope, Site URL scope>> for examples and the change from `siteKey` in earlier versions, and https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls[Guillotine's URL documentation] for URL handling.
+
+<<../richtext#, Rich text>> contains placeholders in `processedHtml`. Use its structured `links`, `images` and `macros` fields to render them in your front-end.
+
+[#extending-the-schema]
+== Extending the schema
+
+Guillotine's generated content API is read-only. Applications can add custom fields, queries and mutations through extensions, including integrations with external systems. See the https://developer.enonic.com/docs/guillotine/stable/extending[Guillotine extension documentation] for implementation details.

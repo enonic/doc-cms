@@ -105,14 +105,14 @@ NOTE: Arrays are added based on the actual number of items created, not the sche
 
 == GraphQL
 
-Guillotine generates a typed object for each ItemSet, nested under the parent content type's `data` field. The generated type name combines the content type's sanitized name with the ItemSet name — for example, an ItemSet `contact_info` on `com.example.myproject:person` becomes `com_example_myproject_Person_ContactInfo`.
+Guillotine generates a typed object for each ItemSet. For an ItemSet named `contact_info` on `com.example.myproject:person`, the generated type is `com_example_myproject_Person_ContactInfo`. The field is queried under `data.contact_info`, but its type name does not include `_Data`; `com_example_myproject_Person_Data` is the type of the containing `data` object.
 
 Drill into the ItemSet with a typed inline fragment on the parent content type:
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/people/django-reinhardt") {
       displayName
       ... on com_example_myproject_Person {
@@ -157,7 +157,7 @@ Because every leaf is indexed independently, you can filter content by any field
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         like: {
@@ -182,7 +182,7 @@ ItemSets nested inside other ItemSets compound the typed access pattern — each
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/people/django-reinhardt") {
       ... on com_example_myproject_Person {
         data {

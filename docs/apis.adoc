@@ -12,7 +12,7 @@ Custom *Functions* let you extend this surface with your own endpoints and backg
 [cols="1,2", options="header"]
 |===
 | You want to…                              | Use
-| Query or mutate content                   | <<apis/graphql#, GraphQL API>>
+| Query content                   | <<apis/graphql#, GraphQL API>>
 | Render or transform images                | <<apis/image#, Image API>>
 | Serve raw file downloads                  | <<apis/attachment#, Attachment API>>
 | Expose custom HTTP endpoints or run tasks | <<#custom-functions, Custom API>>
@@ -25,17 +25,9 @@ Enonic provides a common authorization mechanism across all APIs, providing gran
 
 Requests are evaluated in the context of the authenticated principal, and content permissions apply to every query — users only see content they are allowed to read.
 
-By default, APIs are accessible to unauthenticated users with `READ` permission for `role:system.everyone`. To access protected content, authenticate requests by passing a bearer token in the `Authorization` header:
+Unauthenticated requests run as the anonymous user and can read content granted `READ` permission for `role:system.everyone`. Published content must also be readable to be returned.
 
-[source,bash]
-----
-curl -X POST https://api.example.com/graphql \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'
-----
-
-Unauthenticated requests run as the anonymous user and can still access content granted `READ` permission for `role:system.everyone`.
+For protected content, use the authentication mechanism configured by your deployment. A Content Studio session authenticates Query Playground; an external client needs its own session or authorization headers. See <<apis/graphql#authorization, GraphQL authorization>>.
 
 Visit the https://developer.enonic.com/docs/platform/stable/security[security documentation] for details on users, roles, and permissions in XP.
 
@@ -44,7 +36,7 @@ Visit the https://developer.enonic.com/docs/platform/stable/security[security do
 
 The GraphQL API is Enonic's primary headless interface, provided by https://market.enonic.com/vendors/enonic/guillotine[Guillotine] — a separately versioned app that exposes your content as a typed GraphQL schema. Content types, mixins, references, pages, and media are all reachable from a single endpoint, with per-user authorization enforced by XP's IAM.
 
-Default endpoint: `/api/guillotine:graphql`
+Default endpoint: `/api/com.enonic.app.guillotine:graphql`
 
 See <<apis/graphql#, GraphQL API>> for endpoint details, authentication, and usage patterns.
 
@@ -66,7 +58,7 @@ See <<apis/attachment#, Attachment API>> for URL structure and download semantic
 
 == Management API
 
-XP also exposes a web API for management. It is not part of the customer-facing content delivery and is not used by front-end clients. It requires administrator privileges to access.https://developer.enonic.com/docs/cli[Enonic CLI] is the default client that communicates with it.
+XP also exposes a web API for management. It is not part of the customer-facing content delivery and is not used by front-end clients. It requires administrator privileges to access. https://developer.enonic.com/docs/cli[Enonic CLI] is the default client that communicates with it.
 
 * https://developer.enonic.com/docs/platform/stable/endpoints/management[Management API] — deploy applications, and run dumps, exports, and snapshots (port `4848`, administrator only).
 

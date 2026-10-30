@@ -1,5 +1,5 @@
 = Attachments
-toc: right
+:toc: right
 :imagesdir: images
 
 Content items may optionally contain attachments - files that are uploaded and stored together with the content item. 
@@ -58,8 +58,45 @@ Example of how attachments appear in the content data:
 You may query for attachments using the Content API, and also search for attachments based on their properties, e.g., `attachment.name` or `attachment.text` using Enonic's Query API.
 
 
-== Other use-cases
+== GraphQL
 
-The attachment pattern is not limited to content items, but can also be used in other contexts where storing files within XP is desirable. If you have a use-case where you want to persist other data than content in XP's NoSQL storage, the attachment pattern provides a simple and effective way to do so.
+Guillotine exposes attachment metadata on the content item's `attachments` field. Use `attachmentUrl` to obtain the URL components for each file:
 
-Visit the XP development documentation for more information on how to use attachments in other contexts than content items.
+[source,graphql]
+----
+{
+  guillotine(project: "myproject", branch: "master") {
+    get(key: "/articles/report") {
+      attachments {
+        name
+        mimeType
+        size
+        attachmentUrl(download: true) {
+          path
+          queryString
+        }
+      }
+    }
+  }
+}
+----
+
+.The `data.guillotine.get` object for an item with one attachment
+[source,JSON]
+----
+{
+  "attachments": [
+    {
+      "name": "document.pdf",
+      "mimeType": "application/pdf",
+      "size": 238764,
+      "attachmentUrl": {
+        "path": "/media:attachment/myproject/content-id:fingerprint/document.pdf",
+        "queryString": "?download"
+      }
+    }
+  ]
+}
+----
+
+The content ID and fingerprint above are illustrative. Build the download address by concatenating your public API or media base URL, `path` and `queryString`. On a local sandbox the base is `http://localhost:8080/api`. See <<../apis/attachment#, Attachment API>> for delivery behavior and https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls[Guillotine's URL documentation] for client handling.

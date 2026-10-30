@@ -78,6 +78,11 @@ This project relies on GitHub Actions for building and publishing. There are no 
 
 ## Key Conventions
 
+- **Version badges:**
+  - Place feature-version badges inline at the far left of the paragraph or list item that first introduces the feature, before the explanatory text. Do not put badges in headings.
+  - Use the inline image macro, for example: `image:xp-810.svg[XP 8.1.0,opts=inline] Feature description...`.
+  - Label the badge with the product and version that introduced the feature (for example, Guillotine 9 rather than XP for a Guillotine feature).
+  - Store shared badge SVGs in `docs/images/` and resolve references relative to the page's `:imagesdir:`; do not duplicate badges in section image folders.
 - **Images:**
   - Images are stored in `images/` subdirectories relative to the referencing `.adoc` file (e.g., `docs/content/images/`, `docs/schemas/form-items/images/`).
   - In AsciiDoc files, the `:imagesdir:` is typically set to `images`, mapping files to the respective folders.

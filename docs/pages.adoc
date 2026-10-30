@@ -22,10 +22,11 @@ The page concept is made up of the following building blocks:
 * *<<pages/page#, Pages and regions>>* The root component, defining the overall structure via <<pages/page#regions, regions>>.
 * *<<pages/parts#, Parts>>* Leaf components, used to add content to a page.
 * *<<pages/parts#layouts, Layouts>>* Components that define regions, used for columnar or grouped presentation of parts.
-* *<<pages/text#, Text>>* A built-in component for inline rich text.
 * *<<pages/page-templates#, Page templates>>* Reusable page setups that can be applied to content items automatically.
 * *<<pages/fragments#, Fragments>>* Reusable component instances shared across pages.
 * *<<pages/page-editor#, Visual editor>>* — a Content Studio interface for building pages by dragging and dropping components, editing their content and configuring their presentation.
+
+NOTE: Existing pages may also contain <<pages/text#, text components>>, deprecated in XP 8. Use a part with an <<schemas/form-items/htmlarea#, HtmlArea>> field for new implementations.
 
 == Front-end integration
 

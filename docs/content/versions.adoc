@@ -73,13 +73,13 @@ In Content Studio, the *Version history* panel lists every version of the select
 
 For headless consumers, the relevant choice is almost always *which branch* to read, not which historical version. Selecting a branch resolves to that branch's current version:
 
-* Query `master` (the default) for the published content the public should see.
+* Query `master` for the published content the public should see.
 * Query `draft` for unpublished, in-progress content — for example, to drive a preview.
 
 [source,graphql]
 ----
 {
-  guillotine(branch: "draft") { <1>
+  guillotine(project: "myproject", branch: "draft") { <1>
     get(key: "/site/articles/hello") {
       _id
       displayName
@@ -88,6 +88,6 @@ For headless consumers, the relevant choice is almost always *which branch* to r
   }
 }
 ----
-<1> Without `branch`, Guillotine reads `master`. See the https://developer.enonic.com/docs/guillotine[Guillotine documentation] for branch selection.
+<1> Select the project and `draft` branch explicitly at the Web endpoint. The caller must have permission to read the draft content. See <<../apis/graphql#project_and_branch, GraphQL API>>.
 
 Reading arbitrary points in the version history — listing all versions of an item — is not exposed in the headless query API by default. You may access this functionality through the Content API, and optionally expose it through a <<../apis/graphql#extending-the-schema, Guillotine extension>> or a custom API. Visit the https://developer.enonic.com/docs/code[Enonic Development Kit] documentation for details.

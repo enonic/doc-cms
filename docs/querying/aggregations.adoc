@@ -17,20 +17,25 @@ Aggregations are passed as a list of named expressions on the `aggregations` arg
 
 [source,graphql]
 ----
-queryDslConnection(
-  query: { ... }
-  first: 0                    # <1>
-  aggregations: [
-    { name: "byType", terms: { field: "type", size: 10 } }
-  ]
-) {
-  totalCount
-  edges { node { _id displayName } }
-  aggregationsAsJson           # <2>
+{
+  guillotine(project: "myproject", branch: "master") {
+    queryDslConnection(
+      query: { matchAll: {} }
+      first: 0                    # <1>
+      aggregations: [
+        { name: "byType", terms: { field: "type", size: 10 } }
+      ]
+    ) {
+      totalCount
+      aggregationsAsJson           # <2>
+    }
+  }
 }
 ----
 <1> Set `first: 0` if you only need the aggregations, not the hits. The connection still returns `totalCount`.
 <2> Aggregation results come back as a single opaque JSON blob under `aggregationsAsJson`. The shape inside mirrors XP's native aggregation result.
+
+The argument snippets below replace the `aggregations` argument in the complete query above. For all GraphQL input fields, see the https://developer.enonic.com/docs/guillotine/stable/api#aggregationinput[Guillotine aggregation reference].
 
 == Bucket aggregations
 
@@ -43,7 +48,7 @@ Group content by the distinct values of a field. The most common aggregation, us
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDslConnection(
       query: { matchAll: {} }
       first: 0
@@ -168,7 +173,7 @@ aggregations: [
     name: "byDistance",
     geoDistance: {
       field: "data.location",
-      origin: { lat: 59.91, lon: 10.75 },
+      origin: { lat: "59.91", lon: "10.75" },
       unit: "km",
       ranges: [
         { to: 1 },
@@ -184,7 +189,7 @@ aggregations: [
 Parameters:
 
 * *field* — a `GeoPoint`-typed field.
-* *origin* — the reference point as `{ lat, lon }`.
+* *origin* — the reference point as `{ lat, lon }`; Guillotine expects both coordinates as strings.
 * *unit* — `km`, `m`, `mi`, etc.
 * *ranges* — distance brackets, with the same `from`/`to` semantics as numeric `range`.
 

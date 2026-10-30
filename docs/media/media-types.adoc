@@ -62,7 +62,7 @@ Files that do not match any of the above
 
 Guillotine generates a typed GraphQL type for every media type. All types implement the `Content` interface and additionally expose media-specific fields:
 
-* `mediaUrl(type: SERVER|ABSOLUTE)` — URL to the raw `source` attachment, served by the <<../apis/attachment#, Attachment API>>. Returns the original file unmodified — no transformations.
+* `mediaUrl { path queryString }` — URL components to the raw `source` attachment, served by the <<../apis/attachment#, Attachment API>>. Returns the original file unmodified — no transformations.
 * `attachments` — list of attached files (the `source` binary is always present as one).
 
 The `media_Image` type additionally exposes `imageUrl(scale: ..., format: ..., quality: ...)`, which routes through the <<../apis/image#, Image API>> for scaling, cropping, and format conversion — see <<image#, Image content type (media:image)>> for the complete field reference and a worked GraphQL example.
@@ -74,22 +74,24 @@ Use `getChildren` with inline fragments when a folder may contain different medi
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     getChildren(key: "/my-folder") {
       displayName
       type
       ... on media_Image {
-        imageUrl(scale: "block(400,400)")
+        imageUrl(scale: "block(400,400)") { path queryString }
       }
       ... on media_Document {
-        mediaUrl
+        mediaUrl { path queryString }
       }
       ... on media_Video {
-        mediaUrl
+        mediaUrl { path queryString }
       }
     }
   }
 }
 ----
+
+Prefix each returned `path` with your public API or media base URL and append `queryString`. See <<image#querying_via_graphql, Image content>> for a response example and https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls[Guillotine's URL documentation] for client handling.
 
 See <<media-indexing#, Media indexing>> for how extracted text and metadata become searchable.

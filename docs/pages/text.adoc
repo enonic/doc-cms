@@ -1,40 +1,32 @@
-= Rich text component
+= Text component (deprecated)
 :toc: right
-:imagesdir: images
 
-Visually add and edit rich text within a region.
+A text component holds rich text directly within a page region. This reference covers existing pages that still contain these components.
 
-== Introduction
+WARNING: Text components are deprecated in XP 8. For new implementations, use a <<parts#, part>> with an <<../schemas/form-items/htmlarea#, HtmlArea>> field.
 
-Text are built-in components that require no further configuration. They are essentially pre-configured instances of the <<../schemas/form-items/htmlarea#, HtmlArea input types>>, adapted to work as components in the page editor.
+== Existing content
 
-== Usage
+Existing text components can still appear in page data and be queried through Guillotine. A front-end rendering such pages needs to handle `type: "text"` until those components have been replaced.
 
-Below is an example of the Text component in action via the page editor. The blue box is a text component being edited:
-
-image::text-component.png[Text component edited on a page, 1305px]
-
-
-== Rendering
-
-NOTE: Text components have specific requirements for styling and HTML output, and are optimized for use with Enonic's front-end toolkits. When rolling your own integration, consider implementing a <<parts#, part>> with an HtmlArea input instead, which gives you explicit control over both the form and the output.
+The replacement part defines its rich-text field in a schema and exposes it through the part's configuration. See <<parts#querying-via-graphql, Parts>> for configuration queries and <<../richtext#, Rich text>> for processing and rendering the value.
 
 == Querying via GraphQL
 
-Text components appear in a page's component list as `TextComponent`, with the rich text available as `value`. The same stored-vs-processed distinction applies as for regular <<../schemas/form-items/htmlarea#, HtmlArea>> fields — see <<../richtext#html-processing, HTML processing>> for how `content://` links, image references, and macros are resolved.
+Text components appear in the flat `components` list with `type: "text"`. Their `text.value` field is a `RichText` object with `raw`, `processedHtml` and structured reference fields, just like an <<../schemas/form-items/htmlarea#, HtmlArea>> field.
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
-      page {
-        regions {
-          components {
-            ... on TextComponent {
-              path
-              value
-            }
+      components {
+        type
+        path
+        text {
+          value {
+            raw
+            processedHtml
           }
         }
       }
@@ -43,3 +35,19 @@ Text components appear in a page's component list as `TextComponent`, with the r
 }
 ----
 
+.One text entry from `data.guillotine.get.components`
+[source,JSON]
+----
+{
+  "type": "text",
+  "path": "/main/0",
+  "text": {
+    "value": {
+      "raw": "<p>Welcome</p>",
+      "processedHtml": "<p>Welcome</p>"
+    }
+  }
+}
+----
+
+The `text` field is `null` on other component types. For text containing links, images or macros, also select the structured reference fields and rewrite placeholders before rendering; see <<../richtext#html-processing, Rich text>>.

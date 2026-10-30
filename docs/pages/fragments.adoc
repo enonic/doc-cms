@@ -62,25 +62,22 @@ Fragments are consumed in two very different ways:
 
 === Inline resolution via a page
 
-When fetching a page's flat component list, Guillotine supports server-side fragment expansion via the `resolveFragment` argument on `components`. With `resolveFragment: true`, each fragment reference is replaced by the component it wraps, and the `FragmentComponent` wrapper is never emitted:
+When fetching a page's flat component list, Guillotine supports server-side fragment expansion via the `resolveFragment` argument on `components`. With `resolveFragment: true`, each fragment reference is replaced by the component it wraps, and the fragment reference entry is omitted:
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
       components(resolveFragment: true) {
         type
         path
-        ... on PartComponent {
+        part {
           descriptor
           configAsJson
         }
-        ... on LayoutComponent {
+        layout {
           descriptor
-        }
-        ... on TextComponent {
-          value
         }
       }
     }
@@ -92,32 +89,28 @@ This is the simplest integration when the front-end does not need to distinguish
 
 === Manual traversal
 
-When fragments may be nested — a fragment whose wrapped layout contains another fragment — or when the front-end wants to tag fragment-sourced components, leave `resolveFragment: false` and walk the fragment manually:
+When the front-end needs to keep the fragment identity, use `resolveFragment: false` and follow `fragment.id` or the resolved `fragment.fragment` content:
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
       components(resolveFragment: false) {
         type
         path
-        ... on FragmentComponent {
+        fragment {
+          id
           fragment {
-            id
-            fragment {
-              components {
-                type
-                path
-                ... on PartComponent {
-                  descriptor
-                  configAsJson
-                }
-              }
+            components {
+              type
+              path
+              part { descriptor configAsJson }
+              layout { descriptor configAsJson }
             }
           }
         }
-        ... on PartComponent {
+        part {
           descriptor
         }
       }
@@ -126,37 +119,24 @@ When fragments may be nested — a fragment whose wrapped layout contains anothe
 }
 ----
 
-TIP: Each `fragment { fragment { components { ... } } }` hop covers one nesting level. If your content allows fragments-inside-fragments, either switch to `resolveFragment: true` or recurse as deep as your model permits. Paths on the resolved inner components are fragment-local (e.g. `/0`) — rewrite them to the parent region's path when assembling the final component tree. 
-
-Enonic's https://developer.enonic.com/docs/frameworks[standard front-end integrations] do this out of the box.
+Paths returned by a separate fragment lookup are local to that fragment. When assembling a page, prefix them with the placement path; `components(resolveFragment: true)` performs this path adjustment for inline expansion.
 
 === Direct access
 
-A fragment is a content item of type `portal:fragment`, so it can be fetched like any other content. Use the `fragment` field on `portal_Fragment` to retrieve the wrapped component — typically from a preview route:
+A fragment is a content item of type `portal:fragment`. Fetch its `components` list to render the reusable component, for example in a preview route:
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/fragments/featured-promo") {
       _id
       displayName
-      ... on portal_Fragment {
-        fragment {
-          type
-          ... on PartComponent {
-            descriptor
-            configAsJson
-          }
-          ... on LayoutComponent {
-            descriptor
-            regions {
-              components {
-                type
-              }
-            }
-          }
-        }
+      components {
+        type
+        path
+        part { descriptor configAsJson }
+        layout { descriptor configAsJson }
       }
     }
   }
@@ -172,7 +152,7 @@ Because fragments are referenced by id in `components.fragment.id`, a `term` que
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         term: {

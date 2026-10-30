@@ -33,23 +33,23 @@ Links are stored as standard `<a>` elements. Internal links reference their targ
 ----
 
 * `content://<id>` — a link to another content item.
-* `media://download/<id>` — a link to a media file, served by the <<../apis/image#, Image API>> / attachment service.
+* `media://download/<id>` — a link to a media file, served by the <<../apis/attachment#, Attachment API>>.
 * Absolute `http(s)://` URLs are stored unchanged.
 
 These references must be resolved to real URLs before rendering — see <<../richtext#html-processing, Processed output>>.
 
 == Processed output
 
-In the processed HTML, links to content (page) keep their `content://` reference — the front-end resolves these to its own routes — while links to media resolve to an `/api` URL. Either way the `<a>` is tagged with a `data-link-ref` attribute. The HtmlArea type also exposes a typed `links` field whose `ref` matches that attribute, so a front-end can correlate each link with its resolved target. The `processHtml` argument is applied on the field, where `type` selects an `absolute` or `server`-relative URL for media links.
+Guillotine tags internal links with `data-link-ref` and puts a placeholder in `href`. Match the attribute to `ref` in the structured `links` list. Use `pageUrl` for page links and `media.mediaUrl` for file links; both provide URL components for the front-end to assemble.
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello") {
       ... on com_example_myapp_Article {
         data {
-          body(processHtml: {type: absolute}) {
+          body {
             processedHtml
             links {
               ref  # <1>
@@ -58,9 +58,12 @@ In the processed HTML, links to content (page) keep their `content://` reference
                 _path
                 displayName
               }
+              pageUrl { baseUrl path queryString }
+              fragment
               media {  # <4>
                 content { _id }
                 intent  # <5>
+                mediaUrl { path queryString }
               }
             }
           }
@@ -72,7 +75,7 @@ In the processed HTML, links to content (page) keep their `content://` reference
 ----
 <1> Matches the `data-link-ref` attribute in `processedHtml`, so a front-end can map each link to its target.
 <2> The original `content://` or `media://` reference.
-<3> Populated for links to content; `null` for media links.
+<3> The referenced content item, including the media content for a media link.
 <4> Populated for links to media; `null` for content links.
 <5> Either `download` or `inline`.
 
@@ -85,7 +88,7 @@ In the processed HTML, links to content (page) keep their `content://` reference
       "get": {
         "data": {
           "body": {
-            "processedHtml": "<p>Read our <a href=\"content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9\" data-link-ref=\"e72f48b6-a972-4133-a300-a3ab5d132800\">latest post</a>.</p>",
+            "processedHtml": "<p>Read our <a href=\"/articles/latest-post\" data-link-ref=\"e72f48b6-a972-4133-a300-a3ab5d132800\">latest post</a>.</p>",
             "links": [
               {
                 "ref": "e72f48b6-a972-4133-a300-a3ab5d132800",
@@ -94,6 +97,12 @@ In the processed HTML, links to content (page) keep their `content://` reference
                   "_path": "/articles/latest-post",
                   "displayName": "Latest post"
                 },
+                "pageUrl": {
+                  "baseUrl": null,
+                  "path": "/articles/latest-post",
+                  "queryString": ""
+                },
+                "fragment": "",
                 "media": null
               }
             ]
@@ -105,8 +114,10 @@ In the processed HTML, links to content (page) keep their `content://` reference
 }
 ----
 
-Content (page) links keep their `content://<id>` reference and are only tagged with `data-link-ref`, leaving the front-end to map them to its own routes; media links resolve to an `/api` URL. The typed `links` array carries the same `ref`, the original `uri`, and the resolved `content` (or `media`) object — so a front-end can route links instead of parsing the HTML.
-
 == Rendering
 
-A front-end consumes `processedHtml` together with the typed `links` data, correlating each `data-link-ref` tag with its `ref` to route links its own way (for example mapping a referenced content item to an application route). Enonic's front-end toolkits handle this mapping for you — see <<../frontend#, Front-end integration>> and the https://developer.enonic.com/learn/react-spa/stable/rich-text[React SPA tutorial] for worked examples.
+For a page link, use `pageUrl.baseUrl` when configured, or your front-end's base URL, then append `path`, `queryString` and `fragment`. Alternatively, map the path to your own routes. Without `scopeKey`, page URLs use the project context; select a site with `scopeKey` when you need its base URL and relative paths.
+
+For a media link, concatenate your public API or media base URL with `media.mediaUrl.path` and `media.mediaUrl.queryString`. Replace the matching element's `href`; do not use the placeholder as a finished URL. Handle unresolved references, whose URL fields are `null`.
+
+See https://developer.enonic.com/docs/guillotine/stable/usage/rich-text#links[Guillotine rich-text links] for complete rendering examples, and <<../frontend#, Front-end integration>> for framework integrations.

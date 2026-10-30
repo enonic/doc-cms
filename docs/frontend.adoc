@@ -5,14 +5,14 @@ Enonic is a Headless CMS: it manages and delivers content through APIs and leave
 
 == Headless model
 
-Content is queried through the <<apis/graphql#, GraphQL API>> (Guillotine), which returns structured, render-ready data:
+Content is queried through the <<apis/graphql#, GraphQL API>> (Guillotine), which returns structured data for your renderer:
 
 * *Content* — content types, fields and references exposed as typed GraphQL fields.
-* *Media* — URLs served by the <<apis/image#, Image API>> and <<apis/attachment#, Attachment API>>.
+* *Media* — URL components for files served by the <<apis/image#, Image API>> and <<apis/attachment#, Attachment API>>.
 * *Rich text* — a `processedHtml` string plus typed `images`, `links` and `macros` fields. See <<richtext#, Rich text>>.
 * *Pages* — the component tree of a page (parts, layouts and fragments). See <<pages#, Sites and Pages>>.
 
-A front-end fetches this data and maps it to its own components, routes and markup.
+A front-end fetches this data and maps it to its own components, routes and markup. With Guillotine 9, concatenate the public API or media base URL with each media URL object's `path` and `queryString`. Rewrite rich-text placeholders from the structured reference data before rendering. See https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls[Guillotine's URL documentation].
 
 == Official toolkits
 
@@ -27,9 +27,9 @@ For the full list of supported toolkits, starters and examples, see the https://
 
 If you integrate a framework the official toolkits don't cover, your renderer has to handle the Enonic-specific output:
 
-* *Rich-text references* — resolve `content://` links to your routes, replace image references with responsive `<img>`/`<picture>` tags served by the Image API, and render `editor-macro` placeholders. Each is keyed by a `ref` that matches a `data-*-ref` attribute in `processedHtml`. See <<richtext/links#, Links>>, <<richtext/images#, Images>> and <<richtext/macros#, Macros>>.
+* *Rich-text references* — rewrite link placeholders to your routes, replace image references with responsive `<img>`/`<picture>` tags served by the Image API, and render `editor-macro` placeholders. Each is keyed by a `ref` that matches a `data-*-ref` attribute in `processedHtml`. See <<richtext/links#, Links>>, <<richtext/images#, Images>> and <<richtext/macros#, Macros>>.
 * *Pages* — walk the page component tree and map each part, layout and fragment descriptor to a component. See <<pages#, Sites and Pages>>.
-* *Images* — build Image API URLs with the appropriate scaling and `srcset`. See <<apis/image#, Image API>>.
+* *Images* — request each size through Guillotine and build Image API URLs from the returned URL components. See <<apis/image#, Image API>>.
 * *Visual editing* — to support the Content Studio page editor, emit the DOM markers it expects and initialize the https://www.npmjs.com/package/@enonic/page-editor[`@enonic/page-editor`] module. See <<pages/page-editor#, Visual page editor>>. The official toolkits handle this automatically.
 
 TIP: The https://developer.enonic.com/learn/react-spa/stable[React SPA tutorial] is a hands-on walkthrough of consuming the APIs in a React front-end.

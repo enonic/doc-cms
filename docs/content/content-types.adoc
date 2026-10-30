@@ -146,13 +146,13 @@ Guillotine generates a dedicated GraphQL type for every content type in the proj
 
 === Type names
 
-Guillotine sanitizes the content type name for GraphQL by replacing the namespace separator and any dashes with underscores:
+Guillotine replaces dots in the application name with underscores and converts the local content type name to PascalCase. Use the generated type shown in Query Playground:
 
 |===
 | Content type | GraphQL type
 
-| `com.example.myproject:Artist` | `com_example_myproject_Artist`
-| `com.enonic.app.myapp:news-article` | `com_enonic_app_myapp_news_article`
+| `com.example.myproject:artist` | `com_example_myproject_Artist`
+| `com.enonic.app.myapp:news-article` | `com_enonic_app_myapp_NewsArticle`
 | `portal:site` | `portal_Site`
 | `media:image` | `media_Image`
 | `base:folder` | `base_Folder`
@@ -165,7 +165,7 @@ Every content item implements the `Content` interface, which exposes standard fi
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/artists/django-reinhardt") {
       _id
       _path
@@ -205,7 +205,7 @@ To access form fields as typed GraphQL fields, use an inline fragment on the gen
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/artists/django-reinhardt") {
       displayName
       ... on com_example_myproject_Artist {
@@ -244,7 +244,7 @@ Use `queryDsl` with a `term` query on the `type` field to fetch all content of a
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: { term: { field: "type", value: { string: "com.example.myproject:artist" } } },
       first: 10,

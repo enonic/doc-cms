@@ -276,11 +276,11 @@ NOTE: The `_selected` property contains information about which options were sel
 
 == GraphQL
 
-Guillotine generates a typed object for each option set with the same naming pattern as item sets — the parent content type name plus the option-set name, e.g. `com_example_myproject_Article_Blocks`. The generated type has a `_selected` field plus one nullable field per declared option; only the selected option(s) carry data, the rest are `null`.
+Guillotine generates a typed object for each option set. For an option set named `blocks` on `com.example.myproject:article`, the generated type is `com_example_myproject_Article_Blocks`. The containing `data` object has its own type, `com_example_myproject_Article_Data`; the option-set type name does not include that `_Data` suffix.
 
-You don't reference this generated type directly in queries — it's the type of the `blocks` field, reached through an inline fragment on the parent content type (see below).
+The generated option-set type has a `_selected` field plus one nullable field per declared option; only the selected option(s) carry data, the rest are `null`. You can query `data.blocks` without naming its generated type, as shown below.
 
-`_selected` is a single string in single-select mode and a list of strings in multi-select mode. It is the dispatch key the client reads to know which option's data is present.
+In GraphQL, `_selected` is an enum in single-select mode and a list of enum values in multi-select mode. In the JSON response these appear as a string or a list of strings. The client reads this field to determine which option's data is present.
 
 === Selecting an option-set's data
 
@@ -289,7 +289,7 @@ Use a typed inline fragment on the parent content type, then select `_selected` 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello-world") {
       displayName
       ... on com_example_myproject_Article {
@@ -377,7 +377,7 @@ Because `_selected` is indexed like any other field, you can find content whose 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         term: {

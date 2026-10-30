@@ -122,6 +122,6 @@ HtmlArea persists raw markup that is strictly validated against the editor insta
 
 == GraphQL
 
-The GraphQL API exposes both the `raw` markup and a `processedHtml` field, where internal links, images and macros are resolved into a format suitable for rendering. The same processing is also available through the Enonic APIs.
+The GraphQL API exposes both the `raw` markup and a `processedHtml` field, which contains placeholders for internal links, images and macros. The front-end rewrites these using the structured `links`, `images` and `macros` data before rendering.
 
 For the GraphQL example and full field details, see <<../../richtext#,Rich text>> and the <<../../richtext#html-processing, HTML processing>> documentation.

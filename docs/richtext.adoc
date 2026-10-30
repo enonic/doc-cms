@@ -2,7 +2,7 @@
 :toc: right
 :imagesdir: images
 
-Rich text is stored as author-edited HTML
+Rich text is stored as author-edited HTML.
 
 
 == Editor
@@ -39,18 +39,23 @@ Example of raw stored HTML:
 
 TIP: Visit the https://developer.enonic.com/learn/react-spa/stable/rich-text[React SPA tutorial] for hands-on examples of client-side rendering.
 
-The HtmlArea field is queried with a `processHtml` argument, where `type` selects an `absolute` or `server`-relative URL and `imageWidths` controls the generated `srcset`. The `processedHtml` field returns the raw markup with each internal reference resolved and tagged with a `data-*-ref` attribute:
+Guillotine exposes HtmlArea fields as `RichText`. The `processedHtml` field contains placeholders for internal links, images and macros, tagged with `data-*-ref` attributes. The front-end must rewrite these using the structured `links`, `images` and `macros` data before rendering. The optional `processHtml` argument controls image sizes; it does not select an absolute or server-relative URL.
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello") {
       ... on com_example_myapp_Article {
         data {
-          body(processHtml: {type: absolute, imageWidths: [600, 992]}) {
+          body {
             raw
             processedHtml
+            links {
+              ref
+              pageUrl { baseUrl path queryString }
+              fragment
+            }
           }
         }
       }
@@ -69,7 +74,18 @@ The HtmlArea field is queried with a `processHtml` argument, where `type` select
         "data": {
           "body": {
             "raw": "<p>Read our <a href=\"content://f3076b5c-...\">latest post</a>.</p>",
-            "processedHtml": "<p>Read our <a href=\"content://f3076b5c-...\" data-link-ref=\"e72f48b6-...\">latest post</a>.</p>"
+            "processedHtml": "<p>Read our <a href=\"/articles/latest-post\" data-link-ref=\"e72f48b6-...\">latest post</a>.</p>",
+            "links": [
+              {
+                "ref": "e72f48b6-...",
+                "pageUrl": {
+                  "baseUrl": null,
+                  "path": "/articles/latest-post",
+                  "queryString": ""
+                },
+                "fragment": ""
+              }
+            ]
           }
         }
       }
@@ -78,7 +94,7 @@ The HtmlArea field is queried with a `processHtml` argument, where `type` select
 }
 ----
 
-Beyond `raw` and `processedHtml`, the HtmlArea type also exposes the <<#markup, special elements>> as typed fields — `images`, `links` and `macros` — each carrying a `ref` that matches its `data-*-ref` attribute in `processedHtml`, so a front-end can resolve references without parsing the HTML. Each element's page documents its typed field shape and response.
+Beyond `raw` and `processedHtml`, the HtmlArea type also exposes the <<#markup, special elements>> as typed fields — `images`, `links` and `macros` — each carrying a `ref` that matches its `data-*-ref` attribute in `processedHtml`, so a front-end can match placeholders to their rendering data. Each element's page shows the corresponding response. For full field definitions and rendering examples, see https://developer.enonic.com/docs/guillotine/stable/usage/rich-text[Guillotine rich text].
 
 == Front-end integration
 

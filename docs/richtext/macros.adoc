@@ -74,16 +74,16 @@ Writing macro functions is an Enonic XP app-development task — see the Enonic 
 
 During HTML processing, each macro instruction is translated into an `<editor-macro>` placeholder tag in `processedHtml`, carrying `data-macro-ref` and `data-macro-name` attributes. The HtmlArea GraphQL type also exposes a `macros` field whose `ref` matches the `data-macro-ref` attribute, so a front-end can render each macro from its `name` and typed `config`.
 
-NOTE: Guillotine only processes macros that have a descriptor, plus the built-in `disable` and `embed` macros; any other macro instruction is left untouched.
+NOTE: Guillotine processes macros from applications configured on the project, or on the site selected by `scopeKey`, plus the built-in `disable` and `embed` macros. Other macro instructions are left untouched. See https://developer.enonic.com/docs/guillotine/stable/usage/rich-text#macros[Guillotine macros] for scope and processing details.
 
 [source,graphql]
 ----
 {
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello") {
       ... on com_example_myapp_Article {
         data {
-          body(processHtml: {type: absolute}) {
+          body {
             processedHtml
             macros {
               ref  # <1>
