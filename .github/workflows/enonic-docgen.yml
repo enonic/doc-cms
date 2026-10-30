@@ -3,7 +3,8 @@ name: Generate Documentation
 on:
   push:
     branches:
-      - "xp8"
+      - "master"
+      - "8.x"
     paths:
       - 'docs/**'
       - '.github/**'
