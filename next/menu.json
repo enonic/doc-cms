@@ -1,0 +1,308 @@
+{
+  "menuItems": [
+    {
+      "title": "Intro",
+      "document": "index"
+    },
+    {
+      "title": "Projects",
+      "document": "projects"
+    },
+    {
+      "title": "Schema system",
+      "document": "schemas",
+      "menuItems": [
+        {
+          "title": "CMS descriptor",
+          "document": "schemas/cms-descriptor"
+        },
+        {
+          "title": "Namespaces",
+          "document": "schemas/namespaces"
+        },
+        {
+          "title": "Forms",
+          "document": "schemas/forms"
+        },
+        {
+          "title": "Form fragments",
+          "document": "schemas/form-fragments"
+        },
+        {
+          "title": "Form items",
+          "document": "schemas/form-items",
+          "menuItems": [
+            {
+              "title": "AttachmentUploader",
+              "document": "schemas/form-items/attachmentuploader"
+            },
+            {
+              "title": "CheckBox",
+              "document": "schemas/form-items/checkbox"
+            },
+            {
+              "title": "ComboBox",
+              "document": "schemas/form-items/combobox"
+            },
+            {
+              "title": "ContentSelector",
+              "document": "schemas/form-items/contentselector"
+            },
+            {
+              "title": "ContentTypeFilter",
+              "document": "schemas/form-items/contenttypefilter"
+            },
+            {
+              "title": "CustomSelector",
+              "document": "schemas/form-items/customselector"
+            },
+            {
+              "title": "Date",
+              "document": "schemas/form-items/date"
+            },
+            {
+              "title": "DateTime",
+              "document": "schemas/form-items/datetime"
+            },
+            {
+              "title": "Double",
+              "document": "schemas/form-items/double"
+            },
+            {
+              "title": "GeoPoint",
+              "document": "schemas/form-items/geopoint"
+            },
+            {
+              "title": "FieldSet",
+              "document": "schemas/form-items/field-set"
+            },
+            {
+              "title": "HtmlArea",
+              "document": "schemas/form-items/htmlarea"
+            },
+            {
+              "title": "ImageSelector",
+              "document": "schemas/form-items/imageselector"
+            },
+            {
+              "title": "Instant",
+              "document": "schemas/form-items/instant"
+            },
+            {
+              "title": "ItemSet",
+              "document": "schemas/form-items/item-set"
+            },
+            {
+              "title": "Long",
+              "document": "schemas/form-items/long"
+            },
+            {
+              "title": "MediaSelector",
+              "document": "schemas/form-items/mediaselector"
+            },
+            {
+              "title": "OptionSet",
+              "document": "schemas/form-items/option-set"
+            },
+            {
+              "title": "RadioButton",
+              "document": "schemas/form-items/radiobutton"
+            },
+            {
+              "title": "Tag",
+              "document": "schemas/form-items/tag"
+            },
+            {
+              "title": "TextArea",
+              "document": "schemas/form-items/textarea"
+            },
+            {
+              "title": "TextLine",
+              "document": "schemas/form-items/textline"
+            },
+            {
+              "title": "Time",
+              "document": "schemas/form-items/time"
+            }
+          ]
+        },
+        {
+          "title": "Schema Localization",
+          "document": "schemas/i18n"
+        }
+      ]
+    },
+    {
+      "title": "Content",
+      "document": "content",
+      "menuItems": [
+        {
+          "title": "Content Types",
+          "document": "content/content-types"
+        },
+        {
+          "title": "Built-in types",
+          "document": "content/built-in-types"
+        },
+        {
+          "title": "Hierarchy",
+          "document": "content/hierarchy"
+        },
+        {
+          "title": "Mixins",
+          "document": "content/mixins"
+        },
+        {
+          "title": "Lifecycle",
+          "document": "content/lifecycle"
+        },
+        {
+          "title": "References",
+          "document": "content/references"
+        },
+        {
+          "title": "Attachments",
+          "document": "content/attachments"
+        },
+        {
+          "title": "Layering",
+          "document": "content/layering"
+        },
+        {
+          "title": "Permissions",
+          "document": "content/permissions"
+        },
+        {
+          "title": "Validation",
+          "document": "content/validators"
+        },
+        {
+          "title": "Versions",
+          "document": "content/versions"
+        }
+      ]
+    },
+    {
+      "title": "Media",
+      "document": "media",
+      "menuItems": [
+        {
+          "title": "Media types",
+          "document": "media/media-types"
+        },
+        {
+          "title": "Image type",
+          "document": "media/image"
+        },
+        {
+          "title": "Media indexing",
+          "document": "media/media-indexing"
+        }
+      ]
+    },
+    {
+      "title": "Querying",
+      "document": "querying",
+      "menuItems": [
+        {
+          "title": "Aggregations",
+          "document": "querying/aggregations"
+        }
+      ]
+    },
+    {
+      "title": "Rich text",
+      "document": "richtext",
+      "menuItems": [
+        {
+          "title": "Links",
+          "document": "richtext/links"
+        },
+        {
+          "title": "Images",
+          "document": "richtext/images"
+        },
+        {
+          "title": "Styles",
+          "document": "richtext/styles"
+        },
+        {
+          "title": "Macros",
+          "document": "richtext/macros"
+        }
+      ]
+    },
+    {
+      "title": "Pages and Sites",
+      "document": "pages",
+      "menuItems": [
+        {
+          "title": "Sites",
+          "document": "pages/site"
+        },
+        {
+          "title": "Pages and Regions",
+          "document": "pages/page"
+        },
+        {
+          "title": "Parts and Layouts",
+          "document": "pages/parts"
+        },
+        {
+          "title": "Text Component",
+          "document": "pages/text"
+        },
+        {
+          "title": "Component Filtering",
+          "document": "pages/filtering"
+        },
+        {
+          "title": "Component indexing",
+          "document": "pages/indexing"
+        },
+        {
+          "title": "Page templates",
+          "document": "pages/page-templates"
+        },
+        {
+          "title": "Page Fragments",
+          "document": "pages/fragments"
+        },
+        {
+          "title": "Page editor",
+          "document": "pages/page-editor"
+        }
+      ]
+    },
+    {
+      "title": "APIs",
+      "document": "apis",
+      "menuItems": [
+        {
+          "title": "GraphQL API",
+          "document": "apis/graphql"
+        },
+        {
+          "title": "Image API",
+          "document": "apis/image"
+        },
+        {
+          "title": "Attachment API",
+          "document": "apis/attachment"
+        }
+      ]
+    },
+    {
+      "title": "Integrations",
+      "document": "integrations"
+    },
+    {
+      "title": "Front-end",
+      "document": "frontend"
+    },
+    {
+      "title": "Release notes",
+      "document": "release"
+    }
+  ]
+}
