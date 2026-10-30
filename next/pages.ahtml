@@ -492,9 +492,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong><a href="pages/parts.ahtml#layouts">Layouts</a></strong> Components that define regions, used for columnar or grouped presentation of parts.</p>
 </li>
 <li>
-<p><strong><a href="pages/text.ahtml">Text</a></strong> A built-in component for inline rich text.</p>
-</li>
-<li>
 <p><strong><a href="pages/page-templates.ahtml">Page templates</a></strong> Reusable page setups that can be applied to content items automatically.</p>
 </li>
 <li>
@@ -504,6 +501,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong><a href="pages/page-editor.ahtml">Visual editor</a></strong> — a Content Studio interface for building pages by dragging and dropping components, editing their content and configuring their presentation.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Existing pages may also contain <a href="pages/text.ahtml">text components</a>, deprecated in XP 8. Use a part with an <a href="schemas/form-items/htmlarea.ahtml">HtmlArea</a> field for new implementations.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -519,7 +528,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

@@ -595,7 +595,7 @@ In a <a href="layering.ahtml#versions">layered project</a>, only versions create
 <div class="ulist">
 <ul>
 <li>
-<p>Query <code>master</code> (the default) for the published content the public should see.</p>
+<p>Query <code>master</code> for the published content the public should see.</p>
 </li>
 <li>
 <p>Query <code>draft</code> for unpublished, in-progress content — for example, to drive a preview.</p>
@@ -605,7 +605,7 @@ In a <a href="layering.ahtml#versions">layered project</a>, only versions create
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine(branch: "draft") { <i class="conum" data-value="1"></i><b>(1)</b>
+  guillotine(project: "myproject", branch: "draft") { <i class="conum" data-value="1"></i><b>(1)</b>
     get(key: "/site/articles/hello") {
       _id
       displayName
@@ -619,7 +619,7 @@ In a <a href="layering.ahtml#versions">layered project</a>, only versions create
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Without <code>branch</code>, Guillotine reads <code>master</code>. See the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a> for branch selection.</td>
+<td>Select the project and <code>draft</code> branch explicitly at the Web endpoint. The caller must have permission to read the draft content. See <a href="../apis/graphql.ahtml#project_and_branch">GraphQL API</a>.</td>
 </tr>
 </table>
 </div>
@@ -631,7 +631,7 @@ In a <a href="layering.ahtml#versions">layered project</a>, only versions create
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

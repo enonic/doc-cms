@@ -525,7 +525,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>Property names</strong> (where namespaces are used in property names): dots become dashes — <code>com.example</code> → <code>com-example</code>. A <code>city</code> field on <code>com.example:address</code> is stored at <code>x.com-example.address.city</code>. See <a href="../content/mixins.ahtml">Mixins</a> for more examples.</p>
 </li>
 <li>
-<p><strong>Guillotine GraphQL types</strong>: dots and dashes become underscores — <code>com.example.myapp:news-article</code> → <code>com_example_myapp_news_article</code>. See <a href="../content/content-types.ahtml">Content Types</a> for the full table.</p>
+<p><strong>Guillotine GraphQL types</strong>: dots in the application name become underscores, and the local name becomes PascalCase — <code>com.example.myapp:news-article</code> → <code>com_example_myapp_NewsArticle</code>. See <a href="../content/content-types.ahtml">Content Types</a> for the full table.</p>
 </li>
 </ul>
 </div>
@@ -534,7 +534,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

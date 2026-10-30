@@ -531,7 +531,7 @@ This page covers the generic types under the <code>base</code> namespace. Types 
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     getChildren(key: "/site") {
       displayName
       _path
@@ -598,7 +598,7 @@ This page covers the generic types under the <code>base</code> namespace. Types 
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/latest") {
       displayName
       ... on base_Shortcut {
@@ -696,7 +696,7 @@ For data that does not need editorial workflows, consider using <a href="https:/
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/telemetry/telemetry-2026-04-19") {
       displayName
       type
@@ -712,7 +712,7 @@ For data that does not need editorial workflows, consider using <a href="https:/
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

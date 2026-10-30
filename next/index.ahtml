@@ -442,6 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#cms_stack_and_versions">CMS stack and versions</a></li>
 <li><a href="#main_features">Main features</a></li>
 <li><a href="#front_end_integration">Front-end integration</a></li>
 </ul>
@@ -452,7 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Enonic&#8217;s CMS is built on top of the Enonic XP platform core, and combines a set of independent components into a complete stack: <a href="projects.ahtml">Content Storage</a> as the foundation, a declarative <a href="schemas.ahtml">Schema system</a>, <a href="https://market.enonic.com/vendors/enonic/content-studio">Content Studio</a> for authoring, the <a href="https://market.enonic.com/vendors/enonic/guillotine">Headless API</a> for delivery, and <a href="https://market.enonic.com">Enonic Market</a> for general extensions. Schemas drive everything — content models are automatically reflected in the API and Content Studio, with full server-side validation, indexing and <a href="querying.ahtml">querying capabilities</a>.</p>
+<p>Enonic&#8217;s CMS stack combines the Enonic XP platform, <a href="https://market.enonic.com/vendors/enonic/content-studio">Content Studio</a> for authoring, and <a href="https://market.enonic.com/vendors/enonic/guillotine">Guillotine</a> for headless delivery. XP provides <a href="projects.ahtml">content storage</a> and the declarative <a href="schemas.ahtml">schema system</a>. Schemas define the content models exposed through the API and Content Studio, with server-side validation, indexing and <a href="querying.ahtml">querying capabilities</a>. Additional apps are available through <a href="https://market.enonic.com">Enonic Market</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -490,6 +491,51 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
+<h2 id="cms_stack_and_versions"><a class="link" href="#cms_stack_and_versions">CMS stack and versions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The products in the CMS stack are released and versioned independently. The <strong>8.x</strong> version of this documentation refers to <strong>Enonic XP</strong>. Content Studio and Guillotine have their own version numbers and compatibility requirements.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Product</th>
+<th class="tableblock halign-left valign-top">Role</th>
+<th class="tableblock halign-left valign-top">Version context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enonic XP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Content storage, schemas, indexing, and the Image and Attachment APIs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This reference covers XP 8. The Guillotine 9 examples require XP 8.1.0 or later.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Content Studio</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The editorial interface for managing and publishing content.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A separately installed app. The companion Developer 101 tutorial uses Content Studio 6.1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guillotine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The GraphQL API for headless content delivery.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The GraphQL examples in this reference use Guillotine 9, a separately installed app.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <a href="https://developer.enonic.com/learn/developer-101/stable/setup">Developer 101 setup</a> lists the exact stack tested for that tutorial. Those tested versions are distinct from each product&#8217;s minimum compatibility requirements.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="apis/graphql.ahtml">GraphQL API</a> for endpoint and request details, and <a href="release.ahtml">Release notes</a> for links to each product&#8217;s releases and upgrade information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="main_features"><a class="link" href="#main_features">Main features</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -519,7 +565,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

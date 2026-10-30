@@ -708,7 +708,7 @@ form:
 <div class="sect2">
 <h3 id="type_names"><a class="link" href="#type_names">Type names</a></h3>
 <div class="paragraph">
-<p>Guillotine sanitizes the content type name for GraphQL by replacing the namespace separator and any dashes with underscores:</p>
+<p>Guillotine replaces dots in the application name with underscores and converts the local content type name to PascalCase. Use the generated type shown in Query Playground:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -723,12 +723,12 @@ form:
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>com.example.myproject:Artist</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>com.example.myproject:artist</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>com_example_myproject_Artist</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>com.enonic.app.myapp:news-article</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>com_enonic_app_myapp_news_article</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>com_enonic_app_myapp_NewsArticle</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>portal:site</code></p></td>
@@ -753,7 +753,7 @@ form:
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/artists/django-reinhardt") {
       _id
       _path
@@ -795,7 +795,7 @@ form:
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/artists/django-reinhardt") {
       displayName
       ... on com_example_myproject_Artist {
@@ -836,7 +836,7 @@ form:
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: { term: { field: "type", value: { string: "com.example.myproject:artist" } } },
       first: 10,
@@ -943,7 +943,7 @@ You may not specify a custom content type as a supertype, nor may you create cir
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

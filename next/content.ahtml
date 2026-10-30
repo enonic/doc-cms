@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="standard_properties"><a class="link" href="#standard_properties">Standard properties</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content items are stored in JSON format, within an XP repo. Every content item has a set of standard properties that are automatically generated and maintained via the Content API. Below is an overview of the JSON structure of a content item:</p>
+<p>Content items are backed by nodes in an XP repository. The overview below combines editorial data and system metadata to explain their roles. It is a conceptual overview, not a physical storage layout or a response from one API: the Content API, Node API, search index and Guillotine expose different representations. For GraphQL response examples, see <a href="content/content-types.ahtml#querying_via_graphql">Content types</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -505,7 +505,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   "_references": [ ... ],  <i class="conum" data-value="16"></i><b>(16)</b>
   "_alltext": "My Article ...",  <i class="conum" data-value="17"></i><b>(17)</b>
   "_score": 1.23,  <i class="conum" data-value="18"></i><b>(18)</b>
-  "_permissions": { ... }  <i class="conum" data-value="19"></i><b>(19)</b>
+  "_permissions": [ ... ]  <i class="conum" data-value="19"></i><b>(19)</b>
 
 }</code></pre>
 </div>
@@ -586,7 +586,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td><i class="conum" data-value="19"></i><b>19</b></td>
-<td><strong>_permissions</strong> — <a href="content/permissions.ahtml">access control</a> settings for the content item.</td>
+<td><strong>_permissions</strong> — the Node API&#8217;s representation of the underlying node&#8217;s <a href="content/permissions.ahtml">access control</a> settings. Guillotine exposes these through <code>permissions</code>, without the underscore.</td>
 </tr>
 </table>
 </div>
@@ -595,7 +595,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

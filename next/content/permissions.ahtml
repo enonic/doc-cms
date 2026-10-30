@@ -576,10 +576,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="acl_model"><a class="link" href="#acl_model">ACL model</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The ACL is <strong>allow-only</strong> — each entry lists permissions granted to one principal; there are no deny entries. Effective permission for a caller is the union of every entry whose principal matches.</p>
+<p>Each ACL entry lists permissions granted to one principal. A caller has a permission when at least one matching entry grants it.</p>
 </div>
 <div class="paragraph">
-<p>The ACL appears on a content item as the <code>_permissions</code> property:</p>
+<p>At the Node API level, the content item&#8217;s underlying node exposes its ACL as <code>_permissions</code>. The following excerpt shows granted permissions in that representation. It is not the physical storage format or a GraphQL response; Guillotine exposes the <a href="#querying_via_graphql"><code>permissions</code> field</a> instead.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -602,6 +602,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   ]
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The ACL is system metadata associated with the node, separate from the editorial fields in <code>data</code>. For the underlying storage model, see the <a href="https://developer.enonic.com/docs/platform/stable/storage/permissions">XP permissions reference</a>.</p>
 </div>
 </div>
 </div>
@@ -668,38 +671,28 @@ There is no live inheritance and no <code>inheritPermissions</code> flag. The fl
 <h2 id="querying_via_graphql"><a class="link" href="#querying_via_graphql">Querying via GraphQL</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Guillotine exposes the ACL on the <code>Content</code> interface via the <code>_permissions</code> field. Useful for editorial UIs that need to render who-can-do-what without re-fetching from a separate endpoint.</p>
+<p>Guillotine exposes the ACL on the <code>Content</code> interface via <code>permissions</code>, without a leading underscore. There is no <code>_permissions</code> GraphQL field. The example below retrieves ACL entries for an editorial UI that needs to show the permissions granted to each principal.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/my-site/articles/my-article") {
       _id
       displayName
-      _permissions {
-        principal {
-          key
-          displayName
+      permissions {
+        permissions {
+          principal { value }
+          allow
         }
-        allow
       }
     }
   }
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The Guillotine schema mirrors the underlying ACL — query the field reference in the <a href="https://developer.enonic.com/docs/guillotine/stable">Guillotine documentation</a> for the exact field shape, since it evolves with Guillotine versions.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>The outer <code>permissions</code> object contains the ACL entries in its <code>permissions</code> list. Each entry identifies a principal; <code>allow</code> is the API field containing the permissions granted to that principal. See the <a href="https://developer.enonic.com/docs/guillotine/stable/api#permissions">Guillotine permissions reference</a> for the full field definitions.</p>
 </div>
 </div>
 </div>
@@ -732,7 +725,7 @@ The Guillotine schema mirrors the underlying ACL — query the field reference i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

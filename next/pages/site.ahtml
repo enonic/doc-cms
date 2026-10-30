@@ -447,6 +447,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#definition_portalsite">Definition (portal:site)</a></li>
 <li><a href="#output">Output</a></li>
 <li><a href="#graphql">GraphQL</a></li>
+<li><a href="#url_scope">URL scope</a></li>
 </ul>
 </div>
 </div>
@@ -600,7 +601,7 @@ Apps may also contribute to Enonic&#8217;s built-in rendering as documented in t
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/my-site") {
       _id
       _path
@@ -616,10 +617,85 @@ Apps may also contribute to Enonic&#8217;s built-in rendering as documented in t
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="url_scope"><a class="link" href="#url_scope">URL scope</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><svg xmlns="http://www.w3.org/2000/svg" width="102" height="20" role="img" aria-label="Guillotine: 9.0.0">
+  <title>Guillotine: 9.0.0</title>
+  <linearGradient id="s" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <clipPath id="r">
+    <rect width="102" height="20" rx="3" fill="#fff"/>
+  </clipPath>
+  <g clip-path="url(#r)">
+    <rect width="63" height="20" fill="#555"/>
+    <rect x="63" width="39" height="20" fill="#007ec6"/>
+    <rect width="102" height="20" fill="url(#s)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110">
+    <text x="325" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="530">Guillotine</text>
+    <text x="325" y="140" transform="scale(.1)" textLength="530">Guillotine</text>
+    <text x="815" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="290">9.0.0</text>
+    <text x="815" y="140" transform="scale(.1)" textLength="290">9.0.0</text>
+  </g>
+</svg></span> <code>scopeKey</code> selects the site or other content that page URLs are relative to. It is separate from selecting the project and branch.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Guillotine 9 renames the <code>siteKey</code> argument to <code>scopeKey</code> and removes support for the <code>X-Guillotine-SiteKey</code> request header. Pass <code>scopeKey</code> in the GraphQL query instead. See the <a href="https://developer.enonic.com/docs/guillotine/stable/upgrade#site-context-migration">Guillotine upgrade notes</a> for the related changes to site context and relative paths.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine(project: "myproject", branch: "master", scopeKey: "/my-site") {
+    getSite { displayName }
+    get(key: "/my-site/articles/hello") {
+      _path
+      pageUrl { baseUrl path queryString }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">The <code>data.guillotine</code> object when the site has no Base URL configured</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "getSite": { "displayName": "My Site" },
+  "get": {
+    "_path": "/my-site/articles/hello",
+    "pageUrl": {
+      "baseUrl": null,
+      "path": "/articles/hello",
+      "queryString": ""
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>_path</code> remains the full content path within the project. The front-end maps <code>pageUrl.path</code> to its routes, using the site&#8217;s configured <code>baseUrl</code> or its own host. Without <code>scopeKey</code>, page URLs use the project context and <code>getSite</code> returns <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>Selecting a scope does not restrict queries to the site&#8217;s descendants; add explicit path constraints when searching a subtree. See <a href="https://developer.enonic.com/docs/guillotine/stable/usage/site-context">Guillotine scope and site</a> for the full behavior.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

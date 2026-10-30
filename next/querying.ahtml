@@ -916,7 +916,7 @@ For details on index configuration, see the <a href="https://developer.enonic.co
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         boolean: {
@@ -1142,7 +1142,7 @@ For complete Guillotine query documentation, see the <a href="https://developer.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

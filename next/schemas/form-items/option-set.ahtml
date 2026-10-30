@@ -877,13 +877,13 @@ The <code>_selected</code> property contains information about which options wer
 <h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Guillotine generates a typed object for each option set with the same naming pattern as item sets — the parent content type name plus the option-set name, e.g. <code>com_example_myproject_Article_Blocks</code>. The generated type has a <code>_selected</code> field plus one nullable field per declared option; only the selected option(s) carry data, the rest are <code>null</code>.</p>
+<p>Guillotine generates a typed object for each option set. For an option set named <code>blocks</code> on <code>com.example.myproject:article</code>, the generated type is <code>com_example_myproject_Article_Blocks</code>. The containing <code>data</code> object has its own type, <code>com_example_myproject_Article_Data</code>; the option-set type name does not include that <code>_Data</code> suffix.</p>
 </div>
 <div class="paragraph">
-<p>You don&#8217;t reference this generated type directly in queries — it&#8217;s the type of the <code>blocks</code> field, reached through an inline fragment on the parent content type (see below).</p>
+<p>The generated option-set type has a <code>_selected</code> field plus one nullable field per declared option; only the selected option(s) carry data, the rest are <code>null</code>. You can query <code>data.blocks</code> without naming its generated type, as shown below.</p>
 </div>
 <div class="paragraph">
-<p><code>_selected</code> is a single string in single-select mode and a list of strings in multi-select mode. It is the dispatch key the client reads to know which option&#8217;s data is present.</p>
+<p>In GraphQL, <code>_selected</code> is an enum in single-select mode and a list of enum values in multi-select mode. In the JSON response these appear as a string or a list of strings. The client reads this field to determine which option&#8217;s data is present.</p>
 </div>
 <div class="sect2">
 <h3 id="selecting_an_option_sets_data"><a class="link" href="#selecting_an_option_sets_data">Selecting an option-set&#8217;s data</a></h3>
@@ -893,7 +893,7 @@ The <code>_selected</code> property contains information about which options wer
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello-world") {
       displayName
       ... on com_example_myproject_Article {
@@ -996,7 +996,7 @@ The <code>_selected</code> property contains information about which options wer
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         term: {
@@ -1027,7 +1027,7 @@ The <code>_selected</code> property contains information about which options wer
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

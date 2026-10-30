@@ -459,7 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="headless_model"><a class="link" href="#headless_model">Headless model</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content is queried through the <a href="apis/graphql.ahtml">GraphQL API</a> (Guillotine), which returns structured, render-ready data:</p>
+<p>Content is queried through the <a href="apis/graphql.ahtml">GraphQL API</a> (Guillotine), which returns structured data for your renderer:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -467,7 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>Content</strong> — content types, fields and references exposed as typed GraphQL fields.</p>
 </li>
 <li>
-<p><strong>Media</strong> — URLs served by the <a href="apis/image.ahtml">Image API</a> and <a href="apis/attachment.ahtml">Attachment API</a>.</p>
+<p><strong>Media</strong> — URL components for files served by the <a href="apis/image.ahtml">Image API</a> and <a href="apis/attachment.ahtml">Attachment API</a>.</p>
 </li>
 <li>
 <p><strong>Rich text</strong> — a <code>processedHtml</code> string plus typed <code>images</code>, <code>links</code> and <code>macros</code> fields. See <a href="richtext.ahtml">Rich text</a>.</p>
@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
-<p>A front-end fetches this data and maps it to its own components, routes and markup.</p>
+<p>A front-end fetches this data and maps it to its own components, routes and markup. With Guillotine 9, concatenate the public API or media base URL with each media URL object&#8217;s <code>path</code> and <code>queryString</code>. Rewrite rich-text placeholders from the structured reference data before rendering. See <a href="https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls">Guillotine&#8217;s URL documentation</a>.</p>
 </div>
 </div>
 </div>
@@ -512,13 +512,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Rich-text references</strong> — resolve <code>content://</code> links to your routes, replace image references with responsive <code>&lt;img&gt;</code>/<code>&lt;picture&gt;</code> tags served by the Image API, and render <code>editor-macro</code> placeholders. Each is keyed by a <code>ref</code> that matches a <code>data-*-ref</code> attribute in <code>processedHtml</code>. See <a href="richtext/links.ahtml">Links</a>, <a href="richtext/images.ahtml">Images</a> and <a href="richtext/macros.ahtml">Macros</a>.</p>
+<p><strong>Rich-text references</strong> — rewrite link placeholders to your routes, replace image references with responsive <code>&lt;img&gt;</code>/<code>&lt;picture&gt;</code> tags served by the Image API, and render <code>editor-macro</code> placeholders. Each is keyed by a <code>ref</code> that matches a <code>data-*-ref</code> attribute in <code>processedHtml</code>. See <a href="richtext/links.ahtml">Links</a>, <a href="richtext/images.ahtml">Images</a> and <a href="richtext/macros.ahtml">Macros</a>.</p>
 </li>
 <li>
 <p><strong>Pages</strong> — walk the page component tree and map each part, layout and fragment descriptor to a component. See <a href="pages.ahtml">Sites and Pages</a>.</p>
 </li>
 <li>
-<p><strong>Images</strong> — build Image API URLs with the appropriate scaling and <code>srcset</code>. See <a href="apis/image.ahtml">Image API</a>.</p>
+<p><strong>Images</strong> — request each size through Guillotine and build Image API URLs from the returned URL components. See <a href="apis/image.ahtml">Image API</a>.</p>
 </li>
 <li>
 <p><strong>Visual editing</strong> — to support the Content Studio page editor, emit the DOM markers it expects and initialize the <a href="https://www.npmjs.com/package/@enonic/page-editor"><code>@enonic/page-editor</code></a> module. See <a href="pages/page-editor.ahtml">Visual page editor</a>. The official toolkits handle this automatically.</p>
@@ -542,7 +542,7 @@ The <a href="https://developer.enonic.com/learn/react-spa/stable">React SPA tuto
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

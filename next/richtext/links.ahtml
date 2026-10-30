@@ -503,7 +503,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><code>content://&lt;id&gt;</code> — a link to another content item.</p>
 </li>
 <li>
-<p><code>media://download/&lt;id&gt;</code> — a link to a media file, served by the <a href="../apis/image.ahtml">Image API</a> / attachment service.</p>
+<p><code>media://download/&lt;id&gt;</code> — a link to a media file, served by the <a href="../apis/attachment.ahtml">Attachment API</a>.</p>
 </li>
 <li>
 <p>Absolute <code>http(s)://</code> URLs are stored unchanged.</p>
@@ -519,16 +519,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="processed_output"><a class="link" href="#processed_output">Processed output</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the processed HTML, links to content (page) keep their <code>content://</code> reference — the front-end resolves these to its own routes — while links to media resolve to an <code>/api</code> URL. Either way the <code>&lt;a&gt;</code> is tagged with a <code>data-link-ref</code> attribute. The HtmlArea type also exposes a typed <code>links</code> field whose <code>ref</code> matches that attribute, so a front-end can correlate each link with its resolved target. The <code>processHtml</code> argument is applied on the field, where <code>type</code> selects an <code>absolute</code> or <code>server</code>-relative URL for media links.</p>
+<p>Guillotine tags internal links with <code>data-link-ref</code> and puts a placeholder in <code>href</code>. Match the attribute to <code>ref</code> in the structured <code>links</code> list. Use <code>pageUrl</code> for page links and <code>media.mediaUrl</code> for file links; both provide URL components for the front-end to assemble.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello") {
       ... on com_example_myapp_Article {
         data {
-          body(processHtml: {type: absolute}) {
+          body {
             processedHtml
             links {
               ref  <i class="conum" data-value="1"></i><b>(1)</b>
@@ -537,9 +537,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                 _path
                 displayName
               }
+              pageUrl { baseUrl path queryString }
+              fragment
               media {  <i class="conum" data-value="4"></i><b>(4)</b>
                 content { _id }
                 intent  <i class="conum" data-value="5"></i><b>(5)</b>
+                mediaUrl { path queryString }
               }
             }
           }
@@ -562,7 +565,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Populated for links to content; <code>null</code> for media links.</td>
+<td>The referenced content item, including the media content for a media link.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -583,7 +586,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
       "get": {
         "data": {
           "body": {
-            "processedHtml": "&lt;p&gt;Read our &lt;a href=\"content://f3076b5c-ea45-4c8b-8c06-1f87b8d8cdd9\" data-link-ref=\"e72f48b6-a972-4133-a300-a3ab5d132800\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;",
+            "processedHtml": "&lt;p&gt;Read our &lt;a href=\"/articles/latest-post\" data-link-ref=\"e72f48b6-a972-4133-a300-a3ab5d132800\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;",
             "links": [
               {
                 "ref": "e72f48b6-a972-4133-a300-a3ab5d132800",
@@ -592,6 +595,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                   "_path": "/articles/latest-post",
                   "displayName": "Latest post"
                 },
+                "pageUrl": {
+                  "baseUrl": null,
+                  "path": "/articles/latest-post",
+                  "queryString": ""
+                },
+                "fragment": "",
                 "media": null
               }
             ]
@@ -603,23 +612,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Content (page) links keep their <code>content://&lt;id&gt;</code> reference and are only tagged with <code>data-link-ref</code>, leaving the front-end to map them to its own routes; media links resolve to an <code>/api</code> URL. The typed <code>links</code> array carries the same <code>ref</code>, the original <code>uri</code>, and the resolved <code>content</code> (or <code>media</code>) object — so a front-end can route links instead of parsing the HTML.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="rendering"><a class="link" href="#rendering">Rendering</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A front-end consumes <code>processedHtml</code> together with the typed <code>links</code> data, correlating each <code>data-link-ref</code> tag with its <code>ref</code> to route links its own way (for example mapping a referenced content item to an application route). Enonic&#8217;s front-end toolkits handle this mapping for you — see <a href="../frontend.ahtml">Front-end integration</a> and the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text">React SPA tutorial</a> for worked examples.</p>
+<p>For a page link, use <code>pageUrl.baseUrl</code> when configured, or your front-end&#8217;s base URL, then append <code>path</code>, <code>queryString</code> and <code>fragment</code>. Alternatively, map the path to your own routes. Without <code>scopeKey</code>, page URLs use the project context; select a site with <code>scopeKey</code> when you need its base URL and relative paths.</p>
+</div>
+<div class="paragraph">
+<p>For a media link, concatenate your public API or media base URL with <code>media.mediaUrl.path</code> and <code>media.mediaUrl.queryString</code>. Replace the matching element&#8217;s <code>href</code>; do not use the placeholder as a finished URL. Handle unresolved references, whose URL fields are <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://developer.enonic.com/docs/guillotine/stable/usage/rich-text#links">Guillotine rich-text links</a> for complete rendering examples, and <a href="../frontend.ahtml">Front-end integration</a> for framework integrations.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

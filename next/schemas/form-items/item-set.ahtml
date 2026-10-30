@@ -639,7 +639,7 @@ Arrays are added based on the actual number of items created, not the schema def
 <h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Guillotine generates a typed object for each ItemSet, nested under the parent content type&#8217;s <code>data</code> field. The generated type name combines the content type&#8217;s sanitized name with the ItemSet name — for example, an ItemSet <code>contact_info</code> on <code>com.example.myproject:person</code> becomes <code>com_example_myproject_Person_ContactInfo</code>.</p>
+<p>Guillotine generates a typed object for each ItemSet. For an ItemSet named <code>contact_info</code> on <code>com.example.myproject:person</code>, the generated type is <code>com_example_myproject_Person_ContactInfo</code>. The field is queried under <code>data.contact_info</code>, but its type name does not include <code>_Data</code>; <code>com_example_myproject_Person_Data</code> is the type of the containing <code>data</code> object.</p>
 </div>
 <div class="paragraph">
 <p>Drill into the ItemSet with a typed inline fragment on the parent content type:</p>
@@ -647,7 +647,7 @@ Arrays are added based on the actual number of items created, not the schema def
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/people/django-reinhardt") {
       displayName
       ... on com_example_myproject_Person {
@@ -694,7 +694,7 @@ Arrays are added based on the actual number of items created, not the schema def
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         like: {
@@ -722,7 +722,7 @@ Arrays are added based on the actual number of items created, not the schema def
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/people/django-reinhardt") {
       ... on com_example_myproject_Person {
         data {
@@ -749,7 +749,7 @@ Arrays are added based on the actual number of items created, not the schema def
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

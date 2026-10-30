@@ -505,16 +505,19 @@ Aggregations are computed over the result set the calling user can read — see 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-graphql" data-lang="graphql">queryDslConnection(
-  query: { ... }
-  first: 0                    <i class="conum" data-value="1"></i><b>(1)</b>
-  aggregations: [
-    { name: "byType", terms: { field: "type", size: 10 } }
-  ]
-) {
-  totalCount
-  edges { node { _id displayName } }
-  aggregationsAsJson           <i class="conum" data-value="2"></i><b>(2)</b>
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine(project: "myproject", branch: "master") {
+    queryDslConnection(
+      query: { matchAll: {} }
+      first: 0                    <i class="conum" data-value="1"></i><b>(1)</b>
+      aggregations: [
+        { name: "byType", terms: { field: "type", size: 10 } }
+      ]
+    ) {
+      totalCount
+      aggregationsAsJson           <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+  }
 }</code></pre>
 </div>
 </div>
@@ -529,6 +532,9 @@ Aggregations are computed over the result set the calling user can read — see 
 <td>Aggregation results come back as a single opaque JSON blob under <code>aggregationsAsJson</code>. The shape inside mirrors XP&#8217;s native aggregation result.</td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>The argument snippets below replace the <code>aggregations</code> argument in the complete query above. For all GraphQL input fields, see the <a href="https://developer.enonic.com/docs/guillotine/stable/api#aggregationinput">Guillotine aggregation reference</a>.</p>
 </div>
 </div>
 </div>
@@ -546,7 +552,7 @@ Aggregations are computed over the result set the calling user can read — see 
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDslConnection(
       query: { matchAll: {} }
       first: 0
@@ -700,7 +706,7 @@ Aggregations are computed over the result set the calling user can read — see 
     name: "byDistance",
     geoDistance: {
       field: "data.location",
-      origin: { lat: 59.91, lon: 10.75 },
+      origin: { lat: "59.91", lon: "10.75" },
       unit: "km",
       ranges: [
         { to: 1 },
@@ -722,7 +728,7 @@ Aggregations are computed over the result set the calling user can read — see 
 <p><strong>field</strong> — a <code>GeoPoint</code>-typed field.</p>
 </li>
 <li>
-<p><strong>origin</strong> — the reference point as <code>{ lat, lon }</code>.</p>
+<p><strong>origin</strong> — the reference point as <code>{ lat, lon }</code>; Guillotine expects both coordinates as strings.</p>
 </li>
 <li>
 <p><strong>unit</strong> — <code>km</code>, <code>m</code>, <code>mi</code>, etc.</p>
@@ -874,7 +880,7 @@ buckets.forEach(b =&gt; console.log(b.key, b.docCount));</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

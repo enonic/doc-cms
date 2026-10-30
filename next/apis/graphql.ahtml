@@ -442,10 +442,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#location">Location</a></li>
+<li><a href="#project_and_branch">Project and branch</a></li>
 <li><a href="#authorization">Authorization</a></li>
 <li><a href="#schema">Schema</a></li>
-<li><a href="#extending-the-schema">Extending the schema</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#urls_and_rich_text">URLs and rich text</a></li>
+<li><a href="#extending-the-schema">Extending the schema</a></li>
 </ul>
 </div>
 </div>
@@ -453,7 +455,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The GraphQL API is Enonic&#8217;s primary headless API. It is provided by <a href="https://developer.enonic.com/docs/guillotine">Guillotine</a>, a separately versioned Enonic app that exposes your CMS content as a typed GraphQL schema.</p>
+<p>The GraphQL API is Enonic&#8217;s primary headless API. It is provided by <a href="https://developer.enonic.com/docs/guillotine">Guillotine</a>, a separately installed and versioned Enonic app that exposes CMS content through a typed GraphQL schema.</p>
+</div>
+<div class="paragraph">
+<p>The examples in this CMS reference use <strong>Guillotine 9</strong>, which requires <strong>Enonic XP 8.1.0 or later</strong>. For changes from earlier Guillotine versions, see the <a href="https://developer.enonic.com/docs/guillotine/stable/upgrade">upgrade notes</a>.</p>
 </div>
 </div>
 </div>
@@ -461,15 +466,49 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="location"><a class="link" href="#location">Location</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default, the API is available at:</p>
+<p>On a local sandbox with Guillotine installed, send HTTP POST requests to:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>8080:/api/guillotine:graphql</pre>
+<pre class="highlight"><code class="language-text" data-lang="text">http://localhost:8080/api/com.enonic.app.guillotine:graphql</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example <code><a href="https://api.example.com/graphql" class="bare">https://api.example.com/graphql</a></code>.</p>
+<p>Guillotine is a Universal API. A deployment can expose <code>/api</code> as a shared API base URL, with GraphQL at <code>&lt;apiBaseUrl&gt;/com.enonic.app.guillotine:graphql</code> and the <a href="image.ahtml">Image</a> and <a href="attachment.ahtml">Attachment</a> APIs under the same base. Public routes depend on your deployment; see <a href="https://developer.enonic.com/docs/guillotine/stable/setup">Guillotine setup</a> for routing and site mounting.</p>
+</div>
+<div class="paragraph">
+<p>The endpoint does not serve a query editor. Use Content Studio&#8217;s <a href="https://developer.enonic.com/docs/guillotine/stable/playground">Query Playground</a> or a <a href="https://developer.enonic.com/docs/guillotine/stable/usage#third-party-clients">third-party GraphQL client</a> to explore the schema.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project_and_branch"><a class="link" href="#project_and_branch">Project and branch</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><svg xmlns="http://www.w3.org/2000/svg" width="102" height="20" role="img" aria-label="Guillotine: 9.0.0">
+  <title>Guillotine: 9.0.0</title>
+  <linearGradient id="s" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <clipPath id="r">
+    <rect width="102" height="20" rx="3" fill="#fff"/>
+  </clipPath>
+  <g clip-path="url(#r)">
+    <rect width="63" height="20" fill="#555"/>
+    <rect x="63" width="39" height="20" fill="#007ec6"/>
+    <rect width="102" height="20" fill="url(#s)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110">
+    <text x="325" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="530">Guillotine</text>
+    <text x="325" y="140" transform="scale(.1)" textLength="530">Guillotine</text>
+    <text x="815" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="290">9.0.0</text>
+    <text x="815" y="140" transform="scale(.1)" textLength="290">9.0.0</text>
+  </g>
+</svg></span> At the Web endpoint, select the project and branch on the <code>guillotine</code> field. Use <code>master</code> for published content and <code>draft</code> for work in progress. Examples in this reference use <code>myproject</code>; replace it, the content paths and the example content types with your own.</p>
+</div>
+<div class="paragraph">
+<p>Query Playground supplies the project and branch selected in Content Studio. At a site-mounted endpoint, the request determines them and query arguments cannot override them. See <a href="https://developer.enonic.com/docs/guillotine/stable/usage#content-context">Guillotine&#8217;s content context</a> for details.</p>
 </div>
 </div>
 </div>
@@ -477,21 +516,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="authorization"><a class="link" href="#authorization">Authorization</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Guillotine uses XP&#8217;s IAM system for per-user authorization. Requests are evaluated in the context of the authenticated principal, and content permissions apply to every query — users only see content they are allowed to read.</p>
+<p>Guillotine applies the caller&#8217;s <a href="../content/permissions.ahtml">content permissions</a>. Anonymous requests can read content granted <code>READ</code> permission for <code>role:system.everyone</code>. Published content must also be readable to be returned; publishing alone does not grant access.</p>
 </div>
 <div class="paragraph">
-<p>Authenticate requests by passing a bearer token in the <code>Authorization</code> header:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">curl -X POST https://api.example.com/graphql \
-  -H "Authorization: Bearer &lt;token&gt;" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Unauthenticated requests run as the anonymous user and can still access content granted <code>READ</code> permission for <code>role:system.everyone</code>.</p>
+<p>For protected content, authenticate using the session or authorization mechanism configured by your deployment&#8217;s identity provider or gateway. Installing Guillotine does not create a separate API credential. Query Playground uses your signed-in Content Studio user, while external clients need their own authentication. See <a href="https://developer.enonic.com/docs/guillotine/stable/usage#troubleshooting">Guillotine troubleshooting</a> for authentication and <a href="https://developer.enonic.com/docs/guillotine/stable/configuration#config_file">configuration</a> for browser CORS settings.</p>
 </div>
 </div>
 </div>
@@ -499,27 +527,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="schema"><a class="link" href="#schema">Schema</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Guillotine generates a GraphQL schema dynamically from the content types, mixins, and x-data registered in the current project. Each <a href="../schemas/forms.ahtml">form</a> field maps to a typed GraphQL field (for example, <code>TextLine</code> → <code>String</code>, <code>ImageSelector</code> → <code>MediaImage</code>, <code>ItemSet</code> → a nested object type), so a front-end developer gets an accurate schema to query against without any manual mapping.</p>
+<p>Guillotine generates its GraphQL schema from the content types and other schemas in the Enonic installation. Each <a href="../schemas/forms.ahtml">form</a> field maps to a GraphQL field: <code>TextLine</code> becomes a string, <code>ImageSelector</code> resolves to image content, and <code>ItemSet</code> becomes a nested object. CMS <a href="../content/mixins.ahtml">mixin</a> data is available under <code>x</code>.</p>
 </div>
 <div class="paragraph">
-<p>The schema also includes queries for <a href="../pages.ahtml">pages and components</a>, <a href="../content.ahtml">content hierarchies</a>, <a href="../querying.ahtml">full-text search</a>, and references between items.</p>
-</div>
-<div class="paragraph">
-<p>For the full schema reference, query syntax, and configuration options, see the <a href="https://developer.enonic.com/docs/guillotine">Guillotine documentation</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="extending-the-schema"><a class="link" href="#extending-the-schema">Extending the schema</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Beyond the generated schema, an application can register a <strong>Guillotine extension</strong> to add custom queries, mutations, types, and resolvers that appear alongside Guillotine&#8217;s generated types — for example, to surface data from an external system or to expose a value that isn&#8217;t part of the content model.</p>
-</div>
-<div class="paragraph">
-<p>An extension is declared in <code>src/main/resources/guillotine/guillotine.js</code>, which exports an <code>extensions</code> function describing the additional types and the resolvers that fetch their data. Once the app is deployed, the additions are served from the same endpoint and queryable like any other field.</p>
-</div>
-<div class="paragraph">
-<p>For the descriptor format and resolver API, see the <a href="https://developer.enonic.com/docs/guillotine/stable/extending">Guillotine extension documentation</a>.</p>
+<p>The schema exposes <a href="../pages.ahtml">pages and components</a>, <a href="../content.ahtml">content hierarchies</a>, <a href="../querying.ahtml">search</a>, and <a href="../content/references.ahtml">references</a>. Search uses <code>queryDsl</code> or <code>queryDslConnection</code>. For field definitions, pagination and aggregations, use the <a href="https://developer.enonic.com/docs/guillotine/stable/api">Guillotine API reference</a>.</p>
 </div>
 </div>
 </div>
@@ -527,13 +538,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Requests are standard GraphQL <code>POST</code> requests with a JSON body containing <code>query</code> and optional <code>variables</code>:</p>
+<p>Requests use HTTP POST with a JSON body containing <code>query</code> and optional <code>variables</code>. This example reads a published article that is accessible to anonymous callers:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">curl -X POST https://api.example.com/graphql \
-  -H "Content-Type: application/json" \
-  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">curl -X POST 'http://localhost:8080/api/com.enonic.app.guillotine:graphql' \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"{ guillotine(project: \"myproject\", branch: \"master\") { get(key: \"/articles/hello\") { displayName } } }"}'</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -550,14 +561,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>For hands-on examples querying content, pages, images, and more, see the <a href="https://developer.enonic.com/learn/developer-101/stable">Developer 101</a> guide.</p>
+<p>Check the response for GraphQL <code>errors</code> as well as the HTTP status; errors can accompany partial <code>data</code>. See <a href="https://developer.enonic.com/docs/guillotine/stable/usage">Guillotine usage</a> for request variables and complete client examples, or <a href="https://developer.enonic.com/learn/developer-101/stable">Developer 101</a> for hands-on content modeling and querying.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="urls_and_rich_text"><a class="link" href="#urls_and_rich_text">URLs and rich text</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Guillotine 9 returns URL objects. Select <code>path</code> and <code>queryString</code> from <code>imageUrl</code>, <code>mediaUrl</code> or <code>attachmentUrl</code>, then concatenate your public API or media base URL with both values. Keep the returned path and query string intact. See <a href="../media/image.ahtml#querying_via_graphql">Image content</a> for an example.</p>
+</div>
+<div class="paragraph">
+<p>For page links, adapt <code>pageUrl.path</code> to your front-end routes. The optional <code>scopeKey</code> selects the content that paths are relative to, usually a site; it does not restrict searches to that subtree. Without it, page URLs use the project context. See <a href="../pages/site.ahtml#url_scope">Site URL scope</a> for examples and the change from <code>siteKey</code> in earlier versions, and <a href="https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls">Guillotine&#8217;s URL documentation</a> for URL handling.</p>
+</div>
+<div class="paragraph">
+<p><a href="../richtext.ahtml">Rich text</a> contains placeholders in <code>processedHtml</code>. Use its structured <code>links</code>, <code>images</code> and <code>macros</code> fields to render them in your front-end.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extending-the-schema"><a class="link" href="#extending-the-schema">Extending the schema</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Guillotine&#8217;s generated content API is read-only. Applications can add custom fields, queries and mutations through extensions, including integrations with external systems. See the <a href="https://developer.enonic.com/docs/guillotine/stable/extending">Guillotine extension documentation</a> for implementation details.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

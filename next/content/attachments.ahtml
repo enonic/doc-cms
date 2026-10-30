@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<meta name="author" content="toc: right">
 <title>Attachments</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -439,16 +438,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article toc2 toc-right">
 <div id="header">
 <h1>Attachments</h1>
-<div class="details">
-<span id="author" class="author">toc: right</span><br>
-</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#intro">Intro</a></li>
 <li><a href="#attachment_vs_media">Attachment vs Media</a></li>
 <li><a href="#storage_and_indexing">Storage and indexing</a></li>
-<li><a href="#other_use_cases">Other use-cases</a></li>
+<li><a href="#graphql">GraphQL</a></li>
 </ul>
 </div>
 </div>
@@ -545,20 +541,57 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="other_use_cases"><a class="link" href="#other_use_cases">Other use-cases</a></h2>
+<h2 id="graphql"><a class="link" href="#graphql">GraphQL</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The attachment pattern is not limited to content items, but can also be used in other contexts where storing files within XP is desirable. If you have a use-case where you want to persist other data than content in XP&#8217;s NoSQL storage, the attachment pattern provides a simple and effective way to do so.</p>
+<p>Guillotine exposes attachment metadata on the content item&#8217;s <code>attachments</code> field. Use <code>attachmentUrl</code> to obtain the URL components for each file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-graphql" data-lang="graphql">{
+  guillotine(project: "myproject", branch: "master") {
+    get(key: "/articles/report") {
+      attachments {
+        name
+        mimeType
+        size
+        attachmentUrl(download: true) {
+          path
+          queryString
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">The <code>data.guillotine.get</code> object for an item with one attachment</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "attachments": [
+    {
+      "name": "document.pdf",
+      "mimeType": "application/pdf",
+      "size": 238764,
+      "attachmentUrl": {
+        "path": "/media:attachment/myproject/content-id:fingerprint/document.pdf",
+        "queryString": "?download"
+      }
+    }
+  ]
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Visit the XP development documentation for more information on how to use attachments in other contexts than content items.</p>
+<p>The content ID and fingerprint above are illustrative. Build the download address by concatenating your public API or media base URL, <code>path</code> and <code>queryString</code>. On a local sandbox the base is <code><a href="http://localhost:8080/api" class="bare">http://localhost:8080/api</a></code>. See <a href="../apis/attachment.ahtml">Attachment API</a> for delivery behavior and <a href="https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls">Guillotine&#8217;s URL documentation</a> for client handling.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

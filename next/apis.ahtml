@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Query or mutate content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Query content</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="apis/graphql.ahtml">GraphQL API</a></p></td>
 </tr>
 <tr>
@@ -507,18 +507,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Requests are evaluated in the context of the authenticated principal, and content permissions apply to every query — users only see content they are allowed to read.</p>
 </div>
 <div class="paragraph">
-<p>By default, APIs are accessible to unauthenticated users with <code>READ</code> permission for <code>role:system.everyone</code>. To access protected content, authenticate requests by passing a bearer token in the <code>Authorization</code> header:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">curl -X POST https://api.example.com/graphql \
-  -H "Authorization: Bearer &lt;token&gt;" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "{ guillotine { get(key: \"/site/articles/hello\") { displayName } } }"}'</code></pre>
-</div>
+<p>Unauthenticated requests run as the anonymous user and can read content granted <code>READ</code> permission for <code>role:system.everyone</code>. Published content must also be readable to be returned.</p>
 </div>
 <div class="paragraph">
-<p>Unauthenticated requests run as the anonymous user and can still access content granted <code>READ</code> permission for <code>role:system.everyone</code>.</p>
+<p>For protected content, use the authentication mechanism configured by your deployment. A Content Studio session authenticates Query Playground; an external client needs its own session or authorization headers. See <a href="apis/graphql.ahtml#authorization">GraphQL authorization</a>.</p>
 </div>
 <div class="paragraph">
 <p>Visit the <a href="https://developer.enonic.com/docs/platform/stable/security">security documentation</a> for details on users, roles, and permissions in XP.</p>
@@ -532,7 +524,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>The GraphQL API is Enonic&#8217;s primary headless interface, provided by <a href="https://market.enonic.com/vendors/enonic/guillotine">Guillotine</a> — a separately versioned app that exposes your content as a typed GraphQL schema. Content types, mixins, references, pages, and media are all reachable from a single endpoint, with per-user authorization enforced by XP&#8217;s IAM.</p>
 </div>
 <div class="paragraph">
-<p>Default endpoint: <code>/api/guillotine:graphql</code></p>
+<p>Default endpoint: <code>/api/com.enonic.app.guillotine:graphql</code></p>
 </div>
 <div class="paragraph">
 <p>See <a href="apis/graphql.ahtml">GraphQL API</a> for endpoint details, authentication, and usage patterns.</p>
@@ -571,7 +563,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="management_api"><a class="link" href="#management_api">Management API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>XP also exposes a web API for management. It is not part of the customer-facing content delivery and is not used by front-end clients. It requires administrator privileges to access.https://developer.enonic.com/docs/cli[Enonic CLI] is the default client that communicates with it.</p>
+<p>XP also exposes a web API for management. It is not part of the customer-facing content delivery and is not used by front-end clients. It requires administrator privileges to access. <a href="https://developer.enonic.com/docs/cli">Enonic CLI</a> is the default client that communicates with it.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -615,7 +607,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

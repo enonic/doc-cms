@@ -444,7 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>The Enonic CMS stack is composed of several independent products, each released and versioned on its own cadence. Every product on <a href="https://market.enonic.com">Enonic Market</a> has a <strong>Releases</strong> section listing its versions and changes — that&#8217;s the canonical source for what&#8217;s new.</p>
 </div>
 <div class="paragraph">
-<p>A few components also publish more detailed release notes in their own documentation:</p>
+<p>A few products also publish more detailed release notes in their own documentation:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -455,12 +455,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><a href="https://market.enonic.com/vendors/enonic/content-studio">Content Studio</a> — primary authoring interface.</p>
 </li>
 <li>
-<p><a href="https://market.enonic.com/vendors/enonic/guillotine">Headless API (Guillotine)</a> — GraphQL API for headless delivery.</p>
+<p><a href="https://developer.enonic.com/docs/guillotine/stable/release">Guillotine 9</a> — GraphQL API for headless delivery. Requires XP 8.1.0 or later; see the <a href="https://developer.enonic.com/docs/guillotine/stable/upgrade">Guillotine upgrade notes</a> when migrating clients.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Subscription components:</p>
+<p>Subscription products:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

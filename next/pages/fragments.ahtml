@@ -605,25 +605,22 @@ Exclude <code>portal:fragment</code> from customer-facing queries to avoid surfa
 <div class="sect2">
 <h3 id="inline_resolution_via_a_page"><a class="link" href="#inline_resolution_via_a_page">Inline resolution via a page</a></h3>
 <div class="paragraph">
-<p>When fetching a page&#8217;s flat component list, Guillotine supports server-side fragment expansion via the <code>resolveFragment</code> argument on <code>components</code>. With <code>resolveFragment: true</code>, each fragment reference is replaced by the component it wraps, and the <code>FragmentComponent</code> wrapper is never emitted:</p>
+<p>When fetching a page&#8217;s flat component list, Guillotine supports server-side fragment expansion via the <code>resolveFragment</code> argument on <code>components</code>. With <code>resolveFragment: true</code>, each fragment reference is replaced by the component it wraps, and the fragment reference entry is omitted:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
       components(resolveFragment: true) {
         type
         path
-        ... on PartComponent {
+        part {
           descriptor
           configAsJson
         }
-        ... on LayoutComponent {
+        layout {
           descriptor
-        }
-        ... on TextComponent {
-          value
         }
       }
     }
@@ -638,32 +635,28 @@ Exclude <code>portal:fragment</code> from customer-facing queries to avoid surfa
 <div class="sect2">
 <h3 id="manual_traversal"><a class="link" href="#manual_traversal">Manual traversal</a></h3>
 <div class="paragraph">
-<p>When fragments may be nested — a fragment whose wrapped layout contains another fragment — or when the front-end wants to tag fragment-sourced components, leave <code>resolveFragment: false</code> and walk the fragment manually:</p>
+<p>When the front-end needs to keep the fragment identity, use <code>resolveFragment: false</code> and follow <code>fragment.id</code> or the resolved <code>fragment.fragment</code> content:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
       components(resolveFragment: false) {
         type
         path
-        ... on FragmentComponent {
+        fragment {
+          id
           fragment {
-            id
-            fragment {
-              components {
-                type
-                path
-                ... on PartComponent {
-                  descriptor
-                  configAsJson
-                }
-              }
+            components {
+              type
+              path
+              part { descriptor configAsJson }
+              layout { descriptor configAsJson }
             }
           }
         }
-        ... on PartComponent {
+        part {
           descriptor
         }
       }
@@ -672,50 +665,27 @@ Exclude <code>portal:fragment</code> from customer-facing queries to avoid surfa
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Each <code>fragment { fragment { components { &#8230;&#8203; } } }</code> hop covers one nesting level. If your content allows fragments-inside-fragments, either switch to <code>resolveFragment: true</code> or recurse as deep as your model permits. Paths on the resolved inner components are fragment-local (e.g. <code>/0</code>) — rewrite them to the parent region&#8217;s path when assembling the final component tree.
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>Enonic&#8217;s <a href="https://developer.enonic.com/docs/frameworks">standard front-end integrations</a> do this out of the box.</p>
+<p>Paths returned by a separate fragment lookup are local to that fragment. When assembling a page, prefix them with the placement path; <code>components(resolveFragment: true)</code> performs this path adjustment for inline expansion.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="direct_access"><a class="link" href="#direct_access">Direct access</a></h3>
 <div class="paragraph">
-<p>A fragment is a content item of type <code>portal:fragment</code>, so it can be fetched like any other content. Use the <code>fragment</code> field on <code>portal_Fragment</code> to retrieve the wrapped component — typically from a preview route:</p>
+<p>A fragment is a content item of type <code>portal:fragment</code>. Fetch its <code>components</code> list to render the reusable component, for example in a preview route:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/fragments/featured-promo") {
       _id
       displayName
-      ... on portal_Fragment {
-        fragment {
-          type
-          ... on PartComponent {
-            descriptor
-            configAsJson
-          }
-          ... on LayoutComponent {
-            descriptor
-            regions {
-              components {
-                type
-              }
-            }
-          }
-        }
+      components {
+        type
+        path
+        part { descriptor configAsJson }
+        layout { descriptor configAsJson }
       }
     }
   }
@@ -743,7 +713,7 @@ Customer-facing search should exclude <code>portal:fragment</code> content. Text
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     queryDsl(
       query: {
         term: {
@@ -766,7 +736,7 @@ Customer-facing search should exclude <code>portal:fragment</code> content. Text
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

@@ -461,7 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The built-in Web APIs (GraphQL, Image, Attachment) are <strong>read-only</strong>. Programmatic writes — creating or updating content from external systems — are done by exposing your own endpoints through <a href="#extending-the-cms">custom functions</a> that internally use the server-side JavaScript APIs.</p>
+<p>The generated Guillotine GraphQL API and the built-in Image and Attachment APIs are <strong>read-only</strong>. Programmatic writes — creating or updating content from external systems — are done by exposing your own endpoints through <a href="#extending-the-cms">custom functions</a> that internally use the server-side JavaScript APIs.</p>
 </div>
 </td>
 </tr>
@@ -543,7 +543,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

@@ -453,7 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Rich text is stored as author-edited HTML</p>
+<p>Rich text is stored as author-edited HTML.</p>
 </div>
 </div>
 </div>
@@ -522,18 +522,23 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
 </table>
 </div>
 <div class="paragraph">
-<p>The HtmlArea field is queried with a <code>processHtml</code> argument, where <code>type</code> selects an <code>absolute</code> or <code>server</code>-relative URL and <code>imageWidths</code> controls the generated <code>srcset</code>. The <code>processedHtml</code> field returns the raw markup with each internal reference resolved and tagged with a <code>data-*-ref</code> attribute:</p>
+<p>Guillotine exposes HtmlArea fields as <code>RichText</code>. The <code>processedHtml</code> field contains placeholders for internal links, images and macros, tagged with <code>data-*-ref</code> attributes. The front-end must rewrite these using the structured <code>links</code>, <code>images</code> and <code>macros</code> data before rendering. The optional <code>processHtml</code> argument controls image sizes; it does not select an absolute or server-relative URL.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello") {
       ... on com_example_myapp_Article {
         data {
-          body(processHtml: {type: absolute, imageWidths: [600, 992]}) {
+          body {
             raw
             processedHtml
+            links {
+              ref
+              pageUrl { baseUrl path queryString }
+              fragment
+            }
           }
         }
       }
@@ -552,7 +557,18 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
         "data": {
           "body": {
             "raw": "&lt;p&gt;Read our &lt;a href=\"content://f3076b5c-...\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;",
-            "processedHtml": "&lt;p&gt;Read our &lt;a href=\"content://f3076b5c-...\" data-link-ref=\"e72f48b6-...\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;"
+            "processedHtml": "&lt;p&gt;Read our &lt;a href=\"/articles/latest-post\" data-link-ref=\"e72f48b6-...\"&gt;latest post&lt;/a&gt;.&lt;/p&gt;",
+            "links": [
+              {
+                "ref": "e72f48b6-...",
+                "pageUrl": {
+                  "baseUrl": null,
+                  "path": "/articles/latest-post",
+                  "queryString": ""
+                },
+                "fragment": ""
+              }
+            ]
           }
         }
       }
@@ -562,7 +578,7 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
 </div>
 </div>
 <div class="paragraph">
-<p>Beyond <code>raw</code> and <code>processedHtml</code>, the HtmlArea type also exposes the <a href="#markup">special elements</a> as typed fields — <code>images</code>, <code>links</code> and <code>macros</code> — each carrying a <code>ref</code> that matches its <code>data-*-ref</code> attribute in <code>processedHtml</code>, so a front-end can resolve references without parsing the HTML. Each element&#8217;s page documents its typed field shape and response.</p>
+<p>Beyond <code>raw</code> and <code>processedHtml</code>, the HtmlArea type also exposes the <a href="#markup">special elements</a> as typed fields — <code>images</code>, <code>links</code> and <code>macros</code> — each carrying a <code>ref</code> that matches its <code>data-*-ref</code> attribute in <code>processedHtml</code>, so a front-end can match placeholders to their rendering data. Each element&#8217;s page shows the corresponding response. For full field definitions and rendering examples, see <a href="https://developer.enonic.com/docs/guillotine/stable/usage/rich-text">Guillotine rich text</a>.</p>
 </div>
 </div>
 </div>
@@ -577,7 +593,7 @@ Visit the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>Rich text component</title>
+<title>Text component (deprecated)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,13 +437,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Rich text component</h1>
+<h1>Text component (deprecated)</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#rendering">Rendering</a></li>
+<li><a href="#existing_content">Existing content</a></li>
 <li><a href="#querying_via_graphql">Querying via GraphQL</a></li>
 </ul>
 </div>
@@ -452,42 +450,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Visually add and edit rich text within a region.</p>
+<p>A text component holds rich text directly within a page region. This reference covers existing pages that still contain these components.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Text are built-in components that require no further configuration. They are essentially pre-configured instances of the <a href="../schemas/form-items/htmlarea.ahtml">HtmlArea input types</a>, adapted to work as components in the page editor.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Below is an example of the Text component in action via the page editor. The blue box is a text component being edited:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/text-component.png" alt="Text component edited on a page" width="1305px">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="rendering"><a class="link" href="#rendering">Rendering</a></h2>
-<div class="sectionbody">
-<div class="admonitionblock note">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Text components have specific requirements for styling and HTML output, and are optimized for use with Enonic&#8217;s front-end toolkits. When rolling your own integration, consider implementing a <a href="parts.ahtml">part</a> with an HtmlArea input instead, which gives you explicit control over both the form and the output.
+Text components are deprecated in XP 8. For new implementations, use a <a href="parts.ahtml">part</a> with an <a href="../schemas/form-items/htmlarea.ahtml">HtmlArea</a> field.
 </td>
 </tr>
 </table>
@@ -495,23 +467,34 @@ Text components have specific requirements for styling and HTML output, and are 
 </div>
 </div>
 <div class="sect1">
+<h2 id="existing_content"><a class="link" href="#existing_content">Existing content</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Existing text components can still appear in page data and be queried through Guillotine. A front-end rendering such pages needs to handle <code>type: "text"</code> until those components have been replaced.</p>
+</div>
+<div class="paragraph">
+<p>The replacement part defines its rich-text field in a schema and exposes it through the part&#8217;s configuration. See <a href="parts.ahtml#querying-via-graphql">Parts</a> for configuration queries and <a href="../richtext.ahtml">Rich text</a> for processing and rendering the value.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="querying_via_graphql"><a class="link" href="#querying_via_graphql">Querying via GraphQL</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Text components appear in a page&#8217;s component list as <code>TextComponent</code>, with the rich text available as <code>value</code>. The same stored-vs-processed distinction applies as for regular <a href="../schemas/form-items/htmlarea.ahtml">HtmlArea</a> fields — see <a href="../richtext.ahtml#html-processing">HTML processing</a> for how <code>content://</code> links, image references, and macros are resolved.</p>
+<p>Text components appear in the flat <code>components</code> list with <code>type: "text"</code>. Their <code>text.value</code> field is a <code>RichText</code> object with <code>raw</code>, <code>processedHtml</code> and structured reference fields, just like an <a href="../schemas/form-items/htmlarea.ahtml">HtmlArea</a> field.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
-      page {
-        regions {
-          components {
-            ... on TextComponent {
-              path
-              value
-            }
+      components {
+        type
+        path
+        text {
+          value {
+            raw
+            processedHtml
           }
         }
       }
@@ -520,12 +503,30 @@ Text components have specific requirements for styling and HTML output, and are 
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">One text entry from <code>data.guillotine.get.components</code></div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+  "type": "text",
+  "path": "/main/0",
+  "text": {
+    "value": {
+      "raw": "&lt;p&gt;Welcome&lt;/p&gt;",
+      "processedHtml": "&lt;p&gt;Welcome&lt;/p&gt;"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>text</code> field is <code>null</code> on other component types. For text containing links, images or macros, also select the structured reference fields and rewrite placeholders before rendering; see <a href="../richtext.ahtml#html-processing">Rich text</a>.</p>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

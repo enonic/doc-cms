@@ -580,31 +580,27 @@ A page component may define zero to many regions. Conventionally, a page should 
   "page": {
     "type": "page",
     "path": "/",
+    "template": null,
     "descriptor": "com.enonic.app.superhero:default",
-      "components": [
-        {
-          "path": "/main/0",
-          "type": "layout",
-          "descriptor": "com.enonic.app.superhero:three-column",
-          "config": {},
-          "regions": {}
-        }
-      ]
+    "regions": {
+      "main": {
+        "components": [
+          {
+            "path": "/main/0",
+            "type": "layout",
+            "descriptor": "com.enonic.app.superhero:three-column",
+            "config": {}
+          }
+        ],
+        "name": "main"
+      }
+    }
   }
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Empty regions are never persisted. Region names are only determined from the component path.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>The Content API and <code>pageAsJson</code> expose a region tree. The typed GraphQL <code>components</code> list below is flat: each component&#8217;s <code>path</code> identifies its region and position.</p>
 </div>
 </div>
 </div>
@@ -622,7 +618,7 @@ Empty regions are never persisted. Region names are only determined from the com
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/path/to/page") {
       displayName
       pageAsJson
@@ -642,16 +638,21 @@ Empty regions are never persisted. Region names are only determined from the com
         "pageAsJson": {
           "type": "page",
           "path": "/",
+          "template": null,
           "descriptor": "com.enonic.app.superhero:default",
-          "components": [
-            {
-              "path": "/main/0",
-              "type": "layout",
-              "descriptor": "com.enonic.app.superhero:three-column",
-              "config": {},
-              "regions": {}
+          "regions": {
+            "main": {
+              "components": [
+                {
+                  "path": "/main/0",
+                  "type": "layout",
+                  "descriptor": "com.enonic.app.superhero:three-column",
+                  "config": {}
+                }
+              ],
+              "name": "main"
             }
-          ]
+          }
         }
       }
     }
@@ -666,12 +667,12 @@ Empty regions are never persisted. Region names are only determined from the com
 <p>To access the full list of components on a page, regardless of their position in the tree, use the <code>components</code> field on the page query. This allows you to perform queries against typed component data, similar to how you would with any other content type.</p>
 </div>
 <div class="paragraph">
-<p>This structure mirrors how <a href="indexing.ahtml">components are stored and indexed</a>, giving a 1:1 mapping between query shape and indexed shape.</p>
+<p>This list follows the <a href="indexing.ahtml">stored component paths</a>. GraphQL resolves references and exposes configuration under typed fields or <code>configAsJson</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/site/articles/hello") {
       components(resolveFragment: true) {
         type
@@ -730,8 +731,12 @@ Empty regions are never persisted. Region names are only determined from the com
             "part": {
               "descriptor": "com.enonic.app.superhero:featured",
               "configAsJson": {
-                "headline": "Welcome",
-                "showLogo": true
+                "com-enonic-app-superhero": {
+                  "featured": {
+                    "headline": "Welcome",
+                    "showLogo": true
+                  }
+                }
               }
             }
           }
@@ -751,7 +756,7 @@ Empty regions are never persisted. Region names are only determined from the com
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

@@ -567,12 +567,12 @@ Namespaces are transformed by replacing dots with dashes. So <code>com.company</
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">{
-  guillotine {
-    query(key: "contentid") {
+  guillotine(project: "myproject", branch: "master") {
+    get(key: "contentid") {
       x {
-      	com_company {
+        com_company {
           address {
-          	city
+            city
           }
         }
       }
@@ -598,7 +598,7 @@ Due to GraphQL field naming restrictions (<code>-</code> and <code>.</code> are 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

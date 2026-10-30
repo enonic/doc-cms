@@ -470,11 +470,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>8080:/api/media:attachment/</pre>
+<pre>http://localhost:8080/api/media:attachment/</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example <code><a href="https://api.example.com/graphql" class="bare">https://api.example.com/graphql</a></code>.</p>
+<p>The exact public URL can differ per environment based on virtual host configuration, which is commonly used to expose the API on a friendlier path — for example <code><a href="https://media.example.com/media:attachment/" class="bare">https://media.example.com/media:attachment/</a></code>.</p>
+</div>
+<div class="paragraph">
+<p>Headless clients obtain URL components through Guillotine: use <code>mediaUrl { path queryString }</code> for a media item&#8217;s original file, or <code>attachments { attachmentUrl { path queryString } }</code> for individual attachments. Prefix the returned <code>path</code> with your public API or media base URL, then append <code>queryString</code> unchanged. See <a href="../content/attachments.ahtml#graphql">Attachments</a> for an example and <a href="https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls">Guillotine&#8217;s URL documentation</a> for client handling.</p>
 </div>
 </div>
 </div>
@@ -488,7 +491,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ol class="arabic">
 <li>
 <p>Base<br>
-<code>:8080/api/media:attachment/</code></p>
+<code><a href="http://localhost:8080/api/media:attachment/" class="bare">http://localhost:8080/api/media:attachment/</a></code></p>
 </li>
 <li>
 <p>Media Locator with an optional (branch)<br>
@@ -632,7 +635,7 @@ Accept-Ranges: bytes</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

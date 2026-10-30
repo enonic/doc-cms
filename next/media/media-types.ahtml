@@ -601,7 +601,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><code>mediaUrl(type: SERVER|ABSOLUTE)</code> — URL to the raw <code>source</code> attachment, served by the <a href="../apis/attachment.ahtml">Attachment API</a>. Returns the original file unmodified — no transformations.</p>
+<p><code>mediaUrl { path queryString }</code> — URL components to the raw <code>source</code> attachment, served by the <a href="../apis/attachment.ahtml">Attachment API</a>. Returns the original file unmodified — no transformations.</p>
 </li>
 <li>
 <p><code>attachments</code> — list of attached files (the <code>source</code> binary is always present as one).</p>
@@ -619,23 +619,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     getChildren(key: "/my-folder") {
       displayName
       type
       ... on media_Image {
-        imageUrl(scale: "block(400,400)")
+        imageUrl(scale: "block(400,400)") { path queryString }
       }
       ... on media_Document {
-        mediaUrl
+        mediaUrl { path queryString }
       }
       ... on media_Video {
-        mediaUrl
+        mediaUrl { path queryString }
       }
     }
   }
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Prefix each returned <code>path</code> with your public API or media base URL and append <code>queryString</code>. See <a href="image.ahtml#querying_via_graphql">Image content</a> for a response example and <a href="https://developer.enonic.com/docs/guillotine/stable/usage/images-and-urls">Guillotine&#8217;s URL documentation</a> for client handling.</p>
 </div>
 <div class="paragraph">
 <p>See <a href="media-indexing.ahtml">Media indexing</a> for how extracted text and metadata become searchable.</p>
@@ -646,7 +649,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>

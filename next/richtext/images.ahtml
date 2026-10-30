@@ -488,7 +488,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-html" data-lang="html">&lt;figure class="editor-style editor-image-cinema"&gt;
-  &lt;img alt="Mountain at dawn" src="image://a1b2c3d4-e5f6-7890-abcd-ef1234567890"/&gt;
+  &lt;img alt="Mountain at dawn" src="image://a1b2c3d4-e5f6-7890-abcd-ef1234567890?style=editor-image-cinema"/&gt;
   &lt;figcaption&gt;Sunrise over the summit&lt;/figcaption&gt;
 &lt;/figure&gt;</code></pre>
 </div>
@@ -502,7 +502,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>The optional <code>&lt;figcaption&gt;</code> holds the caption.</p>
 </li>
 <li>
-<p>The class (e.g. <code>editor-image-cinema</code>) identifies a custom <a href="styles.ahtml">image style</a> that controls server-side crop/filters and editor CSS.</p>
+<p>The <code>style</code> parameter selects the <a href="styles.ahtml">image style</a> for server-side cropping and filters. The corresponding class supports editor and front-end styling.</p>
 </li>
 </ul>
 </div>
@@ -512,19 +512,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="processed_format"><a class="link" href="#processed_format">Processed Format</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By using Guillotine&#8217;s <code>processedHtml</code>, image elements will automatically be tagged with reference attributes.  Additionally, the HtmlArea type also exposes a typed <code>images</code> field returning detailed data about the referenced image content, so a front-end can build its own markup instead of parsing the processed HTML:</p>
+<p>Guillotine tags each image with <code>data-image-ref</code> in <code>processedHtml</code>. The structured <code>images</code> field provides the matching <code>ref</code>, image content, applied style, and URL components for <code>src</code> and <code>srcset</code>. The HTML attributes contain placeholders that the front-end must rewrite.</p>
 </div>
 <div class="paragraph">
-<p>The <code>processHtml</code> argument is applied on the field itself. <code>type</code> controls the URL form (<code>absolute</code> or <code>server</code>-relative), and <code>imageWidths</code> lists the widths used to generate the <code>srcset</code>.</p>
+<p>The <code>processHtml</code> argument on the HtmlArea field controls the image sizes: <code>imageSrcWidth</code> sets the main image width and <code>imageWidths</code> requests responsive variants. Styles come from applications configured on the project, or on the site selected by <code>scopeKey</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-graphql" data-lang="graphql">{
-  guillotine {
+  guillotine(project: "myproject", branch: "master") {
     get(key: "/articles/hello") {
       ... on com_example_myapp_Article {
         data {
-          body(processHtml: {type: absolute, imageWidths: [600, 992]}) {
+          body(processHtml: {imageSrcWidth: 992, imageWidths: [600, 992]}) {
             processedHtml
             images {
               ref  <i class="conum" data-value="1"></i><b>(1)</b>
@@ -532,7 +532,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                 _id
                 displayName
               }
+              src { path queryString }
+              srcset {
+                width
+                imageUrl { path queryString }
+              }
               style {
+                application
                 name
                 aspectRatio
                 filter
@@ -555,39 +561,45 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="listingblock">
-<div class="title">Response</div>
+<div class="title">One entry in <code>data.guillotine.get.data.body.images</code> (IDs and fingerprints abbreviated)</div>
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-  "data": {
-    "guillotine": {
-      "get": {
-        "data": {
-          "body": {
-            "processedHtml": "&lt;figure class=\"editor-style editor-image-cinema\"&gt;&lt;img src=\"https://example.com/api/media:image/my-project/a1b2c3d4-...:&lt;fingerprint&gt;/width-768/photo.jpg\" data-image-ref=\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\" srcset=\"https://example.com/api/media:image/my-project/a1b2c3d4-...:&lt;fingerprint&gt;/width-600/photo.jpg 600w, https://example.com/api/media:image/my-project/a1b2c3d4-...:&lt;fingerprint&gt;/width-992/photo.jpg 992w\"/&gt;&lt;figcaption&gt;Sunrise over the summit&lt;/figcaption&gt;&lt;/figure&gt;",
-            "images": [
-              {
-                "ref": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-                "image": {
-                  "_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-                  "displayName": "Mountain at dawn"
-                },
-                "style": {
-                  "name": "editor-image-cinema",
-                  "aspectRatio": "21:9",
-                  "filter": null
-                }
-              }
-            ]
-          }
-        }
+  "ref": "image-ref",
+  "image": {
+    "_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "displayName": "Mountain at dawn"
+  },
+  "src": {
+    "path": "/media:image/myproject/content-id:fingerprint/block-992-425/photo.jpg",
+    "queryString": ""
+  },
+  "srcset": [
+    {
+      "width": 600,
+      "imageUrl": {
+        "path": "/media:image/myproject/content-id:fingerprint/block-600-257/photo.jpg",
+        "queryString": ""
+      }
+    },
+    {
+      "width": 992,
+      "imageUrl": {
+        "path": "/media:image/myproject/content-id:fingerprint/block-992-425/photo.jpg",
+        "queryString": ""
       }
     }
+  ],
+  "style": {
+    "application": "com.example.myapp",
+    "name": "editor-image-cinema",
+    "aspectRatio": "21:9",
+    "filter": null
   }
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In the processed HTML the <code>image://</code> reference is rewritten to an Image API <code>&lt;img&gt;</code> tagged with a <code>data-image-ref</code> attribute and a <code>srcset</code> generated from <code>imageWidths</code>; the <code>&lt;figure&gt;</code>, <code>&lt;figcaption&gt;</code> and style class are preserved. The typed <code>images</code> array carries the same <code>ref</code> (so a front-end can correlate each tag with its data), plus the resolved <code>image</code> content and the applied <code>style</code>.</p>
+<p>This example assumes the configured application defines the <code>editor-image-cinema</code> image style with a <code>21:9</code> aspect ratio. The corresponding image element in <code>processedHtml</code> carries <code>data-image-ref="image-ref"</code>. The <code>&lt;figure&gt;</code>, caption and style class are retained.</p>
 </div>
 </div>
 </div>
@@ -595,14 +607,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="rendering"><a class="link" href="#rendering">Rendering</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A front-end consumes <code>processedHtml</code> together with the typed <code>images</code> data, correlating each <code>data-image-ref</code> tag with its <code>ref</code> to render images its own way (for example a responsive <code>&lt;picture&gt;</code> or a design-system component). Enonic&#8217;s front-end toolkits handle this mapping for you — see <a href="../frontend.ahtml">Front-end integration</a> and the <a href="https://developer.enonic.com/learn/react-spa/stable/rich-text">React SPA tutorial</a> for worked examples.</p>
+<p>Match each <code>data-image-ref</code> to its entry in <code>images</code>. Build <code>src</code> by concatenating your public API or media base URL, <code>src.path</code> and <code>src.queryString</code>. Build each <code>srcset</code> entry from its <code>imageUrl</code> in the same way, followed by its width descriptor, such as <code>600w</code>.</p>
+</div>
+<div class="paragraph">
+<p>Use the returned paths and query strings unchanged: styles and transformations affect the generated URLs and fingerprints. Request every size through <code>processHtml</code> rather than editing a path. An unresolved image has <code>src: null</code> and an empty <code>srcset</code>; handle that case in the renderer.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://developer.enonic.com/docs/guillotine/stable/usage/rich-text#images">Guillotine rich-text images</a> for complete field definitions and rendering examples, and <a href="../frontend.ahtml">Front-end integration</a> for framework integrations.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-30 15:11:46 UTC
+Last updated 2026-10-30 15:16:38 UTC
 </div>
 </div>
 </body>
