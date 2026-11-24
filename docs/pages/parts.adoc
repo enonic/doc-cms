@@ -64,9 +64,9 @@ kind: "Layout"
 title: "3 regions"
 form: []
 regions:
-  - name: "left"
-  - name: "main"
-  - name: "right"
+  - "left"
+  - "main"
+  - "right"
 ----
 
 

@@ -24,13 +24,13 @@ title:  # <1>
 description: "Front page of our site"  # <2>
 form: []  # <3>
 regions:  # <4>
-  - name: "main"
+  - "main"
 ----
 
 <1> *title* provides a display name used by the editorial interface. Supports <<../schemas/i18n#,localization>> via the `text`/`i18n` object pattern.
 <2> *description* Description field shown when creating a part in Content Studio
 <3> *form* allows the definition of a configuration form based on the <<../schemas#,schema system>>
-<4> *regions* optionally specify one or more regions for the page
+<4> *regions* lists the names of the regions for the page. The key is required: use an empty list (`regions: []`) for a page without regions
 
 NOTE: A page component may define zero to many regions. Conventionally, a page should at least define a single region called `main`.
 
