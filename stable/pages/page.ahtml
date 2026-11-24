@@ -499,7 +499,7 @@ title:  <i class="conum" data-value="1"></i><b>(1)</b>
 description: "Front page of our site"  <i class="conum" data-value="2"></i><b>(2)</b>
 form: []  <i class="conum" data-value="3"></i><b>(3)</b>
 regions:  <i class="conum" data-value="4"></i><b>(4)</b>
-  - name: "main"</code></pre>
+  - "main"</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -518,7 +518,7 @@ regions:  <i class="conum" data-value="4"></i><b>(4)</b>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><strong>regions</strong> optionally specify one or more regions for the page</td>
+<td><strong>regions</strong> lists the names of the regions for the page. The key is required: use an empty list (<code>regions: []</code>) for a page without regions</td>
 </tr>
 </table>
 </div>
@@ -756,7 +756,7 @@ A page component may define zero to many regions. Conventionally, a page should 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-16 11:55:22 UTC
+Last updated 2026-11-24 06:54:35 UTC
 </div>
 </div>
 </body>
